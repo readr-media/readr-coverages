@@ -1,0 +1,75 @@
+@import ./layout
+
+h1
+  color: #9D3F04
+  font-size: 36px
+  line-height: 1.5
+  font-weight: bold
+  text-align: center
+  letter-spacing: 0.6px
+  @include breakpoint(md)
+    font-size: 66px
+
+h2
+  font-size: 30px
+  line-height: 1.5
+p
+  text-align: justify
+a
+  color: #C0701D
+  text-decoration: underline
+  &:link,
+  &:visited,
+  &:hover,
+  &:active
+    color: #9D3F04
+
+.f
+  padding: 80px 20px 0
+  background: rgba(229, 231, 230, 0.3)
+  background-image: url(./images/roof.png)
+  background-repeat: repeat-x
+  background-size: 90px 20px
+  @include breakpoint(md)
+    padding: 81px 0 0
+  @include breakpoint(xl)
+    background-size: 222px 49px
+  > *
+    max-width: 600px
+    margin-left: auto
+    margin-right: auto
+  
+  &__title
+    + *
+      margin-top: 7px
+      @include breakpoint(md)
+        margin-top: 21px
+  &__brief
+    + *
+      margin-top: 31px
+  &__article
+    width: calc(100% + 40px)
+    max-width: none
+    padding: 30px 0
+    margin-left: -20px
+    background-color: #fff
+    @include breakpoint(md)
+      width: 100%
+      margin: 0
+    > *
+      width: calc(100% - 40px)
+      margin-left: auto
+      margin-right: auto
+      @include breakpoint(md)
+        max-width: 600px
+      + *
+        margin-top: 20px
+    p.annotation
+      padding: 12px 0
+      font-size: 13px
+      border-top: 1px solid rgba(0, 0, 0, 0.1)
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+      &::before
+        content: '註）'
+    span.annotation
+      font-weight: bold

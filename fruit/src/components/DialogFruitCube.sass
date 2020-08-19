@@ -1,0 +1,38 @@
+@import ../layout
+
+.fruit-cube-dialog
+  position: relative
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 136px
+  font-size: 17px
+  font-weight: bold
+  line-height: 1.5
+  text-align: center
+  @include breakpoint(md)
+    height: 148px
+    font-size: 20px
+    text-align: left
+  + *
+    margin-top: 20px
+  span
+    z-index: 1
+  &__bg
+    position: absolute
+    top: 50%
+    left: calc(50% - 5px)
+    transform: translate(-50%, -50%)
+    width: 300px
+    height: 100%
+    background-image: url(../images/dialog-white-sm.svg)
+    background-repeat: no-repeat
+    background-size: contain
+    background-position: center center
+    @include breakpoint(md)
+      width: 587px
+      background-image: url(../images/dialog-white-md.svg)
+
+.mobile-only
+  @include breakpoint(md)
+    display: none

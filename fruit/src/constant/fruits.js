@@ -1,0 +1,22 @@
+export default {
+  litchi: '荔枝',
+  watermelon: '西瓜',
+  mango: '芒果',
+  plum: '李子',
+  citrus_tankan: '海梨柑',
+  lemon: '檸檬',
+  guava: '番石榴',
+  banana: '香蕉',
+  longan: '龍眼',
+  apple: '蘋果',
+  avocado: '酪梨',
+  wax_apple: '蓮霧',
+  persimmon: '柿子',
+  orange: '椪柑',
+  jujube: '棗子',
+  grape: '葡萄',
+  asian_plum: '梅子',
+  strawberry: '草莓',
+  sugar_apple: '釋迦',
+  pineapple: '鳳梨'
+}
