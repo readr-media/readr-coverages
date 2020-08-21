@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.sass';
 
 import Credit from './components/Credit'
 import DialogFruitCube from './components/DialogFruitCube'
 import FruitCube from './components/FruitCube'
+import FruitCubeContent from './components/FruitCubeContent'
 
 import content from './constant/content'
 
 function App() {
+  const [fruit, setFruit] = useState(undefined);
+  
+  const handleFruit = (fruit) => setFruit(fruit)
+
   return (
     <div className="App f">
       <h1 className="f__title">{content.title}</h1>
       <p className="f__brief">{content.brief}</p>
       <section className="f__fruit-cube">
         <DialogFruitCube />
-        <FruitCube />
+        <FruitCube onClick={handleFruit} />
+        { fruit && <FruitCubeContent fruit={fruit}/> }
       </section>
       <article className="f__article">
         <p>{content.article.p_1}</p>
@@ -78,7 +84,7 @@ function App() {
         <p>{content.article.p_28}</p>
         <h3>{content.article.chart_1.title}</h3>
         <picture>
-          <source media="(min-width:768px)" srcset={require(`./images/chart-1-desktop.png`)} type="image/png" />
+          <source media="(min-width:768px)" srcSet={require(`./images/chart-1-desktop.png`)} type="image/png" />
           <img src={require(`./images/chart-1-mobile.png`)} alt={content.article.chart_1.caption} />
           <figcaption>{content.article.chart_1.caption}</figcaption>
         </picture>
@@ -88,7 +94,7 @@ function App() {
         <p className="annotation">{content.article.annotation_2}</p>
         <h3>{content.article.chart_3.title}</h3>
         <picture>
-          <source media="(min-width:768px)" srcset={require(`./images/chart-3-desktop.png`)} type="image/png" />
+          <source media="(min-width:768px)" srcSet={require(`./images/chart-3-desktop.png`)} type="image/png" />
           <img src={require(`./images/chart-3-mobile.png`)} alt={content.article.chart_3.caption} />
           <figcaption>{content.article.chart_3.caption}</figcaption>
         </picture>
@@ -113,7 +119,7 @@ function App() {
         <p>{content.article.p_42}</p>
         <h3>{content.article.chart_4.title}</h3>
         <picture>
-          <source media="(min-width:768px)" srcset={require(`./images/chart-4-desktop.png`)} type="image/png" />
+          <source media="(min-width:768px)" srcSet={require(`./images/chart-4-desktop.png`)} type="image/png" />
           <img src={require(`./images/chart-4-mobile.png`)} alt={content.article.chart_4.caption} />
           <figcaption>{content.article.chart_4.caption}</figcaption>
         </picture>

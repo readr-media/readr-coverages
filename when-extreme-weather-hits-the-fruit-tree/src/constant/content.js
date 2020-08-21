@@ -90,5 +90,145 @@ export default {
     p_x: ''
   },
   fruit_cube: {
+    litchi: {
+      last_year: 1.1,
+      this_year: 2.3,
+      compare: '便宜',
+      dialog: '今年 100 元可以買到 2.3 斤，比去年<strong>多</strong>哦！',
+      chart: '荔枝產量與冬天溫度、春天雨量有關，去年暖冬明顯，主產地高雄市產量銳減超過 7 成。'
+    },
+    watermelon: {
+      last_year: 10.1,
+      this_year: 10.5,
+      compare: '差不多',
+      dialog: '今年 100 元能買到 10.5 斤，跟去年<strong>差不多</strong>。',
+      chart: '西瓜產量與梅雨季雨量有關，近年主產地花蓮縣產量穩定，價格波動不大。'
+    },
+    mango: {
+      last_year: 3.2,
+      this_year: 3.4,
+      compare: '便宜',
+      dialog: '今年 100 元可以買到 3.4 斤，比去年<strong>多</strong>哦！',
+      chart: '芒果產量與秋冬降雨、溫度有關，2016 年的芒果受前一年的暖冬影響，加上寒流和春雨，主產地臺南市產量減少超過 4 成。'
+    },
+    plum: {
+      last_year: 1.7,
+      this_year: 2.1,
+      compare: '便宜',
+      dialog: '今年 100 元可以買到 2.1 斤，比去年<strong>多</strong>哦！',
+      chart: '李子產量與冬天溫度、梅雨季雨量有關，去年暖冬明顯，主產地苗栗產量銳減超過 5 成。'
+    },
+    citrus_tankan: {
+      last_year: 1.7,
+      this_year: 2.1,
+      compare: '便宜',
+      dialog: '今年 100 元可以買到 2.1 斤，比去年<strong>多</strong>哦！',
+      chart: '李子產量與冬天溫度、梅雨季雨量有關，去年暖冬明顯，主產地苗栗產量銳減超過 5 成。'
+    },
+    lemon: {
+      last_year: '前年 100 元可以買 4.1 斤',
+      this_year: '去年 100 元可以買 5.8 斤',
+      compare: '比前年便宜',
+      dialog: '今年產季還沒到，去年 100 元可以買到 5.8 斤，比前年<strong>多</strong>哦！',
+      chart: '檸檬產量與春夏雨量、颱風有關，近兩年主產地屏東縣產量穩定，價格波動不大。'
+    },
+    guava: {
+      last_year: 4.5,
+      this_year: 5.1,
+      compare: '便宜',
+      dialog: '今年 100 元可以買到 5.1 斤，比去年<strong>多</strong>哦！',
+      chart: '番石榴產量與春夏雨量、颱風有關，2015、2016 年即因受颱風影響，產量銳減。近兩年主產地高雄市產量穩定，價格波動不大。'
+    },
+    banana: {
+      last_year: 4.6,
+      this_year: 4.4,
+      compare: '貴',
+      dialog: '今年 100 元可以買到 4.4 斤，比去年<strong>少一點</strong>。',
+      chart: '香蕉產量與冬天溫度、春夏雨量、颱風有關，2017 年因前一年颱風損害嚴重，農民積極復耕，因此產量大增，影響價格，也影響之後農民續種意願，近兩年主產地屏東產量穩定。'
+    },
+    longan: {
+      last_year: 1.2,
+      this_year: 2.1,
+      compare: '便宜',
+      dialog: '今年 100 元可以買到 2.1 斤，比去年<strong>多</strong>哦！',
+      chart: '龍眼產量與冬天溫度有關，去年暖冬明顯，主產地臺南市產量銳減超過 8 成。'
+    },
+    apple: {
+      last_year: '前年 100 元可以買 1.7 斤',
+      this_year: '去年 100 元可以買 1.6 斤',
+      compare: '比前年貴',
+      dialog: '今年產季還沒到，不過去年 100 元可以買到 1.6 斤，比前年<strong>少一點</strong>。',
+      chart: '蘋果產量與冬天溫度、春天雨量有關，去年暖冬明顯，主產地臺中市產量銳減超過 4 成。'
+    },
+    avocado: {
+      last_year: 1.8,
+      this_year: 2.2,
+      compare: '便宜',
+      dialog: '今年 100 元可以買到 2.2 斤，比去年<strong>多</strong>哦！',
+      chart: '酪梨產量與春夏雨量、颱風有關，近兩年主產地台南市產量穩定，價格波動不大。'
+    },
+    wax_apple: {
+      last_year: 2.5,
+      this_year: 2.4,
+      compare: '貴',
+      dialog: '今年 100 元可以買到 2.4 斤，比去年<strong>少一點</strong>呢。',
+      chart: '蓮霧產量與冬天溫度、春夏雨量有關，2016 年一連 3 個颱風侵襲，再加上寒流、暖冬、雨季多重災害，農民紛紛改種其他作物。<br>這兩年主產地屏東縣產量穩定，價格波動不大。'
+    },
+    persimmon: {
+      last_year: '前年 100 元可以買 3 斤',
+      this_year: '去年 100 元可以買 1.9 斤',
+      compare: '比前年貴',
+      dialog: '今年產季還沒到，不過去年 100 元只能買到 1.9 斤，比前一年<strong>少</strong>呢。',
+      chart: '柿子產量與梅雨季雨量、冬天溫度有關，去年暖冬明顯，主產地臺中市產量銳減超過 5 成。'
+    },
+    orange: {
+      last_year: '前年 100 元可以買 5 斤',
+      this_year: '去年 100 元可以買 4.5 斤',
+      compare: '比前年貴',
+      dialog: '你想買椪柑啊！今年產季還沒到，去年 100 元可以買到 4.5 斤，比前年<strong>少</strong>呢。',
+      chart: '椪柑產量與春夏雨量、颱風有關，近兩年主產地嘉義縣產量穩定，價格波動不大。'
+    },
+    jujube: {
+      last_year: 1,
+      this_year: 1.7,
+      compare: '貴',
+      dialog: '今年 100 元可以買到 1.7 斤，比去年<strong>少</strong>呢。',
+      chart: '棗子產量深受颱風影響，2017 年因前一年莫蘭蒂、梅姬颱風接連侵襲，主產地高雄市產量銳減超過 4 成。'
+    },
+    grape: {
+      last_year: 1.5,
+      this_year: 1.6,
+      compare: '便宜',
+      dialog: '今年 100 元可以買到 1.6 斤，比去年<strong>多</strong>哦！',
+      chart: '葡萄產量與春夏雨量、溫度有關，近兩年主產地彰化縣產量穩定，價格波動不大。'
+    },
+    asian_plum: {
+      last_year: 2.2,
+      this_year: 2.6,
+      compare: '便宜',
+      dialog: '今年 100 元可以買到 2.6 斤，比去年<strong>多</strong>哦！',
+      chart: '梅子產量與冬天溫度、春天雨量有關，去年暖冬明顯，主產地南投縣產量銳減超過 7 成。'
+    },
+    strawberry: {
+      last_year: '前年 100 元可以買 1 斤',
+      this_year: '去年 100 元可以買 1.1 斤',
+      compare: '差不多',
+      dialog: '今年產季還沒到，去年 100 元可以買到 1.1 斤，比前年<strong>多一點</strong>。',
+      chart: '草莓產量與冬天溫度、雨量有關，近兩年主產地苗栗縣產量穩定，價格波動不大。'
+    },
+    sugar_apple: {
+      last_year: '前年 100 元可以買 1.9  斤',
+      this_year: '去年 100 元可以買 1.8 斤',
+      compare: '差不多',
+      dialog: '今年產季還沒到，去年 100 元可以買到 1.8 斤，比前年<strong>少一點</strong>。',
+      chart: '釋迦產量深受颱風影響，2016 年因尼伯特颱風侵襲，主產地臺東縣產量銳減超過 5 成。'
+    },
+    pineapple: {
+      last_year: 6.1,
+      this_year: 6.9,
+      compare: '便宜',
+      dialog: '今年 100 元可以買到 6.9 斤，比去年<strong>多</strong>哦！',
+      chart: '鳳梨產量與冬天溫度、春夏雨量有關，近年因外銷市場增加，農民種植意願大增；2018、2019 年因豪雨關係，產量稍減。'
+    }
   }
 }

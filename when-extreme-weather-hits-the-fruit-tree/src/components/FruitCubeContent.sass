@@ -1,0 +1,118 @@
+@import ../layout
+
+.cube
+  max-height: 0
+  padding: 0 0 10px
+  overflow: hidden
+  transition: max-height 0.25s ease-in
+  &.active
+    max-height: 2000px
+  &__dialog
+    box-sizing: border-box
+    height: 306px
+    margin-top: 20px
+    padding: 28px 0 0
+    font-size: 17px
+    line-height: 1.5
+    background-image: url(../images/dialog-cube-white-sm.svg)
+    background-repeat: no-repeat
+    background-size: contain
+    background-position: center center
+    @include breakpoint(md)
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        width: 588px
+        padding: 0
+        background-image: url(../images/dialog-cube-white-md.svg)
+    @include breakpoint(lg)
+      margin: 30px auto 0
+
+  &__compare
+    p
+      width: 280px
+      margin: 0 auto
+      font-weight: bold
+      text-align: center
+      @include breakpoint(md)
+        text-align: left
+        br
+          display: none
+      strong
+        color: #9D3F04
+        font-size: 22px
+
+  &__compare-image
+    display: flex
+    justify-content: center
+    margin: 29px auto 0
+    img
+      width: 74px
+      height: 74px
+    span
+      width: 100px
+      font-size: 17px
+      line-height: 1.5
+      font-weight: bold
+      text-align: justify
+    .compare-item
+      display: flex
+      flex-direction: column
+      + .compare-item
+        margin-left: 50px
+        @include breakpoint(md)
+          margin-left: 100px
+  &__chart
+    max-width: 600px
+    margin: 20px auto 0
+    font-size: 22px
+    line-height: 1.5
+    @include breakpoint(md)
+      margin-top: 30px
+    picture
+      margin: 10px 0 0
+      @include breakpoint(md)
+        width: calc(100% + 40px)
+        margin: 30px -20px 0 -20px
+      img
+        width: 100%
+    p
+      font-size: 15px
+      line-height: 2
+      text-decoration: underline
+      text-decoration-color: #EFE6D6
+      @include breakpoint(md)
+        margin-top: 23px
+  &__more
+    display: flex
+    justify-content: center
+    align-items: center
+    height: 136px
+    margin: 31px auto 0
+    font-size: 17px
+    line-height: 1.5
+    font-weight: bold
+    background-image: url(../images/dialog-white-sm.svg)
+    background-repeat: no-repeat
+    background-size: contain
+    background-position: center center
+    @include breakpoint(md)
+      width: 587px
+      background-image: url(../images/dialog-white-md.svg)
+    p
+      width: 190px
+      text-align: center
+      @include breakpoint(md)
+        width: auto
+        text-align: left
+    button
+      padding: 0
+      color: #C0701D
+      font-size: 17px
+      line-height: 1.5
+      font-weight: bold
+      text-decoration: underline
+      background-color: transparent
+      border: none
+

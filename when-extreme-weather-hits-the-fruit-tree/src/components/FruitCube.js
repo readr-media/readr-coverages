@@ -35,7 +35,7 @@ class FruitCube extends React.Component {
     console.log('renderFruitList', prefix)
     return (
       FRUITS_LIST.map((fruit) => (
-        <div key={`${prefix}-${fruit}`} className="fruit-item">
+        <div key={`${prefix}-${fruit}`} className="fruit-item" onClick={() => this.props.onClick(fruit)}>
           <picture>
             <img src={require(`../images/fruits/${fruit}.png`)} alt={fruits[fruit]} />
           </picture>

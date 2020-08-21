@@ -24,6 +24,9 @@ a
   &:active
     color: #9D3F04
 
+button
+  cursor: pointer
+
 .f
   padding: 80px 20px 0
   background: rgba(229, 231, 230, 0.3)
@@ -49,6 +52,12 @@ a
       margin-top: 31px
   &__fruit-cube
     padding: 0 0 20px
+    @include breakpoint(lg)
+      max-width: none
+      .fruit-cube-dialog
+        max-width: 600px
+        margin-left: auto
+        margin-right: auto
   &__article
     width: calc(100% + 40px)
     max-width: none
