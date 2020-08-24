@@ -1,11 +1,13 @@
 import React from 'react';
 import './DialogFruitCube.sass';
 
-function DialogFruitCube() {
+function DialogFruitCube(props) {
   return (
     <div className="fruit-cube-dialog">
       <div className="fruit-cube-dialog__bg"/>
-      <span>人客敖早！今天要買什麼？<br className="mobile-only" />下面水果隨便你選！<br />啊我推薦<button>荔枝</button>，很划算哦～</span>
+      <span>客人啊，我這裡的水果最新鮮！<br className="mobile-only" />
+      下面種類任你選，<br />
+      啊我推薦<button onClick={() => props.onClick('litchi')}>荔枝</button>，很划算喔！</span>
     </div>
   )
 }

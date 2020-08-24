@@ -8,14 +8,14 @@ const { fruit_cube } = content
 
 function FruitCubeContent(props) {
   const fruitName = fruits[props.fruit]
-  const [isActive, setActive] = useState(false);
+  const [isActive, setActive] = useState(false)
 
   useEffect(() => {
     setTimeout(() => setActive(true), 0)
-  });
+  })
 
   return (
-    <div className={`fruit-cube-content cube ${isActive ? 'active' : ''}`}>
+    <div id="fruit-cube-content" className={`fruit-cube-content cube ${isActive ? 'active' : ''}`}>
       <div className="cube__dialog">
         <div className="cube__compare">
           <p>你想買{fruits[props.fruit]}啊！<br />
@@ -62,13 +62,13 @@ function FruitCubeContent(props) {
       <div className="cube__more">
         <p>
           要不要看看其他水果？<br className="mobile-only" />可以回水果攤
-          <button>繼續選購</button>
+          <a href="#fruit-cube">繼續選購</a>
           {
             props.fruit !== 'litchi' &&
             <span>
               ，<br />
               或是參考我推薦的
-              <button>荔枝</button>，<br className="mobile-only" />
+              <a href="#fruit-cube-content" onClick={() => props.onClick('litchi')}>荔枝</a>，<br className="mobile-only" />
               很划算哦！
             </span>
           }
@@ -78,4 +78,4 @@ function FruitCubeContent(props) {
   )
 }
 
-export default FruitCubeContent;
+export default FruitCubeContent

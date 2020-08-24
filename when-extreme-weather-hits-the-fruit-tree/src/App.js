@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.sass';
 
+import SmoothScroll from 'smooth-scroll'
 import Credit from './components/Credit'
 import DialogFruitCube from './components/DialogFruitCube'
+import DialogInteractive from './components/DialogInteractive'
 import FruitCube from './components/FruitCube'
 import FruitCubeContent from './components/FruitCubeContent'
+import ReadingTest from './components/ReadingTest'
 
 import content from './constant/content'
 
@@ -13,14 +16,18 @@ function App() {
   
   const handleFruit = (fruit) => setFruit(fruit)
 
+  useEffect(() => {
+    new SmoothScroll('a[href*="#"]')
+  });
+
   return (
     <div className="App f">
       <h1 className="f__title">{content.title}</h1>
       <p className="f__brief">{content.brief}</p>
       <section className="f__fruit-cube">
-        <DialogFruitCube />
+        <DialogFruitCube onClick={handleFruit} />
         <FruitCube onClick={handleFruit} />
-        { fruit && <FruitCubeContent fruit={fruit}/> }
+        { fruit && <FruitCubeContent fruit={fruit} onClick={handleFruit} /> }
       </section>
       <article className="f__article">
         <p>{content.article.p_1}</p>
@@ -37,6 +44,11 @@ function App() {
         <h2>{content.article.c_1}</h2>
         <p>{content.article.p_10}</p>
         <p>{content.article.p_11}</p>
+        <DialogInteractive>
+          <h3>{content.interactive_1.heading}</h3>
+          <p dangerouslySetInnerHTML={{__html: content.interactive_1.p_1}} />
+          <p className="reference">{content.interactive_1.reference}</p>
+        </DialogInteractive>
         <p>{content.article.p_12}</p>
         <p>{content.article.p_13}</p>
         <p>{content.article.p_14}</p>
@@ -64,6 +76,12 @@ function App() {
         <p>{content.article.p_20}</p>
         <p>{content.article.p_21}</p>
         <p>{content.article.p_22}</p>
+        <DialogInteractive>
+          <h3>{content.interactive_2.heading}</h3>
+          <p>{content.interactive_2.p_1}</p>
+          <p dangerouslySetInnerHTML={{__html: content.interactive_2.p_2}} />
+          <p className="reference">{content.interactive_2.reference}</p>
+        </DialogInteractive>
         <p>{content.article.p_23}</p>
         <picture>
           <img src={require(`./images/picture-4.jpg`)} alt={content.article.f_4} />
@@ -90,6 +108,11 @@ function App() {
         </picture>
         <p>{content.article.p_29}</p>
         <p>{content.article.p_30}</p>
+        <DialogInteractive>
+          <h3>{content.interactive_3.heading}</h3>
+          <p dangerouslySetInnerHTML={{__html: content.interactive_3.p_1}} />
+          <p className="reference">{content.interactive_3.reference}</p>
+        </DialogInteractive>
         <p dangerouslySetInnerHTML={{__html: content.article.p_31}} />
         <p className="annotation">{content.article.annotation_2}</p>
         <h3>{content.article.chart_3.title}</h3>
@@ -110,6 +133,13 @@ function App() {
           <img src={require(`./images/picture-6.jpg`)} alt={content.article.f_6} />
           <figcaption>{content.article.f_6}</figcaption>
         </picture>
+        <DialogInteractive>
+          <h3>{content.interactive_4.heading}</h3>
+          <img src={require(`./images/interactive.jpg`)} />
+          <p>{content.interactive_4.p_1}</p>
+          <p>{content.interactive_4.p_2}</p>
+          <p className="reference">{content.interactive_4.reference}</p>
+        </DialogInteractive>
         <p>{content.article.p_38}</p>
         <p>{content.article.p_39}</p>
         <p>{content.article.p_40}</p>
@@ -131,6 +161,14 @@ function App() {
         <h2>{content.article.c_8}</h2>
         <p>{content.article.p_47}</p>
         <p>{content.article.p_48}</p>
+        <ReadingTest />
+        <DialogInteractive>
+          <h3>{content.interactive_6.heading}</h3>
+          <ul>
+            <li>{content.interactive_6.item_1}</li>
+            <li dangerouslySetInnerHTML={{__html: content.interactive_6.item_2}} />
+          </ul>
+        </DialogInteractive>
       </article>
       <Credit />
     </div>

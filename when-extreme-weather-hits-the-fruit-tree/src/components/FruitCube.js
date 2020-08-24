@@ -32,22 +32,21 @@ class FruitCube extends React.Component {
   }
 
   renderFruitList(prefix) {
-    console.log('renderFruitList', prefix)
     return (
       FRUITS_LIST.map((fruit) => (
-        <div key={`${prefix}-${fruit}`} className="fruit-item" onClick={() => this.props.onClick(fruit)}>
+        <a href="#fruit-cube-content" key={`${prefix}-${fruit}`} className="fruit-item" onClick={() => this.props.onClick(fruit)}>
           <picture>
             <img src={require(`../images/fruits/${fruit}.png`)} alt={fruits[fruit]} />
           </picture>
           <span>{fruits[fruit]}</span>
-        </div>
+        </a>
       ))
     )
   }
 
   render() {
     return (
-      <div className="fruit-cube">
+      <div id="fruit-cube" className="fruit-cube">
         <div className="fruit-cube-container">
           { this.renderFruitList('first') }
           { this.state.isMarqueeMode ? this.renderFruitList('second') : null }

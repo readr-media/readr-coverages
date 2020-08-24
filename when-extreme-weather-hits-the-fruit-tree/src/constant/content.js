@@ -1,5 +1,5 @@
 export default {
-  title: '水果標題在這裡',
+  title: '餐桌上的氣候變遷',
   brief: '前言的區塊大概一百字……像做是研不童依、的那的張生工點過保器買賽應但說那畫本學、作會只解的們其根……我三灣的事只，護新來色我未會手這人多弟老：的不生光發東重證！紀料形。速她地慢去爸話市？題同資增、牛錯口國走到告活易、臉出種小看木性園勢去讓感聲人不拿個了力產包已會電士。',
   article: {
     p_1: '走一趟傳統市場、生鮮超市，看著攤架上陳列的水果，你腦中是否浮現過類似的疑問：',
@@ -94,141 +94,173 @@ export default {
       last_year: 1.1,
       this_year: 2.3,
       compare: '便宜',
-      dialog: '今年 100 元可以買到 2.3 斤，比去年<strong>多</strong>哦！',
+      dialog: '今年 100 元可以買到 2.3 斤，<br class="mobile-only" />比去年<strong>多</strong>哦！',
       chart: '荔枝產量與冬天溫度、春天雨量有關，去年暖冬明顯，主產地高雄市產量銳減超過 7 成。'
     },
     watermelon: {
       last_year: 10.1,
       this_year: 10.5,
       compare: '差不多',
-      dialog: '今年 100 元能買到 10.5 斤，跟去年<strong>差不多</strong>。',
+      dialog: '今年 100 元能買到 10.5 斤，<br class="mobile-only" />跟去年<strong>差不多</strong>。',
       chart: '西瓜產量與梅雨季雨量有關，近年主產地花蓮縣產量穩定，價格波動不大。'
     },
     mango: {
       last_year: 3.2,
       this_year: 3.4,
       compare: '便宜',
-      dialog: '今年 100 元可以買到 3.4 斤，比去年<strong>多</strong>哦！',
+      dialog: '今年 100 元可以買到 3.4 斤，<br class="mobile-only" />比去年<strong>多</strong>哦！',
       chart: '芒果產量與秋冬降雨、溫度有關，2016 年的芒果受前一年的暖冬影響，加上寒流和春雨，主產地臺南市產量減少超過 4 成。'
     },
     plum: {
       last_year: 1.7,
       this_year: 2.1,
       compare: '便宜',
-      dialog: '今年 100 元可以買到 2.1 斤，比去年<strong>多</strong>哦！',
+      dialog: '今年 100 元可以買到 2.1 斤，<br class="mobile-only" />比去年<strong>多</strong>哦！',
       chart: '李子產量與冬天溫度、梅雨季雨量有關，去年暖冬明顯，主產地苗栗產量銳減超過 5 成。'
     },
     citrus_tankan: {
       last_year: 1.7,
       this_year: 2.1,
       compare: '便宜',
-      dialog: '今年 100 元可以買到 2.1 斤，比去年<strong>多</strong>哦！',
+      dialog: '今年 100 元可以買到 2.1 斤，<br class="mobile-only" />比去年<strong>多</strong>哦！',
       chart: '李子產量與冬天溫度、梅雨季雨量有關，去年暖冬明顯，主產地苗栗產量銳減超過 5 成。'
     },
     lemon: {
       last_year: '前年 100 元可以買 4.1 斤',
       this_year: '去年 100 元可以買 5.8 斤',
       compare: '比前年便宜',
-      dialog: '今年產季還沒到，去年 100 元可以買到 5.8 斤，比前年<strong>多</strong>哦！',
+      dialog: '今年產季還沒到，<br class="mobile-only" />去年 100 元可以買到 5.8 斤，<br class="mobile-only" />比前年<strong>多</strong>哦！',
       chart: '檸檬產量與春夏雨量、颱風有關，近兩年主產地屏東縣產量穩定，價格波動不大。'
     },
     guava: {
       last_year: 4.5,
       this_year: 5.1,
       compare: '便宜',
-      dialog: '今年 100 元可以買到 5.1 斤，比去年<strong>多</strong>哦！',
+      dialog: '今年 100 元可以買到 5.1 斤，<br class="mobile-only" />比去年<strong>多</strong>哦！',
       chart: '番石榴產量與春夏雨量、颱風有關，2015、2016 年即因受颱風影響，產量銳減。近兩年主產地高雄市產量穩定，價格波動不大。'
     },
     banana: {
       last_year: 4.6,
       this_year: 4.4,
       compare: '貴',
-      dialog: '今年 100 元可以買到 4.4 斤，比去年<strong>少一點</strong>。',
+      dialog: '今年 100 元可以買到 4.4 斤，<br class="mobile-only" />比去年<strong>少一點</strong>。',
       chart: '香蕉產量與冬天溫度、春夏雨量、颱風有關，2017 年因前一年颱風損害嚴重，農民積極復耕，因此產量大增，影響價格，也影響之後農民續種意願，近兩年主產地屏東產量穩定。'
     },
     longan: {
       last_year: 1.2,
       this_year: 2.1,
       compare: '便宜',
-      dialog: '今年 100 元可以買到 2.1 斤，比去年<strong>多</strong>哦！',
+      dialog: '今年 100 元可以買到 2.1 斤，<br class="mobile-only" />比去年<strong>多</strong>哦！',
       chart: '龍眼產量與冬天溫度有關，去年暖冬明顯，主產地臺南市產量銳減超過 8 成。'
     },
     apple: {
       last_year: '前年 100 元可以買 1.7 斤',
       this_year: '去年 100 元可以買 1.6 斤',
       compare: '比前年貴',
-      dialog: '今年產季還沒到，不過去年 100 元可以買到 1.6 斤，比前年<strong>少一點</strong>。',
+      dialog: '今年產季還沒到，<br class="mobile-only" />不過去年 100 元可以買到 1.6 斤，<br class="mobile-only" />比前年<strong>少一點</strong>。',
       chart: '蘋果產量與冬天溫度、春天雨量有關，去年暖冬明顯，主產地臺中市產量銳減超過 4 成。'
     },
     avocado: {
       last_year: 1.8,
       this_year: 2.2,
       compare: '便宜',
-      dialog: '今年 100 元可以買到 2.2 斤，比去年<strong>多</strong>哦！',
+      dialog: '今年 100 元可以買到 2.2 斤，<br class="mobile-only" />比去年<strong>多</strong>哦！',
       chart: '酪梨產量與春夏雨量、颱風有關，近兩年主產地台南市產量穩定，價格波動不大。'
     },
     wax_apple: {
       last_year: 2.5,
       this_year: 2.4,
       compare: '貴',
-      dialog: '今年 100 元可以買到 2.4 斤，比去年<strong>少一點</strong>呢。',
+      dialog: '今年 100 元可以買到 2.4 斤，<br class="mobile-only" />比去年<strong>少一點</strong>呢。',
       chart: '蓮霧產量與冬天溫度、春夏雨量有關，2016 年一連 3 個颱風侵襲，再加上寒流、暖冬、雨季多重災害，農民紛紛改種其他作物。<br>這兩年主產地屏東縣產量穩定，價格波動不大。'
     },
     persimmon: {
       last_year: '前年 100 元可以買 3 斤',
       this_year: '去年 100 元可以買 1.9 斤',
       compare: '比前年貴',
-      dialog: '今年產季還沒到，不過去年 100 元只能買到 1.9 斤，比前一年<strong>少</strong>呢。',
+      dialog: '今年產季還沒到，<br class="mobile-only" />不過去年 100 元只能買到 1.9 斤，<br class="mobile-only" />比前一年<strong>少</strong>呢。',
       chart: '柿子產量與梅雨季雨量、冬天溫度有關，去年暖冬明顯，主產地臺中市產量銳減超過 5 成。'
     },
     orange: {
       last_year: '前年 100 元可以買 5 斤',
       this_year: '去年 100 元可以買 4.5 斤',
       compare: '比前年貴',
-      dialog: '你想買椪柑啊！今年產季還沒到，去年 100 元可以買到 4.5 斤，比前年<strong>少</strong>呢。',
+      dialog: '今年產季還沒到，<br class="mobile-only" />去年 100 元可以買到 4.5 斤，<br class="mobile-only" />比前年<strong>少</strong>呢。',
       chart: '椪柑產量與春夏雨量、颱風有關，近兩年主產地嘉義縣產量穩定，價格波動不大。'
     },
     jujube: {
       last_year: 1,
       this_year: 1.7,
       compare: '貴',
-      dialog: '今年 100 元可以買到 1.7 斤，比去年<strong>少</strong>呢。',
+      dialog: '今年 100 元可以買到 1.7 斤，<br class="mobile-only" />比去年<strong>少</strong>呢。',
       chart: '棗子產量深受颱風影響，2017 年因前一年莫蘭蒂、梅姬颱風接連侵襲，主產地高雄市產量銳減超過 4 成。'
     },
     grape: {
       last_year: 1.5,
       this_year: 1.6,
       compare: '便宜',
-      dialog: '今年 100 元可以買到 1.6 斤，比去年<strong>多</strong>哦！',
+      dialog: '今年 100 元可以買到 1.6 斤，<br class="mobile-only" />比去年<strong>多</strong>哦！',
       chart: '葡萄產量與春夏雨量、溫度有關，近兩年主產地彰化縣產量穩定，價格波動不大。'
     },
     asian_plum: {
       last_year: 2.2,
       this_year: 2.6,
       compare: '便宜',
-      dialog: '今年 100 元可以買到 2.6 斤，比去年<strong>多</strong>哦！',
+      dialog: '今年 100 元可以買到 2.6 斤，<br class="mobile-only" />比去年<strong>多</strong>哦！',
       chart: '梅子產量與冬天溫度、春天雨量有關，去年暖冬明顯，主產地南投縣產量銳減超過 7 成。'
     },
     strawberry: {
       last_year: '前年 100 元可以買 1 斤',
       this_year: '去年 100 元可以買 1.1 斤',
       compare: '差不多',
-      dialog: '今年產季還沒到，去年 100 元可以買到 1.1 斤，比前年<strong>多一點</strong>。',
+      dialog: '今年產季還沒到，<br class="mobile-only" />去年 100 元可以買到 1.1 斤，<br class="mobile-only" />比前年<strong>多一點</strong>。',
       chart: '草莓產量與冬天溫度、雨量有關，近兩年主產地苗栗縣產量穩定，價格波動不大。'
     },
     sugar_apple: {
       last_year: '前年 100 元可以買 1.9  斤',
       this_year: '去年 100 元可以買 1.8 斤',
       compare: '差不多',
-      dialog: '今年產季還沒到，去年 100 元可以買到 1.8 斤，比前年<strong>少一點</strong>。',
+      dialog: '今年產季還沒到，<br class="mobile-only" />去年 100 元可以買到 1.8 斤，<br class="mobile-only" />比前年<strong>少一點</strong>。',
       chart: '釋迦產量深受颱風影響，2016 年因尼伯特颱風侵襲，主產地臺東縣產量銳減超過 5 成。'
     },
     pineapple: {
       last_year: 6.1,
       this_year: 6.9,
       compare: '便宜',
-      dialog: '今年 100 元可以買到 6.9 斤，比去年<strong>多</strong>哦！',
+      dialog: '今年 100 元可以買到 6.9 斤，<br class="mobile-only" />比去年<strong>多</strong>哦！',
       chart: '鳳梨產量與冬天溫度、春夏雨量有關，近年因外銷市場增加，農民種植意願大增；2018、2019 年因豪雨關係，產量稍減。'
     }
+  },
+  interactive_1: {
+    heading: '果樹也需要冬眠？',
+    p_1: '有些種類的果樹，例如柑桔類、荔枝、龍眼等，秋冬需要累積足夠的低溫，才可以從<strong>葉芽生理狀態</strong>轉為<strong>花芽生理狀態</strong>，簡單來說，就是從「長葉子」變成「長花苞」，因此這段時期將決定花芽的數量，對外界環境和樹體營養狀態的變化特別敏感。',
+    reference: '資料來源：農委會苗栗區農改場'
+  },
+  interactive_2: {
+    heading: '甜柿為什麼從摩天嶺爬到梨山？',
+    p_1: '好的甜柿種植區域，可以幫助果實自然「脫澀」和「轉色」，只要在發育的各階段，氣溫都有達標（發芽到落葉約 17 度、果實發育期約 18-19 度），果實吃起來就不會有澀味，顏色也會很漂亮。過去臺中摩天嶺日夜溫差大，果實成熟期溫度又夠，甜柿自然好吃。',
+    p_2: '梨山早期的甜柿品質參差，是因為海拔超過 2200 公尺，溫度無法順利脫澀，因此雖然甜柿顏色漂亮，澀味卻無法完全去除；隨著山區平均溫度增加，梨山兼具<strong>日夜溫差大</strong>與<strong>足夠脫澀的溫度</strong>，柿子的品質大躍進。',
+    reference: '資料來源：農委會臺中區農改場、黃昭智'
+  },
+  interactive_3: {
+    heading: '西風帶減弱，為什麼冷暖空氣比較容易朝南北移動？',
+    p_1: '西風帶是<strong>地球自轉</strong>形成在北緯 30 至 60 度的行星風帶，風力強勁，風會由西向東吹。 西風帶如果偏弱，南北風的「振幅」就容易放大，<strong>南風可以進到高緯度地區，北風則可以到中低緯度地區</strong>。',
+    reference: '資料來源：中央氣象局'
+  },
+  interactive_4: {
+    heading: '什麼是環刻？為什麼可以留住果實？',
+    p_1: '環刻是農民在樹的枝幹上橫切一圈，將輸送養分的韌皮部去掉，農改場的說法是創造逆境，讓果實能留在果樹上。',
+    p_2: '黃昭智則認為，雨水會使植物短暫淹水，導致根系產生的賀爾蒙乙烯無法排到土壤、累積在根系，透過莖部向上傳導，進而造成落果。在樹幹上環刻，可以阻止莖部的乙烯濃度升高，避免落果。',
+    reference: '資料來源：文／農委會苗栗區農業改良場、黃昭智 圖／黃昭智提供',
+  },
+  interactive_5: {
+    heading: '這 10 年來受極端氣候影響最大，<br class="mobile-only" />產量減少最多的水果是？',
+    explanation: 'READr 分析農委會近十年的水果產量統計，發現 2019 年的龍眼產量銳減 76%，跌幅為所有水果中最高，其次是 2019 年的荔枝（跌幅 68%）、2019 年的柿子（跌幅 53%）。農改場 2018 年底至 2019 年初是臺灣觀測史上最溫暖的冬季，龍眼樹體無法好好休眠，影響後續的開花結果，主產區臺南東山區農會表示，許多果農去年的收成頂多只有常年的一成。',
+    submit: '送出看答案'
+  },
+  interactive_6: {
+    heading: '如果你想更關心這個議題，可以怎麼做？',
+    item_1: '分享這篇文章，並關注 READr 關於農產運銷的更多報導',
+    item_2: '追蹤<a href="https://tccip.ncdr.nat.gov.tw/" target="_blank">台灣氣候變遷推估資訊與調適知識平台</a>的研究文章，更認識臺灣的極端氣候'
   }
 }

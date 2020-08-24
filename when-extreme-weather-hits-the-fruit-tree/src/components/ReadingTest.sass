@@ -1,0 +1,44 @@
+@import ../layout
+  
+.reading-test
+  &__question
+    display: flex
+    flex-direction: column
+    align-items: center
+    height: 449px
+    text-align: center
+    background-image: url(../images/reading-test-bg-sm.svg)
+    background-repeat: no-repeat
+    background-size: contain
+    background-position: center center
+    @include breakpoint(md)
+      height: 305px
+      background-image: url(../images/reading-test-bg-md.svg)
+    h3
+      margin-top: 30px
+      @include breakpoint(md)
+        margin-top: 50px
+    button
+      margin: 19px auto 0
+      padding: 9px 18px
+      color: #fff
+      font-size: 17px
+      line-height: 1.5
+      background-color: #E1AA00
+      border: none
+      border-radius: 4px
+      @include breakpoint(md)
+        margin-top: 12px
+  &__options
+    display: flex
+    justify-content: center
+    flex-wrap: wrap
+    width: 300px
+    margin-top: 11px
+    @include breakpoint(md)
+      justify-content: space-around
+      width: 590px
+  &__explanation
+    margin: 10px 0 40px
+    h3
+      text-align: center
