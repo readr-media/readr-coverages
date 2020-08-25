@@ -1,0 +1,28 @@
+@import ../layout
+
+.swiper-container
+  display: flex
+  flex-direction: column
+  h3
+    order: 0
+    font-size: 22px
+    line-height: 1.5
+    + p
+      margin-top: 5px
+  figcaption
+    @include breakpoint(md)
+      text-align: center
+  .reference
+    order: 1
+    color: rgba(0, 0, 0, 0.66)
+    font-size: 12px
+    line-height: 1.5
+    text-align: right
+  .swiper-wrapper
+    order: 2
+    margin: 10px 0 0
+  .swiper-pagination
+    order: 3
+    position: static
+
+    

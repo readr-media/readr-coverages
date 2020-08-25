@@ -3,7 +3,7 @@ import './DialogFruitCube.sass';
 
 function DialogFruitCube(props) {
   return (
-    <div className="fruit-cube-dialog">
+    <div id="fruit-cube-dialog" className="fruit-cube-dialog">
       <div className="fruit-cube-dialog__bg"/>
       <span>客人啊，我這裡的水果最新鮮！<br className="mobile-only" />
       下面種類任你選，<br />

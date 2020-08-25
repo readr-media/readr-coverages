@@ -9,7 +9,8 @@ class FruitCube extends React.Component {
   constructor() {
     super();
     this.state = {
-      isMarqueeMode: false
+      isMarqueeMode: false,
+      speed: 'normal'
     }
   }
 
@@ -31,6 +32,10 @@ class FruitCube extends React.Component {
     }
   }
 
+  handleMarqueeSpeed(value) {
+    this.setState({ speed: value })
+  }
+
   renderFruitList(prefix) {
     return (
       FRUITS_LIST.map((fruit) => (
@@ -47,7 +52,27 @@ class FruitCube extends React.Component {
   render() {
     return (
       <div id="fruit-cube" className="fruit-cube">
-        <div className="fruit-cube-container">
+        <div className="fruit-cube__controlbar">
+          <button
+            className={`control-option ${this.state.speed === 'normal' ? 'active' : ''}`}
+            onClick={() => this.handleMarqueeSpeed('normal')}
+          >
+            X 1.0
+          </button>
+          <button
+            className={`control-option ${this.state.speed === 'faster' ? 'active' : ''}`}
+            onClick={() => this.handleMarqueeSpeed('faster')}
+          >
+            X 1.25
+          </button>
+          <button
+            className={`control-option ${this.state.speed === 'fast' ? 'active' : ''}`}
+            onClick={() => this.handleMarqueeSpeed('fast')}
+          >
+            X 1.5
+          </button>
+        </div>
+        <div className={`fruit-cube-container ${this.state.speed}`}>
           { this.renderFruitList('first') }
           { this.state.isMarqueeMode ? this.renderFruitList('second') : null }
         </div>

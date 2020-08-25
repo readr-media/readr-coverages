@@ -2,32 +2,45 @@ import React, { useState, useEffect } from 'react';
 import './App.sass';
 
 import SmoothScroll from 'smooth-scroll'
+import ContentSwiper from './components/ContentSwiper'
 import Credit from './components/Credit'
 import DialogFruitCube from './components/DialogFruitCube'
 import DialogInteractive from './components/DialogInteractive'
 import FruitCube from './components/FruitCube'
 import FruitCubeContent from './components/FruitCubeContent'
+import Header from './components/Header'
 import ReadingTest from './components/ReadingTest'
 
 import content from './constant/content'
 
 function App() {
-  const [fruit, setFruit] = useState(undefined);
+  const [fruit, setFruit] = useState(undefined)
+  const [viewportWidth, setViewportWidth] = useState(0)
   
   const handleFruit = (fruit) => setFruit(fruit)
 
+  const detectViewportWidth = () => {
+    return Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+  }
+
   useEffect(() => {
     new SmoothScroll('a[href*="#"]')
-  });
+    setViewportWidth(detectViewportWidth())
+  }, []);
 
   return (
     <div className="App f">
-      <h1 className="f__title">{content.title}</h1>
-      <p className="f__brief">{content.brief}</p>
+      <Header />
+
+      <h1 className="f__title" dangerouslySetInnerHTML={{__html: content.title}}></h1>
+      <p
+        className="f__brief"
+        dangerouslySetInnerHTML={{__html: content.brief}}
+      />
       <section className="f__fruit-cube">
         <DialogFruitCube onClick={handleFruit} />
         <FruitCube onClick={handleFruit} />
-        { fruit && <FruitCubeContent fruit={fruit} onClick={handleFruit} /> }
+        { fruit && <FruitCubeContent fruit={fruit} viewportWidth={viewportWidth} onClick={handleFruit} /> }
       </section>
       <article className="f__article">
         <p>{content.article.p_1}</p>
@@ -107,6 +120,7 @@ function App() {
           <figcaption>{content.article.chart_1.caption}</figcaption>
         </picture>
         <p>{content.article.p_29}</p>
+        <ContentSwiper />
         <p>{content.article.p_30}</p>
         <DialogInteractive>
           <h3>{content.interactive_3.heading}</h3>
@@ -135,7 +149,7 @@ function App() {
         </picture>
         <DialogInteractive>
           <h3>{content.interactive_4.heading}</h3>
-          <img src={require(`./images/interactive.jpg`)} />
+          <img src={require(`./images/interactive.jpg`)} alt={content.interactive_4.p_1} />
           <p>{content.interactive_4.p_1}</p>
           <p>{content.interactive_4.p_2}</p>
           <p className="reference">{content.interactive_4.reference}</p>
