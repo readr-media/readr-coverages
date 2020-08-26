@@ -28,20 +28,28 @@ button
 .f
   padding: 80px 5% 0
   background: rgba(229, 231, 230, 0.3)
-  background-image: url(./images/roof.png)
-  background-repeat: repeat-x
-  background-size: 90px 20px
-  background-attachment: fixed
   overflow-y: hidden
   @include breakpoint(md)
     padding: 81px 0 0
-  @include breakpoint(xl)
-    background-size: 222px 49px
   > *
     max-width: 600px
     margin-left: auto
     margin-right: auto
-  
+  &__curtain
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    width: 100%
+    max-width: none
+    height: 20px
+    z-index: 999
+    background-image: url(./images/roof.png)
+    background-repeat: repeat-x
+    background-size: 90px 20px
+    @include breakpoint(xl)
+      height: 49px
+      background-size: 222px 49px
   &__title
     @include breakpoint(lg)
       text-align: center
@@ -96,7 +104,10 @@ button
         color: rgba(0, 0, 0, 0.66)
         font-size: 13px
         line-height: 1.5
-
+  &__footer
+    padding: 19px 0 20px
+    @include breakpoint(md)
+      padding: 40px 0
 .mobile-only
   @include breakpoint(md)
     display: none

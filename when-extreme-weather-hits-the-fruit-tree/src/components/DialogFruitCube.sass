@@ -9,24 +9,22 @@
   font-size: 17px
   font-weight: bold
   line-height: 1.5
-  text-align: center
   @include breakpoint(md)
     height: 148px
     font-size: 20px
-    text-align: left
   + *
     margin-top: 20px
-  span
+  span, p
+    text-align: center
     z-index: 1
-  button
-    padding: 0
+    @include breakpoint(md)
+      text-align: left
+  a
+    padding: 0 .4em
     color: #C0701D
     font-size: 17px
     font-weight: bold
     line-height: 1.5
-    text-decoration: underline
-    background-color: transparent
-    border: none
     @include breakpoint(md)
       font-size: 20px
   &__bg

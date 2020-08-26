@@ -16,8 +16,6 @@ function ContentSwiper() {
       spaceBetween={50}
       slidesPerView={1}
       pagination={{ clickable: true }}
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
     >
       <h3>{content.article.slide.title}</h3>
       <p className="reference">{content.article.slide.reference}</p>
