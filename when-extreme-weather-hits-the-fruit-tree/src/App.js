@@ -6,6 +6,8 @@ import FruitCubeContent from './components/FruitCubeContent'
 
 import content from './constant/content'
 
+import '@readr-media/web-components'
+
 const ContentSwiper = lazy(() => import('./components/ContentSwiper'))
 const Credit = lazy(() => import('./components/Credit'))
 const DialogFruitCube = lazy(() => import('./components/DialogFruitCube'))
@@ -240,6 +242,7 @@ function App() {
             </p>
           </DialogFruitCube>
         </Suspense>
+        <latest-coverages />
       </footer>
     </div>
   )
