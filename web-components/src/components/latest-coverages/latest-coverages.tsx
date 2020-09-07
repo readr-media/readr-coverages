@@ -1,8 +1,25 @@
 import { Component, Host, State, h } from '@stencil/core';
 
-const DATA_URL = 'https://www.readr.tw/api/public/posts?type={"$in":[1,4]}&publish_status={"$in":[2]}&sort=-published_at&max_result=3'
+const TEMP_OLD_PROJECTS_SLUGS = [
+  'china-company',
+  'unitedfront',
+  'food-delivery',
+  'extra-curriculum',
+  'election-2020',
+  'formosaincident',
+  'the-third-force',
+  'maskmap',
+  'ncov2019search',
+  'backtoformosa',
+  'covid19-disinformation-vis',
+  'covid19-disinformation',
+  'eid',
+]
+
+const DATA_URL = 'https://www.readr.tw/api/public/posts?type={"$in":[1,4]}&sort=-published_at&max_result=3'
 const NEWS_URL = 'https://www.readr.tw/post'
-const REPORT_URL = 'https://www.readr.tw/project'
+const REPORT_URL = 'https://www.readr.tw/project/3'
+const OLD_REPORT_URL = 'https://www.readr.tw/project'
 
 type Post = {
   title: string,
@@ -30,10 +47,14 @@ function format(datatimeString: string): string {
 function restructureData(data: Post): Object {
   return ({
     title: data.title,
-    href: data.type === 4 ? `${REPORT_URL}/${data.slug}` : `${NEWS_URL}/${data.id}`,
+    href: data.type === 4 ? getReportHref(data.slug) : `${NEWS_URL}/${data.id}`,
     image: data.og_image || data.hero_image,
     publishedAt: format(data.published_at),
   })
+}
+
+function getReportHref(slug) {
+  return TEMP_OLD_PROJECTS_SLUGS.some((ele) => ele === slug) ? `${OLD_REPORT_URL}/${slug}` : `${REPORT_URL}/${slug}`
 }
 
 async function fetchData(url: string) {
