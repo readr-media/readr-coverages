@@ -1,7 +1,9 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react';
 import './App.sass';
 
+import ReactGA from 'react-ga';
 import SmoothScroll from 'smooth-scroll'
+import Credit from './components/Credit'
 import FruitCubeContent from './components/FruitCubeContent'
 
 import content from './constant/content'
@@ -9,12 +11,13 @@ import content from './constant/content'
 import '@readr-media/web-components'
 
 const ContentSwiper = lazy(() => import('./components/ContentSwiper'))
-const Credit = lazy(() => import('./components/Credit'))
 const DialogFruitCube = lazy(() => import('./components/DialogFruitCube'))
 const DialogInteractive = lazy(() => import('./components/DialogInteractive'))
 const FruitCube = lazy(() => import('./components/FruitCube'))
 const Header = lazy(() => import('./components/Header'))
 const ReadingTest = lazy(() => import('./components/ReadingTest'))
+
+let gaIndex = 0
 
 function App() {
   const [fruit, setFruit] = useState(undefined)
@@ -28,16 +31,61 @@ function App() {
 
   const renderLoader = () => (<div>Loading...</div>)
 
+  const sendGaClick = (label) => ReactGA.event({
+    category: 'projects',
+    action: 'click',
+    label
+  })
+
+  const sendGaScroll = (index) => ReactGA.event({
+    category: 'projects',
+    action: 'scroll',
+    label: `scroll to ${index}`
+  })
+
+  const clickRecommendFruit = () => {
+    handleFruit('litchi')
+    sendGaClick('點擊荔枝')
+  }
+
+  const setIntersectionObserver = () => {
+    import('intersection-observer')
+      .then(() => {
+        const targets = [
+          ...document.querySelectorAll('.f__article h2'),
+          document.querySelector('.credit'),
+          document.querySelector('.f__footer')
+        ]
+        const callback = (entries, observer) => {
+          entries.forEach((entry, index) => {
+            const currentIndex = Number(entry.target.getAttribute('gaIndex'))
+            if (entry.isIntersecting && currentIndex > gaIndex) {
+              gaIndex = currentIndex
+              sendGaScroll(currentIndex)
+            }
+          })
+        }
+        const observer = new IntersectionObserver(callback, {
+          threshold: 0.8,
+        })
+        targets.forEach((element) => {
+          observer.observe(element)
+        })
+      })
+  }
+
   useEffect(() => {
     new SmoothScroll('a[href*="#"]')
     setViewportWidth(detectViewportWidth())
+    setIntersectionObserver()
+    ReactGA.pageview(window.location.pathname);
   }, []);
 
   return (
     <div className="App f">
       <div className="f__curtain" />
       <Suspense fallback={renderLoader()}>
-        <Header />
+        <Header sendGaClick={sendGaClick} />
       </Suspense>
 
       <h1 className="f__title" dangerouslySetInnerHTML={{__html: content.title}}></h1>
@@ -50,11 +98,11 @@ function App() {
           <DialogFruitCube>
             <span>客人啊，我這裡的水果最新鮮！<br className="mobile-only" />
             下面種類任你選，<br />
-            啊我推薦<a href="#fruit-cube-content" onClick={() => handleFruit('litchi')}>荔枝</a>，很划算喔！</span>
+            啊我推薦<a href="#fruit-cube-content" onClick={clickRecommendFruit}>荔枝</a>，很划算喔！</span>
           </DialogFruitCube>
           <FruitCube onClick={handleFruit} />
         </Suspense>
-        { fruit && <FruitCubeContent fruit={fruit} viewportWidth={viewportWidth} onClick={handleFruit} /> }
+        { fruit && <FruitCubeContent fruit={fruit} viewportWidth={viewportWidth} onClick={handleFruit} sendGaClick={sendGaClick} /> }
       </section>
       <article className="f__article">
         <p>{content.article.p_1}</p>
@@ -68,7 +116,7 @@ function App() {
         <p>{content.article.p_8}</p>
         <p>{content.article.p_9}</p>
         
-        <h2>{content.article.c_1}</h2>
+        <h2 gaIndex="1">{content.article.c_1}</h2>
         <p>{content.article.p_10}</p>
         <p>{content.article.p_11}</p>
         <Suspense fallback={renderLoader()}>
@@ -88,7 +136,7 @@ function App() {
           <figcaption>{content.article.f_1}</figcaption>
         </picture>
         
-        <h2>{content.article.c_2}</h2>
+        <h2 gaIndex="2">{content.article.c_2}</h2>
         <p>{content.article.p_15}</p>
         <p>{content.article.p_16}</p>
         <p>{content.article.p_17}</p>
@@ -100,7 +148,7 @@ function App() {
           <figcaption>{content.article.f_2}</figcaption>
         </picture>
         
-        <h2>{content.article.c_3}</h2>
+        <h2 gaIndex="3">{content.article.c_3}</h2>
         <p>{content.article.p_19}</p>
         <picture>
           <source srcSet={require('./images/picture-3.avif')} type="image/avif" />
@@ -127,7 +175,7 @@ function App() {
           <figcaption>{content.article.f_4}</figcaption>
         </picture>
         
-        <h2>{content.article.c_4}</h2>
+        <h2 gaIndex="4">{content.article.c_4}</h2>
         <p>{content.article.p_24}</p>
         <p>{content.article.p_25}</p>
         <picture>
@@ -139,7 +187,7 @@ function App() {
         <p>{content.article.p_26}</p>
         <p>{content.article.p_27}</p>
        
-        <h2>{content.article.c_5}</h2>
+        <h2 gaIndex="5">{content.article.c_5}</h2>
         <p>{content.article.p_28}</p>
         <h3>{content.article.chart_1.title}</h3>
         <picture>
@@ -149,7 +197,7 @@ function App() {
         </picture>
         <p>{content.article.p_29}</p>
         <Suspense fallback={renderLoader()}>
-          <ContentSwiper />
+          <ContentSwiper sendGaClick={sendGaClick} />
         </Suspense>
         <p>{content.article.p_30}</p>
         <Suspense fallback={renderLoader()}>
@@ -170,7 +218,7 @@ function App() {
         <p dangerouslySetInnerHTML={{__html: content.article.p_32}} />
         <p>{content.article.p_33}</p>
 
-        <h2>{content.article.c_6}</h2>
+        <h2 gaIndex="6">{content.article.c_6}</h2>
         <p>{content.article.p_34}</p>
         <p>{content.article.p_35}</p>
         <p>{content.article.p_36}</p>
@@ -195,7 +243,7 @@ function App() {
         <p>{content.article.p_40}</p>
         <p>{content.article.p_41}</p>
         
-        <h2>{content.article.c_7}</h2>
+        <h2 gaIndex="7">{content.article.c_7}</h2>
         <p>{content.article.p_42}</p>
         <h3>{content.article.chart_4.title}</h3>
         <picture>
@@ -208,11 +256,11 @@ function App() {
         <p>{content.article.p_45}</p>
         <p>{content.article.p_46}</p>
 
-        <h2>{content.article.c_8}</h2>
+        <h2 gaIndex="8">{content.article.c_8}</h2>
         <p>{content.article.p_47}</p>
         <p>{content.article.p_48}</p>
         <Suspense fallback={renderLoader()}>
-          <ReadingTest />
+          <ReadingTest sendGaClick={sendGaClick} />
           <DialogInteractive>
             <h3>{content.interactive_6.heading}</h3>
             <ul>
@@ -222,10 +270,8 @@ function App() {
           </DialogInteractive>
         </Suspense>
       </article>
-      <Suspense fallback={renderLoader()}>
-        <Credit />
-      </Suspense>
-      <footer className="f__footer">
+      <Credit />
+      <footer gaIndex="10" className="f__footer">
         <Suspense fallback={renderLoader()}>
           <DialogFruitCube>
             <p>
@@ -235,6 +281,7 @@ function App() {
                 href="https://www.readr.tw/donate"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => sendGaClick('點擊贊助 Readr')}
               >
                 贊助 READr
               </a><br className="mobile-only" />

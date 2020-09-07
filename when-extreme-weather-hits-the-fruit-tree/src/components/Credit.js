@@ -3,7 +3,7 @@ import './Credit.sass';
 
 function Credit() {
   return (
-    <div className="credit">
+    <div gaIndex="9" className="credit">
       <p>
         <span>記者：陳珮瑜</span>
         <span>設計：Weiwei Hsu</span><br/>

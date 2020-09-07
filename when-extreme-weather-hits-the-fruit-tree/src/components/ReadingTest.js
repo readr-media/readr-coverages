@@ -4,11 +4,16 @@ import './ReadingTest.sass';
 import ReadingTestOption from './ReadingTestOption'
 import content from '../constant/content'
 
-function ReadingTest() {
+function ReadingTest(props) {
   const [answer, setAnswer] = useState(undefined)
   const [showExplanation, setShowExplanation] = useState(false)
   
   const handleAnswer = (answer) => setAnswer(answer)
+
+  const submit = () => {
+    setShowExplanation(true)
+    props.sendGaClick('點擊送出看答案')
+  }
 
   const renderExplanation = () => {
     if (showExplanation) {
@@ -31,7 +36,7 @@ function ReadingTest() {
           <ReadingTestOption fruit="asian_plum" onClick={handleAnswer} />
           <ReadingTestOption fruit="mango" onClick={handleAnswer} />
         </div>
-        <button onClick={() => setShowExplanation(true)}>{content.interactive_5.submit}</button>
+        <button disabled={!answer} onClick={submit}>{content.interactive_5.submit}</button>
       </div>
       { renderExplanation() }
     </div>

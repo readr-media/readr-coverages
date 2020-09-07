@@ -5332,6 +5332,11 @@ internal-slot@^1.0.2:
     has "^1.0.3"
     side-channel "^1.0.2"
 
+intersection-observer@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.11.0.tgz#f4ea067070326f68393ee161cc0a2ca4c0040c6f"
+  integrity sha512-KZArj2QVnmdud9zTpKf279m2bbGfG+4/kn16UU0NL3pTVl52ZHiJ9IRNSsnn6jaHrL9EGLFM5eWjTx2fz/+zoQ==
+
 invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
@@ -8704,6 +8709,11 @@ react-error-overlay@^6.0.7:
   version "6.0.7"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.7.tgz#1dcfb459ab671d53f660a991513cb2f0a0553108"
   integrity sha512-TAv1KJFh3RhqxNvhzxj6LeT5NWklP6rDr2a0jaTfsZ5wSZWHOGeqQyejUp3xxLfPt2UpyJEcVQB/zyPcmonNFA==
+
+react-ga@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-3.1.2.tgz#e13f211c51a2e5c401ea69cf094b9501fe3c51ce"
+  integrity sha512-OJrMqaHEHbodm+XsnjA6ISBEHTwvpFrxco65mctzl/v3CASMSLSyUkFqz9yYrPDKGBUfNQzKCjuMJwctjlWBbw==
 
 react-is@^16.8.1, react-is@^16.8.4:
   version "16.13.1"

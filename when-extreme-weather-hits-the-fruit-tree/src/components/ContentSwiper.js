@@ -10,12 +10,13 @@ import 'swiper/components/pagination/pagination.scss';
 
 SwiperCore.use([Pagination]);
 
-function ContentSwiper() {
+function ContentSwiper(props) {
   return (
     <Swiper
       spaceBetween={50}
       slidesPerView={1}
       pagination={{ clickable: true }}
+      onSlideChange={() => props.sendGaClick('點擊 slide show')}
     >
       <h3>{content.article.slide.title}</h3>
       <p className="reference">{content.article.slide.reference}</p>

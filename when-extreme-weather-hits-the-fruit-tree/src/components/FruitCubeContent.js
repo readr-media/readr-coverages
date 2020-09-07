@@ -62,7 +62,12 @@ function FruitCubeContent(props) {
       <div className="cube__more">
         <p>
           要不要看看其他水果？<br className="mobile-only" />可以回水果攤
-          <a href={ props.viewportWidth >= 1024 ? '#fruit-cube-dialog' : '#fruit-cube' }>繼續選購</a>
+          <a
+            href={ props.viewportWidth >= 1024 ? '#fruit-cube-dialog' : '#fruit-cube' }
+            onClick={() => props.sendGaClick('點擊繼續選購')}
+          >
+            繼續選購
+          </a>
           {
             props.fruit !== 'litchi' &&
             <span>
