@@ -199,7 +199,7 @@ export default {
       last_year: 1,
       this_year: 1.7,
       compare: '貴',
-      dialog: '今年 100 元可以買到 1.7 斤，<br class="mobile-only" />比去年<strong>少</strong>呢。',
+      dialog: '今年 100 元可以買到 1.7 斤，<br class="mobile-only" />比去年<strong>多</strong>呢。',
       chart: '棗子產量深受颱風影響，2017 年因前一年莫蘭蒂、梅姬颱風接連侵襲，主產地高雄市產量銳減超過 4 成。'
     },
     grape: {
