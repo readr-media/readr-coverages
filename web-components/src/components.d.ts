@@ -33,6 +33,7 @@ declare namespace LocalJSX {
     interface LatestCoverages {
     }
     interface ReadrHeader {
+        "onReadrLogoLinkClick"?: (event: CustomEvent<any>) => void;
     }
     interface IntrinsicElements {
         "latest-coverages": LatestCoverages;
