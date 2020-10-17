@@ -3,7 +3,9 @@
         <Hero />
         <CharacterAbout />
         <StoryNav />
+
         <nuxt-child />
+
         <NextStep />
         <Credit />
         <More />
@@ -30,6 +32,10 @@ export default {
         More,
         Footer,
     },
+
+    // mounted() {
+    //     this.$router.push('/1')
+    // },
 }
 </script>
 

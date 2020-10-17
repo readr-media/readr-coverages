@@ -1,5 +1,5 @@
 <template>
-    <div class="StoryNav">
+    <div class="StoryNav" id="StoryNav">
         <div
             class="StoryNav__list"
             v-for="list in characterList"

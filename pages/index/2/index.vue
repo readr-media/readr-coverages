@@ -138,6 +138,8 @@ import story1_3_2 from '../../../images/story1_3_2.jpeg'
 import story1_3_3 from '../../../images/story1_3_3.jpeg'
 
 export default {
+    transition: 'fade',
+
     components: {
         Story,
         ArticleQuote,

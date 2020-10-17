@@ -18,6 +18,7 @@ export default {
     background-color: #006db2;
 
     div {
+        pointer-events: none;
         font-family: PingFangTC;
         font-size: 16px;
         font-weight: normal;

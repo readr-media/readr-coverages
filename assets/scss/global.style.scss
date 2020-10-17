@@ -28,3 +28,23 @@ body {
 a {
     text-decoration: none;
 }
+
+// global fade
+// .page-enter-active,
+// .page-leave-active {
+//     transition: opacity 0.5s;
+// }
+// .page-enter,
+// .page-leave-active {
+//     opacity: 0;
+// }
+
+// character fade
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.2s;
+}
+.fade-enter,
+.fade-leave-active {
+    opacity: 0;
+}

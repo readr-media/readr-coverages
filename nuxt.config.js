@@ -56,7 +56,7 @@ export default {
     ],
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-    plugins: [],
+    plugins: [{ src: '~/plugins/VueSmoothScroll', ssr: false }],
 
     // Auto import components (https://go.nuxtjs.dev/config-components)
     components: true,
@@ -91,5 +91,15 @@ export default {
                 extensions: ['html', 'vue', 'js'],
             },
         ],
+    },
+
+    router: {
+        extendRoutes(routes, resolve) {
+            routes.push({
+                name: 'custom',
+                path: '*',
+                component: resolve(__dirname, 'pages/404.vue'),
+            })
+        },
     },
 }

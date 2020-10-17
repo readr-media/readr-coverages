@@ -1,5 +1,10 @@
 <template>
-    <div class="CharacterCard" @mouseover="mouseOver" @mouseout="mouseLeave">
+    <div
+        class="CharacterCard"
+        @mouseover="mouseOver"
+        @mouseout="mouseLeave"
+        @click="clickHandler"
+    >
         <div class="CharacterCard__image">
             <img
                 :src="status ? character.image.hover : character.image.normal"
@@ -36,12 +41,22 @@ export default {
         mouseLeave() {
             this.status = false
         },
+        clickHandler() {
+            const myEl = document.getElementById('StoryNav')
+
+            this.$smoothScroll({
+                scrollTo: myEl,
+                hash: '#StoryNav', // required if updateHistory is true
+            })
+            this.$router.push(`/${this.character.url}`)
+        },
     },
 }
 </script>
 
 <style lang="scss" scoped>
 .CharacterCard {
+    cursor: pointer;
     z-index: 2;
     width: 25%;
     position: relative;
