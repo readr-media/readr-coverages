@@ -117,6 +117,7 @@ export default {
 <style lang="scss" scoped>
 .Test {
     width: 100%;
+    margin-bottom: 90px;
 
     &__question {
         transform-origin: center;
