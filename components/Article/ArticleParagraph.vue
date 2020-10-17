@@ -20,6 +20,11 @@ export default {}
         line-height: 1.75;
         letter-spacing: normal;
         text-align: justify;
+        margin-bottom: 1rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 }
 </style>
