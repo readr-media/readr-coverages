@@ -8,6 +8,8 @@
             <div
                 v-if="imageUrl.length > 1"
                 class="PictureContainer__controller"
+                @mouseover="stopAutoplay"
+                @mouseout="startAutoplay"
             >
                 <div
                     class="PictureContainer__controller_prev"
@@ -31,6 +33,8 @@
                 class="PictureContainer__navigation_selection"
                 :class="{ selected: current === index }"
                 @click="selectionHandler(index)"
+                @mouseover="stopAutoplay"
+                @mouseout="startAutoplay"
             ></div>
         </div>
     </div>
@@ -44,6 +48,9 @@ export default {
             current: 0,
             next: 1,
             animationState: 'slide-next',
+            autoplayInterval: setInterval(() => {
+                this.nextImg()
+            }, this.autoplayTimeout),
         }
     },
     methods: {
@@ -69,17 +76,20 @@ export default {
                     : this.current - 1
             this.selectionHandler(next)
         },
-        startAutoPlay(autoplayTimeout) {
-            setInterval(() => {
+        startAutoplay() {
+            this.autoplayInterval = setInterval(() => {
                 this.nextImg()
-            }, autoplayTimeout)
+            }, this.autoplayTimeout)
+        },
+        stopAutoplay() {
+            clearInterval(this.autoplayInterval)
         },
     },
 
     mounted() {
-        if (this.autoplay === true) {
-            this.startAutoPlay(this.autoplayTimeout)
-        }
+        // if (this.autoplay === true) {
+        //     this.startAutoPlay()
+        // }
     },
 }
 </script>
