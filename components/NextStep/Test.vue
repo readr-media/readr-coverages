@@ -17,6 +17,7 @@
                     :value="item"
                     v-model="selection"
                     @click="getSelectionDOM"
+                    :class="{ blockInput: answered }"
                 /><label>{{ item.content }}</label>
             </div>
         </div>
@@ -145,6 +146,10 @@ export default {
 
 .boom {
     animation: boom 0.1s ease-in-out;
+}
+
+.blockInput {
+    pointer-events: none;
 }
 
 @keyframes boom {
