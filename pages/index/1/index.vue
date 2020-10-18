@@ -106,7 +106,11 @@
                 </p></ArticleParagraph
             >
 
-            <ArticlePicture :imageUrl="[story1_3_1, story1_3_2, story1_3_3]">
+            <ArticlePicture
+                :imageUrl="[story1_3_1, story1_3_2, story1_3_3]"
+                :autoplay="true"
+                :autoplayTimeout="4000"
+            >
                 戒嚴時期，政治犯遭偵訊時都有被刑求的經驗，歐陽劍華把獄友形容的過程畫下來，警惕後世（攝影／林煒凱）
             </ArticlePicture>
 

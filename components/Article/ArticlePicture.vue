@@ -1,7 +1,23 @@
 <template>
     <div class="PictureContainer">
         <div class="PictureContainer__img">
-            <img :src="imageUrl[selected]" alt="" />
+            <transition :name="animationState">
+                <img :src="imageUrl[current]" :key="current" />
+            </transition>
+
+            <div
+                v-if="imageUrl.length > 1"
+                class="PictureContainer__controller"
+            >
+                <div
+                    class="PictureContainer__controller_prev"
+                    @click="prevImg"
+                />
+                <div
+                    class="PictureContainer__controller_next"
+                    @click="nextImg"
+                />
+            </div>
         </div>
 
         <div class="PictureContainer__content">
@@ -13,7 +29,7 @@
                 v-for="(selection, index) in imageUrl"
                 :key="index"
                 class="PictureContainer__navigation_selection"
-                :class="{ selected: selected === index }"
+                :class="{ selected: current === index }"
                 @click="selectionHandler(index)"
             ></div>
         </div>
@@ -22,16 +38,48 @@
 
 <script>
 export default {
-    props: ['imageUrl'],
+    props: ['imageUrl', 'autoplay', 'autoplayTimeout'],
     data() {
         return {
-            selected: 0,
+            current: 0,
+            next: 1,
+            animationState: 'slide-next',
         }
     },
     methods: {
         selectionHandler(index) {
-            this.selected = index
+            if (index > this.current) {
+                this.animationState = 'slide-next'
+            } else {
+                this.animationState = 'slide-prev'
+            }
+            this.current = index
         },
+        nextImg() {
+            const next =
+                this.current + 1 > this.imageUrl.length - 1
+                    ? 0
+                    : this.current + 1
+            this.selectionHandler(next)
+        },
+        prevImg() {
+            const next =
+                this.current - 1 < 0
+                    ? this.imageUrl.length - 1
+                    : this.current - 1
+            this.selectionHandler(next)
+        },
+        startAutoPlay(autoplayTimeout) {
+            setInterval(() => {
+                this.nextImg()
+            }, autoplayTimeout)
+        },
+    },
+
+    mounted() {
+        if (this.autoplay === true) {
+            this.startAutoPlay(this.autoplayTimeout)
+        }
     },
 }
 </script>
@@ -42,6 +90,7 @@ export default {
     margin: auto;
     margin-bottom: 40px;
     &__img {
+        position: relative;
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -83,8 +132,75 @@ export default {
         }
     }
 
+    &__controller {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        &_prev,
+        &_next {
+            flex: 1;
+        }
+    }
+
     .selected {
         background-color: #e0c950;
     }
+}
+
+// .carousel-prev-enter-active,
+// .carousel-prev-leave-active,
+// .carousel-next-enter-active,
+// .carousel-next-leave-active {
+//     transition: transform 1s ease;
+// }
+// .carousel-next-enter,
+// .carousel-prev-leave {
+//     transform: translateX(100%);
+// }
+
+// .carousel-next-leave,
+// .carousel-prev-enter {
+//     transform: translateX(-100%);
+// }
+
+// .fade-enter-active,
+// .fade-leave-active {
+//     transition: opacity 0.5s;
+// }
+// .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+//     opacity: 0;
+// }
+
+.slide-next-enter-active,
+.slide-next-leave-active,
+.slide-prev-enter-active,
+.slide-prev-leave-active {
+    transition: all 0.5s;
+}
+
+.slide-next-enter,
+.slide-next-leave {
+    transform: translateX(0);
+}
+.slide-next-enter-to,
+.slide-next-leave-to {
+    transform: translateX(-100%);
+}
+
+.slide-prev-enter {
+    transform: translateX(-200%);
+}
+.slide-prev-enter-to {
+    transform: translateX(-100%);
+}
+.slide-prev-leave {
+    transform: translateX(0);
+}
+.slide-prev-leave-to {
+    transform: translateX(100%);
 }
 </style>
