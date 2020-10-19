@@ -34,6 +34,19 @@
             :fitDiv="true"
             @click.native="nextQuestion"
         />
+
+        <div v-if="answered" class="Test__result">
+            <div class="Test__result_title NextStep__title">
+                {{
+                    questionList[currentQuestion - 1].answer.id === selection.id
+                        ? '答對了'
+                        : '答錯了'
+                }}
+            </div>
+            <span class="Text__result_content NextStep__content">
+                {{ questionList[currentQuestion - 1].detail }}
+            </span>
+        </div>
     </div>
 </template>
 
@@ -48,6 +61,7 @@ export default {
             currentQuestion: 1,
             answered: false,
             selection: { id: 0, content: '' },
+
             selectionDOM: {},
             answerDom: {},
         }
@@ -135,6 +149,13 @@ export default {
         height: 18px;
         width: 18px;
         bottom: -3px;
+    }
+
+    &__result {
+        margin-top: 30px;
+        &_title {
+            text-align: center;
+        }
     }
 }
 .selectedWrong {
