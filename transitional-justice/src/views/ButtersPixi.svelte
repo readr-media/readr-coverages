@@ -40,8 +40,8 @@
     const data = await loadData()
     
     const app = new PIXI.Application({ backgroundColor: 0xffffff })
-    app.renderer.view.style.position = "absolute";
-    app.renderer.view.style.display = "block";
+    // app.renderer.view.style.position = "absolute";
+    // app.renderer.view.style.display = "block";
     app.renderer.autoResize = true;
     app.renderer.resize(window.innerWidth, window.innerHeight * 10);
 

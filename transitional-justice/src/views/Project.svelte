@@ -3,12 +3,14 @@
   <section class="app__main-section main-section">
     <SectionLanding class="main-section__section-landing" />
     <section class="main-section__explore-section explore-section">
+      <Butterfly />
     </section>
   </section>
 </section>
 
 <script>
-  import SectionLanding from "../components/SectionLanding.svelte";
+  import SectionLanding from "../components/SectionLanding.svelte"
+  import Butterfly from '../components/Butterfly.svelte'
 </script>
 
 <style>
