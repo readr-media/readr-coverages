@@ -6,7 +6,7 @@
             :character="character"
         />
 
-        <div class="CharacterAbout__mask" />
+        <!-- <div class="CharacterAbout__mask" /> -->
     </div>
 </template>
 

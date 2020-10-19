@@ -12,7 +12,7 @@ export default {}
 .ArticleTitle {
     margin-bottom: 40px;
     font-family: PingFang TC;
-    font-size: 40px;
+    font-size: 28px;
     font-weight: normal;
     line-height: 1.25;
     color: #4a4a4a;

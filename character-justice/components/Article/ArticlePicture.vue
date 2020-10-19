@@ -1,11 +1,16 @@
 <template>
     <div class="PictureContainer">
-        <div class="PictureContainer__img">
+        <div
+            class="PictureContainer__img"
+            @click="zoomImg"
+            @mouseover="stopAutoplay"
+            @mouseout="startAutoplay"
+        >
             <transition :name="animationState">
                 <img :src="imageUrl[current]" :key="current" />
             </transition>
 
-            <div
+            <!-- <div
                 v-if="imageUrl.length > 1"
                 class="PictureContainer__controller"
                 @mouseover="stopAutoplay"
@@ -19,7 +24,7 @@
                     class="PictureContainer__controller_next"
                     @click="nextImg"
                 />
-            </div>
+            </div> -->
         </div>
 
         <div class="PictureContainer__content">
@@ -84,6 +89,12 @@ export default {
         stopAutoplay() {
             clearInterval(this.autoplayInterval)
         },
+        zoomImg(e) {
+            console.log('zoom')
+            const imgContainer = e.target.parentElement
+
+            imgContainer.classList.toggle('zoom')
+        },
     },
 
     mounted() {
@@ -104,6 +115,8 @@ export default {
         width: 100%;
         display: flex;
         flex-direction: row;
+        align-items: center;
+        justify-content: center;
         overflow: hidden;
         img {
             width: 100%;
@@ -158,6 +171,20 @@ export default {
 
     .selected {
         background-color: #e0c950;
+    }
+
+    .zoom {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 999;
+
+        img {
+            max-width: 800px;
+        }
     }
 }
 

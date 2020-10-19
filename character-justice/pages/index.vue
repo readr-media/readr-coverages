@@ -1,7 +1,9 @@
 <template>
     <div class="app">
         <Hero />
+
         <CharacterAbout />
+
         <StoryNav />
 
         <nuxt-child />
@@ -39,4 +41,17 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.fixContainer {
+    width: 100%;
+    position: fixed;
+}
+
+.moveContainer {
+    position: relative;
+    width: 100%;
+    /* margin-top: 1365.38px; */
+    z-index: 10;
+    /* background: white; */
+}
+</style>

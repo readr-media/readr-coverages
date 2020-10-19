@@ -36,6 +36,9 @@ export default {
 <style lang="scss" scoped>
 .Hero {
     position: relative;
+    // margin-bottom: 100vh;
+    z-index: 10;
+
     &__background {
         height: 675px;
         background: rgb(38, 37, 37);
@@ -60,7 +63,7 @@ export default {
         .word_0 {
             margin-top: 30px;
         }
-      
+
         .word_2 {
             margin-top: 95px;
             margin-left: -40px;
