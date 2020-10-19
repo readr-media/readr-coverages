@@ -8,6 +8,8 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface LatestCoverages {
     }
+    interface ReadrDonateLink {
+    }
     interface ReadrHeader {
     }
 }
@@ -18,6 +20,12 @@ declare global {
         prototype: HTMLLatestCoveragesElement;
         new (): HTMLLatestCoveragesElement;
     };
+    interface HTMLReadrDonateLinkElement extends Components.ReadrDonateLink, HTMLStencilElement {
+    }
+    var HTMLReadrDonateLinkElement: {
+        prototype: HTMLReadrDonateLinkElement;
+        new (): HTMLReadrDonateLinkElement;
+    };
     interface HTMLReadrHeaderElement extends Components.ReadrHeader, HTMLStencilElement {
     }
     var HTMLReadrHeaderElement: {
@@ -26,17 +34,21 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "latest-coverages": HTMLLatestCoveragesElement;
+        "readr-donate-link": HTMLReadrDonateLinkElement;
         "readr-header": HTMLReadrHeaderElement;
     }
 }
 declare namespace LocalJSX {
     interface LatestCoverages {
     }
+    interface ReadrDonateLink {
+    }
     interface ReadrHeader {
         "onReadrLogoLinkClick"?: (event: CustomEvent<any>) => void;
     }
     interface IntrinsicElements {
         "latest-coverages": LatestCoverages;
+        "readr-donate-link": ReadrDonateLink;
         "readr-header": ReadrHeader;
     }
 }
@@ -45,6 +57,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "latest-coverages": LocalJSX.LatestCoverages & JSXBase.HTMLAttributes<HTMLLatestCoveragesElement>;
+            "readr-donate-link": LocalJSX.ReadrDonateLink & JSXBase.HTMLAttributes<HTMLReadrDonateLinkElement>;
             "readr-header": LocalJSX.ReadrHeader & JSXBase.HTMLAttributes<HTMLReadrHeaderElement>;
         }
     }
