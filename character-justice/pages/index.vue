@@ -1,6 +1,6 @@
 <template>
     <div class="app">
-        YOYO HAHAHA
+        YOYO HAHAHA HEHE
         <Hero />
 
         <CharacterAbout />
