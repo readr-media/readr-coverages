@@ -53,6 +53,9 @@ declare namespace LocalJSX {
     interface ReadrDonateLink {
     }
     interface ReadrFooter {
+        "onAboutLinkClick"?: (event: CustomEvent<any>) => void;
+        "onContactLinkClick"?: (event: CustomEvent<any>) => void;
+        "onPrivacyLinkClick"?: (event: CustomEvent<any>) => void;
     }
     interface ReadrHeader {
         "onReadrLogoLinkClick"?: (event: CustomEvent<any>) => void;
