@@ -34,6 +34,7 @@ export class ReadrFooter {
               Object.values(SOCIAL_MEDIA_LINKS).map(medium => {
                 return (
                   <a
+                    key={medium.href}
                     href={medium.href}
                     target="_blank"
                     rel="noopener noreferrer"
