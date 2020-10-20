@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import {Component, Host, h, Event, EventEmitter} from '@stencil/core';
 import SOCIAL_MEDIA_LINKS from './social-media-links';
 
 @Component({
@@ -7,7 +7,25 @@ import SOCIAL_MEDIA_LINKS from './social-media-links';
   shadow: true,
 })
 export class ReadrFooter {
+  @Event({ composed: true }) aboutLinkClick: EventEmitter;
+  @Event({ composed: true }) contactLinkClick: EventEmitter;
+  @Event({ composed: true }) privacyLinkClick: EventEmitter;
+
+  aboutLinkClickHandler(e) {
+    this.aboutLinkClick.emit(e)
+  }
+  contactLinkClickHandler(e) {
+    this.contactLinkClick.emit(e)
+  }
+  privacyLinkClickHandler(e) {
+    this.privacyLinkClick.emit(e)
+  }
+
   render() {
+    const aboutLinkClickHandler = (e) => this.aboutLinkClickHandler(e)
+    const contactLinkClickHandler = (e) => this.contactLinkClickHandler(e)
+    const privacyLinkClickHandler = (e) => this.privacyLinkClickHandler(e)
+
     return (
       <Host>
         <footer>
@@ -31,11 +49,13 @@ export class ReadrFooter {
               href="https://www.readr.tw/about"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={aboutLinkClickHandler}
             >
               關於我們
             </a>
             <a
               href="mailto:readr@readr.tw"
+              onClick={contactLinkClickHandler}
             >
               聯絡我們
             </a>
@@ -43,6 +63,7 @@ export class ReadrFooter {
               href="https://www.readr.tw/privacy-rule"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={privacyLinkClickHandler}
             >
               隱私政策
             </a>
