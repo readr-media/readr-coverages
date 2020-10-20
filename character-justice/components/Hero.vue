@@ -37,11 +37,12 @@ export default {
 .Hero {
     position: relative;
     // margin-bottom: 100vh;
-    z-index: 10;
+    z-index: 1;
 
     &__background {
-        height: 675px;
         background: rgb(38, 37, 37);
+        height: 100vh;
+
         // opacity: 0.5;
         // background-color: #d8d8d8;
     }
