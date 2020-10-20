@@ -1,5 +1,5 @@
 <template>
-    <div class="Story">
+    <div class="Story" id="2">
         <div class="Story__left_image">
             <img :src="left_image" alt="" />
         </div>

@@ -1,9 +1,12 @@
 <template>
     <div
-        class="CharacterCard"
+        class="CharacterCard small"
         @mouseover="mouseOver"
         @mouseout="mouseLeave"
         @click="clickHandler"
+        :style="{
+            marginTop: `${character.smallPosition.top}`,
+        }"
     >
         <div class="CharacterCard__image">
             <img
@@ -28,7 +31,7 @@
 
 <script>
 export default {
-    props: ['character'],
+    props: ['character', 'scrollPosition'],
     data() {
         return {
             status: this.character.status,
@@ -51,21 +54,24 @@ export default {
             // this.$router.push(`/${this.character.url}`)
         },
     },
+
+    mounted() {},
 }
 </script>
 
 <style lang="scss" scoped>
 .CharacterCard {
     cursor: pointer;
-    z-index: 2;
-    width: 25%;
+
+    flex: 1;
+    height: 100vh;
+    overflow: hidden;
     position: relative;
     background: white;
 
     &__image {
         img {
             width: 100%;
-            height: 100%;
         }
     }
 
@@ -111,5 +117,17 @@ export default {
             }
         }
     }
+    transform: scale(0.05);
+    z-index: 1;
+    pointer-events: none;
+}
+.normal {
+    // opacity: 0;
+    z-index: 2;
+    pointer-events: initial;
+
+    transition: all 1s ease-in-out;
+    transform: scale(1);
+    margin-top: 0 !important;
 }
 </style>

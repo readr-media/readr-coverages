@@ -24,6 +24,21 @@ import leftImg2 from '../../images/2_3.jpg'
 import leftImg3 from '../../images/3_3.jpg'
 import leftImg4 from '../../images/4_3.jpg'
 
+function debounce(func, wait = 20, immediate = true) {
+    var timeout
+    return function () {
+        var context = this,
+            args = arguments
+        var later = function () {
+            timeout = null
+            if (!immediate) func.apply(context, args)
+        }
+        var callNow = immediate && !timeout
+        clearTimeout(timeout)
+        timeout = setTimeout(later, wait)
+        if (callNow) func.apply(context, args)
+    }
+}
 export default {
     components: {
         StoryNav,
@@ -48,8 +63,6 @@ export default {
     },
     methods: {
         updateScroll() {
-            console.log('YOYO')
-
             //get the element
             var elem = this.$refs.StoryPage
             //create viewport offset object
@@ -61,9 +74,8 @@ export default {
         },
     },
     mounted() {
-        window.addEventListener('scroll', this.updateScroll)
-
-        // window.addEventListener('scroll', debounce(this.updateScroll))
+        // window.addEventListener('scroll', this.updateScroll)
+        window.addEventListener('scroll', debounce(this.updateScroll))
     },
 }
 </script>
