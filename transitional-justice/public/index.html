@@ -2,20 +2,53 @@
 <html lang="en">
 <head>
 	<meta charset='utf-8'>
-	<meta name='viewport' content='width=device-width,initial-scale=1'>
+	<meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <!--  <base href="./transitional-justice/">-->
 
-	<title>Svelte app</title>
+  <meta property="og:title" content="轉型正義之路：從戒嚴時期受難者資料揭開白色恐怖的秘密" />
+  <meta property="og:description" content="臺灣歷經數十年的威權統治，上萬名政治犯因捲入政治案件鋃鐺入獄，這些受難者是誰？為何被起訴？又有哪些人參與審判的決策？READr 分析轉型正義資料庫，試圖從超過萬筆受難者的軍事審判過程中，找出白色恐怖統治高度體制化運作的原因。" />
+  <meta property="og:image" content="https://www.readr.tw/project/3/transitional-justice/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://www.readr.tw/project/3/transitional-justice"/>
+  <meta property="og:site_name" content="讀＋READr">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:type" content="article">
+  <meta property="article:author" content="https://www.facebook.com/Readr-563994370665617/">
+  <meta property="article:publisher" content="https://www.facebook.com/Readr-563994370665617/">
+  <meta property="fb:app_id" content="2138298816406811">
+  <meta property="fb:pages" content="563994370665617">
 
-	<link rel='icon' type='image/png' href='./favicon.png'>
+	<title>轉型正義之路：從戒嚴時期受難者資料揭開白色恐怖的秘密</title>
+  <meta
+    name="description"
+    content="臺灣歷經數十年的威權統治，上萬名政治犯因捲入政治案件鋃鐺入獄，這些受難者是誰？為何被起訴？又有哪些人參與審判的決策？READr 分析轉型正義資料庫，試圖從超過萬筆受難者的軍事審判過程中，找出白色恐怖統治高度體制化運作的原因。"
+  />
+
+	<link rel="apple-touch-icon" sizes="120x120" href="https://www.readr.tw/public/favicon.png">
+  <link rel="manifest" href="https://www.readr.tw/manifest.json">
 	<link rel='stylesheet' href='./base.css'>
 	<link rel='stylesheet' href='./build/bundle.css'>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.1.3/pixi.min.js"></script>
   <script src="https://d3js.org/d3-dsv.v2.min.js"></script>
   <script src="https://d3js.org/d3-fetch.v2.min.js"></script>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@readr-media/web-components@0.2.0/dist/web-components/web-components.esm.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/ScrollTrigger.min.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@readr-media/web-components@0.6.0/dist/web-components/web-components.esm.js"></script>
 	<script defer src='./build/bundle.js'></script>
+	<!-- Google Analytics -->
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-83609754-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	<!-- End Google Analytics -->
 </head>
 
 <body>

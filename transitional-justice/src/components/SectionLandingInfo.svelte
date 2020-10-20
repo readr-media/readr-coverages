@@ -1,9 +1,20 @@
 <div class="info">
-  <img
-    class="info__title-img"
-    src="title.svg"
-    alt="title"
-  >
+<!--  <img-->
+<!--    class="info__title-img"-->
+<!--    src="title.svg"-->
+<!--    alt="title"-->
+<!--  >-->
+  <picture>
+    <source
+      srcset="title-mobile.png"
+      media="(max-width: 768px)"
+    >
+    <img
+      class="info__title-img"
+      src="title.svg"
+      alt="title-decoration"
+    >
+  </picture>
   <img
     class="info__title-decoration-img"
     src="butterfly-line-02.svg"
@@ -55,5 +66,31 @@
   }
   .info__description p+p {
     margin: 24px 0 0 0;
+  }
+  
+  @media (max-width: 767px) {
+    .info {
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .info__title-img {
+      /*height: 180px;*/
+      /*left: -50px;*/
+      width: 100%;
+      height: auto;
+      left: 0;
+    }
+
+    .info__title-decoration-img {
+      display: none;
+      /*height: 50px;*/
+      /*left: 60px;*/
+      /*top: -40px;*/
+    }
+
+    .info__title {
+      font-size: 28px;
+    }
   }
 </style>
