@@ -1,6 +1,10 @@
 <template>
-    <div class="">
-        <Story :leftImg="leftImg">
+    <div class="Story">
+        <div class="Story__left_image">
+            <img :src="left_image" alt="" />
+        </div>
+
+        <div class="Story__content">
             <ArticleTitle>張常美：會讀書的人還真倒霉</ArticleTitle>
 
             <ArticleQuote>
@@ -118,30 +122,27 @@
 
                 <br
             /></ArticleParagraph>
-        </Story>
+        </div>
     </div>
 </template>
 
 <script>
-import Story from '../../../components/Story'
-import ArticleQuote from '../../../components/Article/ArticleQuote'
-import ArticleTitle from '../../../components/Article/ArticleTitle'
-import ArticleParagraph from '../../../components/Article/ArticleParagraph'
-import ArticlePicture from '../../../components/Article/ArticlePicture'
-import ArticleNotation from '../../../components/Article/ArticleNotation'
+import ArticleQuote from '../Article/ArticleQuote'
+import ArticleTitle from '../Article/ArticleTitle'
+import ArticleParagraph from '../Article/ArticleParagraph'
+import ArticlePicture from '../Article/ArticlePicture'
+import ArticleNotation from '../Article/ArticleNotation'
 
-import leftImg from '../../../images/1_3.jpg'
-import story1_1 from '../../../images/story1_1.jpeg'
-import story1_2 from '../../../images/story1_2.jpeg'
-import story1_3_1 from '../../../images/story1_3_1.jpeg'
-import story1_3_2 from '../../../images/story1_3_2.jpeg'
-import story1_3_3 from '../../../images/story1_3_3.jpeg'
+import left_image from '../../images/2_3.jpg'
+import story1_1 from '../../images/story1_1.jpeg'
+import story1_2 from '../../images/story1_2.jpeg'
+import story1_3_1 from '../../images/story1_3_1.jpeg'
+import story1_3_2 from '../../images/story1_3_2.jpeg'
+import story1_3_3 from '../../images/story1_3_3.jpeg'
 
 export default {
     transition: 'fade',
-
     components: {
-        Story,
         ArticleQuote,
         ArticleTitle,
         ArticleParagraph,
@@ -150,7 +151,7 @@ export default {
     },
     data() {
         return {
-            leftImg,
+            left_image,
             story1_1,
             story1_2,
             story1_3_1,
@@ -161,4 +162,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import './Story.scss';
+</style>

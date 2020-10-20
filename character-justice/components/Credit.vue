@@ -13,6 +13,8 @@ export default {}
 
 <style lang="scss" scoped>
 .Credit {
+    z-index: 1;
+    position: relative;
     padding: 23px 0 21px;
     background-color: #006db2;
 

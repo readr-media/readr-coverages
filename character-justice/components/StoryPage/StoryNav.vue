@@ -1,5 +1,5 @@
 <template>
-    <div class="StoryNav" id="StoryNav">
+    <div class="StoryNav" id="StoryNav" :class="{ fixTop: fix }">
         <div
             class="StoryNav__list"
             v-for="list in characterList"
@@ -13,14 +13,43 @@
 </template>
 
 <script>
-import characterList from '../mixins/characterList'
+import characterList from '../../mixins/characterList'
+
+function debounce(func, wait = 20, immediate = true) {
+    var timeout
+    return function () {
+        var context = this,
+            args = arguments
+        var later = function () {
+            timeout = null
+            if (!immediate) func.apply(context, args)
+        }
+        var callNow = immediate && !timeout
+        clearTimeout(timeout)
+        timeout = setTimeout(later, wait)
+        if (callNow) func.apply(context, args)
+    }
+}
 export default {
     mixins: [characterList],
+    props: ['fix'],
+
+    data() {
+        return {}
+    },
 }
 </script>
 
 <style lang="scss" scoped>
 .StoryNav {
+    position: absolute;
+    z-index: 10;
+    background: white;
+    top: 0;
+    left: 0;
+    height: 41px;
+    width: 100%;
+
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -50,5 +79,9 @@ export default {
 
 .nuxt-link-active {
     color: #000000 !important;
+}
+
+.fixTop {
+    position: fixed;
 }
 </style>

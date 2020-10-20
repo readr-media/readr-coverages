@@ -2,13 +2,16 @@
     <div class="PictureContainer">
         <div
             class="PictureContainer__img"
+            :class="{ zoom: zoom }"
             @click="zoomImg"
             @mouseover="stopAutoplay"
             @mouseout="startAutoplay"
         >
-            <transition :name="animationState">
-                <img :src="imageUrl[current]" :key="current" />
-            </transition>
+            <div class="PictureContainer__img_container">
+                <transition :name="animationState">
+                    <img :src="imageUrl[current]" :key="current" />
+                </transition>
+            </div>
 
             <!-- <div
                 v-if="imageUrl.length > 1"
@@ -53,9 +56,11 @@ export default {
             current: 0,
             next: 1,
             animationState: 'slide-next',
-            autoplayInterval: setInterval(() => {
-                this.nextImg()
-            }, this.autoplayTimeout),
+            // autoplayInterval: setInterval(() => {
+            //     this.nextImg()
+            // }, this.autoplayTimeout),
+            autoplayInterval: {},
+            zoom: false,
         }
     },
     methods: {
@@ -82,18 +87,19 @@ export default {
             this.selectionHandler(next)
         },
         startAutoplay() {
-            this.autoplayInterval = setInterval(() => {
-                this.nextImg()
-            }, this.autoplayTimeout)
+            // this.autoplayInterval = setInterval(() => {
+            //     this.nextImg()
+            // }, this.autoplayTimeout)
         },
         stopAutoplay() {
             clearInterval(this.autoplayInterval)
         },
         zoomImg(e) {
-            console.log('zoom')
-            const imgContainer = e.target.parentElement
+            this.zoom = !this.zoom
+            // console.log('zoom')
+            // const imgContainer = e.target.parentElement
 
-            imgContainer.classList.toggle('zoom')
+            // imgContainer.classList.toggle('zoom')
         },
     },
 
@@ -116,9 +122,15 @@ export default {
         display: flex;
         flex-direction: row;
         align-items: center;
-        overflow: hidden;
-        img {
-            width: 100%;
+        justify-content: center;
+        &_container {
+            width: 800px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            img {
+                width: 100%;
+            }
         }
     }
     &__content {

@@ -42,13 +42,13 @@ export default {
             this.status = false
         },
         clickHandler() {
-            const myEl = document.getElementById('StoryNav')
+            const myEl = document.getElementById(`${this.character.url}`)
 
             this.$smoothScroll({
                 scrollTo: myEl,
-                hash: '#StoryNav', // required if updateHistory is true
+                // hash: '#StoryNav', // required if updateHistory is true
             })
-            this.$router.push(`/${this.character.url}`)
+            // this.$router.push(`/${this.character.url}`)
         },
     },
 }
@@ -60,10 +60,12 @@ export default {
     z-index: 2;
     width: 25%;
     position: relative;
+    background: white;
 
     &__image {
         img {
             width: 100%;
+            height: 100%;
         }
     }
 

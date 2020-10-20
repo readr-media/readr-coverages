@@ -1,6 +1,10 @@
 <template>
-    <div class="">
-        <Story :leftImg="leftImg">
+    <div class="Story">
+        <div class="Story__left_image">
+            <img :src="left_image" alt="" />
+        </div>
+
+        <div class="Story__content">
             <ArticleTitle
                 >劉秀明：是誰讓白色恐怖維持這麼久，我們需要一個答案</ArticleTitle
             >
@@ -78,27 +82,25 @@
                     幾年，日子也算是過得過去。對於曾經被政治迫害的歲月，我們沒有要求臺灣要像德國一樣，重啟類似「紐倫堡大審」的審判，只希望能盡快把賠償的細則訂定出來，還有查出真相，究竟是哪些人讓白色恐怖維持了這麼久，我們需要一個答案。
                 </p>
             </ArticleParagraph>
-        </Story>
+        </div>
     </div>
 </template>
 
 <script>
-import Story from '../../../components/Story'
-import ArticleQuote from '../../../components/Article/ArticleQuote'
-import ArticleTitle from '../../../components/Article/ArticleTitle'
-import ArticleParagraph from '../../../components/Article/ArticleParagraph'
-import ArticlePicture from '../../../components/Article/ArticlePicture'
-import ArticleNotation from '../../../components/Article/ArticleNotation'
+import ArticleQuote from '../Article/ArticleQuote'
+import ArticleTitle from '../Article/ArticleTitle'
+import ArticleParagraph from '../Article/ArticleParagraph'
+import ArticlePicture from '../Article/ArticlePicture'
+import ArticleNotation from '../Article/ArticleNotation'
 
-import leftImg from '../../../images/3_3.jpg'
-import story3_1 from '../../../images/story3_1.jpeg'
-import story3_2 from '../../../images/story3_2.jpeg'
+import left_image from '../../images/3_3.jpg'
+import story3_1 from '../../images/story3_1.jpeg'
+import story3_2 from '../../images/story3_2.jpeg'
 
 export default {
     transition: 'fade',
 
     components: {
-        Story,
         ArticleQuote,
         ArticleTitle,
         ArticleParagraph,
@@ -107,7 +109,7 @@ export default {
     },
     data() {
         return {
-            leftImg,
+            left_image,
             story3_1,
             story3_2,
         }
@@ -115,4 +117,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import './Story.scss';
+</style>

@@ -25,6 +25,7 @@ export default {
 <style lang="scss" scoped>
 .CharacterAbout {
     position: relative;
+    background: white;
     width: 100%;
     display: flex;
     flex-direction: row;
