@@ -112,11 +112,10 @@ export default {
     margin-bottom: 40px;
     &__img {
         position: relative;
-        width: 100%;
+        // width: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: center;
         overflow: hidden;
         img {
             width: 100%;
@@ -187,30 +186,6 @@ export default {
         }
     }
 }
-
-// .carousel-prev-enter-active,
-// .carousel-prev-leave-active,
-// .carousel-next-enter-active,
-// .carousel-next-leave-active {
-//     transition: transform 1s ease;
-// }
-// .carousel-next-enter,
-// .carousel-prev-leave {
-//     transform: translateX(100%);
-// }
-
-// .carousel-next-leave,
-// .carousel-prev-enter {
-//     transform: translateX(-100%);
-// }
-
-// .fade-enter-active,
-// .fade-leave-active {
-//     transition: opacity 0.5s;
-// }
-// .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-//     opacity: 0;
-// }
 
 .slide-next-enter-active,
 .slide-next-leave-active,
