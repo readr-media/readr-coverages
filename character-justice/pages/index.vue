@@ -4,9 +4,8 @@
 
         <CharacterAbout />
 
-        <StoryNav />
-
-        <nuxt-child />
+        <!-- <nuxt-child /> -->
+        <StoryPage />
 
         <NextStep />
         <Credit />
@@ -18,21 +17,21 @@
 <script>
 import Hero from '../components/Hero'
 import CharacterAbout from '../components/CharacterAbout/CharacterAbout'
-import StoryNav from '../components/StoryNav'
 import NextStep from '../components/NextStep/NextStep'
 import Credit from '../components/Credit'
 import More from '../components/More/More'
 import Footer from '../components/Footer'
+import StoryPage from '../components/StoryPage/StoryPage'
 
 export default {
     components: {
         Hero,
         CharacterAbout,
-        StoryNav,
         NextStep,
         Credit,
         More,
         Footer,
+        StoryPage,
     },
 
     // mounted() {

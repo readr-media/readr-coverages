@@ -90,6 +90,8 @@ export default {
 
 <style lang="scss" scoped>
 .Footer {
+    z-index: 1;
+    background: white;
     box-sizing: border-box;
     position: relative;
     height: 155px;

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>註關掉 copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="justice-web" transform="translate(-541.000000, -8297.000000)" fill-rule="nonzero">
+            <g id="註關掉-copy" filter="url(#filter-1)" transform="translate(545.000000, 8299.000000)">
+                <circle id="Oval" fill="#006DB2" cx="12" cy="12" r="12"></circle>
+                <g id="Group-4" transform="translate(12.500000, 12.500000) rotate(-315.000000) translate(-12.500000, -12.500000) translate(5.000000, 5.000000)" fill="#FFFFFF">
+                    <rect id="Rectangle" x="0" y="6" width="15" height="3"></rect>
+                    <rect id="Rectangle-Copy-3" transform="translate(7.500000, 7.500000) rotate(-270.000000) translate(-7.500000, -7.500000) " x="0" y="6" width="15" height="3"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

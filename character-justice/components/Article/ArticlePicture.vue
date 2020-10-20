@@ -2,13 +2,16 @@
     <div class="PictureContainer">
         <div
             class="PictureContainer__img"
+            :class="{ zoom: zoom }"
             @click="zoomImg"
             @mouseover="stopAutoplay"
             @mouseout="startAutoplay"
         >
-            <transition :name="animationState">
-                <img :src="imageUrl[current]" :key="current" />
-            </transition>
+            <div class="PictureContainer__img_container">
+                <transition :name="animationState">
+                    <img :src="imageUrl[current]" :key="current" />
+                </transition>
+            </div>
 
             <!-- <div
                 v-if="imageUrl.length > 1"
@@ -53,9 +56,11 @@ export default {
             current: 0,
             next: 1,
             animationState: 'slide-next',
-            autoplayInterval: setInterval(() => {
-                this.nextImg()
-            }, this.autoplayTimeout),
+            // autoplayInterval: setInterval(() => {
+            //     this.nextImg()
+            // }, this.autoplayTimeout),
+            autoplayInterval: {},
+            zoom: false,
         }
     },
     methods: {
@@ -82,18 +87,19 @@ export default {
             this.selectionHandler(next)
         },
         startAutoplay() {
-            this.autoplayInterval = setInterval(() => {
-                this.nextImg()
-            }, this.autoplayTimeout)
+            // this.autoplayInterval = setInterval(() => {
+            //     this.nextImg()
+            // }, this.autoplayTimeout)
         },
         stopAutoplay() {
             clearInterval(this.autoplayInterval)
         },
         zoomImg(e) {
-            console.log('zoom')
-            const imgContainer = e.target.parentElement
+            this.zoom = !this.zoom
+            // console.log('zoom')
+            // const imgContainer = e.target.parentElement
 
-            imgContainer.classList.toggle('zoom')
+            // imgContainer.classList.toggle('zoom')
         },
     },
 
@@ -112,14 +118,19 @@ export default {
     margin-bottom: 40px;
     &__img {
         position: relative;
-        width: 100%;
+        // width: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        overflow: hidden;
-        img {
-            width: 100%;
+        &_container {
+            width: 800px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            img {
+                width: 100%;
+            }
         }
     }
     &__content {
@@ -187,30 +198,6 @@ export default {
         }
     }
 }
-
-// .carousel-prev-enter-active,
-// .carousel-prev-leave-active,
-// .carousel-next-enter-active,
-// .carousel-next-leave-active {
-//     transition: transform 1s ease;
-// }
-// .carousel-next-enter,
-// .carousel-prev-leave {
-//     transform: translateX(100%);
-// }
-
-// .carousel-next-leave,
-// .carousel-prev-enter {
-//     transform: translateX(-100%);
-// }
-
-// .fade-enter-active,
-// .fade-leave-active {
-//     transition: opacity 0.5s;
-// }
-// .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-//     opacity: 0;
-// }
 
 .slide-next-enter-active,
 .slide-next-leave-active,
