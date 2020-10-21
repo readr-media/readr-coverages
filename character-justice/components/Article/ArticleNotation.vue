@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import notationIcon from '../../images/notation.svg'
-import notationIcon_off from '../../images/notation_off.svg'
+import notationIcon from '~/static/images/notation.svg'
+import notationIcon_off from '~/static/images/notation_off.svg'
 
 export default {
     props: ['notation'],

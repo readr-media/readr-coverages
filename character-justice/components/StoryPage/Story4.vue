@@ -133,12 +133,12 @@ import ArticleParagraph from '../Article/ArticleParagraph'
 import ArticlePicture from '../Article/ArticlePicture'
 import ArticleNotation from '../Article/ArticleNotation'
 
-import left_image from '../../images/4_3.jpg'
-import story1_1 from '../../images/story1_1.jpeg'
-import story1_2 from '../../images/story1_2.jpeg'
-import story1_3_1 from '../../images/story1_3_1.jpeg'
-import story1_3_2 from '../../images/story1_3_2.jpeg'
-import story1_3_3 from '../../images/story1_3_3.jpeg'
+import left_image from '~/static/images/4_3.jpg'
+import story1_1 from '~/static/images/story1_1.jpeg'
+import story1_2 from '~/static/images/story1_2.jpeg'
+import story1_3_1 from '~/static/images/story1_3_1.jpeg'
+import story1_3_2 from '~/static/images/story1_3_2.jpeg'
+import story1_3_3 from '~/static/images/story1_3_3.jpeg'
 
 export default {
     transition: 'fade',

@@ -93,9 +93,9 @@ import ArticleParagraph from '../Article/ArticleParagraph'
 import ArticlePicture from '../Article/ArticlePicture'
 import ArticleNotation from '../Article/ArticleNotation'
 
-import left_image from '../../images/3_3.jpg'
-import story3_1 from '../../images/story3_1.jpeg'
-import story3_2 from '../../images/story3_2.jpeg'
+import left_image from '~/static/images/3_3.jpg'
+import story3_1 from '~/static/images/story3_1.jpeg'
+import story3_2 from '~/static/images/story3_2.jpeg'
 
 export default {
     transition: 'fade',
