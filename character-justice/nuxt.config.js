@@ -7,6 +7,8 @@ import {
 } from './configs/metaConfig'
 export default {
     // Global page headers (https://go.nuxtjs.dev/config-head)
+    ssr: false,
+    target: 'static',
     head: {
         title: '轉型正義-人物篇',
         meta: [

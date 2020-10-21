@@ -87,15 +87,15 @@
 </template>
 
 <script>
-import ArticleQuote from '../Article/ArticleQuote'
-import ArticleTitle from '../Article/ArticleTitle'
-import ArticleParagraph from '../Article/ArticleParagraph'
-import ArticlePicture from '../Article/ArticlePicture'
-import ArticleNotation from '../Article/ArticleNotation'
+import ArticleQuote from '~/components/Article/ArticleQuote'
+import ArticleTitle from '~/components/Article/ArticleTitle'
+import ArticleParagraph from '~/components/Article/ArticleParagraph'
+import ArticlePicture from '~/components/Article/ArticlePicture'
+import ArticleNotation from '~/components/Article/ArticleNotation'
 
-import left_image from '../../images/3_3.jpg'
-import story3_1 from '../../images/story3_1.jpeg'
-import story3_2 from '../../images/story3_2.jpeg'
+import left_image from '~/static/images/3_3.jpg'
+import story3_1 from '~/static/images/story3_1.jpeg'
+import story3_2 from '~/static/images/story3_2.jpeg'
 
 export default {
     transition: 'fade',

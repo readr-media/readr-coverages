@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import mark from '../../images/mark.svg'
+import mark from '~/static/images/mark.svg'
 export default {
     data() {
         return {
@@ -35,7 +35,7 @@ export default {
         //     width: 100%;
         //     height: 100%;
         // }
-        background-image: url('../../images/mark.svg');
+        background-image: url('~static/images/mark.svg');
         background-position: center;
         background-size: 100% 100%;
     }

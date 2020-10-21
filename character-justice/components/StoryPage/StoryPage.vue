@@ -14,15 +14,15 @@
 <script>
 import StoryNav from './StoryNav'
 
-import Story1 from './Story1'
-import Story2 from './Story2'
-import Story3 from './Story3'
-import Story4 from './Story4'
+import Story1 from '~/components/StoryPage/Story1'
+import Story2 from '~/components/StoryPage/Story2'
+import Story3 from '~/components/StoryPage/Story3'
+import Story4 from '~/components/StoryPage/Story4'
 
-import leftImg1 from '../../images/1_3.jpg'
-import leftImg2 from '../../images/2_3.jpg'
-import leftImg3 from '../../images/3_3.jpg'
-import leftImg4 from '../../images/4_3.jpg'
+import leftImg1 from '~/static/images/1_3.jpg'
+import leftImg2 from '~/static/images/2_3.jpg'
+import leftImg3 from '~/static/images/3_3.jpg'
+import leftImg4 from '~/static/images/4_3.jpg'
 
 function debounce(func, wait = 20, immediate = true) {
     var timeout

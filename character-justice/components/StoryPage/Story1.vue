@@ -131,18 +131,18 @@
 </template>
 
 <script>
-import ArticleQuote from '../Article/ArticleQuote'
-import ArticleTitle from '../Article/ArticleTitle'
-import ArticleParagraph from '../Article/ArticleParagraph'
-import ArticlePicture from '../Article/ArticlePicture'
-import ArticleNotation from '../Article/ArticleNotation'
+import ArticleQuote from '~/components/Article/ArticleQuote'
+import ArticleTitle from '~/components/Article/ArticleTitle'
+import ArticleParagraph from '~/components/Article/ArticleParagraph'
+import ArticlePicture from '~/components/Article/ArticlePicture'
+import ArticleNotation from '~/components/Article/ArticleNotation'
 
-import left_image from '../../images/1_3.jpg'
-import story1_1 from '../../images/story1_1.jpeg'
-import story1_2 from '../../images/story1_2.jpeg'
-import story1_3_1 from '../../images/story1_3_1.jpeg'
-import story1_3_2 from '../../images/story1_3_2.jpeg'
-import story1_3_3 from '../../images/story1_3_3.jpeg'
+import left_image from '~/static/images/1_3.jpg'
+import story1_1 from '~/static/images/story1_1.jpeg'
+import story1_2 from '~/static/images/story1_2.jpeg'
+import story1_3_1 from '~/static/images/story1_3_1.jpeg'
+import story1_3_2 from '~/static/images/story1_3_2.jpeg'
+import story1_3_3 from '~/static/images/story1_3_3.jpeg'
 
 export default {
     transition: 'fade',

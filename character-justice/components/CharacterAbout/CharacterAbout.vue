@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import characterList from '../../mixins/characterList'
+import characterList from '~/mixins/characterList'
 
-import CharacterCard from './CharacterCard'
+import CharacterCard from '~/components/CharacterAbout/CharacterCard'
 export default {
     mixins: [characterList],
     components: {

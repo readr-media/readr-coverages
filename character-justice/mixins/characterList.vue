@@ -1,12 +1,12 @@
 <script>
-import hover1 from '../images/1_1.jpg'
-import hover2 from '../images/2_1.jpg'
-import hover3 from '../images/3_1.jpg'
-import hover4 from '../images/4_1.jpg'
-import normal1 from '../images/1_2.jpg'
-import normal2 from '../images/2_2.jpg'
-import normal3 from '../images/3_2.jpg'
-import normal4 from '../images/4_2.jpg'
+import hover1 from '~/static/images/1_1.jpg'
+import hover2 from '~/static/images/2_1.jpg'
+import hover3 from '~/static/images/3_1.jpg'
+import hover4 from '~/static/images/4_1.jpg'
+import normal1 from '~/static/images/1_2.jpg'
+import normal2 from '~/static/images/2_2.jpg'
+import normal3 from '~/static/images/3_2.jpg'
+import normal4 from '~/static/images/4_2.jpg'
 export default {
     data() {
         return {

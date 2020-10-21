@@ -35,10 +35,10 @@
 </template>
 
 <script>
-import facebook from '../images/footer/facebook.svg'
-import twitter from '../images/footer/twitter.svg'
-import instagram from '../images/footer/instagram.svg'
-import github from '../images/footer/github.svg'
+import facebook from '~/static/images/footer/facebook.svg'
+import twitter from '~/static/images/footer/twitter.svg'
+import instagram from '~/static/images/footer/instagram.svg'
+import github from '~/static/images/footer/github.svg'
 
 export default {
     data() {

@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import Hero from '../components/Hero'
-import CharacterAbout from '../components/CharacterAbout/CharacterAbout'
-import NextStep from '../components/NextStep/NextStep'
-import Credit from '../components/Credit'
-import More from '../components/More/More'
-import Footer from '../components/Footer'
-import StoryPage from '../components/StoryPage/StoryPage'
+import Hero from '~/components/Hero'
+import CharacterAbout from '~/components/CharacterAbout/CharacterAbout'
+import NextStep from '~/components/NextStep/NextStep'
+import Credit from '~/components/Credit'
+import More from '~/components/More/More'
+import Footer from '~/components/Footer'
+import StoryPage from '~/components/StoryPage/StoryPage'
 
 export default {
     components: {

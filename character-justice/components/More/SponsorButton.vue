@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import sponsor from '../../images/sponsor/sponsor.svg'
-import sponsorSmall from '../../images/sponsor/sponsorSmall.svg'
+import sponsor from '~/static/images/sponsor/sponsor.svg'
+import sponsorSmall from '~/static/images/sponsor/sponsorSmall.svg'
 
 export default {
     data() {

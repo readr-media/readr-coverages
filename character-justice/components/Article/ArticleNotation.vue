@@ -1,11 +1,14 @@
 <template>
     <span class="ArticleNotation">
-        <slot />&emsp;&emsp;
-        <span class="ArticleNotation__icon" @click="notationToggle">
-            <img
-                :src="!notationFlag ? notationIcon : notationIcon_off"
-                alt="notationIcon"
-        /></span>
+        <span class="ArticleNotation__title">
+            <slot />
+            <span class="ArticleNotation__title_icon" @click="notationToggle">
+                <img
+                    :src="!notationFlag ? notationIcon : notationIcon_off"
+                    alt="notationIcon"
+                />
+            </span>
+        </span>
 
         <div v-if="notationFlag" class="ArticleNotation__notation">
             {{ notation }}
@@ -14,8 +17,8 @@
 </template>
 
 <script>
-import notationIcon from '../../images/notation.svg'
-import notationIcon_off from '../../images/notation_off.svg'
+import notationIcon from '~/static/images/notation.svg'
+import notationIcon_off from '~/static/images/notation_off.svg'
 
 export default {
     props: ['notation'],
@@ -38,27 +41,23 @@ export default {
 .ArticleNotation {
     color: #006eb8;
     position: relative;
-    &__icon {
-        cursor: pointer;
-        position: absolute;
-        // right: 6px;
-        left: 51px;
 
-        height: 31px;
-        img {
-            height: 100%;
+    &__title {
+        &_icon {
+            cursor: pointer;
+            // position: absolute;
+            // right: 6px;
+            // left: 51px;
+
+            height: 31px;
+            img {
+                height: 100%;
+                margin-bottom: -12px;
+            }
         }
     }
 
     &__notation {
-        // position: absolute;
-        // top: 1rem;
-        // width: 480px;
-        // right: -130px;
-        // background: white;
-        // box-sizing: border-box;
-        // padding: 15px;
-        // border: solid 1px #9b9b9b;
         border-radius: 14px;
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
         border: solid 1px #006db2;
