@@ -10,8 +10,17 @@
     >
         <div class="CharacterCard__image">
             <img
-                :src="status ? character.image.hover : character.image.normal"
-                alt=""
+                class="image_normal"
+                :class="{ image_normal_hide: status }"
+                :src="character.image.normal"
+                :key="character.id"
+                :alt="character.name"
+            />
+            <img
+                class="image_hover"
+                :src="character.image.hover"
+                :key="character.id"
+                :alt="character.name"
             />
         </div>
 
@@ -62,16 +71,29 @@ export default {
 <style lang="scss" scoped>
 .CharacterCard {
     cursor: pointer;
-
+    width: 25%;
     flex: 1;
-    height: 100vh;
+    // height: 100vh;
     overflow: hidden;
     position: relative;
     background: white;
 
     &__image {
+        width: 100%;
+
         img {
             width: 100%;
+        }
+
+        .image_normal {
+            position: absolute;
+            transition: opacity 0.5s ease-in;
+            &_hide {
+                opacity: 0;
+            }
+        }
+
+        .image_hover {
         }
     }
 
