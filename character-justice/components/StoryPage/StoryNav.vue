@@ -4,13 +4,9 @@
             class="StoryNav__list"
             v-for="list in characterList"
             :key="list.id"
+            @click="clickHandler(list.id)"
         >
-            <!-- <router-link :to="list.url"
-                >{{ list.name }} {{ list.info.content }}</router-link
-            > -->
-            <div @click="clickHandler(list.id)">
-                {{ list.name }} {{ list.info.content }}
-            </div>
+            {{ list.name }} {{ list.info.content }}
         </div>
     </div>
 </template>
@@ -59,16 +55,15 @@ export default {
         border-right: solid 1px #9b9b9b;
         padding: 0 14px;
         cursor: pointer;
-        a {
-            font-family: PingFangTC;
-            font-size: 0.875rem;
-            font-weight: 500;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 2;
-            letter-spacing: normal;
-            color: #9b9b9b;
-        }
+
+        font-family: PingFangTC;
+        font-size: 0.875rem;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 2;
+        letter-spacing: normal;
+        color: #9b9b9b;
 
         &:last-child {
             border: none;
