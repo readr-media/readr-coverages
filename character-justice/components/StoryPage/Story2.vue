@@ -127,11 +127,11 @@
 </template>
 
 <script>
-import ArticleQuote from '../Article/ArticleQuote'
-import ArticleTitle from '../Article/ArticleTitle'
-import ArticleParagraph from '../Article/ArticleParagraph'
-import ArticlePicture from '../Article/ArticlePicture'
-import ArticleNotation from '../Article/ArticleNotation'
+import ArticleQuote from '~/components/Article/ArticleQuote'
+import ArticleTitle from '~/components/Article/ArticleTitle'
+import ArticleParagraph from '~/components/Article/ArticleParagraph'
+import ArticlePicture from '~/components/Article/ArticlePicture'
+import ArticleNotation from '~/components/Article/ArticleNotation'
 
 import left_image from '~/static/images/2_3.jpg'
 import story1_1 from '~/static/images/story1_1.jpeg'

@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import Test from './Test'
+import Test from '~/components/NextStep/Test'
 
 export default {
     components: {

@@ -15,7 +15,7 @@
 import news1 from '~/static/images/news/news1.jpg'
 import news2 from '~/static/images/news/news2.jpg'
 import news3 from '~/static/images/news/news3.jpg'
-import PreviewNews from './PreviewNews'
+import PreviewNews from '~/components/More/PreviewNews'
 
 export default {
     components: {

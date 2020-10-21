@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import characterList from '../../mixins/characterList'
+import characterList from '~/mixins/characterList'
 
 export default {
     mixins: [characterList],

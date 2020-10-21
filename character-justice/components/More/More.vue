@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import SponsorButton from './SponsorButton'
-import RelativeNews from './RelativeNews'
+import SponsorButton from '~/components/More/SponsorButton'
+import RelativeNews from '~/components/More/RelativeNews'
 
 export default {
     components: {
