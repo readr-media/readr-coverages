@@ -5,9 +5,12 @@
             v-for="list in characterList"
             :key="list.id"
         >
-            <router-link :to="list.url"
+            <!-- <router-link :to="list.url"
                 >{{ list.name }} {{ list.info.content }}</router-link
-            >
+            > -->
+            <div @click="clickHandler(list.id)">
+                {{ list.name }} {{ list.info.content }}
+            </div>
         </div>
     </div>
 </template>
@@ -21,6 +24,16 @@ export default {
 
     data() {
         return {}
+    },
+    methods: {
+        clickHandler(id) {
+            const myEl = document.getElementById(`${id}`)
+
+            this.$smoothScroll({
+                scrollTo: myEl,
+                // hash: '#StoryNav', // required if updateHistory is true
+            })
+        },
     },
 }
 </script>
@@ -45,6 +58,7 @@ export default {
     &__list {
         border-right: solid 1px #9b9b9b;
         padding: 0 14px;
+        cursor: pointer;
         a {
             font-family: PingFangTC;
             font-size: 0.875rem;

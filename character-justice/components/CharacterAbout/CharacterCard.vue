@@ -45,7 +45,7 @@ export default {
             this.status = false
         },
         clickHandler() {
-            const myEl = document.getElementById(`${this.character.url}`)
+            const myEl = document.getElementById(`${this.character.id}`)
 
             this.$smoothScroll({
                 scrollTo: myEl,
