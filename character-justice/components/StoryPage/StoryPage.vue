@@ -1,6 +1,6 @@
 <template>
     <div class="StoryPage" id="StoryPage" ref="StoryPage">
-        <StoryNav :fix="scrollPosition <= 0" />
+        <!-- <StoryNav :fix="scrollPosition <= 0" /> -->
 
         <div class="StoryPage__story_list">
             <Story1 />
@@ -83,11 +83,22 @@ export default {
 <style lang="scss" scoped>
 .StoryPage {
     position: relative;
+    width: 100%;
 
     &__story_list {
-        padding-top: 41px;
-        width: 850px;
+        padding-top: 32px;
+        width: 100%;
         margin: auto;
+    }
+
+    @include atMedium {
+        flex-direction: row;
+
+        &__story_list {
+            padding-top: 41px;
+            width: 850px;
+            margin: auto;
+        }
     }
 }
 

@@ -1,7 +1,18 @@
 <template>
     <div class="Story" id="1">
-        <div class="Story__left_image">
+        <div class="Story__left_info">
             <img :src="left_image" alt="" />
+            <div class="Story__left_info_content">
+                <span class="Story__left_info_content_name">張常美 小檔案</span>
+                <ul class="Story__left_info_content_list">
+                    <li>1931 年出生，臺中縣人</li>
+                    <li>
+                        16
+                        歲就讀臺中商業職業學校一年級時，遭情治單位以「參加叛亂組織」罪名起訴
+                    </li>
+                    <li>偵訊 1 次後即受審判，判刑 12 年</li>
+                </ul>
+            </div>
         </div>
 
         <div class="Story__content">
@@ -138,7 +149,7 @@ import ArticlePicture from '~/components/Article/ArticlePicture'
 import ArticleNotation from '~/components/Article/ArticleNotation'
 
 import left_image from '~/static/images/1_3.jpg'
-import story1_1 from '~/static/images/story1_1.jpeg'
+import story1_1 from '~/static/images/story1_1.jpg'
 import story1_2 from '~/static/images/story1_2.jpeg'
 import story1_3_1 from '~/static/images/story1_3_1.jpeg'
 import story1_3_2 from '~/static/images/story1_3_2.jpeg'
