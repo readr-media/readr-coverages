@@ -173,4 +173,7 @@ export default {
         z-index: 999;
     }
 }
+.notFix {
+    margin-left: 0 !important;
+}
 </style>
