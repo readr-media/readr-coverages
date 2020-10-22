@@ -40,7 +40,7 @@
 
 <script>
 export default {
-    props: ['character', 'scrollPosition'],
+    props: ['character'],
     data() {
         return {
             status: this.character.status,

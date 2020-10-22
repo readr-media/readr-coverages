@@ -52,10 +52,11 @@ export default {
 
     &__background {
         background: rgb(38, 37, 37);
-        height: 100vh;
+        // height: 100vh;
         overflow: hidden;
 
         img {
+            // min-height: 100%;
             width: 100%;
         }
 
