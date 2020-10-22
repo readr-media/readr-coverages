@@ -1,18 +1,26 @@
 <template>
     <div class="StoryPage" id="StoryPage" ref="StoryPage">
+        <div class="idShow">{{ currentId }}</div>
+
         <StoryNav :fix="scrollPosition <= 0" />
 
-        <div class="StoryPage__story_list">
-            <Story1 />
-            <Story2 />
-            <Story3 />
-            <Story4 />
+        <div class="StoryPage__wrapper">
+            <transition name="fade">
+                <StoryInfo :id="currentId" />
+            </transition>
+            <div class="StoryPage__story_list">
+                <Story1 />
+                <Story2 />
+                <Story3 />
+                <Story4 />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import StoryNav from './StoryNav'
+import StoryInfo from './StoryInfo'
 
 import Story1 from '~/components/StoryPage/Story1'
 import Story2 from '~/components/StoryPage/Story2'
@@ -43,6 +51,7 @@ function debounce(func, wait = 20, immediate = true) {
 export default {
     components: {
         StoryNav,
+        StoryInfo,
 
         Story1,
         Story2,
@@ -55,6 +64,7 @@ export default {
     },
     data() {
         return {
+            currentId: 1,
             leftImg1,
             leftImg2,
             leftImg3,
@@ -85,9 +95,8 @@ export default {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.intersectionRatio > 0) {
-                    entry.target.classList.add('info-fixed')
+                    this.currentId = entry.target.id
                 } else {
-                    entry.target.classList.remove('info-fixed')
                 }
             })
         })
@@ -104,28 +113,41 @@ export default {
     position: relative;
     width: 100%;
 
-    &__story_list {
-        padding-top: 32px;
+    &__wrapper {
         width: 100%;
-        margin: auto;
+        display: flex;
+        padding: $storyNavHeight 0;
+    }
+
+    &__story_list {
+        width: 100%;
+    }
+
+    @include atSmall {
+        &__story_list {
+            width: 70%;
+            margin-left: 30%;
+        }
     }
 
     @include atLarge {
-        &__story_list {
-            padding-top: 41px;
-            width: 850px;
+        &__wrapper {
+            width: 800px;
             margin: auto;
+            overflow: hidden;
+
+            // padding-top: 41px;
         }
     }
-}
 
-.distance {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: white;
-    border: 1px red solid;
-    padding: 10px;
-    z-index: 999;
+    .idShow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 10px;
+        border: 1px red solid;
+        background: wheat;
+        z-index: 999;
+    }
 }
 </style>

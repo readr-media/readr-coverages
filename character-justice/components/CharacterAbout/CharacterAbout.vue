@@ -43,8 +43,6 @@ export default {
 
         const observer = new IntersectionObserver(
             (entries) => {
-                console.log(entries)
-
                 entries.forEach((entry, index) => {
                     if (entries[0].intersectionRatio > 0) {
                         cards.forEach((card, index) => {
@@ -70,6 +68,7 @@ export default {
 
 <style lang="scss">
 .CharacterAbout {
+    z-index: 1;
     position: relative;
     background: white;
     width: 100%;

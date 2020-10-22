@@ -49,7 +49,6 @@ export default {
         text-align: justify;
         color: #000000;
         // height: 60px;
-        width: 432px;
     }
 }
 </style>

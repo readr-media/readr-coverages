@@ -72,6 +72,7 @@ export default {
 
 <style lang="scss" scoped>
 .intro {
+    z-index: 1;
     height: 100vh;
     position: relative;
     h1 {
