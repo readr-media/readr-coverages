@@ -72,7 +72,7 @@ export default {
     position: relative;
     background: white;
     width: 100%;
-    // height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: row;
     align-items: center;

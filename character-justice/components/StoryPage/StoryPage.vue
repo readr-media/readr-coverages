@@ -86,7 +86,7 @@ export default {
     },
     mounted() {
         // activate StoryNav scroll event listener
-        // window.addEventListener('scroll', debounce(this.updateScroll))
+        window.addEventListener('scroll', debounce(this.updateScroll))
 
         // activate each story's position observer
         // if story's position reach to top, then set left info to fixed(class:info-fixed)

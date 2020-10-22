@@ -1,8 +1,11 @@
 <template>
     <div class="app">
-        <AnimateHero />
+        <Navbar />
+        <div class="fix-wrapper">
+            <AnimateHero />
 
-        <CharacterAbout />
+            <CharacterAbout />
+        </div>
 
         <StoryPage />
 
@@ -14,6 +17,8 @@
 </template>
 
 <script>
+import Navbar from '~/components/Navbar'
+
 import AnimateHero from '~/components/AnimateHero/AnimateHero'
 
 import Hero from '~/components/Hero'
@@ -26,6 +31,8 @@ import StoryPage from '~/components/StoryPage/StoryPage'
 
 export default {
     components: {
+        Navbar,
+
         AnimateHero,
         Hero,
         CharacterAbout,

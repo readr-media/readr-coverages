@@ -24,8 +24,8 @@ export default {
                 },
                 {
                     id: 2,
-                    name: '高金郎',
-                    info: { content: '被刑求到精神失常', position: 55.55 },
+                    name: '劉秀明',
+                    info: { content: '聊個電影就入獄', position: 55.55 },
                     image: { normal: normal2, hover: hover2 },
                     url: '#2',
                     status: false,
@@ -35,8 +35,8 @@ export default {
                 },
                 {
                     id: 3,
-                    name: '劉秀明',
-                    info: { content: '聊個電影就入獄', position: 76.29 },
+                    name: '高金郎',
+                    info: { content: '被刑求到精神失常', position: 76.29 },
                     image: { normal: normal3, hover: hover3 },
                     url: '#3',
                     status: false,
@@ -44,6 +44,7 @@ export default {
                         top: '-150%',
                     },
                 },
+
                 {
                     id: 4,
                     name: '周賢農',

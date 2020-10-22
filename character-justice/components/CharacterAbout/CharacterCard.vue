@@ -86,11 +86,14 @@ export default {
 
         img {
             // height: 100%;
-            width: 100%;
+            // width: 100%;
         }
 
         .image_normal {
+            z-index: 3;
             position: absolute;
+            min-width: 100%;
+            height: 100%;
             transition: opacity 0.5s ease-in;
             &_hide {
                 opacity: 0;
@@ -98,10 +101,16 @@ export default {
         }
 
         .image_hover {
+            z-index: 2;
+
+            position: absolute;
+            min-width: 100%;
+            height: 100%;
         }
     }
 
     &__about {
+        z-index: 4;
         opacity: 0;
         position: absolute;
         top: 0;
