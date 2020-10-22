@@ -10,9 +10,7 @@
             <div class="NextStep__content">
                 <ul class="NextStep__list">
                     <li>
-                        <div class="NextStep__list_marker">
-                            <div class="dot"></div>
-                        </div>
+                        <ListDot color="#006db2" />
                         分享這篇文章，並關注 READr 關於農產運銷的更多報導
                     </li>
                     <li>
@@ -38,10 +36,12 @@
 
 <script>
 import Test from '~/components/NextStep/Test'
+import ListDot from '~/components/ListDot'
 
 export default {
     components: {
         Test,
+        ListDot,
     },
 
     data() {

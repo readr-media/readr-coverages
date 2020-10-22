@@ -1,10 +1,12 @@
 <template>
     <div class="app">
-        <Hero />
+        <Navbar />
+        <div class="fix-wrapper">
+            <AnimateHero />
 
-        <CharacterAbout />
+            <CharacterAbout />
+        </div>
 
-        <!-- <nuxt-child /> -->
         <StoryPage />
 
         <NextStep />
@@ -15,6 +17,10 @@
 </template>
 
 <script>
+import Navbar from '~/components/Navbar'
+
+import AnimateHero from '~/components/AnimateHero/AnimateHero'
+
 import Hero from '~/components/Hero'
 import CharacterAbout from '~/components/CharacterAbout/CharacterAbout'
 import NextStep from '~/components/NextStep/NextStep'
@@ -25,6 +31,9 @@ import StoryPage from '~/components/StoryPage/StoryPage'
 
 export default {
     components: {
+        Navbar,
+
+        AnimateHero,
         Hero,
         CharacterAbout,
         NextStep,

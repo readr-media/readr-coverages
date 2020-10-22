@@ -113,27 +113,48 @@ export default {
 
 <style lang="scss" scoped>
 .PictureContainer {
-    width: 360px;
+    width: 100%;
     margin: auto;
     margin-bottom: 40px;
     &__img {
         position: relative;
-        // width: 100%;
+        width: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
         &_container {
-            width: 800px;
+            // width: 100%;
             overflow: hidden;
             display: flex;
             flex-direction: row;
             img {
                 width: 100%;
+                height: 100%;
             }
         }
     }
+
+    @include atSmall {
+        width: 100%;
+        &__img {
+            &_container {
+                width: 100%;
+            }
+        }
+    }
+
+    @include atMedium {
+        width: 360px;
+        &__img {
+            &_container {
+                width: 800px;
+            }
+        }
+    }
+
     &__content {
+        width: 100%;
         font-family: PingFang TC;
         font-size: 15px;
         font-weight: normal;

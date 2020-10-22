@@ -49,12 +49,31 @@ export default {
             },
         ],
         link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+        script: [
+            {
+                src:
+                    'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js',
+            },
+            {
+                src:
+                    'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/animation.gsap.js',
+            },
+            {
+                src:
+                    'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.js',
+            },
+            {
+                src:
+                    'https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js',
+            },
+        ],
     },
 
     // Global CSS (https://go.nuxtjs.dev/config-css)
     css: [
         '~assets/scss/global.style.scss',
         '~assets/scss/responsiveMixin.scss',
+        '~assets/scss/variable.scss',
     ],
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)

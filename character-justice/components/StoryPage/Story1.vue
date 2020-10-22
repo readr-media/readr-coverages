@@ -1,9 +1,6 @@
 <template>
     <div class="Story" id="1">
-        <div class="Story__left_image">
-            <img :src="left_image" alt="" />
-        </div>
-
+        <StoryInfoSmall :id="1" />
         <div class="Story__content">
             <ArticleTitle>張常美：會讀書的人還真倒霉</ArticleTitle>
 
@@ -136,26 +133,25 @@ import ArticleTitle from '~/components/Article/ArticleTitle'
 import ArticleParagraph from '~/components/Article/ArticleParagraph'
 import ArticlePicture from '~/components/Article/ArticlePicture'
 import ArticleNotation from '~/components/Article/ArticleNotation'
+import StoryInfoSmall from '~/components/StoryPage/StoryInfoSmall'
 
-import left_image from '~/static/images/1_3.jpg'
-import story1_1 from '~/static/images/story1_1.jpeg'
+import story1_1 from '~/static/images/story1_1.jpg'
 import story1_2 from '~/static/images/story1_2.jpeg'
 import story1_3_1 from '~/static/images/story1_3_1.jpeg'
 import story1_3_2 from '~/static/images/story1_3_2.jpeg'
 import story1_3_3 from '~/static/images/story1_3_3.jpeg'
 
 export default {
-    transition: 'fade',
     components: {
         ArticleQuote,
         ArticleTitle,
         ArticleParagraph,
         ArticlePicture,
         ArticleNotation,
+        StoryInfoSmall,
     },
     data() {
         return {
-            left_image,
             story1_1,
             story1_2,
             story1_3_1,

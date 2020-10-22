@@ -1,24 +1,33 @@
 <template>
     <div class="CharacterAbout" ref="CharacterAbout">
-        <CharacterCard
-            v-for="character in characterList"
-            :key="character.id"
-            :character="character"
-            :scrollPosition="scrollPosition"
-        />
+        <div class="CharacterAbout__container_small">
+            <CharacterCardSmall
+                v-for="character in characterList"
+                :key="character.id"
+                :character="character"
+            />
+        </div>
 
-        <!-- <div class="CharacterAbout__mask" /> -->
+        <div class="CharacterAbout__container_big">
+            <CharacterCard
+                v-for="character in characterList"
+                :key="character.id"
+                :character="character"
+            />
+        </div>
     </div>
 </template>
 
 <script>
 import characterList from '~/mixins/characterList'
-
 import CharacterCard from '~/components/CharacterAbout/CharacterCard'
+import CharacterCardSmall from '~/components/CharacterAbout/CharacterCardSmall'
+
 export default {
     mixins: [characterList],
     components: {
         CharacterCard,
+        CharacterCardSmall,
     },
     data() {
         return {
@@ -43,8 +52,6 @@ export default {
 
         const observer = new IntersectionObserver(
             (entries) => {
-                console.log(entries)
-
                 entries.forEach((entry, index) => {
                     if (entries[0].intersectionRatio > 0) {
                         cards.forEach((card, index) => {
@@ -70,35 +77,44 @@ export default {
 
 <style lang="scss">
 .CharacterAbout {
-    position: relative;
-    background: white;
     width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    // justify-content: center;
+    min-height: 100vh;
+    &__container_small {
+        z-index: 1;
+        position: relative;
+        background: white;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__container_big {
+        display: none;
+        z-index: 1;
+        position: relative;
+        background: white;
+        width: 100%;
+        height: 100vh;
+        flex-direction: row;
+        align-items: center;
+    }
 
-    // &__mask {
-    //     position: absolute;
-    //     z-index: 1;
-    //     width: 100%;
-    //     height: 100%;
-    //     background: transparent;
-    //     transition: all 1s ease-in-out;
-    //     &:hover {
-    //         background: radial-gradient(
-    //             circle at 46% 50%,
-    //             rgba(0, 0, 0, 0),
-    //             #000000 92%
-    //         );
-    //     }
-    // }
+    @include atMedium {
+        &__container_small {
+            display: none;
+        }
+
+        &__container_big {
+            display: flex;
+            flex-direction: row;
+        }
+    }
 }
 
 @keyframes anim1 {
     from {
-        transform: translateY(-50%) scale(0.1);
+        transform: translateY(-50%) scale(0.05);
         opacity: 0;
     }
     to {

@@ -6,7 +6,8 @@
             :key="list.id"
             @click="clickHandler(list.id)"
         >
-            {{ list.name }} {{ list.info.content }}
+            {{ list.name }}
+            <span class="small-hide">{{ list.info.content }}</span>
         </div>
     </div>
 </template>
@@ -67,6 +68,16 @@ export default {
 
         &:last-child {
             border: none;
+        }
+    }
+
+    .small-hide {
+        display: none;
+    }
+
+    @include atMedium {
+        .small-hide {
+            display: inline-block;
         }
     }
 }

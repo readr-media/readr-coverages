@@ -10,6 +10,7 @@ export default {}
 
 <style lang="scss" scoped>
 .ArticleTitle {
+    width: 100%;
     margin-bottom: 40px;
     font-family: PingFang TC;
     font-size: 28px;

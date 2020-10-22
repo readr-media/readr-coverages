@@ -2,17 +2,26 @@
     <div class="StoryPage" id="StoryPage" ref="StoryPage">
         <StoryNav :fix="scrollPosition <= 0" />
 
-        <div class="StoryPage__story_list">
-            <Story1 />
-            <Story2 />
-            <Story3 />
-            <Story4 />
+        <div class="StoryPage__wrapper">
+            <transition name="fade">
+                <StoryInfo :id="currentId" :notFix="scrollPosition > 0" />
+            </transition>
+            <div
+                class="StoryPage__story_list"
+                :class="{ notFix: scrollPosition > 0 }"
+            >
+                <Story1 />
+                <Story2 />
+                <Story3 />
+                <Story4 />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import StoryNav from './StoryNav'
+import StoryInfo from './StoryInfo'
 
 import Story1 from '~/components/StoryPage/Story1'
 import Story2 from '~/components/StoryPage/Story2'
@@ -24,6 +33,7 @@ import leftImg2 from '~/static/images/2_3.jpg'
 import leftImg3 from '~/static/images/3_3.jpg'
 import leftImg4 from '~/static/images/4_3.jpg'
 
+// reduce scroll eventListener count
 function debounce(func, wait = 20, immediate = true) {
     var timeout
     return function () {
@@ -42,6 +52,7 @@ function debounce(func, wait = 20, immediate = true) {
 export default {
     components: {
         StoryNav,
+        StoryInfo,
 
         Story1,
         Story2,
@@ -54,6 +65,7 @@ export default {
     },
     data() {
         return {
+            currentId: 1,
             leftImg1,
             leftImg2,
             leftImg3,
@@ -74,8 +86,41 @@ export default {
         },
     },
     mounted() {
-        // window.addEventListener('scroll', this.updateScroll)
+        // activate StoryNav scroll event listener
         window.addEventListener('scroll', debounce(this.updateScroll))
+
+        // activate each story's position observer
+        // if story's position reach to top, then set left info to fixed(class:info-fixed)
+        const storys = document.querySelectorAll('.Story')
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry, index) => {
+                    // component in view
+                    if (entry.intersectionRatio > 0) {
+                        this.currentId = parseInt(entry.target.id)
+
+                        // component out of view
+                    } else {
+                        // first one:do nothing
+                        if (this.currentId === 1) return
+
+                        //srcoll up, then current -1
+                        // scroll down & prev disappear wont trigger this callback
+                        if (parseInt(entry.target.id) === this.currentId) {
+                            this.currentId = this.currentId - 1
+                        }
+                    }
+                })
+            },
+            {
+                rootMargin: '200px 0px 200px 0px',
+            }
+        )
+
+        storys.forEach((story) => {
+            observer.observe(story)
+        })
     },
 }
 </script>
@@ -83,21 +128,52 @@ export default {
 <style lang="scss" scoped>
 .StoryPage {
     position: relative;
+    box-sizing: border-box;
+    width: 100%;
+
+    &__wrapper {
+        width: 100%;
+        display: flex;
+        padding: $storyNavHeight 0;
+    }
 
     &__story_list {
-        padding-top: 41px;
-        width: 850px;
-        margin: auto;
+        width: 100%;
+    }
+
+    @include atSmall {
+        &__story_list {
+            width: 70%;
+            margin-left: 30%;
+        }
+    }
+
+    @include atLarge {
+        &__wrapper {
+            width: 850px;
+            margin: auto;
+            overflow: hidden;
+
+            // padding-top: 41px;
+        }
+
+        &__story_list {
+            width: 600px;
+            margin-left: 250px;
+        }
+    }
+
+    .idShow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 10px;
+        border: 1px red solid;
+        background: wheat;
+        z-index: 999;
     }
 }
-
-.distance {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: white;
-    border: 1px red solid;
-    padding: 10px;
-    z-index: 999;
+.notFix {
+    margin-left: 0 !important;
 }
 </style>

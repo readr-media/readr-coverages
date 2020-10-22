@@ -1,9 +1,6 @@
 <template>
     <div class="Story" id="4">
-        <div class="Story__left_image">
-            <img :src="left_image" alt="" />
-        </div>
-
+        <StoryInfoSmall :id="4" />
         <div class="Story__content">
             <ArticleTitle
                 >周賢農：這個政府想關你的時候，什麼理由都可以關</ArticleTitle
@@ -91,8 +88,8 @@ import ArticleTitle from '~/components/Article/ArticleTitle'
 import ArticleParagraph from '~/components/Article/ArticleParagraph'
 import ArticlePicture from '~/components/Article/ArticlePicture'
 import ArticleNotation from '~/components/Article/ArticleNotation'
+import StoryInfoSmall from '~/components/StoryPage/StoryInfoSmall'
 
-import left_image from '~/static/images/4_3.jpg'
 import story4_1 from '~/static/images/story4_1.jpeg'
 import story4_2 from '~/static/images/story4_2.jpeg'
 import story1_3_1 from '~/static/images/story1_3_1.jpeg'
@@ -100,17 +97,16 @@ import story1_3_2 from '~/static/images/story1_3_2.jpeg'
 import story1_3_3 from '~/static/images/story1_3_3.jpeg'
 
 export default {
-    transition: 'fade',
     components: {
         ArticleQuote,
         ArticleTitle,
         ArticleParagraph,
         ArticlePicture,
         ArticleNotation,
+        StoryInfoSmall,
     },
     data() {
         return {
-            left_image,
             story4_1,
             story4_2,
             story1_3_1,
