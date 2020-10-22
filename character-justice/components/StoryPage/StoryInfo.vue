@@ -1,15 +1,19 @@
 <template>
-    <div class="StoryInfo" :key="infoList[id - 1].id">
+    <div
+        class="StoryInfo"
+        :key="infoList[id - 1].id"
+        :class="{ notFix: notFix }"
+    >
         <div class="StoryInfo__image">
             <img :src="infoList[id - 1].image" alt="" />
         </div>
         <div class="StoryInfo__content">
-            <span class="StoryInfo__content_name"
-                >{{ infoList[id - 1].name }} 小檔案</span
-            >
+            <div class="StoryInfo__content_name">
+                {{ infoList[id - 1].name }} 小檔案
+            </div>
             <ul class="StoryInfo__content_list">
                 <li v-for="(list, index) in infoList[id - 1].info" :key="index">
-                    {{ list }}
+                    <ListDot color="#ffffff" />{{ list }}
                 </li>
             </ul>
         </div>
@@ -18,9 +22,14 @@
 
 <script>
 import infoList from '~/mixins/infoList'
+import ListDot from '~/components/ListDot'
+
 export default {
     mixins: [infoList],
-    props: ['img', 'id'],
+    props: ['id', 'notFix'],
+    components: {
+        ListDot,
+    },
 }
 </script>
 
@@ -49,11 +58,13 @@ export default {
 
         &_name {
             font-size: 21px;
+            margin-bottom: 10px;
         }
 
         &_list li {
             font-size: 16px;
             line-height: 1.75;
+            text-align: justify;
         }
     }
 
@@ -67,6 +78,7 @@ export default {
 
         position: fixed;
         top: 41px;
+
         &__content {
             position: relative;
             background-color: #e0c950;
@@ -102,14 +114,27 @@ export default {
 
             &__content {
                 &_name {
-                    font-size: 1.1rem;
+                    font-size: 1.3rem;
                 }
 
                 &_list li {
-                    font-size: 0.9rem;
+                    font-size: 1rem;
                 }
             }
         }
     }
+
+    ul {
+        list-style: none;
+    }
+
+    li {
+        margin-left: 1rem;
+    }
+}
+.notFix {
+    position: relative;
+    top: 0;
+    // margin-top: 41px;
 }
 </style>

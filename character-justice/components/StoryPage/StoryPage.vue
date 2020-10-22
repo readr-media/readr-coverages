@@ -1,14 +1,15 @@
 <template>
     <div class="StoryPage" id="StoryPage" ref="StoryPage">
-        <div class="idShow">{{ currentId }}</div>
-
         <StoryNav :fix="scrollPosition <= 0" />
 
         <div class="StoryPage__wrapper">
             <transition name="fade">
-                <StoryInfo :id="currentId" />
+                <StoryInfo :id="currentId" :notFix="scrollPosition > 0" />
             </transition>
-            <div class="StoryPage__story_list">
+            <div
+                class="StoryPage__story_list"
+                :class="{ notFix: scrollPosition > 0 }"
+            >
                 <Story1 />
                 <Story2 />
                 <Story3 />
@@ -94,9 +95,6 @@ export default {
 
         const observer = new IntersectionObserver(
             (entries) => {
-                console.log(entries[0].intersectionRatio)
-                console.log(entries[0].target.id)
-
                 entries.forEach((entry, index) => {
                     // component in view
                     if (entry.intersectionRatio > 0) {
@@ -110,7 +108,6 @@ export default {
                         //srcoll up, then current -1
                         // scroll down & prev disappear wont trigger this callback
                         if (parseInt(entry.target.id) === this.currentId) {
-                            console.log('FUCK')
                             this.currentId = this.currentId - 1
                         }
                     }
@@ -131,6 +128,7 @@ export default {
 <style lang="scss" scoped>
 .StoryPage {
     position: relative;
+    box-sizing: border-box;
     width: 100%;
 
     &__wrapper {
@@ -152,11 +150,16 @@ export default {
 
     @include atLarge {
         &__wrapper {
-            width: 800px;
+            width: 850px;
             margin: auto;
             overflow: hidden;
 
             // padding-top: 41px;
+        }
+
+        &__story_list {
+            width: 600px;
+            margin-left: 250px;
         }
     }
 
