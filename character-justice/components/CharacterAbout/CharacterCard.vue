@@ -107,6 +107,17 @@ export default {
             min-width: 100%;
             height: 100%;
         }
+
+        .image_normal {
+            position: absolute;
+            transition: opacity 0.5s ease-in;
+            &_hide {
+                opacity: 0;
+            }
+        }
+
+        .image_hover {
+        }
     }
 
     &__about {
