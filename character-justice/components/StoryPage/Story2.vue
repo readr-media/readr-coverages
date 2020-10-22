@@ -1,7 +1,22 @@
 <template>
     <div class="Story" id="2">
-        <div class="Story__left_image">
-            <img :src="left_image" alt="" />
+        <div class="Story__left_info">
+            <div class="Story__left_info_image">
+                <img :src="left_image" alt="" />
+            </div>
+            <div class="Story__left_info_content">
+                <span class="Story__left_info_content_name">高金郎 小檔案</span>
+                <ul class="Story__left_info_content_list">
+                    <li>1940 年出生，雲林縣人</li>
+                    <li>
+                        當兵時和友人討論電影《叛艦喋血記》的劇情，情治單位認定是預謀叛亂，判刑
+                        12 年
+                    </li>
+                    <li>
+                        服刑期間參與「泰源監獄叛亂案」，好友鄭金河等五人全遭槍決
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <div class="Story__content">

@@ -135,6 +135,15 @@ export default {
     }
 
     @include atSmall {
+        width: 100%;
+        &__img {
+            &_container {
+                width: 100%;
+            }
+        }
+    }
+
+    @include atMedium {
         width: 360px;
         &__img {
             &_container {

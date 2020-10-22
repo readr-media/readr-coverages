@@ -73,6 +73,7 @@ export default {
     css: [
         '~assets/scss/global.style.scss',
         '~assets/scss/responsiveMixin.scss',
+        '~assets/scss/variable.scss',
     ],
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)

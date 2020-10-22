@@ -1,7 +1,22 @@
 <template>
     <div class="Story" id="4">
-        <div class="Story__left_image">
-            <img :src="left_image" alt="" />
+        <div class="Story__left_info">
+            <div class="Story__left_info_image">
+                <img :src="left_image" alt="" />
+            </div>
+            <div class="Story__left_info_content">
+                <span class="Story__left_info_content_name">周賢農 小檔案</span>
+                <ul class="Story__left_info_content_list">
+                    <li>1933 年出生，新竹市人</li>
+                    <li>
+                        初中時應導師的邀請，加入「社會主義青年大同盟」，情治人員認定是參與叛亂組織逮捕
+                    </li>
+                    <li>
+                        因未滿 18 歲，僅判刑 7
+                        年，之後因刑期分數不及格，再送小琉球管訓 1 年 5 個月
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <div class="Story__content">

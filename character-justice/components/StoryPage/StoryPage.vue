@@ -1,6 +1,6 @@
 <template>
     <div class="StoryPage" id="StoryPage" ref="StoryPage">
-        <!-- <StoryNav :fix="scrollPosition <= 0" /> -->
+        <StoryNav :fix="scrollPosition <= 0" />
 
         <div class="StoryPage__story_list">
             <Story1 />
@@ -24,6 +24,7 @@ import leftImg2 from '~/static/images/2_3.jpg'
 import leftImg3 from '~/static/images/3_3.jpg'
 import leftImg4 from '~/static/images/4_3.jpg'
 
+// reduce scroll eventListener count
 function debounce(func, wait = 20, immediate = true) {
     var timeout
     return function () {
@@ -74,8 +75,26 @@ export default {
         },
     },
     mounted() {
-        // window.addEventListener('scroll', this.updateScroll)
+        // activate StoryNav scroll event listener
         window.addEventListener('scroll', debounce(this.updateScroll))
+
+        // activate each story's position observer
+        // if story's position reach to top, then set left info to fixed(class:info-fixed)
+        const storys = document.querySelectorAll('.Story')
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.intersectionRatio > 0) {
+                    entry.target.classList.add('info-fixed')
+                } else {
+                    entry.target.classList.remove('info-fixed')
+                }
+            })
+        })
+
+        storys.forEach((story) => {
+            observer.observe(story)
+        })
     },
 }
 </script>
@@ -91,9 +110,7 @@ export default {
         margin: auto;
     }
 
-    @include atMedium {
-        flex-direction: row;
-
+    @include atLarge {
         &__story_list {
             padding-top: 41px;
             width: 850px;

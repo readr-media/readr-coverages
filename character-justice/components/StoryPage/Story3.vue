@@ -1,7 +1,20 @@
 <template>
     <div class="Story" id="3">
-        <div class="Story__left_image">
-            <img :src="left_image" alt="" />
+        <div class="Story__left_info">
+            <div class="Story__left_info_image">
+                <img :src="left_image" alt="" />
+            </div>
+            <div class="Story__left_info_content">
+                <span class="Story__left_info_content_name">劉秀明 小檔案</span>
+                <ul class="Story__left_info_content_list">
+                    <li>1944 年出生，臺北市人</li>
+                    <li>
+                        24
+                        歲遭情治單位以「參加叛亂組織」罪名起訴，同案受難者被刑求到精神失常
+                    </li>
+                    <li>判刑 15 年，之後適逢蔣介石逝世，減刑 5 年</li>
+                </ul>
+            </div>
         </div>
 
         <div class="Story__content">

@@ -1,17 +1,15 @@
 <template>
     <div class="app">
-        <!-- <AnimateHero />
-   
+        <AnimateHero />
 
-        <CharacterAbout /> -->
+        <CharacterAbout />
 
-        <!-- <nuxt-child /> -->
         <StoryPage />
 
-        <!-- <NextStep />
+        <NextStep />
         <Credit />
         <More />
-        <Footer /> -->
+        <Footer />
     </div>
 </template>
 

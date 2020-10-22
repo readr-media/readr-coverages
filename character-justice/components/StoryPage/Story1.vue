@@ -1,7 +1,9 @@
 <template>
     <div class="Story" id="1">
         <div class="Story__left_info">
-            <img :src="left_image" alt="" />
+            <div class="Story__left_info_image">
+                <img :src="left_image" alt="" />
+            </div>
             <div class="Story__left_info_content">
                 <span class="Story__left_info_content_name">張常美 小檔案</span>
                 <ul class="Story__left_info_content_list">
