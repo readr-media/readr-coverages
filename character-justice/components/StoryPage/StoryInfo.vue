@@ -95,6 +95,21 @@ export default {
                 }
             }
         }
+
+        @include atLarge {
+            width: 250px;
+            margin-left: 0;
+
+            &__content {
+                &_name {
+                    font-size: 1.1rem;
+                }
+
+                &_list li {
+                    font-size: 0.9rem;
+                }
+            }
+        }
     }
 }
 </style>

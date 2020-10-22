@@ -79,11 +79,14 @@ export default {
     background: white;
 
     &__image {
-        object-fit: cover;
+        min-height: 100%;
+        width: 100%;
+        // object-fit: cover;
+        position: relative;
 
         img {
-            min-height: 100%;
-            min-width: 100%;
+            // height: 100%;
+            width: 100%;
         }
 
         .image_normal {

@@ -86,20 +86,40 @@ export default {
     },
     mounted() {
         // activate StoryNav scroll event listener
-        window.addEventListener('scroll', debounce(this.updateScroll))
+        // window.addEventListener('scroll', debounce(this.updateScroll))
 
         // activate each story's position observer
         // if story's position reach to top, then set left info to fixed(class:info-fixed)
         const storys = document.querySelectorAll('.Story')
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.intersectionRatio > 0) {
-                    this.currentId = entry.target.id
-                } else {
-                }
-            })
-        })
+        const observer = new IntersectionObserver(
+            (entries) => {
+                console.log(entries[0].intersectionRatio)
+                console.log(entries[0].target.id)
+
+                entries.forEach((entry, index) => {
+                    // component in view
+                    if (entry.intersectionRatio > 0) {
+                        this.currentId = parseInt(entry.target.id)
+
+                        // component out of view
+                    } else {
+                        // first one:do nothing
+                        if (this.currentId === 1) return
+
+                        //srcoll up, then current -1
+                        // scroll down & prev disappear wont trigger this callback
+                        if (parseInt(entry.target.id) === this.currentId) {
+                            console.log('FUCK')
+                            this.currentId = this.currentId - 1
+                        }
+                    }
+                })
+            },
+            {
+                rootMargin: '200px 0px 200px 0px',
+            }
+        )
 
         storys.forEach((story) => {
             observer.observe(story)
