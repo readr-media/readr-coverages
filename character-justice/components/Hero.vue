@@ -1,7 +1,7 @@
 <template>
     <div class="Hero">
         <div class="Hero__background">
-            <img class="Hero__background_image" src="" alt="" />
+            <img class="Hero__background_image" :src="heroBackground" alt="" />
         </div>
         <div class="Hero__title">
             <span
@@ -20,7 +20,17 @@
 </template>
 
 <script>
+import heroBackground from '~/static/images/hero.jpeg'
+
 export default {
+    head: {
+        script: [
+            {
+                src:
+                    'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js',
+            },
+        ],
+    },
     data() {
         return {
             hero: {
@@ -28,6 +38,7 @@ export default {
                 content:
                     '武漢肺炎在國外疫情仍在延燒，READr 探索了從一月至今在全世界傳播的假訊息。際價的代節究果機文車可未年利助都會點年發格這不文等背樂教父的體師排極才少子人全？去候然近……。',
             },
+            heroBackground,
         }
     },
 }
@@ -42,6 +53,11 @@ export default {
     &__background {
         background: rgb(38, 37, 37);
         height: 100vh;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+        }
 
         // opacity: 0.5;
         // background-color: #d8d8d8;
@@ -52,6 +68,10 @@ export default {
         width: 280px;
         display: flex;
         flex-direction: row;
+        padding: 0.2rem;
+
+        background: rgba(0, 0, 0, 0.5);
+        box-sizing: content-box;
 
         &_word {
             font-family: 'Songti TC';
@@ -76,6 +96,10 @@ export default {
 
     &__content {
         position: absolute;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 0.2rem;
+        box-sizing: content-box;
+
         span {
             font-family: PingFang TC;
             font-size: 16px;

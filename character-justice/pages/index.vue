@@ -1,6 +1,7 @@
 <template>
     <div class="app">
-        <Hero />
+        <AnimateHero />
+        <!-- <Hero /> -->
 
         <CharacterAbout />
 
@@ -15,6 +16,8 @@
 </template>
 
 <script>
+import AnimateHero from '~/components/AnimateHero/AnimateHero'
+
 import Hero from '~/components/Hero'
 import CharacterAbout from '~/components/CharacterAbout/CharacterAbout'
 import NextStep from '~/components/NextStep/NextStep'
@@ -25,6 +28,7 @@ import StoryPage from '~/components/StoryPage/StoryPage'
 
 export default {
     components: {
+        AnimateHero,
         Hero,
         CharacterAbout,
         NextStep,

@@ -13,7 +13,7 @@
                 class="image_normal"
                 :class="{ image_normal_hide: status }"
                 :src="character.image.normal"
-                :key="character.id"
+                :key="character.image.normal"
                 :alt="character.name"
             />
             <img
@@ -71,18 +71,19 @@ export default {
 <style lang="scss" scoped>
 .CharacterCard {
     cursor: pointer;
-    width: 25%;
+    // width: 25%;
+    height: 100%;
     flex: 1;
-    // height: 100vh;
     overflow: hidden;
     position: relative;
     background: white;
 
     &__image {
-        width: 100%;
+        object-fit: cover;
 
         img {
-            width: 100%;
+            min-height: 100%;
+            min-width: 100%;
         }
 
         .image_normal {
@@ -98,6 +99,7 @@ export default {
     }
 
     &__about {
+        opacity: 0;
         position: absolute;
         top: 0;
         width: 100%;
@@ -139,12 +141,15 @@ export default {
             }
         }
     }
-    transform: scale(0.05);
+    transform: scale(0.02);
     z-index: 1;
     pointer-events: none;
 }
 .normal {
     // opacity: 0;
+    .CharacterCard__about {
+        opacity: 1;
+    }
     z-index: 2;
     pointer-events: initial;
 

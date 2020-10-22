@@ -77,6 +77,7 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
+
     // justify-content: center;
 
     // &__mask {
@@ -98,7 +99,7 @@ export default {
 
 @keyframes anim1 {
     from {
-        transform: translateY(-50%) scale(0.1);
+        transform: translateY(-50%) scale(0.05);
         opacity: 0;
     }
     to {
