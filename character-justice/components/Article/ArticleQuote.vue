@@ -1,7 +1,7 @@
 <template>
     <div class="ArticleQuote">
         <div class="ArticleQuote__mark">
-            <!-- <img :src="mark" alt="" /> -->
+            <img :src="mark" alt="" />
         </div>
 
         <div class="ArticleQuote__quote"><slot /></div>
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import mark from '~/static/images/mark.svg'
+import mark from '~/static/images/markNew.png'
 export default {
     data() {
         return {
@@ -31,11 +31,11 @@ export default {
         margin-right: 19px;
         width: 29px;
         height: auto;
-        // img {
-        //     width: 100%;
-        //     height: 100%;
-        // }
-        background-image: url('~static/images/mark.svg');
+        img {
+            width: 27px;
+            height: 100%;
+        }
+        // background-image: url('~static/images/mark.svg');
         background-position: center;
         background-size: 100% 100%;
     }

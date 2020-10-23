@@ -1,6 +1,6 @@
 <template>
     <div class="intro">
-        <h1>The New Dev Ed Pro</h1>
+        <h1>轉型正義</h1>
         <video :src="heroVideo"></video>
     </div>
 </template>

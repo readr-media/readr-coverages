@@ -2,7 +2,7 @@
     <div class="app">
         <Navbar />
         <div class="fix-wrapper">
-            <AnimateHero />
+            <Hero />
 
             <CharacterAbout />
         </div>

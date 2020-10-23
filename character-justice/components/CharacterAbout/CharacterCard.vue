@@ -85,8 +85,7 @@ export default {
         position: relative;
 
         img {
-            // height: 100%;
-            // width: 100%;
+            height: 100%;
         }
 
         .image_normal {
