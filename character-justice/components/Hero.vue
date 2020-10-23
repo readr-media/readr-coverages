@@ -36,6 +36,14 @@ import Hero_pad from '~/static/images/Hero_pad.jpg'
 import Hero_web from '~/static/images/Hero_web.jpg'
 
 export default {
+    head: {
+        script: [
+            {
+                src:
+                    'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js',
+            },
+        ],
+    },
     data() {
         return {
             hero: {
