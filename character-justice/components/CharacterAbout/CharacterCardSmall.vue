@@ -3,7 +3,7 @@
         <div class="CharacterCardSmall__image">
             <picture>
                 <source
-                    media="(min-width:500px"
+                    media="(min-width:480px"
                     :srcset="character.image.pad"
                 />
 
