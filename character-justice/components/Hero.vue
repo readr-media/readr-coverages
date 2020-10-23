@@ -2,8 +2,8 @@
     <div class="Hero">
         <div class="Hero__background">
             <picture>
-                <source media="(min-width:760px" :srcset="Hero_web" />
-                <source media="(min-width:480px" :srcset="Hero_pad" />
+                <source media="(min-width:760px)" :srcset="Hero_web" />
+                <source media="(min-width:480px)" :srcset="Hero_pad" />
                 <img :src="Hero_mobile" alt="" />
             </picture>
 
