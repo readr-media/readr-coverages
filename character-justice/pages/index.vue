@@ -19,7 +19,7 @@
 <script>
 import Navbar from '~/components/Navbar'
 
-import AnimateHero from '~/components/AnimateHero/AnimateHero'
+// import AnimateHero from '~/components/AnimateHero/AnimateHero'
 
 import Hero from '~/components/Hero'
 import CharacterAbout from '~/components/CharacterAbout/CharacterAbout'
@@ -33,7 +33,7 @@ export default {
     components: {
         Navbar,
 
-        AnimateHero,
+        // AnimateHero,
         Hero,
         CharacterAbout,
         NextStep,

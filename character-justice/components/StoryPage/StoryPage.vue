@@ -92,49 +92,49 @@ export default {
         // activate StoryNav scroll event listener
         window.addEventListener('scroll', debounce(this.updateScroll))
 
-        // activate each story's position observer
-        // if story's position reach to top, then set left info to fixed(class:info-fixed)
-        const storys = document.querySelectorAll('.Story')
+        // ---------------Handle storyNav fix-----------------
+        // const scrollerStoryNav = scrollama()
+        //    scrollerStoryInfo
+        //     .setup({
+        //         step: '.Story',
+        //         offset: 0.5,
+        //     })
+        //     .onStepEnter((response) => {
+        //         const { element, index, direction } = response
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry, index) => {
-                    // component in view
-                    if (entry.intersectionRatio > 0) {
-                        this.currentId = parseInt(entry.target.id)
+        //         this.currentId = parseInt(element.id)
+        //     })
+        //     .onStepExit((response) => {
+        //         // { element, index, direction }
+        //     })
 
-                        // component out of view
-                    } else {
-                        // first one:do nothing
-                        if (this.currentId === 1) return
+        // ---------------Handle story info change effect-----------------
+        const scrollerStoryInfo = scrollama()
 
-                        //srcoll up, then current -1
-                        // scroll down & prev disappear wont trigger this callback
-                        if (parseInt(entry.target.id) === this.currentId) {
-                            this.currentId = this.currentId - 1
-                        }
-                    }
-                })
-            },
-            {
-                rootMargin: '200px 0px 200px 0px',
-            }
-        )
+        scrollerStoryInfo
+            .setup({
+                step: '.Story',
+                offset: 0.5,
+            })
+            .onStepEnter((response) => {
+                const { element, index, direction } = response
 
-        storys.forEach((story) => {
-            observer.observe(story)
-        })
+                this.currentId = parseInt(element.id)
+            })
+            .onStepExit((response) => {
+                // { element, index, direction }
+            })
 
-        // --------------------------------
+        // ---------------Handle scene 3 hover scene2 effect-----------------
         // instantiate the scrollama
-        const scroller = scrollama()
+        const scrollerHover = scrollama()
         const characterAboutDOM = document.querySelectorAll(
             '.CharacterAbout__container'
         )
         const storyPageDOM = document.querySelector('.StoryPage')
 
         // setup the instance, pass callback functions
-        scroller
+        scrollerHover
             .setup({
                 step: '.StoryPage',
                 offset: 1,
@@ -153,9 +153,6 @@ export default {
                 })
                 // { element, index, direction }
             })
-
-        // setup resize event
-        window.addEventListener('resize', scroller.resize)
     },
 }
 </script>

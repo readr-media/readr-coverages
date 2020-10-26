@@ -78,13 +78,13 @@ export default {
 <style lang="scss">
 .CharacterAbout {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     &__container_small {
         z-index: 1;
         position: relative;
         background: white;
         width: 100%;
-        min-height: 100vh;
+        height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
