@@ -24,7 +24,7 @@ export default {
                 {
                     id: 1,
                     name: '張常美',
-                    info: { content: '獄友多才多藝', position: 76.29 },
+                    info: { content: '目送獄友走向行刑場', position: 76.29 },
                     image: {
                         normal: normal1,
                         hover: hover1,
@@ -40,7 +40,7 @@ export default {
                 {
                     id: 2,
                     name: '劉秀明',
-                    info: { content: '聊個電影就入獄', position: 55.55 },
+                    info: { content: '獄友被刑求到精神失常', position: 55.55 },
                     image: {
                         normal: normal2,
                         hover: hover2,
@@ -56,7 +56,7 @@ export default {
                 {
                     id: 3,
                     name: '高金郎',
-                    info: { content: '被刑求到精神失常', position: 76.29 },
+                    info: { content: '討論電影劇情就被抓', position: 76.29 },
                     image: {
                         normal: normal3,
                         hover: hover3,
@@ -73,7 +73,7 @@ export default {
                 {
                     id: 4,
                     name: '周賢農',
-                    info: { content: '入獄時未滿18歲', position: 61.48 },
+                    info: { content: '未滿18歲就入獄', position: 61.48 },
                     image: {
                         normal: normal4,
                         hover: hover4,

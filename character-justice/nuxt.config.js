@@ -9,8 +9,9 @@ export default {
     // Global page headers (https://go.nuxtjs.dev/config-head)
     ssr: false,
     target: 'static',
+
     head: {
-        title: '轉型正義-人物篇',
+        title: SITE_TITLE,
         meta: [
             { charset: 'utf-8' },
             {
@@ -21,11 +22,6 @@ export default {
                 hid: 'robots',
                 name: 'robots',
                 content: 'index',
-            },
-            {
-                hid: 'description',
-                name: 'description',
-                content: SITE_DESCRIPTION,
             },
             {
                 hid: 'og:title',
@@ -50,22 +46,22 @@ export default {
         ],
         link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
         script: [
-            {
-                src:
-                    'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js',
-            },
-            {
-                src:
-                    'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/animation.gsap.js',
-            },
-            {
-                src:
-                    'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.js',
-            },
-            {
-                src:
-                    'https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js',
-            },
+            // {
+            //     src:
+            //         'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js',
+            // },
+            // {
+            //     src:
+            //         'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/animation.gsap.js',
+            // },
+            // {
+            //     src:
+            //         'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.js',
+            // },
+            // {
+            //     src:
+            //         'https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js',
+            // },
         ],
     },
 
@@ -115,6 +111,7 @@ export default {
     },
 
     router: {
+        base: '/project/3/character-justice/',
         extendRoutes(routes, resolve) {
             routes.push({
                 name: 'custom',

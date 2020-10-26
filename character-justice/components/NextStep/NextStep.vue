@@ -11,13 +11,13 @@
                 <ul class="NextStep__list">
                     <li>
                         <ListDot color="#006db2" />
-                        分享這篇文章，並關注 READr 關於農產運銷的更多報導
+                        對戒嚴時期的軍事審判制度有興趣，或是好奇政治受難者的審判過程，可至轉型正義資料庫查詢。
                     </li>
                     <li>
                         <div class="NextStep__list_marker">
                             <div class="dot"></div>
                         </div>
-                        追蹤台灣氣候變遷推估資訊與調適知識平台的研究文章，更認識臺灣的極端氣候
+                        可搜尋國家人權博物館的社群平臺，追蹤轉型正義相關活動。
                     </li>
                 </ul>
             </div>
@@ -25,11 +25,15 @@
             <h1 class="NextStep__title">這個報導使用到的資料</h1>
 
             <div class="NextStep__content" :style="{ marginBottom: '76px' }">
-                我們以爬蟲的方式抓取促進轉型正義委員會公開之轉型正義資料庫的資料，整理政治受難者的基本檔案、起訴書、審理過程與最終判決內容，都已經開放在
-                github，歡迎使用！
+                我們以爬蟲的方式抓取促進轉型正義委員會公開之<a
+                    href="https://twtjcdb.tjc.gov.tw"
+                    >轉型正義資料庫的資料</a
+                >，整理政治受難者的基本檔案、起訴書、審理過程與最終判決內容，都已經開放在
+                <a href="https://github.com/readr-media/">github</a>，歡迎使用！
             </div>
 
             <h1 class="NextStep__title">看轉型正義分析報導</h1>
+            <PreviewNews :news="web" />
         </div>
     </div>
 </template>
@@ -37,11 +41,14 @@
 <script>
 import Test from '~/components/NextStep/Test'
 import ListDot from '~/components/ListDot'
+import PreviewNews from '~/components/PreviewNews'
+import transitional_og from '~/static/images/transitional_og.jpg'
 
 export default {
     components: {
         Test,
         ListDot,
+        PreviewNews,
     },
 
     data() {
@@ -57,11 +64,18 @@ export default {
                         { id: 3, content: '前總統府參軍長 劉士毅' },
                         { id: 4, content: '前總統府參軍長 桂永清' },
                     ],
-                    answer: { id: 2, content: '前總統 蔣介石' },
+                    answer: { id: 1, content: '前參謀總長 周至柔' },
                     detail:
-                        'READr 分析農委會近十年的水果產量統計，發現 2019 年的龍眼產量銳減 76%，跌幅為所有水果中最高，其次是 2019 年的荔枝（跌幅 68%）、2019 年的柿子（跌幅 53%）。農改場 2018 年底至 2019 年初是臺灣觀測史上最溫暖的冬季，龍眼樹體無法好好休眠，影響後續的開花結果，主產區臺南東山區農會表示，許多果農去年的收成頂多只有常年的一成。',
+                        '我們統計資料庫案件的每筆審理流程，從「審理人」次數可發現，前參謀總長周至柔最常加重受難者的刑度，其次是前總統蔣介石、前總統府參軍長劉士毅。',
                 },
             ],
+            web: {
+                id: 1,
+                title: '轉型正義之路：從戒嚴時期受難者資料揭開白色恐怖的秘密',
+
+                image: transitional_og,
+                url: 'https://www.readr.tw/project/3/transitional-justice/',
+            },
         }
     },
 }
@@ -70,7 +84,7 @@ export default {
 <style lang="scss">
 .NextStep {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     background: white;
     &__container {
         width: 100%;

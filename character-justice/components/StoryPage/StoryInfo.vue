@@ -2,7 +2,7 @@
     <div
         class="StoryInfo"
         :key="infoList[id - 1].id"
-        :class="{ notFix: notFix }"
+        :class="{ notFixInfo: notFixInfo }"
     >
         <div class="StoryInfo__image">
             <img :src="infoList[id - 1].image" alt="" />
@@ -26,7 +26,7 @@ import ListDot from '~/components/ListDot'
 
 export default {
     mixins: [infoList],
-    props: ['id', 'notFix'],
+    props: ['id', 'notFixInfo'],
     components: {
         ListDot,
     },
@@ -132,7 +132,7 @@ export default {
         margin-left: 1rem;
     }
 }
-.notFix {
+.notFixInfo {
     position: relative;
     top: 0;
     // margin-top: 41px;

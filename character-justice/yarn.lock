@@ -4886,6 +4886,11 @@ inquirer@^7.3.0:
     strip-ansi "^6.0.0"
     through "^2.3.6"
 
+intersection-observer@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.11.0.tgz#f4ea067070326f68393ee161cc0a2ca4c0040c6f"
+  integrity sha512-KZArj2QVnmdud9zTpKf279m2bbGfG+4/kn16UU0NL3pTVl52ZHiJ9IRNSsnn6jaHrL9EGLFM5eWjTx2fz/+zoQ==
+
 ip@^1.1.5:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/ip/-/ip-1.1.5.tgz#bdded70114290828c0a039e72ef25f5aaec4354a"
@@ -8011,6 +8016,11 @@ schema-utils@^3.0.0:
     "@types/json-schema" "^7.0.6"
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
+
+scrollama@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/scrollama/-/scrollama-2.2.1.tgz#c9f37871388f6866e807b4cd39bcb45d5c3e49fb"
+  integrity sha512-Wq880ZLa3G6YSDbV7Bg5thEggo20+UM9qFu9P9ZAZlPmTt/rhIroUNmsZYvO8C5Y0kLp4nwK8S2Zha+bbOFiYg==
 
 scrollmagic@^2.0.7:
   version "2.0.7"

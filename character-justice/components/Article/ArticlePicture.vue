@@ -123,6 +123,8 @@ export default {
         flex-direction: row;
         align-items: center;
         justify-content: center;
+
+        margin-bottom: 4px;
         &_container {
             // width: 100%;
             overflow: hidden;

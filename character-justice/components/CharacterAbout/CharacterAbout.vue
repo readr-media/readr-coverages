@@ -1,6 +1,6 @@
 <template>
     <div class="CharacterAbout" ref="CharacterAbout">
-        <div class="CharacterAbout__container_small">
+        <div class="CharacterAbout__container_small CharacterAbout__container">
             <CharacterCardSmall
                 v-for="character in characterList"
                 :key="character.id"
@@ -8,13 +8,15 @@
             />
         </div>
 
-        <div class="CharacterAbout__container_big">
+        <div class="CharacterAbout__container_big CharacterAbout__container">
             <CharacterCard
                 v-for="character in characterList"
                 :key="character.id"
                 :character="character"
             />
         </div>
+
+        <div class="CharacterAbout__fixScreenMask" />
     </div>
 </template>
 
@@ -49,7 +51,6 @@ export default {
     mounted() {
         const characterAbout = document.querySelector('.CharacterAbout')
         const cards = document.querySelectorAll('.CharacterCard')
-
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry, index) => {
@@ -67,7 +68,6 @@ export default {
             },
             { threshold: [0, 0.25, 0.5] }
         )
-
         cards.forEach((card) => {
             observer.observe(characterAbout)
         })
@@ -78,13 +78,13 @@ export default {
 <style lang="scss">
 .CharacterAbout {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     &__container_small {
         z-index: 1;
         position: relative;
         background: white;
         width: 100%;
-        min-height: 100vh;
+        height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -121,5 +121,11 @@ export default {
         transform: translateY(0) scale(1);
         opacity: 1;
     }
+}
+
+.fixScreen {
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
 </style>

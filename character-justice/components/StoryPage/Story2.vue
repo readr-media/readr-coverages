@@ -6,6 +6,12 @@
                 >劉秀明：是誰讓白色恐怖維持這麼久，我們需要一個答案</ArticleTitle
             >
 
+            <ArticleParagraph>
+                <p>
+                    #獄友被刑求到精神失常 #永遠記得凌晨4點04分是槍斃政治犯的時間
+                </p></ArticleParagraph
+            >
+
             <ArticleQuote>
                 當時關在警總景美看守所的日子，我還記得很清楚，從看守所大門一走進去就是警衛室，上面掛著一個鐘，現在已經不會動了。你仔細看，會發現時針指著
                 4 點 04 分，那是每天清晨槍斃政治犯的時間，距今都幾 10
@@ -79,11 +85,13 @@
                     幾年，日子也算是過得過去。對於曾經被政治迫害的歲月，我們沒有要求臺灣要像德國一樣，重啟類似「紐倫堡大審」的審判，只希望能盡快把賠償的細則訂定出來，還有查出真相，究竟是哪些人讓白色恐怖維持了這麼久，我們需要一個答案。
                 </p>
             </ArticleParagraph>
+            <ArticleBlank />
         </div>
     </div>
 </template>
 
 <script>
+import ArticleBlank from '~/components/Article/ArticleBlank'
 import ArticleQuote from '~/components/Article/ArticleQuote'
 import ArticleTitle from '~/components/Article/ArticleTitle'
 import ArticleParagraph from '~/components/Article/ArticleParagraph'
@@ -96,6 +104,7 @@ import story2_2 from '~/static/images/story2_2.jpeg'
 
 export default {
     components: {
+        ArticleBlank,
         ArticleQuote,
         ArticleTitle,
         ArticleParagraph,

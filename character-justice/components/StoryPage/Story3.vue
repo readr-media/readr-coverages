@@ -3,6 +3,12 @@
         <StoryInfoSmall :id="3" />
         <div class="Story__content">
             <ArticleTitle>高金郎：我對現在的轉型正義很失望</ArticleTitle>
+            <ArticleParagraph>
+                <p>
+                    #討論電影劇情就被抓 #政府不想讓人知道的叛亂案
+                    #出獄之後四度參選
+                </p></ArticleParagraph
+            >
 
             <ArticleQuote>
                 你們這代人大概很難想像，真的會有人聊個電影情節就被抓去關吧？我就是一個血淋淋的例子。20
@@ -83,11 +89,13 @@
                     回過頭來談現在的轉型正義，我是很失望的，尤其是加害者體制的認識，可以說是幾乎沒有，更別說進一步來談誰應該負責？該如何負責？過去國民黨執政的時候，閉口不談過去的事情，現在不正是時機嗎？過去的事情不能這樣就算了，否則未來隨時都可能再發生。
                 </p>
             </ArticleParagraph>
+            <ArticleBlank />
         </div>
     </div>
 </template>
 
 <script>
+import ArticleBlank from '~/components/Article/ArticleBlank'
 import ArticleQuote from '~/components/Article/ArticleQuote'
 import ArticleTitle from '~/components/Article/ArticleTitle'
 import ArticleParagraph from '~/components/Article/ArticleParagraph'
@@ -100,6 +108,7 @@ import story3_2 from '~/static/images/story3_2.jpeg'
 
 export default {
     components: {
+        ArticleBlank,
         ArticleQuote,
         ArticleTitle,
         ArticleParagraph,

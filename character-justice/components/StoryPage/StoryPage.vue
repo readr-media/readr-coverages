@@ -4,7 +4,7 @@
 
         <div class="StoryPage__wrapper">
             <transition name="fade">
-                <StoryInfo :id="currentId" :notFix="scrollPosition > 0" />
+                <StoryInfo :id="currentId" :notFixInfo="scrollPosition > 0" />
             </transition>
             <div
                 class="StoryPage__story_list"
@@ -32,6 +32,9 @@ import leftImg1 from '~/static/images/1_3.jpg'
 import leftImg2 from '~/static/images/2_3.jpg'
 import leftImg3 from '~/static/images/3_3.jpg'
 import leftImg4 from '~/static/images/4_3.jpg'
+
+import 'intersection-observer'
+import scrollama from 'scrollama'
 
 // reduce scroll eventListener count
 function debounce(func, wait = 20, immediate = true) {
@@ -89,38 +92,67 @@ export default {
         // activate StoryNav scroll event listener
         window.addEventListener('scroll', debounce(this.updateScroll))
 
-        // activate each story's position observer
-        // if story's position reach to top, then set left info to fixed(class:info-fixed)
-        const storys = document.querySelectorAll('.Story')
+        // ---------------Handle storyNav fix-----------------
+        // const scrollerStoryNav = scrollama()
+        //    scrollerStoryInfo
+        //     .setup({
+        //         step: '.Story',
+        //         offset: 0.5,
+        //     })
+        //     .onStepEnter((response) => {
+        //         const { element, index, direction } = response
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry, index) => {
-                    // component in view
-                    if (entry.intersectionRatio > 0) {
-                        this.currentId = parseInt(entry.target.id)
+        //         this.currentId = parseInt(element.id)
+        //     })
+        //     .onStepExit((response) => {
+        //         // { element, index, direction }
+        //     })
 
-                        // component out of view
-                    } else {
-                        // first one:do nothing
-                        if (this.currentId === 1) return
+        // ---------------Handle story info change effect-----------------
+        const scrollerStoryInfo = scrollama()
 
-                        //srcoll up, then current -1
-                        // scroll down & prev disappear wont trigger this callback
-                        if (parseInt(entry.target.id) === this.currentId) {
-                            this.currentId = this.currentId - 1
-                        }
-                    }
-                })
-            },
-            {
-                rootMargin: '200px 0px 200px 0px',
-            }
+        scrollerStoryInfo
+            .setup({
+                step: '.Story',
+                offset: 0.5,
+            })
+            .onStepEnter((response) => {
+                const { element, index, direction } = response
+
+                this.currentId = parseInt(element.id)
+            })
+            .onStepExit((response) => {
+                // { element, index, direction }
+            })
+
+        // ---------------Handle scene 3 hover scene2 effect-----------------
+        // instantiate the scrollama
+        const scrollerHover = scrollama()
+        const characterAboutDOM = document.querySelectorAll(
+            '.CharacterAbout__container'
         )
+        const storyPageDOM = document.querySelector('.StoryPage')
 
-        storys.forEach((story) => {
-            observer.observe(story)
-        })
+        // setup the instance, pass callback functions
+        scrollerHover
+            .setup({
+                step: '.StoryPage',
+                offset: 1,
+            })
+            .onStepEnter((response) => {
+                // { element, index, direction }
+                const { element, index, direction } = response
+                // console.log(characterAboutDOM)
+                characterAboutDOM.forEach((characterAbout) => {
+                    characterAbout.classList.add('fixScreen')
+                })
+            })
+            .onStepExit((response) => {
+                characterAboutDOM.forEach((characterAbout) => {
+                    characterAbout.classList.remove('fixScreen')
+                })
+                // { element, index, direction }
+            })
     },
 }
 </script>
@@ -130,6 +162,8 @@ export default {
     position: relative;
     box-sizing: border-box;
     width: 100%;
+    background: white;
+    z-index: 2;
 
     &__wrapper {
         width: 100%;
@@ -174,6 +208,6 @@ export default {
     }
 }
 .notFix {
-    margin-left: 0 !important;
+    margin-left: 0% !important;
 }
 </style>
