@@ -28,12 +28,12 @@
             :fitDiv="true"
             @click.native="checkAnswer"
         />
-        <Button
+        <!-- <Button
             v-else
             title="下一題"
             :fitDiv="true"
             @click.native="nextQuestion"
-        />
+        /> -->
 
         <div v-if="answered" class="Test__result">
             <div class="Test__result_title NextStep__title">
