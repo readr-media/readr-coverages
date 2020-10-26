@@ -33,6 +33,7 @@
             </div>
 
             <h1 class="NextStep__title">看轉型正義分析報導</h1>
+            <PreviewNews :news="web" />
         </div>
     </div>
 </template>
@@ -40,11 +41,14 @@
 <script>
 import Test from '~/components/NextStep/Test'
 import ListDot from '~/components/ListDot'
+import PreviewNews from '~/components/PreviewNews'
+import transitional_og from '~/static/images/transitional_og.jpg'
 
 export default {
     components: {
         Test,
         ListDot,
+        PreviewNews,
     },
 
     data() {
@@ -65,6 +69,13 @@ export default {
                         '我們統計資料庫案件的每筆審理流程，從「審理人」次數可發現，前參謀總長周至柔最常加重受難者的刑度，其次是前總統蔣介石、前總統府參軍長劉士毅。',
                 },
             ],
+            web: {
+                id: 1,
+                title: '轉型正義之路：從戒嚴時期受難者資料揭開白色恐怖的秘密',
+
+                image: transitional_og,
+                url: 'https://www.readr.tw/project/3/transitional-justice/',
+            },
         }
     },
 }
