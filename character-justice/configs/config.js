@@ -1,6 +1,6 @@
 module.exports = {
     app: {
         siteProtocol: 'https',
-        domainName: 'justice_character',
+        domainName: 'www.readr.tw/project/3/character-justice',
     },
 }

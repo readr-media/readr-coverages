@@ -11,13 +11,13 @@
                 <ul class="NextStep__list">
                     <li>
                         <ListDot color="#006db2" />
-                        分享這篇文章，並關注 READr 關於農產運銷的更多報導
+                        對戒嚴時期的軍事審判制度有興趣，或是好奇政治受難者的審判過程，可至轉型正義資料庫查詢。
                     </li>
                     <li>
                         <div class="NextStep__list_marker">
                             <div class="dot"></div>
                         </div>
-                        追蹤台灣氣候變遷推估資訊與調適知識平台的研究文章，更認識臺灣的極端氣候
+                        可搜尋國家人權博物館的社群平臺，追蹤轉型正義相關活動。
                     </li>
                 </ul>
             </div>
@@ -25,7 +25,10 @@
             <h1 class="NextStep__title">這個報導使用到的資料</h1>
 
             <div class="NextStep__content" :style="{ marginBottom: '76px' }">
-                我們以爬蟲的方式抓取促進轉型正義委員會公開之轉型正義資料庫的資料，整理政治受難者的基本檔案、起訴書、審理過程與最終判決內容，都已經開放在
+                我們以爬蟲的方式抓取促進轉型正義委員會公開之<a
+                    href="https://twtjcdb.tjc.gov.tw"
+                    >轉型正義資料庫的資料</a
+                >，整理政治受難者的基本檔案、起訴書、審理過程與最終判決內容，都已經開放在
                 github，歡迎使用！
             </div>
 
