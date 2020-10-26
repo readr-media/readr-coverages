@@ -3,6 +3,12 @@
         <StoryInfoSmall :id="1" />
         <div class="Story__content">
             <ArticleTitle>張常美：會讀書的人還真倒霉</ArticleTitle>
+            <ArticleParagraph>
+                <p>
+                    #目送獄友走向行刑場 #獄中外號是思想ㄟ
+                    #聽到特別接見就是永別時刻
+                </p></ArticleParagraph
+            >
 
             <ArticleQuote>
                 被捕的那天我還在上課，工友突然通知說校長找我過去；到了校長室，只看到校長頭低低的，旁邊則站著兩個陌生人，校長說，「他們有話要問你，你跟著去」，當時我很聽話，校長講什麼我就乖乖照做。
@@ -31,11 +37,11 @@
             >
 
             <ArticlePicture :imageUrl="[story1_1]">
-                臺灣省保安司令部的判決書，張常美判刑 12 年，
-                國家發展委員會檔案管理局
-                <a href="https://aa.archives.gov.tw/Home/Index"
+                臺灣省保安司令部的判決書，張常美判刑 12
+                年，（國家發展委員會檔案管理局<a
+                    href="https://aa.archives.gov.tw/Home/Index"
                     >國家檔案資訊網</a
-                >
+                >）
             </ArticlePicture>
 
             <ArticleParagraph>

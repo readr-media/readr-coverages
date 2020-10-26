@@ -3,6 +3,12 @@
         <StoryInfoSmall :id="3" />
         <div class="Story__content">
             <ArticleTitle>高金郎：我對現在的轉型正義很失望</ArticleTitle>
+            <ArticleParagraph>
+                <p>
+                    #討論電影劇情就被抓 #政府不想讓人知道的叛亂案
+                    #出獄之後四度參選
+                </p></ArticleParagraph
+            >
 
             <ArticleQuote>
                 你們這代人大概很難想像，真的會有人聊個電影情節就被抓去關吧？我就是一個血淋淋的例子。20

@@ -5,6 +5,11 @@
             <ArticleTitle
                 >周賢農：這個政府想關你的時候，什麼理由都可以關</ArticleTitle
             >
+            <ArticleParagraph>
+                <p>
+                    #未滿18歲就入獄 #拒絕把反共抗俄標語刺在身上
+                </p></ArticleParagraph
+            >
 
             <ArticleQuote>
                 你們認識李敖嗎？他曾經說過在戒嚴時期，只要有正義感的年輕人，思想很容易左傾。我覺得我就是如此。一個初中的少年，才
