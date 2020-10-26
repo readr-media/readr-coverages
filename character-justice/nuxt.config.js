@@ -11,7 +11,7 @@ export default {
     target: 'static',
 
     head: {
-        title: '轉型正義-人物篇',
+        title: SITE_TITLE,
         meta: [
             { charset: 'utf-8' },
             {
@@ -112,12 +112,12 @@ export default {
 
     router: {
         base: '/project/3/character-justice/',
-        // extendRoutes(routes, resolve) {
-        //     routes.push({
-        //         name: 'custom',
-        //         path: '*',
-        //         component: resolve(__dirname, 'pages/404.vue'),
-        //     })
-        // },
+        extendRoutes(routes, resolve) {
+            routes.push({
+                name: 'custom',
+                path: '*',
+                component: resolve(__dirname, 'pages/404.vue'),
+            })
+        },
     },
 }
