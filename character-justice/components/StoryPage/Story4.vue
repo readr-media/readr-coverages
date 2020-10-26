@@ -79,7 +79,6 @@
                     現在的我有空就參加日文課、口琴課和氣功課，有空也會約過去的獄友出來聊聊，人生應該開放、樂觀一點，我也希望獄友能走出陰鬱的過去，未來還有很多的可能性。
                 </p>
             </ArticleParagraph>
-            <ArticleBlank />
         </div>
     </div>
 </template>
@@ -95,9 +94,6 @@ import StoryInfoSmall from '~/components/StoryPage/StoryInfoSmall'
 
 import story4_1 from '~/static/images/story4_1.jpeg'
 import story4_2 from '~/static/images/story4_2.jpeg'
-import story1_3_1 from '~/static/images/story1_3_1.jpeg'
-import story1_3_2 from '~/static/images/story1_3_2.jpeg'
-import story1_3_3 from '~/static/images/story1_3_3.jpeg'
 
 export default {
     components: {
@@ -113,9 +109,6 @@ export default {
         return {
             story4_1,
             story4_2,
-            story1_3_1,
-            story1_3_2,
-            story1_3_3,
         }
     },
 }

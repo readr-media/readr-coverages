@@ -4,7 +4,7 @@
 
         <div class="StoryPage__wrapper">
             <transition name="fade">
-                <StoryInfo :id="currentId" :notFix="scrollPosition > 0" />
+                <StoryInfo :id="currentId" :notFixInfo="scrollPosition > 0" />
             </transition>
             <div
                 class="StoryPage__story_list"
@@ -174,6 +174,6 @@ export default {
     }
 }
 .notFix {
-    margin-left: 0 !important;
+    margin-left: 0% !important;
 }
 </style>

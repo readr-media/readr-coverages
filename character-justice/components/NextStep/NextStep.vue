@@ -29,7 +29,7 @@
                     href="https://twtjcdb.tjc.gov.tw"
                     >轉型正義資料庫的資料</a
                 >，整理政治受難者的基本檔案、起訴書、審理過程與最終判決內容，都已經開放在
-                github，歡迎使用！
+                <a href="https://github.com/readr-media/">github</a>，歡迎使用！
             </div>
 
             <h1 class="NextStep__title">看轉型正義分析報導</h1>
