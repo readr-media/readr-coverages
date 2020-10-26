@@ -33,6 +33,9 @@ import leftImg2 from '~/static/images/2_3.jpg'
 import leftImg3 from '~/static/images/3_3.jpg'
 import leftImg4 from '~/static/images/4_3.jpg'
 
+import 'intersection-observer'
+import scrollama from 'scrollama'
+
 // reduce scroll eventListener count
 function debounce(func, wait = 20, immediate = true) {
     var timeout
@@ -121,6 +124,38 @@ export default {
         storys.forEach((story) => {
             observer.observe(story)
         })
+
+        // --------------------------------
+        // instantiate the scrollama
+        const scroller = scrollama()
+        const characterAboutDOM = document.querySelectorAll(
+            '.CharacterAbout__container'
+        )
+        const storyPageDOM = document.querySelector('.StoryPage')
+
+        // setup the instance, pass callback functions
+        scroller
+            .setup({
+                step: '.StoryPage',
+                offset: 1,
+            })
+            .onStepEnter((response) => {
+                // { element, index, direction }
+                const { element, index, direction } = response
+                // console.log(characterAboutDOM)
+                characterAboutDOM.forEach((characterAbout) => {
+                    characterAbout.classList.add('fixScreen')
+                })
+            })
+            .onStepExit((response) => {
+                characterAboutDOM.forEach((characterAbout) => {
+                    characterAbout.classList.remove('fixScreen')
+                })
+                // { element, index, direction }
+            })
+
+        // setup resize event
+        window.addEventListener('resize', scroller.resize)
     },
 }
 </script>
@@ -130,6 +165,8 @@ export default {
     position: relative;
     box-sizing: border-box;
     width: 100%;
+    background: white;
+    z-index: 2;
 
     &__wrapper {
         width: 100%;

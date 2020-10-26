@@ -84,7 +84,7 @@ export default {
 <style lang="scss">
 .NextStep {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     background: white;
     &__container {
         width: 100%;

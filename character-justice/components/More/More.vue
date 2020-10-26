@@ -20,7 +20,7 @@ export default {
 <style lang="scss" scoped>
 #More {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     background: white;
     width: 100%;
     padding: 61px 0 31px;
