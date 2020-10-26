@@ -123,11 +123,13 @@
 
                 <br
             /></ArticleParagraph>
+            <ArticleBlank />
         </div>
     </div>
 </template>
 
 <script>
+import ArticleBlank from '~/components/Article/ArticleBlank'
 import ArticleQuote from '~/components/Article/ArticleQuote'
 import ArticleTitle from '~/components/Article/ArticleTitle'
 import ArticleParagraph from '~/components/Article/ArticleParagraph'
@@ -143,6 +145,7 @@ import story1_3_3 from '~/static/images/story1_3_3.jpeg'
 
 export default {
     components: {
+        ArticleBlank,
         ArticleQuote,
         ArticleTitle,
         ArticleParagraph,

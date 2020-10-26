@@ -79,11 +79,13 @@
                     幾年，日子也算是過得過去。對於曾經被政治迫害的歲月，我們沒有要求臺灣要像德國一樣，重啟類似「紐倫堡大審」的審判，只希望能盡快把賠償的細則訂定出來，還有查出真相，究竟是哪些人讓白色恐怖維持了這麼久，我們需要一個答案。
                 </p>
             </ArticleParagraph>
+            <ArticleBlank />
         </div>
     </div>
 </template>
 
 <script>
+import ArticleBlank from '~/components/Article/ArticleBlank'
 import ArticleQuote from '~/components/Article/ArticleQuote'
 import ArticleTitle from '~/components/Article/ArticleTitle'
 import ArticleParagraph from '~/components/Article/ArticleParagraph'
@@ -96,6 +98,7 @@ import story2_2 from '~/static/images/story2_2.jpeg'
 
 export default {
     components: {
+        ArticleBlank,
         ArticleQuote,
         ArticleTitle,
         ArticleParagraph,

@@ -74,11 +74,13 @@
                     現在的我有空就參加日文課、口琴課和氣功課，有空也會約過去的獄友出來聊聊，人生應該開放、樂觀一點，我也希望獄友能走出陰鬱的過去，未來還有很多的可能性。
                 </p>
             </ArticleParagraph>
+            <ArticleBlank />
         </div>
     </div>
 </template>
 
 <script>
+import ArticleBlank from '~/components/Article/ArticleBlank'
 import ArticleQuote from '~/components/Article/ArticleQuote'
 import ArticleTitle from '~/components/Article/ArticleTitle'
 import ArticleParagraph from '~/components/Article/ArticleParagraph'
@@ -94,6 +96,7 @@ import story1_3_3 from '~/static/images/story1_3_3.jpeg'
 
 export default {
     components: {
+        ArticleBlank,
         ArticleQuote,
         ArticleTitle,
         ArticleParagraph,
