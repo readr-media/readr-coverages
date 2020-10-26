@@ -9,6 +9,7 @@ export default {
     // Global page headers (https://go.nuxtjs.dev/config-head)
     ssr: false,
     target: 'static',
+
     head: {
         title: '轉型正義-人物篇',
         meta: [
@@ -21,11 +22,6 @@ export default {
                 hid: 'robots',
                 name: 'robots',
                 content: 'index',
-            },
-            {
-                hid: 'description',
-                name: 'description',
-                content: SITE_DESCRIPTION,
             },
             {
                 hid: 'og:title',
@@ -115,12 +111,13 @@ export default {
     },
 
     router: {
-        extendRoutes(routes, resolve) {
-            routes.push({
-                name: 'custom',
-                path: '*',
-                component: resolve(__dirname, 'pages/404.vue'),
-            })
-        },
+        base: '/project/3/character-justice/',
+        // extendRoutes(routes, resolve) {
+        //     routes.push({
+        //         name: 'custom',
+        //         path: '*',
+        //         component: resolve(__dirname, 'pages/404.vue'),
+        //     })
+        // },
     },
 }
