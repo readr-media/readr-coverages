@@ -1,4 +1,5 @@
 import { Config } from '@stencil/core';
+import { sass } from '@stencil/sass';
 
 export const config: Config = {
   namespace: 'web-components',
@@ -19,4 +20,12 @@ export const config: Config = {
       serviceWorker: null, // disable service workers
     },
   ],
+  plugins: [
+    sass({
+      injectGlobalPaths: [
+        './src/scss/_variables.scss',
+        './src/scss/_breakpoints.scss',
+      ]
+    })
+  ]
 };
