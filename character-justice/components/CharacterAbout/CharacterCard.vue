@@ -79,13 +79,18 @@ export default {
     background: white;
 
     &__image {
-        min-height: 100%;
+        height: 100%;
         width: 100%;
         // object-fit: cover;
         position: relative;
 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
         img {
             height: 100%;
+            // transform: translateX(-50%);
         }
 
         .image_normal {
@@ -99,24 +104,21 @@ export default {
             }
         }
 
-        .image_hover {
-            z-index: 2;
+        // .image_hover {
+        //     z-index: 2;
 
-            position: absolute;
-            min-width: 100%;
-            height: 100%;
-        }
+        //     position: absolute;
+        //     min-width: 100%;
+        //     height: 100%;
+        // }
 
-        .image_normal {
-            position: absolute;
-            transition: opacity 0.5s ease-in;
-            &_hide {
-                opacity: 0;
-            }
-        }
-
-        .image_hover {
-        }
+        // .image_normal {
+        //     position: absolute;
+        //     transition: opacity 0.5s ease-in;
+        //     &_hide {
+        //         opacity: 0;
+        //     }
+        // }
     }
 
     &__about {
