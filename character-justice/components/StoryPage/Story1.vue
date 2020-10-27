@@ -143,7 +143,7 @@ import ArticlePicture from '~/components/Article/ArticlePicture'
 import ArticleNotation from '~/components/Article/ArticleNotation'
 import StoryInfoSmall from '~/components/StoryPage/StoryInfoSmall'
 
-import story1_1 from '~/static/images/story1_1.jpeg'
+import story1_1 from '~/static/images/story1_1.jpg'
 import story1_2 from '~/static/images/story1_2.jpeg'
 import story1_3_1 from '~/static/images/story1_3_1.jpeg'
 import story1_3_2 from '~/static/images/story1_3_2.jpeg'

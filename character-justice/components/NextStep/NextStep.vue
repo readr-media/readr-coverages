@@ -11,13 +11,19 @@
                 <ul class="NextStep__list">
                     <li>
                         <ListDot color="#006db2" />
-                        對戒嚴時期的軍事審判制度有興趣，或是好奇政治受難者的審判過程，可至轉型正義資料庫查詢。
+                        對戒嚴時期的軍事審判制度有興趣，或是好奇政治受難者的審判過程，可至<a
+                            href="https://twtjcdb.tjc.gov.tw/"
+                            >轉型正義資料庫</a
+                        >查詢。
                     </li>
                     <li>
                         <div class="NextStep__list_marker">
                             <div class="dot"></div>
                         </div>
-                        可搜尋國家人權博物館的社群平臺，追蹤轉型正義相關活動。
+                        可搜尋國家人權博物館的<a
+                            href="https://www.facebook.com/TaiwanNHRM/"
+                            >社群平臺</a
+                        >，追蹤轉型正義相關活動。
                     </li>
                 </ul>
             </div>
@@ -29,7 +35,7 @@
                     href="https://twtjcdb.tjc.gov.tw"
                     >轉型正義資料庫的資料</a
                 >，整理政治受難者的基本檔案、起訴書、審理過程與最終判決內容，都已經開放在
-                <a href="https://github.com/readr-media/">github</a>，歡迎使用！
+                <a href="https://github.com/readr-media/">GitHub</a>，歡迎使用！
             </div>
 
             <h1 class="NextStep__title">看轉型正義分析報導</h1>
@@ -185,6 +191,11 @@ export default {
     &__bottom_bg {
         bottom: 0;
         transform: rotate(180deg);
+    }
+
+    a {
+        color: #006db2;
+        text-decoration-line: underline;
     }
 }
 </style>
