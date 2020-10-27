@@ -19,7 +19,7 @@ export default {
 
     div {
         pointer-events: none;
-        font-family: PingFangTC;
+        font-family: 'PingFang TC';
         font-size: 16px;
         font-weight: normal;
         line-height: 2;

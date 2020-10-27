@@ -65,7 +65,7 @@ export default {
         padding: 13px;
         margin: 1rem auto 2rem;
 
-        font-family: PingFangTC;
+        font-family: 'PingFang TC';
         font-size: 14px;
         font-weight: normal;
         font-stretch: normal;

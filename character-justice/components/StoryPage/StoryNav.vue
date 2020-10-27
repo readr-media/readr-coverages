@@ -61,7 +61,7 @@ export default {
         padding: 0 14px;
         cursor: pointer;
 
-        font-family: PingFangTC;
+        font-family: 'PingFang TC';
         font-size: 0.875rem;
         font-weight: 500;
         font-stretch: normal;
