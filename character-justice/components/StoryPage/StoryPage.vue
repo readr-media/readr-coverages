@@ -1,6 +1,6 @@
 <template>
     <div class="StoryPage" id="StoryPage" ref="StoryPage">
-        <StoryNav :notFixStoryNav="!storyPageIsFull" />
+        <StoryNav :notFixStoryNav="!storyPageIsFull" :currentId="currentId" />
 
         <div class="StoryPage__wrapper">
             <transition name="fade">

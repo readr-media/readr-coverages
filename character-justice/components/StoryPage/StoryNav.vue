@@ -5,8 +5,9 @@
         :class="{ fixTopStoryNav: !notFixStoryNav }"
     >
         <div
-            class="StoryNav__list"
             v-for="list in characterList"
+            class="StoryNav__list"
+            :class="{ current: currentId === list.id }"
             :key="list.id"
             @click="clickHandler(list.id)"
         >
@@ -21,7 +22,7 @@ import characterList from '~/mixins/characterList'
 
 export default {
     mixins: [characterList],
-    props: ['notFixStoryNav'],
+    props: ['notFixStoryNav', 'currentId'],
 
     data() {
         return {}
@@ -92,5 +93,9 @@ export default {
 
 .fixTopStoryNav {
     position: fixed;
+}
+
+.current {
+    color: black;
 }
 </style>
