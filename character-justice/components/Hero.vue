@@ -79,7 +79,7 @@ export default {
         const app = new PIXI.Application({
             width: clientWidth,
             height: clientHeight,
-            backgroundColor: 0x061639,
+            backgroundColor: 0x00000,
         })
 
         // put pixi app's canvas into specified DOM
@@ -92,15 +92,92 @@ export default {
             init(resource)
         })
         function init(item) {
-            const sprite = new PIXI.Sprite(item.fakeimg.texture)
+            // const sprite = new PIXI.Sprite(item.fakeimg.texture)
 
+            // container.addChild(sprite)
             // container.width = clientWidth
-            console.log(container)
-            console.log(container)
+            // container.height = clientHeight
 
-            container.addChild(sprite)
+            let mainImgTexture = item.fakeimg.texture
+            // 設定要取得的位置
+            const singleWidth = 18
+            // let singlePicture = new PIXI.Rectangle(
+            //     0 + singleWidth * 17,
+            //     0 + singleWidth * 17,
+            //     singleWidth,
+            //     singleWidth
+            // )
+
+            let imageSprites = []
+
+            let rowCount = Math.floor(1200 / singleWidth)
+            let colCount = Math.floor(2000 / singleWidth)
+
+            console.log(rowCount)
+            console.log(colCount)
+
+            for (let i = 0; i < rowCount; i++) {
+                for (let j = 0; j < colCount; j++) {
+                    let rectangle = new PIXI.Rectangle(
+                        0 + singleWidth * j,
+                        0 + singleWidth * i,
+                        singleWidth,
+                        singleWidth
+                    )
+
+                    let newTex = new PIXI.Texture(mainImgTexture, rectangle)
+                    let sprite = new PIXI.Sprite(newTex)
+
+                    sprite.x = singleWidth * j
+                    sprite.y = singleWidth * i
+                    imageSprites.push(sprite)
+                }
+            }
+
+            imageSprites.forEach((sprit) => {
+                container.addChild(sprit)
+            })
+
             container.width = clientWidth
             container.height = clientHeight
+
+            imageSprites.forEach((spirit, index) => {
+                const randomTime = Math.floor(Math.random() * 20) * 200
+                setTimeout(() => {
+                    container.removeChild(spirit)
+                }, randomTime)
+            })
+
+            // // 裁切圖片
+            // texture.frame = singlePicture
+            // const sprite = new PIXI.Sprite(texture)
+            // container.addChild(sprite)
+
+            // ---------------
+            // let rectangle1 = new PIXI.Rectangle(
+            //     0 + singleWidth * 0,
+            //     0 + singleWidth * 0,
+            //     singleWidth,
+            //     singleWidth
+            // )
+            // let newTex1 = new PIXI.Texture(mainImgTexture, rectangle1)
+            // const sprite1 = new PIXI.Sprite(newTex1)
+
+            // let rectangle2 = new PIXI.Rectangle(
+            //     0 + singleWidth * 1,
+            //     0 + singleWidth * 1,
+            //     singleWidth,
+            //     singleWidth
+            // )
+
+            // let newTex2 = new PIXI.Texture(mainImgTexture, rectangle2)
+            // const sprite2 = new PIXI.Sprite(newTex2)
+            // sprite2.x = singleWidth * 1
+            // sprite2.y = singleWidth * 0
+
+            // container.addChild(sprite1)
+            // container.addChild(sprite2)
+            // console.log(imageSprites)
         }
     },
 }
