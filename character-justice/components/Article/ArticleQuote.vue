@@ -1,8 +1,6 @@
 <template>
     <div class="ArticleQuote">
-        <div class="ArticleQuote__mark">
-            <img :src="mark" alt="" />
-        </div>
+        <div class="ArticleQuote__mark"></div>
 
         <div class="ArticleQuote__quote"><slot /></div>
     </div>
@@ -26,29 +24,28 @@ export default {
 
     display: flex;
     flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
 
     &__mark {
         margin-right: 19px;
-        width: 29px;
-        height: auto;
-        img {
-            width: 27px;
-            height: 100%;
-        }
-        // background-image: url('~static/images/mark.svg');
-        background-position: center;
-        background-size: 100% 100%;
+        flex-basis: 16px;
+        flex-grow: 0;
+        flex-shrink: 0;
+
+        border: 4px solid #e0c950;
+        border-right: none;
     }
 
     &__quote {
         font-family: PingFang TC;
+        flex-grow: 1;
         font-size: 1rem;
         font-weight: 500;
         line-height: 1.75;
 
         text-align: justify;
         color: #000000;
-        // height: 60px;
     }
 }
 </style>

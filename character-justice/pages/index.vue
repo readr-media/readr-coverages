@@ -43,9 +43,19 @@ export default {
         StoryPage,
     },
 
-    // mounted() {
-    //     this.$router.push('/1')
-    // },
+    mounted() {
+        const hashId = $nuxt.$route.hash
+        if (!hashId) return
+
+        const storyId = parseInt(hashId.charAt(hashId.length - 1))
+        const myEl = document.getElementById(`${storyId}`)
+
+        setTimeout(() => {
+            this.$smoothScroll({
+                scrollTo: myEl,
+            })
+        }, 1500)
+    },
 }
 </script>
 

@@ -1,12 +1,17 @@
 <template>
-    <div class="StoryNav" id="StoryNav" :class="{ fixTop: fix }">
+    <div
+        class="StoryNav"
+        id="StoryNav"
+        :class="{ fixTopStoryNav: !notFixStoryNav }"
+    >
         <div
-            class="StoryNav__list"
             v-for="list in characterList"
+            class="StoryNav__list"
+            :class="{ current: currentId === list.id }"
             :key="list.id"
             @click="clickHandler(list.id)"
         >
-            {{ list.name }}
+            <span> {{ list.name }}</span>
             <span class="small-hide">{{ list.info.content }}</span>
         </div>
     </div>
@@ -17,7 +22,7 @@ import characterList from '~/mixins/characterList'
 
 export default {
     mixins: [characterList],
-    props: ['fix'],
+    props: ['notFixStoryNav', 'currentId'],
 
     data() {
         return {}
@@ -57,7 +62,7 @@ export default {
         padding: 0 14px;
         cursor: pointer;
 
-        font-family: PingFangTC;
+        font-family: 'PingFang TC';
         font-size: 0.875rem;
         font-weight: 500;
         font-stretch: normal;
@@ -75,7 +80,7 @@ export default {
         display: none;
     }
 
-    @include atMedium {
+    @include atLarge {
         .small-hide {
             display: inline-block;
         }
@@ -86,7 +91,11 @@ export default {
     color: #000000 !important;
 }
 
-.fixTop {
+.fixTopStoryNav {
     position: fixed;
+}
+
+.current {
+    color: black;
 }
 </style>

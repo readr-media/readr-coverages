@@ -1,5 +1,7 @@
 <template>
-    <div class="Navbar"></div>
+    <div class="Navbar">
+        <readr-header />
+    </div>
 </template>
 
 <script>
@@ -12,6 +14,6 @@ export default {}
     z-index: 1;
     background: white;
     width: 100%;
-    height: 85px;
+    // height: 85px;
 }
 </style>

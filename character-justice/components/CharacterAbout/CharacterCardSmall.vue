@@ -61,7 +61,7 @@ export default {
 
     &__about {
         position: absolute;
-        bottom: 2px;
+        bottom: 0px;
         width: 100%;
         padding: 6px 0;
 

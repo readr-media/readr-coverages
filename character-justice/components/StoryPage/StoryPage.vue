@@ -1,14 +1,14 @@
 <template>
     <div class="StoryPage" id="StoryPage" ref="StoryPage">
-        <StoryNav :fix="scrollPosition <= 0" />
+        <StoryNav :notFixStoryNav="!storyPageIsFull" :currentId="currentId" />
 
         <div class="StoryPage__wrapper">
             <transition name="fade">
-                <StoryInfo :id="currentId" :notFixInfo="scrollPosition > 0" />
+                <StoryInfo :id="currentId" :notFixInfo="!storyPageIsFull" />
             </transition>
             <div
                 class="StoryPage__story_list"
-                :class="{ notFix: scrollPosition > 0 }"
+                :class="{ notFixStoryList: !storyPageIsFull }"
             >
                 <Story1 />
                 <Story2 />
@@ -73,40 +73,24 @@ export default {
             leftImg2,
             leftImg3,
             leftImg4,
-            scrollPosition: 1000,
+            storyPageIsFull: false,
         }
     },
-    methods: {
-        updateScroll() {
-            //get the element
-            var elem = this.$refs.StoryPage
-            //create viewport offset object
-            var elemRect = elem.getBoundingClientRect()
-            //get the offset from the element to the viewport
-            var elemViewportOffset = elemRect.top
-
-            this.scrollPosition = elemViewportOffset
-        },
-    },
+    methods: {},
     mounted() {
-        // activate StoryNav scroll event listener
-        window.addEventListener('scroll', debounce(this.updateScroll))
-
         // ---------------Handle storyNav fix-----------------
-        // const scrollerStoryNav = scrollama()
-        //    scrollerStoryInfo
-        //     .setup({
-        //         step: '.Story',
-        //         offset: 0.5,
-        //     })
-        //     .onStepEnter((response) => {
-        //         const { element, index, direction } = response
-
-        //         this.currentId = parseInt(element.id)
-        //     })
-        //     .onStepExit((response) => {
-        //         // { element, index, direction }
-        //     })
+        const scrollerStoryNav = scrollama()
+        scrollerStoryNav
+            .setup({
+                step: '.StoryPage',
+                offset: 0,
+            })
+            .onStepEnter((response) => {
+                this.storyPageIsFull = true
+            })
+            .onStepExit((response) => {
+                this.storyPageIsFull = false
+            })
 
         // ---------------Handle story info change effect-----------------
         const scrollerStoryInfo = scrollama()
@@ -207,7 +191,7 @@ export default {
         z-index: 999;
     }
 }
-.notFix {
+.notFixStoryList {
     margin-left: 0% !important;
 }
 </style>
