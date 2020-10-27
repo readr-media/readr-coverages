@@ -1,11 +1,10 @@
 <template>
     <div class="app">
         <Navbar />
-        <div class="fix-wrapper">
-            <Hero />
 
-            <CharacterAbout />
-        </div>
+        <!-- <PixiHero /> -->
+        <Hero />
+        <CharacterAbout />
 
         <StoryPage />
 
@@ -19,7 +18,7 @@
 <script>
 import Navbar from '~/components/Navbar'
 
-// import AnimateHero from '~/components/AnimateHero/AnimateHero'
+import PixiHero from '~/components/PixiHero'
 
 import Hero from '~/components/Hero'
 import CharacterAbout from '~/components/CharacterAbout/CharacterAbout'

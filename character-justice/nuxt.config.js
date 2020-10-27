@@ -76,6 +76,10 @@ export default {
     plugins: [
         { src: '~/plugins/VueSmoothScroll', ssr: false },
         '~/plugins/web-component.js',
+        {
+            src: '~/plugins/pixi.js',
+            ssr: false,
+        },
     ],
 
     // Auto import components (https://go.nuxtjs.dev/config-components)

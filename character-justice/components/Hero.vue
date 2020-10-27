@@ -1,12 +1,12 @@
 <template>
-    <div class="Hero">
+    <div class="Hero" ref="Hero">
         <div class="Hero__background">
-            <picture>
+            <!-- <picture>
                 <source media="(min-width:760px)" :srcset="Hero_web" />
                 <source media="(min-width:480px)" :srcset="Hero_pad" />
                 <img :src="Hero_mobile" alt="" />
-            </picture>
-
+            </picture> -->
+            <div class="Hero__background_pixi" />
             <div class="Hero__background_blackBlock" />
 
             <div class="Hero__background_mask" />
@@ -35,6 +35,9 @@ import Hero_mobile from '~/static/images/Hero_mobile.jpg'
 import Hero_pad from '~/static/images/Hero_pad.jpg'
 import Hero_web from '~/static/images/Hero_web.jpg'
 
+import html2canvas from 'html2canvas'
+import * as PIXI from 'pixi.js'
+
 export default {
     head: {
         script: [
@@ -55,6 +58,33 @@ export default {
             Hero_pad,
             Hero_web,
         }
+    },
+    mounted() {
+        // const Hero = document.querySelector('.Hero__background')
+        // html2canvas(Hero).then(function (canvas) {
+        //     console.log(canvas)
+        // })
+
+        const { clientWidth } = this.$refs.Hero
+        let clientHeight = 0
+
+        if (clientWidth < 480) {
+            clientHeight = 1.831 * clientWidth
+        } else if (clientWidth < 760) {
+            clientHeight = 1.333 * clientWidth
+        } else {
+            clientHeight = 0.6 * clientWidth
+        }
+
+        //Create a Pixi Application
+        const app = new PIXI.Application({
+            width: clientWidth,
+            height: clientHeight,
+            backgroundColor: 0x061639,
+        })
+
+        // put pixi app's canvas into specified DOM
+        document.querySelector('.Hero__background_pixi').replaceWith(app.view)
     },
 }
 </script>
