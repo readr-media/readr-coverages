@@ -1,5 +1,9 @@
 <template>
-    <div class="StoryNav" id="StoryNav" :class="{ fixTop: fix }">
+    <div
+        class="StoryNav"
+        id="StoryNav"
+        :class="{ fixTopStoryNav: !notFixStoryNav }"
+    >
         <div
             class="StoryNav__list"
             v-for="list in characterList"
@@ -17,7 +21,7 @@ import characterList from '~/mixins/characterList'
 
 export default {
     mixins: [characterList],
-    props: ['fix'],
+    props: ['notFixStoryNav'],
 
     data() {
         return {}
@@ -86,7 +90,7 @@ export default {
     color: #000000 !important;
 }
 
-.fixTop {
+.fixTopStoryNav {
     position: fixed;
 }
 </style>

@@ -74,7 +74,7 @@ export default {
                 title: '轉型正義之路：從戒嚴時期受難者資料揭開白色恐怖的秘密',
 
                 image: transitional_og,
-                url: 'https://www.readr.tw/project/3/transitional-justice/',
+                url: 'https://www.readr.tw/project/3/transitional-justice',
             },
         }
     },
