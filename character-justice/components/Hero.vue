@@ -1,11 +1,6 @@
 <template>
     <div class="Hero" ref="Hero">
         <div class="Hero__background">
-            <!-- <picture>
-                <source media="(min-width:760px)" :srcset="Hero_web" />
-                <source media="(min-width:480px)" :srcset="Hero_pad" />
-                <img :src="Hero_mobile" alt="" />
-            </picture> -->
             <div class="Hero__background_pixi" />
             <div class="Hero__background_blackBlock" />
 
@@ -67,13 +62,17 @@ export default {
 
         const { clientWidth } = this.$refs.Hero
         let clientHeight = 0
+        let backgroundImage = ''
 
         if (clientWidth < 480) {
             clientHeight = 1.831 * clientWidth
+            backgroundImage = Hero_mobile
         } else if (clientWidth < 760) {
             clientHeight = 1.333 * clientWidth
+            backgroundImage = Hero_pad
         } else {
             clientHeight = 0.6 * clientWidth
+            backgroundImage = Hero_web
         }
 
         //Create a Pixi Application
@@ -85,6 +84,24 @@ export default {
 
         // put pixi app's canvas into specified DOM
         document.querySelector('.Hero__background_pixi').replaceWith(app.view)
+        const container = new PIXI.Container()
+        app.stage.addChild(container)
+
+        const loader = new PIXI.Loader()
+        loader.add('fakeimg', `${backgroundImage}`).load((loader, resource) => {
+            init(resource)
+        })
+        function init(item) {
+            const sprite = new PIXI.Sprite(item.fakeimg.texture)
+
+            // container.width = clientWidth
+            console.log(container)
+            console.log(container)
+
+            container.addChild(sprite)
+            container.width = clientWidth
+            container.height = clientHeight
+        }
     },
 }
 </script>
