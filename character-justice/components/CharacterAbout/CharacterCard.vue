@@ -89,28 +89,28 @@ export default {
         justify-content: center;
 
         img {
-            height: 100%;
+            min-height: 100%;
+            min-width: 100%;
             // transform: translateX(-50%);
         }
 
         .image_normal {
             z-index: 3;
             position: absolute;
-            min-width: 100%;
-            height: 100%;
+
+            // height: 100%;
             transition: opacity 0.5s ease-in;
             &_hide {
                 opacity: 0;
             }
         }
 
-        // .image_hover {
-        //     z-index: 2;
+        .image_hover {
+            z-index: 2;
 
-        //     position: absolute;
-        //     min-width: 100%;
-        //     height: 100%;
-        // }
+            position: absolute;
+            // height: 100%;
+        }
 
         // .image_normal {
         //     position: absolute;

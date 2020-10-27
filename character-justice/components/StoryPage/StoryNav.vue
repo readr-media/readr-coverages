@@ -10,7 +10,7 @@
             :key="list.id"
             @click="clickHandler(list.id)"
         >
-            {{ list.name }}
+            <span> {{ list.name }}</span>
             <span class="small-hide">{{ list.info.content }}</span>
         </div>
     </div>
@@ -79,7 +79,7 @@ export default {
         display: none;
     }
 
-    @include atMedium {
+    @include atLarge {
         .small-hide {
             display: inline-block;
         }

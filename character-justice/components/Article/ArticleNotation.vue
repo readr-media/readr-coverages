@@ -2,12 +2,12 @@
     <span class="ArticleNotation">
         <span class="ArticleNotation__title">
             <slot />
-            <span class="ArticleNotation__title_icon" @click="notationToggle">
+            <div class="ArticleNotation__title_icon" @click="notationToggle">
                 <img
                     :src="!notationFlag ? notationIcon : notationIcon_off"
                     alt="notationIcon"
                 />
-            </span>
+            </div>
         </span>
 
         <div v-if="notationFlag" class="ArticleNotation__notation">
@@ -48,11 +48,11 @@ export default {
             // position: absolute;
             // right: 6px;
             // left: 51px;
-
-            height: 31px;
+            display: inline-block;
+            height: 1.937rem;
             img {
                 height: 100%;
-                margin-bottom: -12px;
+                margin-bottom: -0.75rem;
             }
         }
     }
