@@ -33,22 +33,12 @@ export default {
     },
     data() {
         return {
-            scrollPosition: 600,
+            sectionHeight: 0,
         }
     },
-    methods: {
-        updateScroll() {
-            //get the element
-            var elem = this.$refs.CharacterAbout
-            //create viewport offset object
-            var elemRect = elem.getBoundingClientRect()
-            //get the offset from the element to the viewport
-            var elemViewportOffset = elemRect.top
-
-            this.scrollPosition = elemViewportOffset
-        },
-    },
+    methods: {},
     mounted() {
+        // -----------------------Zoom cards----------------------------
         const characterAbout = document.querySelector('.CharacterAbout')
         const cards = document.querySelectorAll('.CharacterCard')
         const observer = new IntersectionObserver(
@@ -78,13 +68,13 @@ export default {
 <style lang="scss">
 .CharacterAbout {
     width: 100%;
-    height: 100vh;
+    min-height: 560px;
     &__container_small {
         z-index: 1;
         position: relative;
         background: white;
         width: 100%;
-        height: 100vh;
+        // height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -99,8 +89,16 @@ export default {
         flex-direction: row;
         align-items: center;
     }
+    &__fixScreenMask {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+    }
 
     @include atMedium {
+        height: 100vh;
+
         &__container_small {
             display: none;
         }

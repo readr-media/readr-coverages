@@ -126,13 +126,15 @@ export default {
             .onStepEnter((response) => {
                 // { element, index, direction }
                 const { element, index, direction } = response
-                // console.log(characterAboutDOM)
-                characterAboutDOM.forEach((characterAbout) => {
+
+                characterAboutDOM.forEach((characterAbout, index) => {
+                    if (index === 0) return //block fix at small
                     characterAbout.classList.add('fixScreen')
                 })
             })
             .onStepExit((response) => {
-                characterAboutDOM.forEach((characterAbout) => {
+                characterAboutDOM.forEach((characterAbout, index) => {
+                    if (index === 0) return //block fix at small
                     characterAbout.classList.remove('fixScreen')
                 })
                 // { element, index, direction }

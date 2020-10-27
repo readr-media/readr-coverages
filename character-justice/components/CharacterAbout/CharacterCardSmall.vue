@@ -54,7 +54,10 @@ export default {
     &__image {
         height: 100%;
         overflow: hidden;
+
         img {
+            min-height: 100%;
+            min-width: 100%;
             width: 100%;
         }
     }
@@ -71,7 +74,7 @@ export default {
         text-align: center;
         color: #000000;
 
-        background-color: rgba(224, 201, 80, 0.7);
+        background-color: rgba(224, 201, 80, 0.6);
     }
 }
 </style>

@@ -61,25 +61,39 @@ export default {
         // })
 
         const { clientWidth } = this.$refs.Hero
-        let clientHeight = 0
-        let backgroundImage = ''
+        // backgroundImageProp in desktop preset
+        let clientHeight = 0.6 * clientWidth
+        let backgroundImageProp = {
+            route: Hero_web,
+            width: 2000,
+            height: 1200,
+            pieceWidth: 19,
+        }
 
         if (clientWidth < 480) {
             clientHeight = 1.831 * clientWidth
-            backgroundImage = Hero_mobile
+            backgroundImageProp = {
+                route: Hero_mobile,
+                width: 320,
+                height: 586,
+                pieceWidth: 9,
+            }
         } else if (clientWidth < 760) {
             clientHeight = 1.333 * clientWidth
-            backgroundImage = Hero_pad
-        } else {
-            clientHeight = 0.6 * clientWidth
-            backgroundImage = Hero_web
+
+            backgroundImageProp = {
+                route: Hero_pad,
+                width: 768,
+                height: 1023,
+                pieceWidth: 15,
+            }
         }
 
         //Create a Pixi Application
         const app = new PIXI.Application({
             width: clientWidth,
             height: clientHeight,
-            backgroundColor: 0x00000,
+            backgroundColor: 0xffffff,
         })
 
         // put pixi app's canvas into specified DOM
@@ -87,8 +101,10 @@ export default {
         const container = new PIXI.Container()
         app.stage.addChild(container)
 
+        // active loader
+        const { route, width, height, pieceWidth } = backgroundImageProp
         const loader = new PIXI.Loader()
-        loader.add('fakeimg', `${backgroundImage}`).load((loader, resource) => {
+        loader.add('fakeimg', `${route}`).load((loader, resource) => {
             init(resource)
         })
         function init(item) {
@@ -100,7 +116,6 @@ export default {
 
             let mainImgTexture = item.fakeimg.texture
             // 設定要取得的位置
-            const singleWidth = 18
             // let singlePicture = new PIXI.Rectangle(
             //     0 + singleWidth * 17,
             //     0 + singleWidth * 17,
@@ -110,26 +125,23 @@ export default {
 
             let imageSprites = []
 
-            let rowCount = Math.floor(1200 / singleWidth)
-            let colCount = Math.floor(2000 / singleWidth)
-
-            console.log(rowCount)
-            console.log(colCount)
+            let rowCount = Math.floor(height / pieceWidth)
+            let colCount = Math.floor(width / pieceWidth)
 
             for (let i = 0; i < rowCount; i++) {
                 for (let j = 0; j < colCount; j++) {
                     let rectangle = new PIXI.Rectangle(
-                        0 + singleWidth * j,
-                        0 + singleWidth * i,
-                        singleWidth,
-                        singleWidth
+                        0 + pieceWidth * j,
+                        0 + pieceWidth * i,
+                        pieceWidth,
+                        pieceWidth
                     )
 
                     let newTex = new PIXI.Texture(mainImgTexture, rectangle)
                     let sprite = new PIXI.Sprite(newTex)
 
-                    sprite.x = singleWidth * j
-                    sprite.y = singleWidth * i
+                    sprite.x = pieceWidth * j
+                    sprite.y = pieceWidth * i
                     imageSprites.push(sprite)
                 }
             }
