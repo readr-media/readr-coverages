@@ -13,6 +13,7 @@
                         <ListDot color="#006db2" />
                         對戒嚴時期的軍事審判制度有興趣，或是好奇政治受難者的審判過程，可至<a
                             href="https://twtjcdb.tjc.gov.tw/"
+                            target="_blank"
                             >轉型正義資料庫</a
                         >查詢。
                     </li>
@@ -22,6 +23,7 @@
                         </div>
                         可搜尋國家人權博物館的<a
                             href="https://www.facebook.com/TaiwanNHRM/"
+                            target="_blank"
                             >社群平臺</a
                         >，追蹤轉型正義相關活動。
                     </li>
@@ -33,10 +35,12 @@
             <div class="NextStep__content" :style="{ marginBottom: '76px' }">
                 我們以爬蟲的方式抓取促進轉型正義委員會公開之<a
                     href="https://twtjcdb.tjc.gov.tw"
+                    target="_blank"
                     >轉型正義資料庫的資料</a
                 >，整理政治受難者的基本檔案、起訴書、審理過程與最終判決內容，都已經開放在
                 <a
                     href="https://github.com/readr-media/readr-data/tree/master/justice"
+                    target="_blank"
                     >GitHub</a
                 >，歡迎使用！
             </div>
