@@ -25,6 +25,8 @@ import characterList from '~/mixins/characterList'
 import CharacterCard from '~/components/CharacterAbout/CharacterCard'
 import CharacterCardSmall from '~/components/CharacterAbout/CharacterCardSmall'
 
+import scrollama from 'scrollama'
+
 export default {
     mixins: [characterList],
     components: {
@@ -39,28 +41,25 @@ export default {
     methods: {},
     mounted() {
         // -----------------------Zoom cards----------------------------
-        const characterAbout = document.querySelector('.CharacterAbout')
+        const scrollerZoomCard = scrollama()
         const cards = document.querySelectorAll('.CharacterCard')
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry, index) => {
-                    if (entries[0].intersectionRatio > 0) {
-                        cards.forEach((card, index) => {
-                            card.classList.add('normal')
-                        })
-                    } else {
-                        cards.forEach((card) => {
-                            card.classList.remove('normal')
-                        })
-                        // entry.target.style.animation = 'none'
-                    }
+
+        scrollerZoomCard
+            .setup({
+                step: '.CharacterAbout',
+                offset: 0.5,
+            })
+            .onStepEnter((response) => {
+                console.log('YOYO')
+                cards.forEach((card, index) => {
+                    card.classList.add('normal')
                 })
-            },
-            { threshold: [0, 0.25, 0.5] }
-        )
-        cards.forEach((card) => {
-            observer.observe(characterAbout)
-        })
+            })
+            .onStepExit((response) => {
+                cards.forEach((card) => {
+                    card.classList.remove('normal')
+                })
+            })
     },
 }
 </script>

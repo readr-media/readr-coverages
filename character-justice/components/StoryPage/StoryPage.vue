@@ -33,25 +33,8 @@ import leftImg2 from '~/static/images/2_3.jpg'
 import leftImg3 from '~/static/images/3_3.jpg'
 import leftImg4 from '~/static/images/4_3.jpg'
 
-import 'intersection-observer'
 import scrollama from 'scrollama'
 
-// reduce scroll eventListener count
-function debounce(func, wait = 20, immediate = true) {
-    var timeout
-    return function () {
-        var context = this,
-            args = arguments
-        var later = function () {
-            timeout = null
-            if (!immediate) func.apply(context, args)
-        }
-        var callNow = immediate && !timeout
-        clearTimeout(timeout)
-        timeout = setTimeout(later, wait)
-        if (callNow) func.apply(context, args)
-    }
-}
 export default {
     components: {
         StoryNav,
