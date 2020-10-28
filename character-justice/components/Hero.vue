@@ -168,6 +168,7 @@ export default {
         }
 
         const activateAnimation = (imageSprites) => {
+            if (this.isAnimationFired) return
             // -------------------Activate fade out-------------------
             imageSprites.forEach((sprite, index) => {
                 const randomDropDistane = getRandom(20, 30) / 10
@@ -211,10 +212,7 @@ export default {
         }
 
         document.addEventListener('scroll', () => {
-            if (this.isAnimationFired === false) {
-                activateAnimation(imageSprites)
-                this.isAnimationFired == true
-            }
+            activateAnimation(imageSprites)
         })
     },
 }

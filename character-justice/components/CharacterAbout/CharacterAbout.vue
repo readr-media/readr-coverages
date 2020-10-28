@@ -50,12 +50,13 @@ export default {
                 offset: 0.8,
             })
             .onStepEnter((response) => {
+                console.log('enter')
                 cards.forEach((card, index) => {
                     setTimeout(
                         () => {
                             card.classList.add('normal')
                         },
-                        index < 4 ? 200 * index : 200 * (index - 4)
+                        index < 4 ? 100 * index : 100 * (index - 4)
                     )
                 })
             })
@@ -64,6 +65,7 @@ export default {
                 cards.forEach((card) => {
                     card.classList.remove('normal')
                 })
+                console.log('leave')
             })
     },
 }

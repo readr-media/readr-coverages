@@ -1,7 +1,6 @@
 <template>
     <div class="StoryPage" id="StoryPage" ref="StoryPage">
         <StoryNav :notFixStoryNav="!storyPageIsFull" :currentId="currentId" />
-
         <div class="StoryPage__wrapper">
             <transition name="fade">
                 <StoryInfo :id="currentId" :notFixInfo="!storyPageIsFull" />
@@ -34,6 +33,24 @@ import leftImg3 from '~/static/images/3_3.jpg'
 import leftImg4 from '~/static/images/4_3.jpg'
 
 import scrollama from 'scrollama'
+import ScrollMagic from 'scrollmagic'
+
+// reduce scroll eventListener count
+function debounce(func, wait = 50, immediate = true) {
+    var timeout
+    return function () {
+        var context = this,
+            args = arguments
+        var later = function () {
+            timeout = null
+            if (!immediate) func.apply(context, args)
+        }
+        var callNow = immediate && !timeout
+        clearTimeout(timeout)
+        timeout = setTimeout(later, wait)
+        if (callNow) func.apply(context, args)
+    }
+}
 
 export default {
     components: {
@@ -59,25 +76,38 @@ export default {
             storyPageIsFull: false,
         }
     },
-    methods: {},
+    methods: {
+        updateScroll() {
+            //get the element
+            var elem = this.$refs.StoryPage
+            //create viewport offset object
+            var elemRect = elem.getBoundingClientRect()
+            //get the offset from the element to the viewport
+            var elemViewportOffset = elemRect.top
+            this.storyPageIsFull = elemViewportOffset > 0 ? false : true
+        },
+    },
     mounted() {
         // ---------------Handle storyNav fix-----------------
-        const scrollerStoryNav = scrollama()
-        scrollerStoryNav
-            .setup({
-                step: '.StoryPage',
-                offset: 0,
-            })
-            .onStepEnter((response) => {
-                this.storyPageIsFull = true
-            })
-            .onStepExit((response) => {
-                this.storyPageIsFull = false
-            })
+        window.addEventListener('scroll', debounce(this.updateScroll))
+
+        // const scrollerStoryNav = scrollama()
+        // scrollerStoryNav
+        //     .setup({
+        //         step: '.StoryPage',
+        //         offset: '1px',
+        //     })
+        //     .onStepEnter((response) => {
+        //         console.log('enter')
+        //         this.storyPageIsFull = true
+        //     })
+        //     .onStepExit((response) => {
+        //         console.log('leave')
+        //         this.storyPageIsFull = false
+        //     })
 
         // ---------------Handle story info change effect-----------------
         const scrollerStoryInfo = scrollama()
-
         scrollerStoryInfo
             .setup({
                 step: '.Story',
@@ -85,13 +115,11 @@ export default {
             })
             .onStepEnter((response) => {
                 const { element, index, direction } = response
-
                 this.currentId = parseInt(element.id)
             })
             .onStepExit((response) => {
                 // { element, index, direction }
             })
-
         // ---------------Handle scene 3 hover scene2 effect-----------------
         // instantiate the scrollama
         const scrollerHover = scrollama()
@@ -99,7 +127,6 @@ export default {
             '.CharacterAbout__container'
         )
         const storyPageDOM = document.querySelector('.StoryPage')
-
         // setup the instance, pass callback functions
         scrollerHover
             .setup({
@@ -109,7 +136,6 @@ export default {
             .onStepEnter((response) => {
                 // { element, index, direction }
                 const { element, index, direction } = response
-
                 characterAboutDOM.forEach((characterAbout, index) => {
                     if (index === 0) return //block fix at small
                     characterAbout.classList.add('fixScreen')

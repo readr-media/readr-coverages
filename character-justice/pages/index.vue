@@ -3,6 +3,7 @@
         <Navbar />
 
         <!-- <PixiHero /> -->
+
         <Hero />
         <CharacterAbout />
 
