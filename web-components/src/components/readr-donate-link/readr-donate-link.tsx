@@ -2,7 +2,7 @@ import { Component, Host, h } from '@stencil/core';
 
 @Component({
   tag: 'readr-donate-link',
-  styleUrl: 'readr-donate-link.css',
+  styleUrl: 'readr-donate-link.scss',
   shadow: true,
 })
 export class ReadrDonateLink {
