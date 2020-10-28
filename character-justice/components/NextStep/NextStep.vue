@@ -1,5 +1,8 @@
 <template>
     <div class="NextStep">
+        <div class="NextStep__top_bg">
+            <img :src="bg_web" alt="butterfly" />
+        </div>
         <div class="NextStep__container">
             <!-- <Test :questionList="questionList" /> -->
 
@@ -49,9 +52,6 @@
             <PreviewNews :news="web" />
         </div>
 
-        <div class="NextStep__top_bg">
-            <img :src="bg_web" alt="butterfly" />
-        </div>
         <div class="NextStep__bottom_bg">
             <img :src="bg_web" alt="butterfly" />
         </div>
@@ -113,7 +113,8 @@ export default {
     background: white;
     &__container {
         width: 100%;
-        padding: 130px 0;
+        padding: 47px 0;
+        z-index: 4;
     }
     @include atSmall {
         &__container {
@@ -185,11 +186,12 @@ export default {
     &__top_bg,
     &__bottom_bg {
         width: 100%;
-        height: 100px;
-        position: absolute;
+        // position: absolute;
         pointer-events: none;
+        z-index: 3;
         img {
             width: 100%;
+            display: block;
         }
     }
     &__top_bg {
