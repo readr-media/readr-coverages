@@ -9,7 +9,7 @@ export default {}
 <style lang="scss" scoped>
 .ArticleBlank {
     width: 100%;
-    height: 30vh;
+    height: 100vh;
     background: white;
 }
 </style>

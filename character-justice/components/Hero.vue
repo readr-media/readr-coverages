@@ -32,6 +32,11 @@ import Hero_web from '~/static/images/Hero_web.jpg'
 
 import html2canvas from 'html2canvas'
 import * as PIXI from 'pixi.js'
+import scrollama from 'scrollama'
+
+function getRandom(x) {
+    return Math.floor(Math.random() * x) + 1
+}
 
 export default {
     head: {
@@ -52,6 +57,7 @@ export default {
             Hero_mobile,
             Hero_pad,
             Hero_web,
+            isAnimationFired: false,
         }
     },
     mounted() {
@@ -93,7 +99,7 @@ export default {
         const app = new PIXI.Application({
             width: clientWidth,
             height: clientHeight,
-            backgroundColor: 0xffffff,
+            transparent: true,
         })
 
         // put pixi app's canvas into specified DOM
@@ -102,28 +108,16 @@ export default {
         app.stage.addChild(container)
 
         // active loader
-        const { route, width, height, pieceWidth } = backgroundImageProp
         const loader = new PIXI.Loader()
-        loader.add('fakeimg', `${route}`).load((loader, resource) => {
+        const { route, width, height, pieceWidth } = backgroundImageProp
+        let imageSprites = []
+
+        loader.add('mainImg', `${route}`).load((loader, resource) => {
             init(resource)
         })
-        function init(item) {
-            // const sprite = new PIXI.Sprite(item.fakeimg.texture)
 
-            // container.addChild(sprite)
-            // container.width = clientWidth
-            // container.height = clientHeight
-
-            let mainImgTexture = item.fakeimg.texture
-            // 設定要取得的位置
-            // let singlePicture = new PIXI.Rectangle(
-            //     0 + singleWidth * 17,
-            //     0 + singleWidth * 17,
-            //     singleWidth,
-            //     singleWidth
-            // )
-
-            let imageSprites = []
+        const init = (item) => {
+            let mainImgTexture = item.mainImg.texture
 
             let rowCount = Math.floor(height / pieceWidth)
             let colCount = Math.floor(width / pieceWidth)
@@ -148,49 +142,74 @@ export default {
 
             imageSprites.forEach((sprit) => {
                 container.addChild(sprit)
+                // container.addChildAt(sprit, 0)
             })
 
             container.width = clientWidth
             container.height = clientHeight
 
-            imageSprites.forEach((spirit, index) => {
-                const randomTime = Math.floor(Math.random() * 20) * 200
-                setTimeout(() => {
-                    container.removeChild(spirit)
-                }, randomTime)
-            })
+            // const scrollerNavbar = scrollama()
 
-            // // 裁切圖片
-            // texture.frame = singlePicture
-            // const sprite = new PIXI.Sprite(texture)
-            // container.addChild(sprite)
-
-            // ---------------
-            // let rectangle1 = new PIXI.Rectangle(
-            //     0 + singleWidth * 0,
-            //     0 + singleWidth * 0,
-            //     singleWidth,
-            //     singleWidth
-            // )
-            // let newTex1 = new PIXI.Texture(mainImgTexture, rectangle1)
-            // const sprite1 = new PIXI.Sprite(newTex1)
-
-            // let rectangle2 = new PIXI.Rectangle(
-            //     0 + singleWidth * 1,
-            //     0 + singleWidth * 1,
-            //     singleWidth,
-            //     singleWidth
-            // )
-
-            // let newTex2 = new PIXI.Texture(mainImgTexture, rectangle2)
-            // const sprite2 = new PIXI.Sprite(newTex2)
-            // sprite2.x = singleWidth * 1
-            // sprite2.y = singleWidth * 0
-
-            // container.addChild(sprite1)
-            // container.addChild(sprite2)
-            // console.log(imageSprites)
+            // scrollerNavbar
+            //     .setup({
+            //         step: '.CharacterAbout',
+            //         offset: 0.8,
+            //     })
+            //     .onStepEnter((response) => {})
+            //     .onStepExit((response) => {
+            //         activateAnimation() // activateAnimation()
+            //     })
         }
+
+        const activateAnimation = (imageSprites) => {
+            // -------------------Activate fade out-------------------
+            imageSprites.forEach((sprite, index) => {
+                const randomDropDistane = getRandom(20, 30) / 10
+                const randomVerticalDistance = Math.random() + 1
+                const randomDropDirection = Math.random() >= 0.7 ? 1 : -1
+                const randomOpacity = Math.random() / 50
+
+                let randomActiveTime = getRandom(0, 25) * 100 + index * 1
+
+                if (sprite.y < height / 4) {
+                    randomActiveTime = getRandom(0, 10) * 100 + index * 1
+                } else if (sprite.y < height / 2) {
+                    randomActiveTime = getRandom(0, 15) * 100 + index * 1
+                } else if (sprite.y < (height * 3) / 4) {
+                    randomActiveTime = getRandom(0, 20) * 100 + index * 1
+                }
+
+                setTimeout(() => {
+                    app.ticker.add((delta) => {
+                        sprite.alpha -= randomOpacity
+                        sprite.y += randomDropDistane
+                        sprite.x =
+                            sprite.x +
+                            ((randomVerticalDistance * randomVerticalDistance -
+                                1) /
+                                2) *
+                                randomDropDirection
+
+                        if (
+                            sprite.y > height ||
+                            sprite.x > width ||
+                            sprite.x < 0 ||
+                            sprite.alpha <= 0
+                        ) {
+                            container.removeChild(sprite)
+                        }
+                    })
+                }, randomActiveTime)
+            })
+            this.isAnimationFired = true
+        }
+
+        document.addEventListener('scroll', () => {
+            if (this.isAnimationFired === false) {
+                activateAnimation(imageSprites)
+                this.isAnimationFired == true
+            }
+        })
     },
 }
 </script>
@@ -198,6 +217,7 @@ export default {
 <style lang="scss" scoped>
 .Hero {
     position: relative;
+    z-index: 1;
     width: 100%;
     &__background {
         img {
@@ -212,6 +232,7 @@ export default {
 
         &_mask {
             position: absolute;
+            // z-index: ;
             width: 100%;
             height: calc(100% - 200px);
             top: 0;

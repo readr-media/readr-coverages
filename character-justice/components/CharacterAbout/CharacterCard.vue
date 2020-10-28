@@ -167,10 +167,11 @@ export default {
     }
     transform: scale(0.02);
     z-index: 1;
+    opacity: 0;
     pointer-events: none;
 }
 .normal {
-    // opacity: 0;
+    opacity: 1;
     .CharacterCard__about {
         opacity: 1;
     }

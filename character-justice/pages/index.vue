@@ -59,6 +59,10 @@ export default {
 </script>
 
 <style>
+.app {
+    z-index: 0;
+}
+
 .fixContainer {
     width: 100%;
     position: fixed;

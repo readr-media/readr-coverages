@@ -50,12 +50,12 @@ export default {
                 offset: 0.5,
             })
             .onStepEnter((response) => {
-                console.log('YOYO')
                 cards.forEach((card, index) => {
                     card.classList.add('normal')
                 })
             })
             .onStepExit((response) => {
+                if (response.direction === 'down') return
                 cards.forEach((card) => {
                     card.classList.remove('normal')
                 })
@@ -66,6 +66,7 @@ export default {
 
 <style lang="scss">
 .CharacterAbout {
+    z-index: 1;
     width: 100%;
     min-height: 560px;
     &__container_small {

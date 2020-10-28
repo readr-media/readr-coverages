@@ -117,6 +117,7 @@ export default {
     margin: auto;
     margin-bottom: 40px;
     &__img {
+        cursor: pointer;
         position: relative;
         width: 100%;
         display: flex;
