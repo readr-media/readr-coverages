@@ -23,14 +23,14 @@ export default {
 <style lang="scss" scoped>
 .PreviewNews {
     width: 100%;
-    height: 100px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
 
     // margin-top: 14px;
 
     &__image {
-        width: 40%;
+        width: 100%;
         height: 100%;
         overflow: hidden;
         img {
@@ -39,7 +39,7 @@ export default {
     }
 
     &__text {
-        width: 60%;
+        width: 100%;
         padding: 0 14px;
         display: flex;
         flex-direction: column;
@@ -61,8 +61,13 @@ export default {
         }
     }
 
-    @include atMedium {
+    @include atSmall {
+        flex-direction: row;
+        &__image {
+            width: 40%;
+        }
         &__text {
+            width: 60%;
             &_title {
                 font-size: 1rem;
             }

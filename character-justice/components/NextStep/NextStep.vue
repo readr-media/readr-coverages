@@ -113,7 +113,7 @@ export default {
     background: white;
     &__container {
         width: 100%;
-        padding: 47px 0;
+        padding: 47px 20px;
         z-index: 4;
     }
     @include atSmall {
