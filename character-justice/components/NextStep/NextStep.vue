@@ -1,5 +1,8 @@
 <template>
     <div class="NextStep">
+        <div class="NextStep__top_bg">
+            <img :src="bg_web" alt="butterfly" />
+        </div>
         <div class="NextStep__container">
             <!-- <Test :questionList="questionList" /> -->
 
@@ -13,6 +16,7 @@
                         <ListDot color="#006db2" />
                         對戒嚴時期的軍事審判制度有興趣，或是好奇政治受難者的審判過程，可至<a
                             href="https://twtjcdb.tjc.gov.tw/"
+                            target="_blank"
                             >轉型正義資料庫</a
                         >查詢。
                     </li>
@@ -22,6 +26,7 @@
                         </div>
                         可搜尋國家人權博物館的<a
                             href="https://www.facebook.com/TaiwanNHRM/"
+                            target="_blank"
                             >社群平臺</a
                         >，追蹤轉型正義相關活動。
                     </li>
@@ -33,10 +38,12 @@
             <div class="NextStep__content" :style="{ marginBottom: '76px' }">
                 我們以爬蟲的方式抓取促進轉型正義委員會公開之<a
                     href="https://twtjcdb.tjc.gov.tw"
+                    target="_blank"
                     >轉型正義資料庫的資料</a
                 >，整理政治受難者的基本檔案、起訴書、審理過程與最終判決內容，都已經開放在
                 <a
                     href="https://github.com/readr-media/readr-data/tree/master/justice"
+                    target="_blank"
                     >GitHub</a
                 >，歡迎使用！
             </div>
@@ -45,9 +52,6 @@
             <PreviewNews :news="web" />
         </div>
 
-        <div class="NextStep__top_bg">
-            <img :src="bg_web" alt="butterfly" />
-        </div>
         <div class="NextStep__bottom_bg">
             <img :src="bg_web" alt="butterfly" />
         </div>
@@ -109,7 +113,8 @@ export default {
     background: white;
     &__container {
         width: 100%;
-        padding: 130px 0;
+        padding: 47px 20px;
+        z-index: 4;
     }
     @include atSmall {
         &__container {
@@ -181,11 +186,12 @@ export default {
     &__top_bg,
     &__bottom_bg {
         width: 100%;
-        height: 100px;
-        position: absolute;
+        // position: absolute;
         pointer-events: none;
+        z-index: 3;
         img {
             width: 100%;
+            display: block;
         }
     }
     &__top_bg {

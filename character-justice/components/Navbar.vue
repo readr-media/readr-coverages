@@ -1,6 +1,7 @@
 <template>
     <div class="Navbar">
         <readr-header />
+        <div class="Navbar__anchor"></div>
     </div>
 </template>
 
@@ -15,5 +16,12 @@ export default {}
     background: white;
     width: 100%;
     // height: 85px;
+
+    &__anchor {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: 0;
+    }
 }
 </style>

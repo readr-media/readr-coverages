@@ -40,6 +40,7 @@
                 臺灣省保安司令部的判決書，張常美判刑 12
                 年，（國家發展委員會檔案管理局<a
                     href="https://aa.archives.gov.tw/Home/Index"
+                    target="_blank"
                     >國家檔案資訊網</a
                 >）
             </ArticlePicture>

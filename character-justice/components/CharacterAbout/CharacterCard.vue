@@ -1,11 +1,11 @@
 <template>
     <div
-        class="CharacterCard small"
+        class="CharacterCard small Card"
         @mouseover="mouseOver"
         @mouseout="mouseLeave"
         @click="clickHandler"
         :style="{
-            marginTop: `${character.smallPosition.top}`,
+            marginTop: character.smallPosition.top,
         }"
     >
         <div class="CharacterCard__image">
@@ -71,12 +71,10 @@ export default {
 <style lang="scss" scoped>
 .CharacterCard {
     cursor: pointer;
-    // width: 25%;
-    height: 100%;
-    flex: 1;
     overflow: hidden;
-    position: relative;
     background: white;
+    position: relative;
+    width: 100%;
 
     &__image {
         height: 100%;
@@ -165,20 +163,29 @@ export default {
             }
         }
     }
-    transform: scale(0.02);
     z-index: 1;
+    opacity: 0.3;
+
+    transform: translateY(-50%) scale(0.03) scaleY(0.3);
+    flex: 1;
+
     pointer-events: none;
 }
 .normal {
-    // opacity: 0;
+    margin-top: 0px !important;
+    z-index: 2;
+    opacity: 1;
+
+    transform: scale(1);
+
+    flex: 1;
+    margin-right: 0;
+
+    pointer-events: initial;
+
+    transition: all 1.9s ease-in-out;
     .CharacterCard__about {
         opacity: 1;
     }
-    z-index: 2;
-    pointer-events: initial;
-
-    transition: all 1s ease-in-out;
-    transform: scale(1);
-    margin-top: 0 !important;
 }
 </style>

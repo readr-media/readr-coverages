@@ -25,6 +25,8 @@ import characterList from '~/mixins/characterList'
 import CharacterCard from '~/components/CharacterAbout/CharacterCard'
 import CharacterCardSmall from '~/components/CharacterAbout/CharacterCardSmall'
 
+import scrollama from 'scrollama'
+
 export default {
     mixins: [characterList],
     components: {
@@ -33,58 +35,53 @@ export default {
     },
     data() {
         return {
-            scrollPosition: 600,
+            sectionHeight: 0,
         }
     },
-    methods: {
-        updateScroll() {
-            //get the element
-            var elem = this.$refs.CharacterAbout
-            //create viewport offset object
-            var elemRect = elem.getBoundingClientRect()
-            //get the offset from the element to the viewport
-            var elemViewportOffset = elemRect.top
-
-            this.scrollPosition = elemViewportOffset
-        },
-    },
+    methods: {},
     mounted() {
-        const characterAbout = document.querySelector('.CharacterAbout')
-        const cards = document.querySelectorAll('.CharacterCard')
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry, index) => {
-                    if (entries[0].intersectionRatio > 0) {
-                        cards.forEach((card, index) => {
+        // -----------------------Zoom cards----------------------------
+        const scrollerZoomCard = scrollama()
+        const cards = document.querySelectorAll('.Card')
+
+        scrollerZoomCard
+            .setup({
+                step: '.CharacterAbout',
+                offset: 0.8,
+            })
+            .onStepEnter((response) => {
+                console.log('enter')
+                cards.forEach((card, index) => {
+                    setTimeout(
+                        () => {
                             card.classList.add('normal')
-                        })
-                    } else {
-                        cards.forEach((card) => {
-                            card.classList.remove('normal')
-                        })
-                        // entry.target.style.animation = 'none'
-                    }
+                        },
+                        index < 4 ? 100 * index : 100 * (index - 4)
+                    )
                 })
-            },
-            { threshold: [0, 0.25, 0.5] }
-        )
-        cards.forEach((card) => {
-            observer.observe(characterAbout)
-        })
+            })
+            .onStepExit((response) => {
+                if (response.direction === 'down') return
+                cards.forEach((card) => {
+                    card.classList.remove('normal')
+                })
+                console.log('leave')
+            })
     },
 }
 </script>
 
 <style lang="scss">
 .CharacterAbout {
+    z-index: 1;
     width: 100%;
-    height: 100vh;
+    min-height: 560px;
     &__container_small {
         z-index: 1;
         position: relative;
         background: white;
         width: 100%;
-        height: 100vh;
+        // height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -97,10 +94,18 @@ export default {
         width: 100%;
         height: 100vh;
         flex-direction: row;
-        align-items: center;
+        justify-content: flex-start;
+    }
+    &__fixScreenMask {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
     }
 
     @include atMedium {
+        height: 100vh;
+
         &__container_small {
             display: none;
         }

@@ -1,12 +1,7 @@
 <template>
-    <div class="Hero">
+    <div class="Hero" ref="Hero">
         <div class="Hero__background">
-            <picture>
-                <source media="(min-width:760px)" :srcset="Hero_web" />
-                <source media="(min-width:480px)" :srcset="Hero_pad" />
-                <img :src="Hero_mobile" alt="" />
-            </picture>
-
+            <div class="Hero__background_pixi" />
             <div class="Hero__background_blackBlock" />
 
             <div class="Hero__background_mask" />
@@ -25,7 +20,13 @@
             </div>
         </div>
         <div class="Hero__footer">
-            資料來源：國家發展委員會檔案管理局，<a href="">國家檔案資訊網</a>
+            <span>
+                資料來源：國家發展委員會檔案管理局，<a
+                    href="https://aa.archives.gov.tw/Home/Index"
+                    target="_blank"
+                    >國家檔案資訊網</a
+                ></span
+            >
         </div>
     </div>
 </template>
@@ -34,6 +35,14 @@
 import Hero_mobile from '~/static/images/Hero_mobile.jpg'
 import Hero_pad from '~/static/images/Hero_pad.jpg'
 import Hero_web from '~/static/images/Hero_web.jpg'
+
+import html2canvas from 'html2canvas'
+import * as PIXI from 'pixi.js'
+import scrollama from 'scrollama'
+
+function getRandom(x) {
+    return Math.floor(Math.random() * x) + 1
+}
 
 export default {
     head: {
@@ -54,7 +63,157 @@ export default {
             Hero_mobile,
             Hero_pad,
             Hero_web,
+            isAnimationFired: false,
         }
+    },
+    mounted() {
+        // const Hero = document.querySelector('.Hero__background')
+        // html2canvas(Hero).then(function (canvas) {
+        //     console.log(canvas)
+        // })
+
+        const { clientWidth } = this.$refs.Hero
+        // backgroundImageProp in desktop preset
+        let clientHeight = 0.6 * clientWidth
+        let backgroundImageProp = {
+            route: Hero_web,
+            width: 2000,
+            height: 1200,
+            pieceWidth: 19,
+        }
+
+        if (clientWidth < 480) {
+            clientHeight = 1.831 * clientWidth
+            backgroundImageProp = {
+                route: Hero_mobile,
+                width: 320,
+                height: 586,
+                pieceWidth: 9,
+            }
+        } else if (clientWidth < 760) {
+            clientHeight = 1.333 * clientWidth
+
+            backgroundImageProp = {
+                route: Hero_pad,
+                width: 768,
+                height: 1023,
+                pieceWidth: 15,
+            }
+        }
+
+        //Create a Pixi Application
+        const app = new PIXI.Application({
+            width: clientWidth,
+            height: clientHeight,
+            transparent: true,
+        })
+
+        // put pixi app's canvas into specified DOM
+        document.querySelector('.Hero__background_pixi').replaceWith(app.view)
+        const container = new PIXI.Container()
+        app.stage.addChild(container)
+
+        // active loader
+        const loader = new PIXI.Loader()
+        const { route, width, height, pieceWidth } = backgroundImageProp
+        let imageSprites = []
+
+        loader.add('mainImg', `${route}`).load((loader, resource) => {
+            init(resource)
+        })
+
+        const init = (item) => {
+            let mainImgTexture = item.mainImg.texture
+
+            let rowCount = Math.floor(height / pieceWidth)
+            let colCount = Math.floor(width / pieceWidth)
+
+            for (let i = 0; i < rowCount; i++) {
+                for (let j = 0; j < colCount; j++) {
+                    let rectangle = new PIXI.Rectangle(
+                        0 + pieceWidth * j,
+                        0 + pieceWidth * i,
+                        pieceWidth,
+                        pieceWidth
+                    )
+
+                    let newTex = new PIXI.Texture(mainImgTexture, rectangle)
+                    let sprite = new PIXI.Sprite(newTex)
+
+                    sprite.x = pieceWidth * j
+                    sprite.y = pieceWidth * i
+                    imageSprites.push(sprite)
+                }
+            }
+
+            imageSprites.forEach((sprit) => {
+                container.addChild(sprit)
+                // container.addChildAt(sprit, 0)
+            })
+
+            container.width = clientWidth
+            container.height = clientHeight
+
+            // const scrollerNavbar = scrollama()
+
+            // scrollerNavbar
+            //     .setup({
+            //         step: '.CharacterAbout',
+            //         offset: 0.8,
+            //     })
+            //     .onStepEnter((response) => {})
+            //     .onStepExit((response) => {
+            //         activateAnimation() // activateAnimation()
+            //     })
+        }
+
+        const activateAnimation = (imageSprites) => {
+            if (this.isAnimationFired) return
+            // -------------------Activate fade out-------------------
+            imageSprites.forEach((sprite, index) => {
+                const randomDropDistane = getRandom(20, 30) / 10
+                const randomVerticalDistance = Math.random() + 1
+                const randomDropDirection = Math.random() >= 0.7 ? 1 : -1
+                const randomOpacity = Math.random() / 50
+
+                let randomActiveTime = getRandom(0, 25) * 100 + index * 0.8
+
+                if (sprite.y < height / 4) {
+                    randomActiveTime = getRandom(0, 10) * 100 + index * 0.8
+                } else if (sprite.y < height / 2) {
+                    randomActiveTime = getRandom(0, 15) * 100 + index * 0.8
+                } else if (sprite.y < (height * 3) / 4) {
+                    randomActiveTime = getRandom(0, 20) * 100 + index * 0.8
+                }
+
+                setTimeout(() => {
+                    app.ticker.add((delta) => {
+                        sprite.alpha -= randomOpacity
+                        sprite.y += randomDropDistane
+                        sprite.x =
+                            sprite.x +
+                            ((randomVerticalDistance * randomVerticalDistance -
+                                1) /
+                                2) *
+                                randomDropDirection
+
+                        if (
+                            sprite.y > height ||
+                            sprite.x > width ||
+                            sprite.x < 0 ||
+                            sprite.alpha <= 0
+                        ) {
+                            container.removeChild(sprite)
+                        }
+                    })
+                }, randomActiveTime)
+            })
+            this.isAnimationFired = true
+        }
+
+        document.addEventListener('scroll', () => {
+            activateAnimation(imageSprites)
+        })
     },
 }
 </script>
@@ -62,7 +221,9 @@ export default {
 <style lang="scss" scoped>
 .Hero {
     position: relative;
+    z-index: 1;
     width: 100%;
+    min-height: 80vh;
     &__background {
         img {
             width: 100%;
@@ -76,6 +237,7 @@ export default {
 
         &_mask {
             position: absolute;
+            // z-index: ;
             width: 100%;
             height: calc(100% - 200px);
             top: 0;
@@ -139,6 +301,9 @@ export default {
         position: absolute;
         width: 100%;
         bottom: 43px;
+
+        display: flex;
+        justify-content: center;
     }
 
     a {
@@ -193,7 +358,9 @@ export default {
             padding: 0 20px 20px;
             right: 0;
             bottom: 0;
-            width: auto;
+            width: 100%;
+            background: black;
+            justify-content: flex-end;
         }
     }
 
