@@ -1,5 +1,5 @@
 <template>
-    <a :href="news.url">
+    <a :href="news.url" target="_blank">
         <div class="PreviewNews">
             <div class="PreviewNews__image">
                 <img :src="news.image" alt="" />

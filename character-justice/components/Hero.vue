@@ -21,7 +21,9 @@
         </div>
         <div class="Hero__footer">
             <span>
-                資料來源：國家發展委員會檔案管理局，<a href=""
+                資料來源：國家發展委員會檔案管理局，<a
+                    href="https://aa.archives.gov.tw/Home/Index"
+                    target="_blank"
                     >國家檔案資訊網</a
                 ></span
             >

@@ -80,7 +80,7 @@ export default {
     z-index: 1;
     opacity: 0.3;
 
-    transform: translateY(-100vh) scale(0.03) scaleY(0.3);
+    transform: translateY(-100vh) scale(0.04) scaleX(0.3);
     flex: 1;
 
     pointer-events: none;

@@ -45,7 +45,7 @@
 
             <ArticlePicture :imageUrl="[story3_1]">
                 高金郎的起訴書，情治單位認定預謀其劫艦叛逃（國家發展委員會檔案管理局，
-                <a href="https://aa.archives.gov.tw/Home/Index"
+                <a href="https://aa.archives.gov.tw/Home/Index" target="_blank"
                     >國家檔案資訊網</a
                 >)
             </ArticlePicture>
