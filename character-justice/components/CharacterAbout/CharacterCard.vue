@@ -165,9 +165,9 @@ export default {
             }
         }
     }
-    transform: scale(0.02);
+    transform: scale(0.04) scaleY(0.4);
     z-index: 1;
-    opacity: 0;
+    opacity: 0.2;
     pointer-events: none;
 }
 .normal {

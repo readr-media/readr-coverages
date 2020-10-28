@@ -219,6 +219,7 @@ export default {
     position: relative;
     z-index: 1;
     width: 100%;
+    min-height: 80vh;
     &__background {
         img {
             width: 100%;

@@ -47,7 +47,7 @@ export default {
         scrollerZoomCard
             .setup({
                 step: '.CharacterAbout',
-                offset: 0.5,
+                offset: 0.8,
             })
             .onStepEnter((response) => {
                 cards.forEach((card, index) => {

@@ -34,7 +34,7 @@ export default {
                     url: '#1',
                     status: false,
                     smallPosition: {
-                        top: '-80%',
+                        top: '-180%',
                     },
                 },
                 {
@@ -50,7 +50,7 @@ export default {
                     url: '#2',
                     status: false,
                     smallPosition: {
-                        top: '-70%',
+                        top: '-170%',
                     },
                 },
                 {
@@ -83,7 +83,7 @@ export default {
                     url: '#4',
                     status: false,
                     smallPosition: {
-                        top: '-130%',
+                        top: '-190%',
                     },
                 },
             ],
