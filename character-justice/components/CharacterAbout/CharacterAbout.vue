@@ -42,7 +42,7 @@ export default {
     mounted() {
         // -----------------------Zoom cards----------------------------
         const scrollerZoomCard = scrollama()
-        const cards = document.querySelectorAll('.CharacterCard')
+        const cards = document.querySelectorAll('.Card')
 
         scrollerZoomCard
             .setup({
@@ -51,7 +51,12 @@ export default {
             })
             .onStepEnter((response) => {
                 cards.forEach((card, index) => {
-                    card.classList.add('normal')
+                    setTimeout(
+                        () => {
+                            card.classList.add('normal')
+                        },
+                        index < 4 ? 200 * index : 200 * (index - 4)
+                    )
                 })
             })
             .onStepExit((response) => {
@@ -87,7 +92,7 @@ export default {
         width: 100%;
         height: 100vh;
         flex-direction: row;
-        align-items: center;
+        justify-content: flex-start;
     }
     &__fixScreenMask {
         position: absolute;

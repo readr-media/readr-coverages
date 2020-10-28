@@ -1,5 +1,5 @@
 <template>
-    <div class="CharacterCardSmall" @click="clickHandler">
+    <div class="CharacterCardSmall Card" @click="clickHandler">
         <div class="CharacterCardSmall__image">
             <picture>
                 <source
@@ -75,6 +75,32 @@ export default {
         color: #000000;
 
         background-color: rgba(224, 201, 80, 0.6);
+    }
+
+    z-index: 1;
+    opacity: 0.3;
+
+    transform: translateY(-100vh) scale(0.03) scaleY(0.3);
+    flex: 1;
+
+    pointer-events: none;
+}
+
+.normal {
+    margin-top: 0px !important;
+    z-index: 2;
+    opacity: 1;
+
+    transform: scale(1);
+
+    flex: 1;
+    margin-right: 0;
+
+    pointer-events: initial;
+
+    transition: all 1.9s ease-in-out;
+    .CharacterCard__about {
+        opacity: 1;
     }
 }
 </style>

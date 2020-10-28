@@ -20,7 +20,11 @@
             </div>
         </div>
         <div class="Hero__footer">
-            資料來源：國家發展委員會檔案管理局，<a href="">國家檔案資訊網</a>
+            <span>
+                資料來源：國家發展委員會檔案管理局，<a href=""
+                    >國家檔案資訊網</a
+                ></span
+            >
         </div>
     </div>
 </template>
@@ -169,14 +173,14 @@ export default {
                 const randomDropDirection = Math.random() >= 0.7 ? 1 : -1
                 const randomOpacity = Math.random() / 50
 
-                let randomActiveTime = getRandom(0, 25) * 100 + index * 1
+                let randomActiveTime = getRandom(0, 25) * 100 + index * 0.8
 
                 if (sprite.y < height / 4) {
-                    randomActiveTime = getRandom(0, 10) * 100 + index * 1
+                    randomActiveTime = getRandom(0, 10) * 100 + index * 0.8
                 } else if (sprite.y < height / 2) {
-                    randomActiveTime = getRandom(0, 15) * 100 + index * 1
+                    randomActiveTime = getRandom(0, 15) * 100 + index * 0.8
                 } else if (sprite.y < (height * 3) / 4) {
-                    randomActiveTime = getRandom(0, 20) * 100 + index * 1
+                    randomActiveTime = getRandom(0, 20) * 100 + index * 0.8
                 }
 
                 setTimeout(() => {
@@ -297,6 +301,9 @@ export default {
         position: absolute;
         width: 100%;
         bottom: 43px;
+
+        display: flex;
+        justify-content: center;
     }
 
     a {
@@ -351,7 +358,9 @@ export default {
             padding: 0 20px 20px;
             right: 0;
             bottom: 0;
-            width: auto;
+            width: 100%;
+            background: black;
+            justify-content: flex-end;
         }
     }
 
