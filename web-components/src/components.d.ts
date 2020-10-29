@@ -70,6 +70,8 @@ declare namespace LocalJSX {
         "onReadrLogoLinkClick"?: (event: CustomEvent<any>) => void;
     }
     interface ShareNav {
+        "onShareFacebookLinkClick"?: (event: CustomEvent<any>) => void;
+        "onShareLINELinkClick"?: (event: CustomEvent<any>) => void;
     }
     interface IntrinsicElements {
         "latest-coverages": LatestCoverages;
