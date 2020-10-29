@@ -5,8 +5,10 @@
 }
 
 header {
-  padding-top: 9px;
-  padding-bottom: 9px;
+  padding: 9px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 a {
