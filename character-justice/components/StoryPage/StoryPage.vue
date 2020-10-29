@@ -33,6 +33,7 @@ import leftImg3 from '~/static/images/3_3.jpg'
 import leftImg4 from '~/static/images/4_3.jpg'
 
 import scrollama from 'scrollama'
+import 'intersection-observer'
 import ScrollMagic from 'scrollmagic'
 
 // reduce scroll eventListener count
@@ -98,20 +99,19 @@ export default {
                 offset: '1px',
             })
             .onStepEnter((response) => {
-                console.log('enter')
                 this.storyPageIsFull = true
             })
             .onStepExit((response) => {
-                console.log('leave')
                 this.storyPageIsFull = false
             })
+        window.addEventListener('resize', scrollerStoryNav.resize)
 
         // ---------------Handle story info change effect-----------------
         const scrollerStoryInfo = scrollama()
         scrollerStoryInfo
             .setup({
                 step: '.Story',
-                offset: 0.5,
+                offset: 0,
             })
             .onStepEnter((response) => {
                 const { element, index, direction } = response
@@ -120,6 +120,9 @@ export default {
             .onStepExit((response) => {
                 // { element, index, direction }
             })
+
+        window.addEventListener('resize', scrollerStoryInfo.resize)
+
         // ---------------Handle scene 3 hover scene2 effect-----------------
         // instantiate the scrollama
         const scrollerHover = scrollama()
@@ -137,17 +140,19 @@ export default {
                 // { element, index, direction }
                 const { element, index, direction } = response
                 characterAboutDOM.forEach((characterAbout, index) => {
-                    if (index === 0) return //block fix at small
+                    // if (index === 0) return //block fix at small
                     characterAbout.classList.add('fixScreen')
                 })
             })
             .onStepExit((response) => {
                 characterAboutDOM.forEach((characterAbout, index) => {
-                    if (index === 0) return //block fix at small
+                    // if (index === 0) return //block fix at small
                     characterAbout.classList.remove('fixScreen')
                 })
                 // { element, index, direction }
             })
+
+        window.addEventListener('resize', scrollerHover.resize)
     },
 }
 </script>

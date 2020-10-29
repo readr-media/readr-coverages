@@ -1,5 +1,9 @@
 <template>
-    <div class="CharacterAbout" ref="CharacterAbout">
+    <div
+        class="CharacterAbout"
+        ref="CharacterAbout"
+        :style="{ minHeight: `${sectionHeight}px` }"
+    >
         <div class="CharacterAbout__container_small CharacterAbout__container">
             <CharacterCardSmall
                 v-for="character in characterList"
@@ -35,37 +39,49 @@ export default {
     },
     data() {
         return {
-            sectionHeight: 0,
+            sectionHeight: 500,
         }
     },
     methods: {},
     mounted() {
+        // -----------------------maintain height----------------------------
+        // get card container's height, then update ContainerAbout's height
+        const containerSmallDOM = document.querySelector(
+            '.CharacterAbout__container_small'
+        )
+        setTimeout(() => {
+            console.log(containerSmallDOM.clientHeight)
+            this.sectionHeight = containerSmallDOM.clientHeight
+        }, 2000)
+
         // // -----------------------Zoom cards----------------------------
-        // const scrollerZoomCard = scrollama()
-        // const cards = document.querySelectorAll('.Card')
-        // scrollerZoomCard
-        //     .setup({
-        //         step: '.CharacterAbout',
-        //         offset: 0.8,
-        //     })
-        //     .onStepEnter((response) => {
-        //         console.log('enter')
-        //         cards.forEach((card, index) => {
-        //             setTimeout(
-        //                 () => {
-        //                     card.classList.add('normal')
-        //                 },
-        //                 index < 4 ? 100 * index : 100 * (index - 4)
-        //             )
-        //         })
-        //     })
-        //     .onStepExit((response) => {
-        //         if (response.direction === 'down') return
-        //         cards.forEach((card) => {
-        //             card.classList.remove('normal')
-        //         })
-        //         console.log('leave')
-        //     })
+        const scrollerZoomCard = scrollama()
+        const cards = document.querySelectorAll('.Card')
+        scrollerZoomCard
+            .setup({
+                step: '.CharacterAbout',
+                offset: 0.8,
+            })
+            .onStepEnter((response) => {
+                console.log('enter')
+                cards.forEach((card, index) => {
+                    setTimeout(
+                        () => {
+                            card.classList.add('normal')
+                        },
+                        index < 4 ? 100 * index : 100 * (index - 4)
+                    )
+                })
+            })
+            .onStepExit((response) => {
+                if (response.direction === 'down') return
+                cards.forEach((card) => {
+                    card.classList.remove('normal')
+                })
+                console.log('leave')
+            })
+
+        window.addEventListener('resize', scrollerZoomCard.resize)
     },
 }
 </script>

@@ -217,16 +217,16 @@ export default {
             activateAnimation(imageSprites)
 
             // -----------------------Zoom cards----------------------------
-            const cards = document.querySelectorAll('.Card')
+            // const cards = document.querySelectorAll('.Card')
 
-            cards.forEach((card, index) => {
-                setTimeout(
-                    () => {
-                        card.classList.add('normal')
-                    },
-                    index < 4 ? 200 * index + 1500 : 200 * (index - 4) + 1500
-                )
-            })
+            // cards.forEach((card, index) => {
+            //     setTimeout(
+            //         () => {
+            //             card.classList.add('normal')
+            //         },
+            //         index < 4 ? 200 * index + 1500 : 200 * (index - 4) + 1500
+            //     )
+            // })
 
             this.isAnimationFired = true
         }
