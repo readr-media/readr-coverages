@@ -72,10 +72,10 @@ export default {
                 })
             })
             .onStepExit((response) => {
-                if (response.direction === 'down') return
-                cards.forEach((card) => {
-                    card.classList.remove('normal')
-                })
+                // if (response.direction === 'down') return
+                // cards.forEach((card) => {
+                //     card.classList.remove('normal')
+                // })
             })
 
         window.addEventListener('resize', scrollerZoomCard.resize)
