@@ -5,6 +5,14 @@
 <!-- Auto Generated Below -->
 
 
+## Events
+
+| Event                    | Description | Type               |
+| ------------------------ | ----------- | ------------------ |
+| `shareFacebookLinkClick` |             | `CustomEvent<any>` |
+| `shareLINELinkClick`     |             | `CustomEvent<any>` |
+
+
 ## Dependencies
 
 ### Used by
