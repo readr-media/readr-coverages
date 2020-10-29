@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import notationIcon from '~/static/images/notation.svg'
-import notationIcon_off from '~/static/images/notation_off.svg'
+import notationIcon from '~/static/images/notation.png'
+import notationIcon_off from '~/static/images/notation_off.png'
 
 export default {
     props: ['notation'],
@@ -43,16 +43,18 @@ export default {
     position: relative;
 
     &__title {
+        display: inline-block;
         &_icon {
+            height: 24px;
+            width: 24px;
             cursor: pointer;
             // position: absolute;
             // right: 6px;
             // left: 51px;
             display: inline-block;
-            height: 1.937rem;
             img {
                 height: 100%;
-                margin-bottom: -0.75rem;
+                margin-bottom: -5px;
             }
         }
     }

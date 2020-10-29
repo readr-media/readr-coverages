@@ -1,5 +1,9 @@
 <template>
-    <div class="CharacterAbout" ref="CharacterAbout">
+    <div
+        class="CharacterAbout"
+        ref="CharacterAbout"
+        :style="{ minHeight: `${sectionHeight}px` }"
+    >
         <div class="CharacterAbout__container_small CharacterAbout__container">
             <CharacterCardSmall
                 v-for="character in characterList"
@@ -26,6 +30,7 @@ import CharacterCard from '~/components/CharacterAbout/CharacterCard'
 import CharacterCardSmall from '~/components/CharacterAbout/CharacterCardSmall'
 
 import scrollama from 'scrollama'
+import 'intersection-observer'
 
 export default {
     mixins: [characterList],
@@ -35,38 +40,46 @@ export default {
     },
     data() {
         return {
-            sectionHeight: 0,
+            sectionHeight: 500,
         }
     },
     methods: {},
     mounted() {
-        // -----------------------Zoom cards----------------------------
+        // -----------------------maintain height----------------------------
+        // get card container's height, then update ContainerAbout's height
+        const containerSmallDOM = document.querySelector(
+            '.CharacterAbout__container_small'
+        )
+        setTimeout(() => {
+            this.sectionHeight = containerSmallDOM.clientHeight
+        }, 2000)
+
+        // // -----------------------Zoom cards----------------------------
         const scrollerZoomCard = scrollama()
         const cards = document.querySelectorAll('.Card')
-
         scrollerZoomCard
             .setup({
                 step: '.CharacterAbout',
-                offset: 0.8,
+                offset: 0.9,
             })
             .onStepEnter((response) => {
-                console.log('enter')
                 cards.forEach((card, index) => {
                     setTimeout(
                         () => {
                             card.classList.add('normal')
                         },
-                        index < 4 ? 100 * index : 100 * (index - 4)
+                        index < 4 ? 200 * index : 200 * (index - 4)
                     )
                 })
             })
             .onStepExit((response) => {
-                if (response.direction === 'down') return
-                cards.forEach((card) => {
-                    card.classList.remove('normal')
-                })
-                console.log('leave')
+                // if (response.direction === 'down') return
+                // cards.forEach((card) => {
+                //     card.classList.remove('normal')
+                // })
             })
+
+        window.addEventListener('resize', scrollerZoomCard.resize)
     },
 }
 </script>
@@ -76,10 +89,10 @@ export default {
     z-index: 1;
     width: 100%;
     min-height: 560px;
+    background: black;
     &__container_small {
         z-index: 1;
         position: relative;
-        background: white;
         width: 100%;
         // height: 100vh;
         display: flex;
@@ -90,7 +103,6 @@ export default {
         display: none;
         z-index: 1;
         position: relative;
-        background: white;
         width: 100%;
         height: 100vh;
         flex-direction: row;

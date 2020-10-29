@@ -1,6 +1,6 @@
 <template>
     <div
-        class="CharacterCard small Card"
+        class="CharacterCard small Card hideCard"
         @mouseover="mouseOver"
         @mouseout="mouseLeave"
         @click="clickHandler"
@@ -166,7 +166,7 @@ export default {
     z-index: 1;
     opacity: 0.3;
 
-    transform: translateY(-50%) scale(0.03) scaleY(0.3);
+    transform: translateY(-70%) scale(0.03) scaleY(0.3);
     flex: 1;
 
     pointer-events: none;
@@ -187,5 +187,9 @@ export default {
     .CharacterCard__about {
         opacity: 1;
     }
+}
+
+.hideCard {
+    opacity: 0;
 }
 </style>

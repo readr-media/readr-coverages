@@ -1,9 +1,9 @@
 <template>
-    <div class="CharacterCardSmall Card" @click="clickHandler">
+    <div class="CharacterCardSmall Card hideCard" @click="clickHandler">
         <div class="CharacterCardSmall__image">
             <picture>
                 <source
-                    media="(min-width:480px"
+                    media="(min-width:480px)"
                     :srcset="character.image.pad"
                 />
 
@@ -54,6 +54,7 @@ export default {
     &__image {
         height: 100%;
         overflow: hidden;
+        margin-bottom: -3px;
 
         img {
             min-height: 100%;

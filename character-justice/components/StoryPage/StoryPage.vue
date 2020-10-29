@@ -33,7 +33,7 @@ import leftImg3 from '~/static/images/3_3.jpg'
 import leftImg4 from '~/static/images/4_3.jpg'
 
 import scrollama from 'scrollama'
-import ScrollMagic from 'scrollmagic'
+import 'intersection-observer'
 
 // reduce scroll eventListener count
 function debounce(func, wait = 50, immediate = true) {
@@ -77,49 +77,56 @@ export default {
         }
     },
     methods: {
-        updateScroll() {
-            //get the element
-            var elem = this.$refs.StoryPage
-            //create viewport offset object
-            var elemRect = elem.getBoundingClientRect()
-            //get the offset from the element to the viewport
-            var elemViewportOffset = elemRect.top
-            this.storyPageIsFull = elemViewportOffset > 0 ? false : true
-        },
+        // updateScroll() {
+        //     //get the element
+        //     var elem = this.$refs.StoryPage
+        //     //create viewport offset object
+        //     var elemRect = elem.getBoundingClientRect()
+        //     //get the offset from the element to the viewport
+        //     var elemViewportOffset = elemRect.top
+        //     this.storyPageIsFull = elemViewportOffset > 0 ? false : true
+        // },
     },
     mounted() {
         // ---------------Handle storyNav fix-----------------
-        window.addEventListener('scroll', debounce(this.updateScroll))
+        // window.addEventListener('scroll', debounce(this.updateScroll))
 
-        // const scrollerStoryNav = scrollama()
-        // scrollerStoryNav
-        //     .setup({
-        //         step: '.StoryPage',
-        //         offset: '1px',
-        //     })
-        //     .onStepEnter((response) => {
-        //         console.log('enter')
-        //         this.storyPageIsFull = true
-        //     })
-        //     .onStepExit((response) => {
-        //         console.log('leave')
-        //         this.storyPageIsFull = false
-        //     })
+        const scrollerStoryNav = scrollama()
+        scrollerStoryNav
+            .setup({
+                step: '.StoryPage',
+                offset: 0,
+            })
+            .onStepEnter((response) => {
+                this.storyPageIsFull = true
+            })
+            .onStepExit((response) => {
+                this.storyPageIsFull = false
+            })
+
+        window.addEventListener('resize', scrollerStoryNav.resize)
 
         // ---------------Handle story info change effect-----------------
         const scrollerStoryInfo = scrollama()
         scrollerStoryInfo
             .setup({
                 step: '.Story',
-                offset: 0.5,
+                offset: '10px',
             })
             .onStepEnter((response) => {
                 const { element, index, direction } = response
                 this.currentId = parseInt(element.id)
             })
             .onStepExit((response) => {
+                removeHash()
                 // { element, index, direction }
             })
+
+        window.addEventListener('resize', scrollerStoryInfo.resize)
+
+        const removeHash = () => {
+            history.replaceState(null, null, ' ')
+        }
         // ---------------Handle scene 3 hover scene2 effect-----------------
         // instantiate the scrollama
         const scrollerHover = scrollama()
@@ -137,17 +144,19 @@ export default {
                 // { element, index, direction }
                 const { element, index, direction } = response
                 characterAboutDOM.forEach((characterAbout, index) => {
-                    if (index === 0) return //block fix at small
+                    // if (index === 0) return //block fix at small
                     characterAbout.classList.add('fixScreen')
                 })
             })
             .onStepExit((response) => {
                 characterAboutDOM.forEach((characterAbout, index) => {
-                    if (index === 0) return //block fix at small
+                    // if (index === 0) return //block fix at small
                     characterAbout.classList.remove('fixScreen')
                 })
                 // { element, index, direction }
             })
+
+        window.addEventListener('resize', scrollerHover.resize)
     },
 }
 </script>

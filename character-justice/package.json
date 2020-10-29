@@ -10,7 +10,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
-    "@readr-media/web-components": "^0.4.0",
+    "@readr-media/web-components": "^0.5.1",
     "core-js": "^3.6.5",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-html": "^6.1.0",
