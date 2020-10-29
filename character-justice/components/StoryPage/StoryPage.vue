@@ -118,11 +118,15 @@ export default {
                 this.currentId = parseInt(element.id)
             })
             .onStepExit((response) => {
+                removeHash()
                 // { element, index, direction }
             })
 
         window.addEventListener('resize', scrollerStoryInfo.resize)
 
+        const removeHash = () => {
+            history.replaceState(null, null, ' ')
+        }
         // ---------------Handle scene 3 hover scene2 effect-----------------
         // instantiate the scrollama
         const scrollerHover = scrollama()
