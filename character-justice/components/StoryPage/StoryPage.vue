@@ -78,15 +78,15 @@ export default {
         }
     },
     methods: {
-        updateScroll() {
-            //get the element
-            var elem = this.$refs.StoryPage
-            //create viewport offset object
-            var elemRect = elem.getBoundingClientRect()
-            //get the offset from the element to the viewport
-            var elemViewportOffset = elemRect.top
-            this.storyPageIsFull = elemViewportOffset > 0 ? false : true
-        },
+        // updateScroll() {
+        //     //get the element
+        //     var elem = this.$refs.StoryPage
+        //     //create viewport offset object
+        //     var elemRect = elem.getBoundingClientRect()
+        //     //get the offset from the element to the viewport
+        //     var elemViewportOffset = elemRect.top
+        //     this.storyPageIsFull = elemViewportOffset > 0 ? false : true
+        // },
     },
     mounted() {
         // ---------------Handle storyNav fix-----------------
@@ -111,7 +111,7 @@ export default {
         scrollerStoryInfo
             .setup({
                 step: '.Story',
-                offset: 0,
+                offset: '10px',
             })
             .onStepEnter((response) => {
                 const { element, index, direction } = response
