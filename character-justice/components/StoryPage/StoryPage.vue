@@ -96,7 +96,7 @@ export default {
         scrollerStoryNav
             .setup({
                 step: '.StoryPage',
-                offset: '1px',
+                offset: 0,
             })
             .onStepEnter((response) => {
                 this.storyPageIsFull = true
@@ -104,6 +104,7 @@ export default {
             .onStepExit((response) => {
                 this.storyPageIsFull = false
             })
+
         window.addEventListener('resize', scrollerStoryNav.resize)
 
         // ---------------Handle story info change effect-----------------
