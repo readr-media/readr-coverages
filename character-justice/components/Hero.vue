@@ -223,7 +223,7 @@ export default {
     position: relative;
     z-index: 1;
     width: 100%;
-    min-height: 80vh;
+    min-height: 456px;
     &__background {
         img {
             width: 100%;
@@ -318,7 +318,7 @@ export default {
     @include atSmall {
         &__background {
             &_blackBlock {
-                height: 0;
+                height: auto;
             }
 
             &_mask {

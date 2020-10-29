@@ -89,22 +89,22 @@ export default {
     },
     mounted() {
         // ---------------Handle storyNav fix-----------------
-        window.addEventListener('scroll', debounce(this.updateScroll))
+        // window.addEventListener('scroll', debounce(this.updateScroll))
 
-        // const scrollerStoryNav = scrollama()
-        // scrollerStoryNav
-        //     .setup({
-        //         step: '.StoryPage',
-        //         offset: '1px',
-        //     })
-        //     .onStepEnter((response) => {
-        //         console.log('enter')
-        //         this.storyPageIsFull = true
-        //     })
-        //     .onStepExit((response) => {
-        //         console.log('leave')
-        //         this.storyPageIsFull = false
-        //     })
+        const scrollerStoryNav = scrollama()
+        scrollerStoryNav
+            .setup({
+                step: '.StoryPage',
+                offset: '1px',
+            })
+            .onStepEnter((response) => {
+                console.log('enter')
+                this.storyPageIsFull = true
+            })
+            .onStepExit((response) => {
+                console.log('leave')
+                this.storyPageIsFull = false
+            })
 
         // ---------------Handle story info change effect-----------------
         const scrollerStoryInfo = scrollama()
