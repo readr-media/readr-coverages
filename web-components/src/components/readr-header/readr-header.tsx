@@ -2,7 +2,7 @@ import { Component, Host, h, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'readr-header',
-  styleUrl: 'readr-header.css',
+  styleUrl: 'readr-header.scss',
   shadow: true,
 })
 export class ReadrHeader {
