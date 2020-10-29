@@ -44,6 +44,22 @@ function getRandom(x) {
     return Math.floor(Math.random() * x) + 1
 }
 
+function debounce(func, wait = 50, immediate = true) {
+    var timeout
+    return function () {
+        var context = this,
+            args = arguments
+        var later = function () {
+            timeout = null
+            if (!immediate) func.apply(context, args)
+        }
+        var callNow = immediate && !timeout
+        clearTimeout(timeout)
+        timeout = setTimeout(later, wait)
+        if (callNow) func.apply(context, args)
+    }
+}
+
 export default {
     head: {
         script: [
@@ -148,27 +164,13 @@ export default {
 
             imageSprites.forEach((sprit) => {
                 container.addChild(sprit)
-                // container.addChildAt(sprit, 0)
             })
 
             container.width = clientWidth
             container.height = clientHeight
-
-            // const scrollerNavbar = scrollama()
-
-            // scrollerNavbar
-            //     .setup({
-            //         step: '.CharacterAbout',
-            //         offset: 0.8,
-            //     })
-            //     .onStepEnter((response) => {})
-            //     .onStepExit((response) => {
-            //         activateAnimation() // activateAnimation()
-            //     })
         }
 
         const activateAnimation = (imageSprites) => {
-            if (this.isAnimationFired) return
             // -------------------Activate fade out-------------------
             imageSprites.forEach((sprite, index) => {
                 const randomDropDistane = getRandom(20, 30) / 10
@@ -208,12 +210,28 @@ export default {
                     })
                 }, randomActiveTime)
             })
+        }
+
+        const animationPipeline = () => {
+            if (this.isAnimationFired) return
+            activateAnimation(imageSprites)
+
+            // -----------------------Zoom cards----------------------------
+            const cards = document.querySelectorAll('.Card')
+
+            cards.forEach((card, index) => {
+                setTimeout(
+                    () => {
+                        card.classList.add('normal')
+                    },
+                    index < 4 ? 200 * index + 1500 : 200 * (index - 4) + 1500
+                )
+            })
+
             this.isAnimationFired = true
         }
 
-        document.addEventListener('scroll', () => {
-            activateAnimation(imageSprites)
-        })
+        document.addEventListener('scroll', debounce(animationPipeline))
     },
 }
 </script>

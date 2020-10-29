@@ -40,33 +40,32 @@ export default {
     },
     methods: {},
     mounted() {
-        // -----------------------Zoom cards----------------------------
-        const scrollerZoomCard = scrollama()
-        const cards = document.querySelectorAll('.Card')
-
-        scrollerZoomCard
-            .setup({
-                step: '.CharacterAbout',
-                offset: 0.8,
-            })
-            .onStepEnter((response) => {
-                console.log('enter')
-                cards.forEach((card, index) => {
-                    setTimeout(
-                        () => {
-                            card.classList.add('normal')
-                        },
-                        index < 4 ? 100 * index : 100 * (index - 4)
-                    )
-                })
-            })
-            .onStepExit((response) => {
-                if (response.direction === 'down') return
-                cards.forEach((card) => {
-                    card.classList.remove('normal')
-                })
-                console.log('leave')
-            })
+        // // -----------------------Zoom cards----------------------------
+        // const scrollerZoomCard = scrollama()
+        // const cards = document.querySelectorAll('.Card')
+        // scrollerZoomCard
+        //     .setup({
+        //         step: '.CharacterAbout',
+        //         offset: 0.8,
+        //     })
+        //     .onStepEnter((response) => {
+        //         console.log('enter')
+        //         cards.forEach((card, index) => {
+        //             setTimeout(
+        //                 () => {
+        //                     card.classList.add('normal')
+        //                 },
+        //                 index < 4 ? 100 * index : 100 * (index - 4)
+        //             )
+        //         })
+        //     })
+        //     .onStepExit((response) => {
+        //         if (response.direction === 'down') return
+        //         cards.forEach((card) => {
+        //             card.classList.remove('normal')
+        //         })
+        //         console.log('leave')
+        //     })
     },
 }
 </script>
@@ -76,10 +75,10 @@ export default {
     z-index: 1;
     width: 100%;
     min-height: 560px;
+    background: black;
     &__container_small {
         z-index: 1;
         position: relative;
-        background: white;
         width: 100%;
         // height: 100vh;
         display: flex;
@@ -90,7 +89,6 @@ export default {
         display: none;
         z-index: 1;
         position: relative;
-        background: white;
         width: 100%;
         height: 100vh;
         flex-direction: row;

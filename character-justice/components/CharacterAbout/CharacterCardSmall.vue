@@ -54,6 +54,7 @@ export default {
     &__image {
         height: 100%;
         overflow: hidden;
+        margin-bottom: -3px;
 
         img {
             min-height: 100%;

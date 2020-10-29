@@ -166,7 +166,7 @@ export default {
     z-index: 1;
     opacity: 0.3;
 
-    transform: translateY(-50%) scale(0.03) scaleY(0.3);
+    transform: translateY(-70%) scale(0.03) scaleY(0.3);
     flex: 1;
 
     pointer-events: none;

@@ -12,7 +12,7 @@ export default {}
 <style lang="scss" scoped>
 .Navbar {
     position: relative;
-    z-index: 1;
+    z-index: 4;
     background: white;
     width: 100%;
     // height: 85px;
