@@ -1,10 +1,10 @@
 <template>
     <div class="app">
-        <Navbar />
+        <!-- <Navbar /> -->
 
         <!-- <PixiHero /> -->
 
-        <Hero />
+        <AnimateHero />
         <CharacterAbout />
 
         <StoryPage />
@@ -21,6 +21,7 @@ import Navbar from '~/components/Navbar'
 
 import PixiHero from '~/components/PixiHero'
 
+import AnimateHero from '~/components/AnimateHero'
 import Hero from '~/components/Hero'
 import CharacterAbout from '~/components/CharacterAbout/CharacterAbout'
 import NextStep from '~/components/NextStep/NextStep'
@@ -33,7 +34,7 @@ export default {
     components: {
         Navbar,
 
-        // AnimateHero,
+        AnimateHero,
         Hero,
         CharacterAbout,
         NextStep,

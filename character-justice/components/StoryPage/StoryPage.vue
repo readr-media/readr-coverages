@@ -34,7 +34,6 @@ import leftImg4 from '~/static/images/4_3.jpg'
 
 import scrollama from 'scrollama'
 import 'intersection-observer'
-import ScrollMagic from 'scrollmagic'
 
 // reduce scroll eventListener count
 function debounce(func, wait = 50, immediate = true) {

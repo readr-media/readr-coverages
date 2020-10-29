@@ -2,9 +2,9 @@
     <div class="Hero" ref="Hero">
         <div class="Hero__background">
             <div class="Hero__background_pixi" />
-            <div class="Hero__background_blackBlock" />
 
             <div class="Hero__background_mask" />
+            <div class="Hero__background_blackBlock" />
         </div>
 
         <div class="Hero__text">
@@ -61,14 +61,6 @@ function debounce(func, wait = 50, immediate = true) {
 }
 
 export default {
-    head: {
-        script: [
-            {
-                src:
-                    'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js',
-            },
-        ],
-    },
     data() {
         return {
             hero: {
@@ -88,9 +80,9 @@ export default {
         //     console.log(canvas)
         // })
 
-        const { clientWidth } = this.$refs.Hero
+        let { clientWidth } = this.$refs.Hero
         // backgroundImageProp in desktop preset
-        let clientHeight = 0.6 * clientWidth
+        let clientHeight = 0.6 * clientWidth - 62.63
         let backgroundImageProp = {
             route: Hero_web,
             width: 2000,
@@ -121,7 +113,8 @@ export default {
         const app = new PIXI.Application({
             width: clientWidth,
             height: clientHeight,
-            transparent: true,
+            transparent: false,
+            backgroundColor: 0xffffff,
         })
 
         // put pixi app's canvas into specified DOM
@@ -171,6 +164,7 @@ export default {
         }
 
         const activateAnimation = (imageSprites) => {
+            // imageSprites.reverse()
             // -------------------Activate fade out-------------------
             imageSprites.forEach((sprite, index) => {
                 const randomDropDistane = getRandom(20, 30) / 10
@@ -232,6 +226,9 @@ export default {
         }
 
         document.addEventListener('scroll', debounce(animationPipeline))
+        // setTimeout(() => {
+        //     animationPipeline()
+        // }, 1500)
     },
 }
 </script>
@@ -242,11 +239,13 @@ export default {
     z-index: 1;
     width: 100%;
     min-height: 456px;
+    overflow: hidden;
+    background: black;
     &__background {
-        img {
-            width: 100%;
+        &_pixi {
+            height: 100%;
         }
-
+        overflow: hidden;
         &_blackBlock {
             width: 100%;
             height: 200px;
@@ -257,6 +256,7 @@ export default {
             position: absolute;
             // z-index: ;
             width: 100%;
+            height: 100%;
             height: calc(100% - 200px);
             top: 0;
             left: 0;
@@ -336,7 +336,7 @@ export default {
     @include atSmall {
         &__background {
             &_blackBlock {
-                height: auto;
+                height: 0;
             }
 
             &_mask {
@@ -383,12 +383,22 @@ export default {
     }
 
     @include atMedium {
+        height: 100vh;
+
+        &__background {
+            position: relative;
+        }
+
         &__text {
             padding: 0 40px 81px;
 
             &_title2 {
                 margin-bottom: 40px;
             }
+        }
+
+        &__footer {
+            background: none;
         }
     }
 }

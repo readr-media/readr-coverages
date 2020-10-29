@@ -30,6 +30,7 @@ import CharacterCard from '~/components/CharacterAbout/CharacterCard'
 import CharacterCardSmall from '~/components/CharacterAbout/CharacterCardSmall'
 
 import scrollama from 'scrollama'
+import 'intersection-observer'
 
 export default {
     mixins: [characterList],
@@ -59,7 +60,7 @@ export default {
         scrollerZoomCard
             .setup({
                 step: '.CharacterAbout',
-                offset: 0.8,
+                offset: 0.9,
             })
             .onStepEnter((response) => {
                 cards.forEach((card, index) => {

@@ -1,5 +1,5 @@
 <template>
-    <div class="CharacterCardSmall Card" @click="clickHandler">
+    <div class="CharacterCardSmall Card hideCard" @click="clickHandler">
         <div class="CharacterCardSmall__image">
             <picture>
                 <source
