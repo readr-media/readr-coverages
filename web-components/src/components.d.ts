@@ -14,6 +14,8 @@ export namespace Components {
     }
     interface ReadrHeader {
     }
+    interface ShareNav {
+    }
 }
 declare global {
     interface HTMLLatestCoveragesElement extends Components.LatestCoverages, HTMLStencilElement {
@@ -40,11 +42,18 @@ declare global {
         prototype: HTMLReadrHeaderElement;
         new (): HTMLReadrHeaderElement;
     };
+    interface HTMLShareNavElement extends Components.ShareNav, HTMLStencilElement {
+    }
+    var HTMLShareNavElement: {
+        prototype: HTMLShareNavElement;
+        new (): HTMLShareNavElement;
+    };
     interface HTMLElementTagNameMap {
         "latest-coverages": HTMLLatestCoveragesElement;
         "readr-donate-link": HTMLReadrDonateLinkElement;
         "readr-footer": HTMLReadrFooterElement;
         "readr-header": HTMLReadrHeaderElement;
+        "share-nav": HTMLShareNavElement;
     }
 }
 declare namespace LocalJSX {
@@ -60,11 +69,14 @@ declare namespace LocalJSX {
     interface ReadrHeader {
         "onReadrLogoLinkClick"?: (event: CustomEvent<any>) => void;
     }
+    interface ShareNav {
+    }
     interface IntrinsicElements {
         "latest-coverages": LatestCoverages;
         "readr-donate-link": ReadrDonateLink;
         "readr-footer": ReadrFooter;
         "readr-header": ReadrHeader;
+        "share-nav": ShareNav;
     }
 }
 export { LocalJSX as JSX };
@@ -75,6 +87,7 @@ declare module "@stencil/core" {
             "readr-donate-link": LocalJSX.ReadrDonateLink & JSXBase.HTMLAttributes<HTMLReadrDonateLinkElement>;
             "readr-footer": LocalJSX.ReadrFooter & JSXBase.HTMLAttributes<HTMLReadrFooterElement>;
             "readr-header": LocalJSX.ReadrHeader & JSXBase.HTMLAttributes<HTMLReadrHeaderElement>;
+            "share-nav": LocalJSX.ShareNav & JSXBase.HTMLAttributes<HTMLShareNavElement>;
         }
     }
 }
