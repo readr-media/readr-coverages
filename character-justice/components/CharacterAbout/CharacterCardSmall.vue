@@ -23,8 +23,12 @@
 </template>
 
 <script>
+import gaMixin from '~/mixins/gaMixin'
+
 export default {
     props: ['character'],
+    mixins: [gaMixin],
+
     data() {
         return {
             status: this.character.status,
@@ -32,8 +36,9 @@ export default {
     },
     methods: {
         clickHandler() {
-            const myEl = document.getElementById(`${this.character.id}`)
+            this.gaClickHandler(this.character.gaLabel)
 
+            const myEl = document.getElementById(`${this.character.id}`)
             this.$smoothScroll({
                 scrollTo: myEl,
                 // hash: '#StoryNav', // required if updateHistory is true
@@ -46,6 +51,8 @@ export default {
 
 <style lang="scss" scoped>
 .CharacterCardSmall {
+    cursor: pointer;
+
     width: 100%;
     // flex: 1;
     height: 25%;

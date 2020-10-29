@@ -36,9 +36,9 @@ import Hero_mobile from '~/static/images/Hero_mobile.jpg'
 import Hero_pad from '~/static/images/Hero_pad.jpg'
 import Hero_web from '~/static/images/Hero_web.jpg'
 
-import html2canvas from 'html2canvas'
 import * as PIXI from 'pixi.js'
 import scrollama from 'scrollama'
+import gaMixin from '~/mixins/gaMixin'
 
 function getRandom(x) {
     return Math.floor(Math.random() * x) + 1
@@ -61,6 +61,7 @@ function debounce(func, wait = 50, immediate = true) {
 }
 
 export default {
+    mixins: [gaMixin],
     data() {
         return {
             hero: {
@@ -73,120 +74,6 @@ export default {
             Hero_web,
             isAnimationFired: false,
         }
-
-        //Create a Pixi Application
-        const app = new PIXI.Application({
-            width: clientWidth,
-            height: clientHeight,
-            transparent: true,
-        })
-
-        // put pixi app's canvas into specified DOM
-        document.querySelector('.Hero__background_pixi').replaceWith(app.view)
-        const container = new PIXI.Container()
-        app.stage.addChild(container)
-
-        // active loader
-        const loader = new PIXI.Loader()
-        const { route, width, height, pieceWidth } = backgroundImageProp
-        let imageSprites = []
-
-        loader.add('mainImg', `${route}`).load((loader, resource) => {
-            init(resource)
-        })
-
-        const init = (item) => {
-            let mainImgTexture = item.mainImg.texture
-
-            let rowCount = Math.floor(height / pieceWidth)
-            let colCount = Math.floor(width / pieceWidth)
-
-            for (let i = 0; i < rowCount; i++) {
-                for (let j = 0; j < colCount; j++) {
-                    let rectangle = new PIXI.Rectangle(
-                        0 + pieceWidth * j,
-                        0 + pieceWidth * i,
-                        pieceWidth,
-                        pieceWidth
-                    )
-
-                    let newTex = new PIXI.Texture(mainImgTexture, rectangle)
-                    let sprite = new PIXI.Sprite(newTex)
-
-                    sprite.x = pieceWidth * j
-                    sprite.y = pieceWidth * i
-                    imageSprites.push(sprite)
-                }
-            }
-
-            imageSprites.forEach((sprit) => {
-                container.addChild(sprit)
-                // container.addChildAt(sprit, 0)
-            })
-
-            container.width = clientWidth
-            container.height = clientHeight
-
-            // const scrollerNavbar = scrollama()
-
-            // scrollerNavbar
-            //     .setup({
-            //         step: '.CharacterAbout',
-            //         offset: 0.8,
-            //     })
-            //     .onStepEnter((response) => {})
-            //     .onStepExit((response) => {
-            //         activateAnimation() // activateAnimation()
-            //     })
-        }
-
-        const activateAnimation = (imageSprites) => {
-            if (this.isAnimationFired) return
-            // -------------------Activate fade out-------------------
-            imageSprites.forEach((sprite, index) => {
-                const randomDropDistane = getRandom(20, 30) / 10
-                const randomVerticalDistance = Math.random() + 1
-                const randomDropDirection = Math.random() >= 0.7 ? 1 : -1
-                const randomOpacity = Math.random() / 50
-
-                let randomActiveTime = getRandom(0, 25) * 100 + index * 0.8
-
-                if (sprite.y < height / 4) {
-                    randomActiveTime = getRandom(0, 10) * 100 + index * 0.8
-                } else if (sprite.y < height / 2) {
-                    randomActiveTime = getRandom(0, 15) * 100 + index * 0.8
-                } else if (sprite.y < (height * 3) / 4) {
-                    randomActiveTime = getRandom(0, 20) * 100 + index * 0.8
-                }
-
-                setTimeout(() => {
-                    app.ticker.add((delta) => {
-                        sprite.alpha -= randomOpacity
-                        sprite.y += randomDropDistane
-                        sprite.x =
-                            sprite.x +
-                            ((randomVerticalDistance * randomVerticalDistance -
-                                1) /
-                                2) *
-                                randomDropDirection
-
-                        if (
-                            sprite.y > height ||
-                            sprite.x > width ||
-                            sprite.x < 0 ||
-                            sprite.alpha <= 0
-                        ) {
-                            container.removeChild(sprite)
-                        }
-                    })
-                }, randomActiveTime)
-            })
-            this.isAnimationFired = true
-        }
-
-        document.addEventListener('scroll', () => {
-            activateAnimation(imageSprites)
-        })
     },
     mounted() {
         // const Hero = document.querySelector('.Hero__background')
@@ -324,25 +211,12 @@ export default {
             if (this.isAnimationFired) return
             activateAnimation(imageSprites)
 
-            // -----------------------Zoom cards----------------------------
-            // const cards = document.querySelectorAll('.Card')
-
-            // cards.forEach((card, index) => {
-            //     setTimeout(
-            //         () => {
-            //             card.classList.add('normal')
-            //         },
-            //         index < 4 ? 200 * index + 1500 : 200 * (index - 4) + 1500
-            //     )
-            // })
-
             this.isAnimationFired = true
+
+            this.gaScrollHandler('mosaic')
         }
 
         document.addEventListener('scroll', debounce(animationPipeline))
-        // setTimeout(() => {
-        //     animationPipeline()
-        // }, 1500)
     },
 }
 </script>

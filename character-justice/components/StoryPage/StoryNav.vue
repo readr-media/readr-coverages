@@ -9,7 +9,7 @@
             class="StoryNav__list"
             :class="{ current: currentId === list.id }"
             :key="list.id"
-            @click="clickHandler(list.id)"
+            @click="clickHandler(list)"
         >
             <span> {{ list.name }}</span>
             <span class="small-hide">{{ list.info.content }}</span>
@@ -19,22 +19,26 @@
 
 <script>
 import characterList from '~/mixins/characterList'
+import gaMixin from '~/mixins/gaMixin'
 
 export default {
-    mixins: [characterList],
+    mixins: [characterList, gaMixin],
     props: ['notFixStoryNav', 'currentId'],
 
     data() {
         return {}
     },
     methods: {
-        clickHandler(id) {
-            const myEl = document.getElementById(`${id}`)
+        clickHandler(list) {
+            this.gaClickHandler(`索引${list.gaLabel}`)
 
+            const myEl = document.getElementById(`${list.id}`)
             this.$smoothScroll({
                 scrollTo: myEl,
                 // hash: '#StoryNav', // required if updateHistory is true
             })
+
+            // this.$router.push(`/#${list.id}`)
         },
     },
 }

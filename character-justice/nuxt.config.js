@@ -82,7 +82,18 @@ export default {
     components: true,
 
     // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
-    buildModules: [],
+    buildModules: [
+        [
+            '@nuxtjs/google-analytics',
+            {
+                id: () => {
+                    return document.domain.match(/^(www|nuxt).mirrormedia.mg/gs)
+                        ? 'UA-83609754-1'
+                        : 'UA-83609754-2'
+                },
+            },
+        ],
+    ],
 
     // Modules (https://go.nuxtjs.dev/config-modules)
     modules: ['@nuxtjs/style-resources', 'nuxt-purgecss'],

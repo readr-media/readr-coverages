@@ -39,8 +39,11 @@
 </template>
 
 <script>
+import gaMixin from '~/mixins/gaMixin'
+
 export default {
     props: ['character'],
+    mixins: [gaMixin],
     data() {
         return {
             status: this.character.status,
@@ -54,13 +57,14 @@ export default {
             this.status = false
         },
         clickHandler() {
-            const myEl = document.getElementById(`${this.character.id}`)
+            this.gaClickHandler(this.character.gaLabel)
 
-            this.$smoothScroll({
-                scrollTo: myEl,
-                // hash: '#StoryNav', // required if updateHistory is true
-            })
-            // this.$router.push(`/${this.character.url}`)
+            // const myEl = document.getElementById(`${this.character.id}`)
+            // this.$smoothScroll({
+            //     scrollTo: myEl,
+            // })
+
+            this.$router.push(this.character.url)
         },
     },
 

@@ -49,8 +49,11 @@
 </template>
 
 <script>
+import gaMixin from '~/mixins/gaMixin'
+
 export default {
     props: ['imageUrl', 'autoplay', 'autoplayTimeout'],
+    mixins: [gaMixin],
     data() {
         return {
             current: 0,
@@ -96,10 +99,9 @@ export default {
         },
         zoomImg(e) {
             this.zoom = !this.zoom
-            // console.log('zoom')
-            // const imgContainer = e.target.parentElement
 
-            // imgContainer.classList.toggle('zoom')
+            if (!this.zoom) return
+            this.gaClickHandler('文內圖片')
         },
     },
 

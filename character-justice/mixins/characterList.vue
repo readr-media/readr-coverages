@@ -36,6 +36,7 @@ export default {
                     smallPosition: {
                         top: '-390px',
                     },
+                    gaLabel: '張',
                 },
                 {
                     id: 2,
@@ -52,6 +53,7 @@ export default {
                     smallPosition: {
                         top: '-310px',
                     },
+                    gaLabel: '劉',
                 },
                 {
                     id: 3,
@@ -68,6 +70,7 @@ export default {
                     smallPosition: {
                         top: '-300px',
                     },
+                    gaLabel: '高',
                 },
 
                 {
@@ -85,6 +88,7 @@ export default {
                     smallPosition: {
                         top: '-345px',
                     },
+                    gaLabel: '周',
                 },
             ],
         }

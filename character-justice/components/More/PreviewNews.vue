@@ -1,5 +1,5 @@
 <template>
-    <a :href="news.url" target="_blank">
+    <a :href="news.url" target="_blank" @click="gaClickHandler(news.gaLabel)">
         <div class="PreviewNews">
             <div class="PreviewNews__image">
                 <img :src="news.image" alt="" />
@@ -13,8 +13,11 @@
 </template>
 
 <script>
+import gaMixin from '~/mixins/gaMixin'
+
 export default {
     props: ['news'],
+    mixins: [gaMixin],
 }
 </script>
 

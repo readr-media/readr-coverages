@@ -30,6 +30,7 @@ export default {
                     date: new Date().toDateString(),
                     image: news1,
                     url: 'https://www.readr.tw/project/fact-check-2020',
+                    gaLabel: '相關報導1',
                 },
                 {
                     id: 2,
@@ -37,6 +38,7 @@ export default {
                         '數讀政治獻金 3.0：翻開立委（12年份）的金主投資名冊 - 讀＋READr',
                     date: new Date().toDateString(),
                     image: news2,
+                    gaLabel: '相關報導2',
                     url: 'https://www.readr.tw/project/political-contribution',
                 },
                 {
@@ -45,6 +47,7 @@ export default {
                     date: new Date().toDateString(),
                     image: news3,
                     url: 'https://www.readr.tw/project/election-board',
+                    gaLabel: '相關報導3',
                 },
             ],
         }

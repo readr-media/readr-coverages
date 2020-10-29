@@ -35,6 +35,9 @@ import leftImg4 from '~/static/images/4_3.jpg'
 import scrollama from 'scrollama'
 import 'intersection-observer'
 
+import characterList from '~/mixins/characterList'
+import gaMixin from '~/mixins/gaMixin'
+
 // reduce scroll eventListener count
 function debounce(func, wait = 50, immediate = true) {
     var timeout
@@ -53,6 +56,8 @@ function debounce(func, wait = 50, immediate = true) {
 }
 
 export default {
+    mixins: [characterList, gaMixin],
+
     components: {
         StoryNav,
         StoryInfo,
@@ -76,21 +81,9 @@ export default {
             storyPageIsFull: false,
         }
     },
-    methods: {
-        // updateScroll() {
-        //     //get the element
-        //     var elem = this.$refs.StoryPage
-        //     //create viewport offset object
-        //     var elemRect = elem.getBoundingClientRect()
-        //     //get the offset from the element to the viewport
-        //     var elemViewportOffset = elemRect.top
-        //     this.storyPageIsFull = elemViewportOffset > 0 ? false : true
-        // },
-    },
+    methods: {},
     mounted() {
         // ---------------Handle storyNav fix-----------------
-        // window.addEventListener('scroll', debounce(this.updateScroll))
-
         const scrollerStoryNav = scrollama()
         scrollerStoryNav
             .setup({
@@ -118,7 +111,11 @@ export default {
                 this.currentId = parseInt(element.id)
             })
             .onStepExit((response) => {
+                const { element, index, direction } = response
+
                 removeHash()
+
+                this.gaScrollHandler(this.characterList[element.id - 1].gaLabel)
                 // { element, index, direction }
             })
 

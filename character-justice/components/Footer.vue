@@ -40,7 +40,14 @@ import twitter from '~/static/images/footer/twitter.svg'
 import instagram from '~/static/images/footer/instagram.svg'
 import github from '~/static/images/footer/github.svg'
 
+import scrollama from 'scrollama'
+import 'intersection-observer'
+
+import gaMixin from '~/mixins/gaMixin'
+
 export default {
+    mixins: [gaMixin],
+
     data() {
         return {
             facebook,
@@ -84,6 +91,21 @@ export default {
                 },
             ],
         }
+    },
+
+    mounted() {
+        const scrollerFooter = scrollama()
+        scrollerFooter
+            .setup({
+                step: '.Footer',
+                offset: 1,
+            })
+            .onStepEnter((response) => {
+                if (response.direction === 'up') return
+                this.gaScrollHandler('footer')
+            })
+
+        window.addEventListener('resize', scrollerFooter.resize)
     },
 }
 </script>
