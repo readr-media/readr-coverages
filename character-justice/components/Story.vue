@@ -27,7 +27,6 @@ export default {
         width: 250px;
         margin-right: 60px;
 
-        // background-attachment: fixed;
         background-size: 250px auto;
     }
     &__article {

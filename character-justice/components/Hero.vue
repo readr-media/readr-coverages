@@ -76,11 +76,6 @@ export default {
         }
     },
     mounted() {
-        // const Hero = document.querySelector('.Hero__background')
-        // html2canvas(Hero).then(function (canvas) {
-        //     console.log(canvas)
-        // })
-
         let { clientWidth } = this.$refs.Hero
         // backgroundImageProp in desktop preset
         let clientHeight = 0.6 * clientWidth - 62.63

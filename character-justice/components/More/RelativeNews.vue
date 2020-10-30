@@ -1,6 +1,5 @@
 <template>
     <div class="RelativeNews">
-        <div class="RelativeNews__title"><div>最新文章</div></div>
         <div class="RelativeNews__container">
             <latest-coverages />
         </div>

@@ -24,8 +24,7 @@ export default {
         height: 12px;
         border-radius: 6px;
         background: #006db2;
-        // top: 50%;
-        // right: 50%;
+
         margin: auto;
         transform: translateY(8px);
 
