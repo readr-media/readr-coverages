@@ -4,7 +4,7 @@
             href="https://www.readr.tw/donate"
             target="_blank"
             rel="noopener noreferrer"
-            @click="handleClick"
+            @click="gaClickHandler('donate')"
         >
             <img :src="sponsor" alt="READr sponsor" class="sponsor_normal" />
             <img
@@ -19,8 +19,10 @@
 <script>
 import sponsor from '~/static/images/sponsor/sponsor.svg'
 import sponsorSmall from '~/static/images/sponsor/sponsorSmall.svg'
+import gaMixin from '~/mixins/gaMixin'
 
 export default {
+    mixins: [gaMixin],
     data() {
         return {
             sponsor,

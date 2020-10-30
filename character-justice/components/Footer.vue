@@ -1,6 +1,8 @@
 <template>
     <div class="Footer">
-        <div class="Footer__icons_container">
+        <readr-footer />
+
+        <!-- <div class="Footer__icons_container">
             <a
                 v-for="icon in footerIcons"
                 :key="icon.id"
@@ -31,6 +33,7 @@
         <span class="Footer__copyright"
             >&reg;2020 READr All Rights Reserved</span
         >
+        -->
     </div>
 </template>
 
@@ -111,92 +114,92 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.Footer {
-    z-index: 3;
-    background: white;
-    box-sizing: border-box;
-    position: relative;
-    height: 155px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+// .Footer {
+//     z-index: 3;
+//     background: white;
+//     box-sizing: border-box;
+//     position: relative;
+//     height: 155px;
+//     width: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-evenly;
+//     align-items: center;
 
-    border-top: solid 1px #979797;
-    padding: 32px 22px;
+//     border-top: solid 1px #979797;
+//     padding: 32px 22px;
 
-    &__btn_container {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        margin-bottom: 1rem;
+//     &__btn_container {
+//         width: 100%;
+//         display: flex;
+//         flex-direction: row;
+//         justify-content: space-evenly;
+//         margin-bottom: 1rem;
 
-        height: auto;
-        &_btn {
-            //   margin-right: 73px;
-            cursor: pointer;
-            color: #000;
-            font-size: 0.875rem;
-            line-height: 1;
-        }
-    }
+//         height: auto;
+//         &_btn {
+//             //   margin-right: 73px;
+//             cursor: pointer;
+//             color: #000;
+//             font-size: 0.875rem;
+//             line-height: 1;
+//         }
+//     }
 
-    &__icons_container {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+//     &__icons_container {
+//         display: flex;
+//         flex-direction: row;
+//         align-items: center;
 
-        margin-bottom: 34px;
+//         margin-bottom: 34px;
 
-        &_icon {
-            margin-left: 15px;
-            width: 26px;
-            height: 26px;
-        }
+//         &_icon {
+//             margin-left: 15px;
+//             width: 26px;
+//             height: 26px;
+//         }
 
-        a {
-            height: 26px;
-        }
-    }
+//         a {
+//             height: 26px;
+//         }
+//     }
 
-    &__copyright {
-        height: 0.875rem;
-        font-size: 0.875rem;
-    }
-    @include atMedium {
-        &__btn_container {
-            width: 600px;
-        }
-    }
+//     &__copyright {
+//         height: 0.875rem;
+//         font-size: 0.875rem;
+//     }
+//     @include atMedium {
+//         &__btn_container {
+//             width: 600px;
+//         }
+//     }
 
-    @include atLarge {
-        height: 82px;
-        padding: 0 52px;
+//     @include atLarge {
+//         height: 82px;
+//         padding: 0 52px;
 
-        flex-direction: row-reverse;
-        justify-content: space-between;
+//         flex-direction: row-reverse;
+//         justify-content: space-between;
 
-        &__copyright {
-            position: absolute;
-            right: 230px;
-            //   top: 50%;
-            //   transform: translateY(-50%);
-            height: 82px;
-            line-height: 82px;
-        }
+//         &__copyright {
+//             position: absolute;
+//             right: 230px;
+//             //   top: 50%;
+//             //   transform: translateY(-50%);
+//             height: 82px;
+//             line-height: 82px;
+//         }
 
-        &__btn_container {
-            width: 310px;
-            justify-content: space-between;
-            margin-bottom: 0;
-        }
+//         &__btn_container {
+//             width: 310px;
+//             justify-content: space-between;
+//             margin-bottom: 0;
+//         }
 
-        &__icons_container {
-            width: 150px;
-            margin-bottom: 0;
-        }
-    }
-}
+//         &__icons_container {
+//             width: 150px;
+//             margin-bottom: 0;
+//         }
+//     }
+// }
 </style>
