@@ -1,9 +1,5 @@
 <template>
     <div class="app">
-        <!-- <Navbar /> -->
-
-        <!-- <PixiHero /> -->
-
         <AnimateHero />
         <CharacterAbout />
 

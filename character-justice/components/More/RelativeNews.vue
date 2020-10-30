@@ -1,58 +1,14 @@
 <template>
     <div class="RelativeNews">
-        <div class="RelativeNews__title"><div>相關報導</div></div>
+        <div class="RelativeNews__title"><div>最新文章</div></div>
         <div class="RelativeNews__container">
-            <PreviewNews
-                v-for="news in relativeNewsList"
-                :key="news.id"
-                :news="news"
-            />
+            <latest-coverages />
         </div>
     </div>
 </template>
 
 <script>
-import news1 from '~/static/images/news/news1.jpg'
-import news2 from '~/static/images/news/news2.jpg'
-import news3 from '~/static/images/news/news3.jpg'
-import PreviewNews from '~/components/More/PreviewNews'
-
-export default {
-    components: {
-        PreviewNews,
-    },
-    data() {
-        return {
-            relativeNewsList: [
-                {
-                    id: 1,
-                    title: '2020 總統候選人之事實查核計畫 - 讀＋READr',
-                    date: new Date().toDateString(),
-                    image: news1,
-                    url: 'https://www.readr.tw/project/fact-check-2020',
-                    gaLabel: '相關報導1',
-                },
-                {
-                    id: 2,
-                    title:
-                        '數讀政治獻金 3.0：翻開立委（12年份）的金主投資名冊 - 讀＋READr',
-                    date: new Date().toDateString(),
-                    image: news2,
-                    gaLabel: '相關報導2',
-                    url: 'https://www.readr.tw/project/political-contribution',
-                },
-                {
-                    id: 3,
-                    title: '看板追追追——2020選舉看板紀錄 - 讀＋READr',
-                    date: new Date().toDateString(),
-                    image: news3,
-                    url: 'https://www.readr.tw/project/election-board',
-                    gaLabel: '相關報導3',
-                },
-            ],
-        }
-    },
-}
+export default {}
 </script>
 
 <style lang="scss" scoped>
