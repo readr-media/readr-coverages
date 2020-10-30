@@ -13,7 +13,7 @@ export default {
             // console.log(eventLabel)
             this.$ga.event({
                 eventCategory: 'project',
-                eventAction: 'sroll',
+                eventAction: 'scroll',
                 eventLabel,
             })
         },

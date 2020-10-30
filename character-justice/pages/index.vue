@@ -45,6 +45,8 @@ export default {
     },
 
     mounted() {
+        // this.$ga.send('send', 'pageview')
+
         const hashId = $nuxt.$route.hash
         if (!hashId) return
 

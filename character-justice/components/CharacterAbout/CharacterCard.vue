@@ -59,12 +59,12 @@ export default {
         clickHandler() {
             this.gaClickHandler(this.character.gaLabel)
 
-            // const myEl = document.getElementById(`${this.character.id}`)
-            // this.$smoothScroll({
-            //     scrollTo: myEl,
-            // })
+            const myEl = document.getElementById(`${this.character.id}`)
+            this.$smoothScroll({
+                scrollTo: myEl,
+            })
 
-            this.$router.push(this.character.url)
+            // this.$router.push(this.character.url)
         },
     },
 
