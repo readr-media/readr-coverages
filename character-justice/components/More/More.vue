@@ -4,7 +4,7 @@
 
         <!-- <RelativeNews /> -->
         <div class="More__donate">
-            <readr-donate-link />
+            <readr-donate-link @click="gaClickHandler('donate')" />
         </div>
         <latest-coverages />
     </div>
@@ -13,8 +13,10 @@
 <script>
 import SponsorButton from '~/components/More/SponsorButton'
 import RelativeNews from '~/components/More/RelativeNews'
+import gaMixin from '~/mixins/gaMixin'
 
 export default {
+    mixins: [gaMixin],
     components: {
         SponsorButton,
         RelativeNews,
