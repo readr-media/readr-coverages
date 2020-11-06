@@ -30,4 +30,17 @@
     position: relative;
     left: -100px;
   }
+
+  @media (max-width: 767px) {
+    .section-landing {
+      padding: 50px 0;
+    }
+    .section-landing__decoration {
+      display: none;
+      /*right: 0;*/
+      /*top: 20px;*/
+      /*left: 200px;*/
+      /*height: 150px;*/
+    }
+  }
 </style>

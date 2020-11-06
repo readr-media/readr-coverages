@@ -19,6 +19,12 @@
     <ButtersNativeCanvas />
   {:else if view === 'butters-pixi-1'}
     <ButtersPixi />
+  {:else if view === 'trans-full'}
+    <ProjectExpTransitonFull />
+  {:else if view === 'trans-text'}
+    <ProjectExpTransitonTextBox />
+  {:else if view === 'trans-mixed'}
+    <ProjectExpTransitonMix />
   {:else}
     <Project />
   {/if}
@@ -36,6 +42,9 @@
   import ButtersNativeCanvas from './views/experiment/ButtersNativeCanvas.svelte'
   import ButtersPixi from './views/ButtersPixi.svelte'
 
+  import ProjectExpTransitonFull from './views/experiment/ProjectExpTransitonFull.svelte'
+  import ProjectExpTransitonTextBox from "./views/experiment/ProjectExpTransitonTextBox.svelte";
+  import ProjectExpTransitonMix from "./views/experiment/ProjectExpTransitonMix.svelte";
   import Project from './views/Project.svelte'
 
   const urlParams = new URLSearchParams(window.location.search)

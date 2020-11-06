@@ -35,7 +35,7 @@ export default {
     mixins: [chaperMixin],
     data() {
         return {
-            expandFlag: true,
+            expandFlag: false,
             currentChapter: '',
         }
     },

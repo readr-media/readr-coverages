@@ -1561,10 +1561,24 @@
     eventemitter3 "^3.1.0"
     url "^0.11.0"
 
+<<<<<<< HEAD
 "@readr-media/web-components@^0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@readr-media/web-components/-/web-components-0.6.0.tgz#715157f540d44e19a6cccb21012e01b7ae3905da"
   integrity sha512-gBdCfYh+OG/TsBB22tFclzzA0gtsOmHrk36zT8sTDPh69Tp/pMiimd6Q1voqTcSHGpuHsufcSle3/iUZy2zNIg==
+=======
+<<<<<<< HEAD
+"@readr-media/web-components@^0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@readr-media/web-components/-/web-components-0.5.1.tgz#e4d76b489ce15790f3f0b94709fbf9c76c811042"
+  integrity sha512-1GN+1v2zRm3zFuqHNbr/C3XtMQtCWaTewTcK++GDOPBo1iHr9sH4iRVQJH1nItD9SkeochzhUremASqCrY+9yA==
+=======
+"@readr-media/web-components@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@readr-media/web-components/-/web-components-0.4.0.tgz#6a82a8f0c01aafd3ac5c2164fd9e7740df8bfa6d"
+  integrity sha512-FuQZPoFLXuAa/P/U1KIS8uTMuLZGwcbjuA7Yiaxxx5ziKSaxbgl7C8c7TyLysCj2CwJAzqLSzUEeTWuJE4xVQw==
+>>>>>>> upstream/master
+>>>>>>> upstream/master
   dependencies:
     "@stencil/core" "^1.17.3"
     "@stencil/sass" "^1.3.2"

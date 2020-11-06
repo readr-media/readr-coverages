@@ -1,5 +1,12 @@
 <template>
     <div class="app">
+<<<<<<< HEAD
+=======
+        <!-- <Navbar /> -->
+
+        <!-- <PixiHero /> -->
+
+>>>>>>> upstream/master
         <AnimateHero />
         <CharacterAbout />
 
