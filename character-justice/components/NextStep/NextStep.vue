@@ -49,7 +49,7 @@
             </div>
 
             <h1 class="NextStep__title">看轉型正義分析報導</h1>
-            <PreviewNews :news="web" />
+            <AnalyzePreview :news="web" />
         </div>
 
         <div class="NextStep__bottom_bg">
@@ -61,7 +61,7 @@
 <script>
 // import Test from '~/components/NextStep/Test'
 import ListDot from '~/components/ListDot'
-import PreviewNews from '~/components/PreviewNews'
+import AnalyzePreview from '~/components/AnalyzePreview'
 import transitional_og from '~/static/images/transitional_og.jpg'
 
 import bg_web from '~/static/images/butterfly-bg-web.png'
@@ -71,7 +71,7 @@ export default {
     components: {
         // Test,
         ListDot,
-        PreviewNews,
+        AnalyzePreview,
     },
 
     data() {

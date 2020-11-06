@@ -7,7 +7,6 @@ import Hero_mobile from '~/static/images/Hero_mobile.jpg'
 import Hero_pad from '~/static/images/Hero_pad.jpg'
 import Hero_web from '~/static/images/Hero_web.jpg'
 
-import html2canvas from 'html2canvas'
 import * as PIXI from 'pixi.js'
 let type = 'WebGL'
 if (!PIXI.utils.isWebGLSupported()) {

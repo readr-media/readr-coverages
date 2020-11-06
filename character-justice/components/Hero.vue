@@ -36,9 +36,9 @@ import Hero_mobile from '~/static/images/Hero_mobile.jpg'
 import Hero_pad from '~/static/images/Hero_pad.jpg'
 import Hero_web from '~/static/images/Hero_web.jpg'
 
-import html2canvas from 'html2canvas'
 import * as PIXI from 'pixi.js'
 import scrollama from 'scrollama'
+import gaMixin from '~/mixins/gaMixin'
 
 function getRandom(x) {
     return Math.floor(Math.random() * x) + 1
@@ -61,6 +61,7 @@ function debounce(func, wait = 50, immediate = true) {
 }
 
 export default {
+    mixins: [gaMixin],
     data() {
         return {
             hero: {
@@ -189,11 +190,6 @@ export default {
         })
     },
     mounted() {
-        // const Hero = document.querySelector('.Hero__background')
-        // html2canvas(Hero).then(function (canvas) {
-        //     console.log(canvas)
-        // })
-
         let { clientWidth } = this.$refs.Hero
         // backgroundImageProp in desktop preset
         let clientHeight = 0.6 * clientWidth - 62.63
@@ -324,25 +320,12 @@ export default {
             if (this.isAnimationFired) return
             activateAnimation(imageSprites)
 
-            // -----------------------Zoom cards----------------------------
-            // const cards = document.querySelectorAll('.Card')
-
-            // cards.forEach((card, index) => {
-            //     setTimeout(
-            //         () => {
-            //             card.classList.add('normal')
-            //         },
-            //         index < 4 ? 200 * index + 1500 : 200 * (index - 4) + 1500
-            //     )
-            // })
-
             this.isAnimationFired = true
+
+            this.gaScrollHandler('mosaic')
         }
 
         document.addEventListener('scroll', debounce(animationPipeline))
-        // setTimeout(() => {
-        //     animationPipeline()
-        // }, 1500)
     },
 }
 </script>

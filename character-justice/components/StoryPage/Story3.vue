@@ -72,7 +72,7 @@
             </ArticleQuote>
 
             <ArticlePicture :imageUrl="[story3_2]">
-                高金郎寫下泰源監獄事件的始末，並訪問多名相關人士，希望為難友留下記錄攝影（攝影／林煒凱）
+                高金郎寫下泰源監獄事件的始末，並訪問多名相關人士，希望為難友留下記錄（攝影／林煒凱）
             </ArticlePicture>
 
             <ArticleParagraph>

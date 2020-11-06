@@ -9,7 +9,29 @@
 </template>
 
 <script>
-export default {}
+import scrollama from 'scrollama'
+import 'intersection-observer'
+
+import gaMixin from '~/mixins/gaMixin'
+
+export default {
+    mixins: [gaMixin],
+
+    mounted() {
+        const scrollerCredit = scrollama()
+        scrollerCredit
+            .setup({
+                step: '.Credit',
+                offset: 1,
+            })
+            .onStepEnter((response) => {
+                if (response.direction === 'up') return
+                this.gaScrollHandler('credit')
+            })
+
+        window.addEventListener('resize', scrollerCredit.resize)
+    },
+}
 </script>
 
 <style lang="scss" scoped>

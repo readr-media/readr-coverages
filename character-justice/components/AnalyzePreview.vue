@@ -1,12 +1,12 @@
 <template>
-    <a :href="news.url" target="_blank">
-        <div class="PreviewNews">
-            <div class="PreviewNews__image">
+    <a :href="news.url" target="_blank" @click="gaClickHandler('分析篇')">
+        <div class="AnalyzePreview">
+            <div class="AnalyzePreview__image">
                 <img :src="news.image" alt="" />
             </div>
-            <div class="PreviewNews__text">
-                <div class="PreviewNews__text_title">{{ news.title }}</div>
-                <div v-if="news.date" class="PreviewNews__text_date">
+            <div class="AnalyzePreview__text">
+                <div class="AnalyzePreview__text_title">{{ news.title }}</div>
+                <div v-if="news.date" class="AnalyzePreview__text_date">
                     {{ news.date }}
                 </div>
             </div>
@@ -15,13 +15,16 @@
 </template>
 
 <script>
+import gaMixin from '~/mixins/gaMixin'
+
 export default {
     props: ['news'],
+    mixins: [gaMixin],
 }
 </script>
 
 <style lang="scss" scoped>
-.PreviewNews {
+.AnalyzePreview {
     width: 100%;
     display: flex;
     flex-direction: column;

@@ -31,9 +31,10 @@ import CharacterCardSmall from '~/components/CharacterAbout/CharacterCardSmall'
 
 import scrollama from 'scrollama'
 import 'intersection-observer'
+import gaMixin from '~/mixins/gaMixin'
 
 export default {
-    mixins: [characterList],
+    mixins: [characterList, gaMixin],
     components: {
         CharacterCard,
         CharacterCardSmall,
@@ -71,6 +72,8 @@ export default {
                         index < 4 ? 200 * index : 200 * (index - 4)
                     )
                 })
+
+                this.gaScrollHandler('4 faces')
             })
             .onStepExit((response) => {
                 // if (response.direction === 'down') return

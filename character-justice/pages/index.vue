@@ -1,9 +1,5 @@
 <template>
     <div class="app">
-        <!-- <Navbar /> -->
-
-        <!-- <PixiHero /> -->
-
         <AnimateHero />
         <CharacterAbout />
 
@@ -45,6 +41,8 @@ export default {
     },
 
     mounted() {
+        // this.$ga.send('send', 'pageview')
+
         const hashId = $nuxt.$route.hash
         if (!hashId) return
 
