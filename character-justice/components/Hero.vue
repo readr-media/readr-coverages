@@ -61,10 +61,7 @@ function debounce(func, wait = 50, immediate = true) {
 }
 
 export default {
-<<<<<<< HEAD
     mixins: [gaMixin],
-=======
->>>>>>> upstream/master
     data() {
         return {
             hero: {
@@ -193,14 +190,6 @@ export default {
         })
     },
     mounted() {
-<<<<<<< HEAD
-=======
-        // const Hero = document.querySelector('.Hero__background')
-        // html2canvas(Hero).then(function (canvas) {
-        //     console.log(canvas)
-        // })
-
->>>>>>> upstream/master
         let { clientWidth } = this.$refs.Hero
         // backgroundImageProp in desktop preset
         let clientHeight = 0.6 * clientWidth - 62.63
@@ -331,34 +320,12 @@ export default {
             if (this.isAnimationFired) return
             activateAnimation(imageSprites)
 
-<<<<<<< HEAD
             this.isAnimationFired = true
 
             this.gaScrollHandler('mosaic')
         }
 
         document.addEventListener('scroll', debounce(animationPipeline))
-=======
-            // -----------------------Zoom cards----------------------------
-            // const cards = document.querySelectorAll('.Card')
-
-            // cards.forEach((card, index) => {
-            //     setTimeout(
-            //         () => {
-            //             card.classList.add('normal')
-            //         },
-            //         index < 4 ? 200 * index + 1500 : 200 * (index - 4) + 1500
-            //     )
-            // })
-
-            this.isAnimationFired = true
-        }
-
-        document.addEventListener('scroll', debounce(animationPipeline))
-        // setTimeout(() => {
-        //     animationPipeline()
-        // }, 1500)
->>>>>>> upstream/master
     },
 }
 </script>

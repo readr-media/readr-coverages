@@ -28,11 +28,7 @@ export default {
 
         //Scenes
         let scene = new ScrollMagic.Scene({
-<<<<<<< HEAD
             duration: 800,
-=======
-            duration: 1300,
->>>>>>> upstream/master
             triggerElement: intro,
             triggerHook: 0,
         })

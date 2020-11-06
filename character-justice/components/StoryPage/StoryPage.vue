@@ -34,12 +34,9 @@ import leftImg4 from '~/static/images/4_3.jpg'
 
 import scrollama from 'scrollama'
 import 'intersection-observer'
-<<<<<<< HEAD
 
 import characterList from '~/mixins/characterList'
 import gaMixin from '~/mixins/gaMixin'
-=======
->>>>>>> upstream/master
 
 // reduce scroll eventListener count
 function debounce(func, wait = 50, immediate = true) {
@@ -84,27 +81,9 @@ export default {
             storyPageIsFull: false,
         }
     },
-<<<<<<< HEAD
     methods: {},
     mounted() {
         // ---------------Handle storyNav fix-----------------
-=======
-    methods: {
-        // updateScroll() {
-        //     //get the element
-        //     var elem = this.$refs.StoryPage
-        //     //create viewport offset object
-        //     var elemRect = elem.getBoundingClientRect()
-        //     //get the offset from the element to the viewport
-        //     var elemViewportOffset = elemRect.top
-        //     this.storyPageIsFull = elemViewportOffset > 0 ? false : true
-        // },
-    },
-    mounted() {
-        // ---------------Handle storyNav fix-----------------
-        // window.addEventListener('scroll', debounce(this.updateScroll))
-
->>>>>>> upstream/master
         const scrollerStoryNav = scrollama()
         scrollerStoryNav
             .setup({
@@ -132,15 +111,11 @@ export default {
                 this.currentId = parseInt(element.id)
             })
             .onStepExit((response) => {
-<<<<<<< HEAD
                 const { element, index, direction } = response
 
                 removeHash()
 
                 this.gaScrollHandler(this.characterList[element.id - 1].gaLabel)
-=======
-                removeHash()
->>>>>>> upstream/master
                 // { element, index, direction }
             })
 

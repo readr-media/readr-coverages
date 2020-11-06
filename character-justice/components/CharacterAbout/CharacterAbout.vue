@@ -31,10 +31,7 @@ import CharacterCardSmall from '~/components/CharacterAbout/CharacterCardSmall'
 
 import scrollama from 'scrollama'
 import 'intersection-observer'
-<<<<<<< HEAD
 import gaMixin from '~/mixins/gaMixin'
-=======
->>>>>>> upstream/master
 
 export default {
     mixins: [characterList, gaMixin],
