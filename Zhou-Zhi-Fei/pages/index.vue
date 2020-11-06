@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <Navbar />
         <Hero />
         <HeroVideo />
         <StoryPage />
@@ -10,6 +11,7 @@
 </template>
 
 <script>
+import Navbar from '~/components/Navbar'
 import Hero from '~/components/Hero'
 import HeroVideo from '~/components/HeroVideo'
 import StoryPage from '~/components/StoryPage/StoryPage'
@@ -18,6 +20,7 @@ import RelativeArticles from '~/components/RelativeArticles/RelativeArticles'
 import Credit from '~/components/Credit'
 export default {
     components: {
+        Navbar,
         Hero,
         HeroVideo,
         StoryPage,
