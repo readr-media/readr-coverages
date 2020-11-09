@@ -3,7 +3,7 @@
         <MobileStoryNav />
 
         <div class="StoryPage__container">
-            <StoryNav class="StoryPage__nav" />
+            <StoryNav class="StoryPage__nav" :currentChapter="currentChapter" />
             <div class="StoryPage__story_container">
                 <Story1 />
             </div>
@@ -20,6 +20,11 @@ export default {
         MobileStoryNav,
         StoryNav,
         Story1,
+    },
+    data() {
+        return {
+            currentChapter: 1,
+        }
     },
 }
 </script>
