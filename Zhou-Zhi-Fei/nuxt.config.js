@@ -11,7 +11,7 @@ export default {
 
     // Global page headers (https://go.nuxtjs.dev/config-head)
     head: {
-        title: 'Zhou-Zhi-Fei',
+        title: '周子飛',
         meta: [
             { charset: 'utf-8' },
             {
@@ -87,14 +87,14 @@ export default {
         scss: ['./assets/scss/*.scss'],
     },
 
-    // router: {
-    //     base: '/project/3/character-justice/',
-    //     extendRoutes(routes, resolve) {
-    //         routes.push({
-    //             name: 'custom',
-    //             path: '*',
-    //             component: resolve(__dirname, 'pages/404.vue'),
-    //         })
-    //     },
-    // },
+    router: {
+        base: '/project/3/zhou_zhi_fei/',
+        extendRoutes(routes, resolve) {
+            routes.push({
+                name: 'custom',
+                path: '*',
+                component: resolve(__dirname, 'pages/404.vue'),
+            })
+        },
+    },
 }

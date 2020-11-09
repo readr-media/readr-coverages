@@ -56,13 +56,15 @@ export default {
                 facebook: {
                     id: 3,
                     alt: 'facebook',
-                    url: 'https://www.google.com/?client=safari',
+                    url:
+                        'https://www.facebook.com/sharer/sharer.php?u=https://www.readr.tw/project/3/zhou_zi_fei/',
                     imageUrl: facebookLogo,
                 },
                 line: {
                     id: 4,
                     alt: 'line',
-                    url: 'https://www.google.com/?client=safari',
+                    url:
+                        'https://social-plugins.line.me/lineit/share?url=https://www.readr.tw/project/3/zhou_zi_fei/',
                     imageUrl: lineLogo,
                 },
             },
