@@ -21,10 +21,10 @@
         <div v-if="imageUrl.length > 1" class="PictureContainer__navigation">
             <div class="PictureContainer__navigation_arrow">
                 <div class="arrow_prev" @click="prevImg">
-                    <img :src="arrowImg" alt="arrow" />
+                    <img :src="prevArrow" alt="arrow" />
                 </div>
                 <div class="arrow_next" @click="nextImg">
-                    <img :src="arrowImg" alt="arrow" />
+                    <img :src="nextArrow" alt="arrow" />
                 </div>
             </div>
 
@@ -42,7 +42,8 @@
 </template>
 
 <script>
-import arrowImg from '~/static/images/arrow.svg'
+import prevArrow from '~/static/images/arrow-left.svg'
+import nextArrow from '~/static/images/arrow-right.svg'
 import gaMixin from '~/mixins/gaMixin'
 
 export default {
@@ -56,7 +57,8 @@ export default {
 
             autoplayInterval: {},
             zoom: false,
-            arrowImg,
+            prevArrow,
+            nextArrow,
         }
     },
     methods: {
@@ -168,6 +170,7 @@ export default {
         height: 34px;
 
         &_selection {
+            z-index: 2;
             width: 14px;
             height: 14px;
             border: solid 1px $lightBlue;
@@ -182,6 +185,7 @@ export default {
         }
 
         &_arrow {
+            z-index: 1;
             // background: gold;
             position: absolute;
             width: 100%;
@@ -195,11 +199,8 @@ export default {
             .arrow_prev,
             .arrow_next,
             img {
+                cursor: pointer;
                 height: 34px;
-            }
-
-            .arrow_prev {
-                transform: rotate(180deg);
             }
         }
     }
