@@ -46,6 +46,10 @@ export default {
     background: $lightBlue;
     padding: 40px 20px 37px;
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     &__title {
         text-align: center;
 
@@ -58,8 +62,13 @@ export default {
     }
 
     &__container {
-        display: flex;
-        flex-direction: column;
+        width: 100%;
+    }
+
+    @include atMedium {
+        &__container {
+            width: 600px;
+        }
     }
 }
 </style>
