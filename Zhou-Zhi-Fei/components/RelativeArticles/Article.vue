@@ -33,7 +33,7 @@ export default {
     &__image_container {
         // width: 280px;
         // height: 187px;
-        width: 280px;
+        width: 100%;
         height: 187px;
         border: solid 1px #ffffff;
 
