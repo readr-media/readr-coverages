@@ -9,25 +9,9 @@
         >
             <div class="PictureContainer__img_container">
                 <transition :name="animationState">
-                    <img :src="imageUrl[current]" :key="current" />
+                    <img :key="current" :src="imageUrl[current]" />
                 </transition>
             </div>
-
-            <!-- <div
-                v-if="imageUrl.length > 1"
-                class="PictureContainer__controller"
-                @mouseover="stopAutoplay"
-                @mouseout="startAutoplay"
-            >
-                <div
-                    class="PictureContainer__controller_prev"
-                    @click="prevImg"
-                />
-                <div
-                    class="PictureContainer__controller_next"
-                    @click="nextImg"
-                />
-            </div> -->
         </div>
 
         <div class="PictureContainer__content">
@@ -35,6 +19,15 @@
         </div>
 
         <div v-if="imageUrl.length > 1" class="PictureContainer__navigation">
+            <div class="PictureContainer__navigation_arrow">
+                <div class="arrow_prev" @click="prevImg">
+                    <img :src="arrowImg" alt="arrow" />
+                </div>
+                <div class="arrow_next" @click="nextImg">
+                    <img :src="arrowImg" alt="arrow" />
+                </div>
+            </div>
+
             <div
                 v-for="(selection, index) in imageUrl"
                 :key="index"
@@ -49,21 +42,21 @@
 </template>
 
 <script>
+import arrowImg from '~/static/images/arrow.svg'
 import gaMixin from '~/mixins/gaMixin'
 
 export default {
-    props: ['imageUrl', 'autoplay', 'autoplayTimeout'],
+    props: ['imageUrl', 'autoplayTimeout'],
     mixins: [gaMixin],
     data() {
         return {
             current: 0,
             next: 1,
             animationState: 'slide-next',
-            // autoplayInterval: setInterval(() => {
-            //     this.nextImg()
-            // }, this.autoplayTimeout),
+
             autoplayInterval: {},
             zoom: false,
+            arrowImg,
         }
     },
     methods: {
@@ -90,9 +83,9 @@ export default {
             this.selectionHandler(next)
         },
         startAutoplay() {
-            // this.autoplayInterval = setInterval(() => {
-            //     this.nextImg()
-            // }, this.autoplayTimeout)
+            this.autoplayInterval = setInterval(() => {
+                this.nextImg()
+            }, this.autoplayTimeout)
         },
         stopAutoplay() {
             clearInterval(this.autoplayInterval)
@@ -103,12 +96,6 @@ export default {
             if (!this.zoom) return
             this.gaClickHandler('文內圖片')
         },
-    },
-
-    mounted() {
-        // if (this.autoplay === true) {
-        //     this.startAutoPlay()
-        // }
     },
 }
 </script>
@@ -127,7 +114,7 @@ export default {
         align-items: center;
         justify-content: center;
 
-        margin-bottom: 4px;
+        margin-bottom: 10px;
         &_container {
             // width: 100%;
             overflow: hidden;
@@ -172,15 +159,18 @@ export default {
     }
 
     &__navigation {
+        position: relative;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        margin-top: 10px;
+        margin-top: 20px;
+        height: 34px;
+
         &_selection {
             width: 14px;
             height: 14px;
-            border: solid 1px #e0c950;
+            border: solid 1px $lightBlue;
             background-color: #ffffff;
             border-radius: 7px;
 
@@ -190,24 +180,32 @@ export default {
             }
             cursor: pointer;
         }
-    }
 
-    &__controller {
-        position: absolute;
-        width: 100%;
-        height: 100%;
+        &_arrow {
+            // background: gold;
+            position: absolute;
+            width: 100%;
+            height: 100%;
 
-        display: flex;
-        flex-direction: row;
-        align-items: stretch;
-        &_prev,
-        &_next {
-            flex: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            color: $lightBlue;
+            .arrow_prev,
+            .arrow_next,
+            img {
+                height: 34px;
+            }
+
+            .arrow_prev {
+                transform: rotate(180deg);
+            }
         }
     }
 
     .selected {
-        background-color: #e0c950;
+        background-color: $lightBlue;
     }
 
     .zoom {

@@ -16,6 +16,9 @@
         </ArticleParagraph>
 
         <ArticleSubTitle></ArticleSubTitle>
+        <ArticlePicture :imageUrl="imageCarousel" :autoplayTimeout="5000"
+            >照片圖說照片圖說照片圖說照片圖說照片圖說照片圖說</ArticlePicture
+        >
         <!-- <ArticlePicture></ArticlePicture> -->
     </div>
 </template>
@@ -25,12 +28,21 @@ import ArticleTitle from '~/components/ArticleComponents/ArticleTitle'
 import ArticleParagraph from '~/components/ArticleComponents/ArticleParagraph'
 import ArticleSubTitle from '~/components/ArticleComponents/ArticleSubTitle'
 import ArticlePicture from '~/components/ArticleComponents/ArticlePicture'
+
+import image1 from '~/static/images/story1_3_1.jpeg'
+import image2 from '~/static/images/story1_3_2.jpeg'
+import image3 from '~/static/images/story1_3_3.jpeg'
 export default {
     components: {
         ArticleTitle,
         ArticleParagraph,
         ArticleSubTitle,
         ArticlePicture,
+    },
+    data() {
+        return {
+            imageCarousel: [image1, image2, image3],
+        }
     },
 }
 </script>
