@@ -19,6 +19,7 @@ export default {
     width: 40px;
     height: 40px;
     cursor: pointer;
+
     img,
     a {
         width: 100%;

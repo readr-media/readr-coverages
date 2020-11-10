@@ -32,6 +32,7 @@ export default {
     components: {
         RoundMarker,
     },
+
     mixins: [chapterMixin],
     data() {
         return {

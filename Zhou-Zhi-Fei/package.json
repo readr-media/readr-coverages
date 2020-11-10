@@ -22,7 +22,8 @@
     "node-sass": "^5.0.0",
     "nuxt": "^2.14.6",
     "prettier": "^2.1.2",
-    "sass-loader": "^10.0.5"
+    "sass-loader": "^10.0.5",
+    "scrollama": "^2.2.1"
   },
   "devDependencies": {}
 }

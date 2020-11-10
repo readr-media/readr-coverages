@@ -1,5 +1,5 @@
 <template>
-    <div class="Story1">
+    <div class="Story">
         <ArticleTitle
             >Ch1<br />
             2-8 歲 肥肉、白蛆、遛狗鏈</ArticleTitle
@@ -47,4 +47,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.Story {
+    @include atMedium {
+        width: 400px;
+    }
+}
+</style>

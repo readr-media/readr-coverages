@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import prevArrow from '~/static/images/arrow-left.svg'
-import nextArrow from '~/static/images/arrow-right.svg'
+import prevArrow from '~/static/images/logo/arrow-left.png'
+import nextArrow from '~/static/images/logo/arrow-right.png'
 import gaMixin from '~/mixins/gaMixin'
 
 export default {
@@ -149,7 +149,6 @@ export default {
 
     &__content {
         width: 100%;
-        font-family: PingFang TC;
         font-size: 15px;
         font-weight: normal;
 

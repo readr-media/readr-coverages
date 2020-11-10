@@ -19,7 +19,9 @@ export default {}
 
     &__footer {
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        font-family: 'PingFang TC';
+        z-index: 20;
+        position: relative;
+
         font-size: 14px;
 
         color: white;

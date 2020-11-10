@@ -38,7 +38,6 @@ export default {
     }
 
     &__quote {
-        font-family: PingFang TC;
         flex-grow: 1;
         font-size: 1rem;
         font-weight: 500;

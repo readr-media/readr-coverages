@@ -8,6 +8,8 @@ export default {}
 
 <style lang="scss" scoped>
 .Video {
+    z-index: 20;
+    position: relative;
     height: 100vh;
     background: $darkBlue;
 }

@@ -37,10 +37,15 @@ export default {
 
     border-right: 1px solid $lightBlue;
 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+
     &__container {
-        margin-top: 50vh;
+        width: 166px;
         margin-right: 50px;
-        transform: translateY(-50%);
+
         &_item {
             cursor: pointer;
             font-size: 14px;

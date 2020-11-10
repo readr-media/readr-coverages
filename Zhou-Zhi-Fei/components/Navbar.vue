@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import facebookLogo from '~/static/images/logo-fb.svg'
-import lineLogo from '~/static/images/logo-line.svg'
-import mirrorLogo from '~/static/images/mirror-logo.svg'
-import shareLogo from '~/static/images/share-white.svg'
+import facebookLogo from '~/static/images/logo/logo-fb.png'
+import lineLogo from '~/static/images/logo/logo-line.png'
+import mirrorLogo from '~/static/images/logo/mirror-logo.png'
+import shareLogo from '~/static/images/logo/share.png'
 import Logo from '~/components/Logo.vue'
 
 export default {
@@ -44,7 +44,7 @@ export default {
                 mirrorMedia: {
                     id: 1,
                     alt: 'mirrormedia',
-                    url: 'https://www.google.com/?client=safari',
+                    url: 'https://www.mirrormedia.mg/',
                     imageUrl: mirrorLogo,
                 },
                 share: {
@@ -57,14 +57,14 @@ export default {
                     id: 3,
                     alt: 'facebook',
                     url:
-                        'https://www.facebook.com/sharer/sharer.php?u=https://www.readr.tw/project/3/zhou_zi_fei/',
+                        'https://www.facebook.com/sharer/sharer.php?u=www.mirrormedia.mg/projects/zhou_zi_fei/',
                     imageUrl: facebookLogo,
                 },
                 line: {
                     id: 4,
                     alt: 'line',
                     url:
-                        'https://social-plugins.line.me/lineit/share?url=https://www.readr.tw/project/3/zhou_zi_fei/',
+                        'https://social-plugins.line.me/lineit/share?url=www.mirrormedia.mg/projects/zhou_zi_fei/',
                     imageUrl: lineLogo,
                 },
             },

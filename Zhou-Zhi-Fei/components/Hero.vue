@@ -13,6 +13,8 @@ export default {}
 
 <style lang="scss" scoped>
 .Hero {
+    z-index: 20;
+    position: relative;
     height: 100vh;
     background: $lightBlue;
     display: flex;

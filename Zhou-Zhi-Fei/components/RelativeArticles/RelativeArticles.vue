@@ -43,6 +43,8 @@ export default {
 
 <style lang="scss" scoped>
 .RelativeArticles {
+    z-index: 20;
+    position: relative;
     background: $lightBlue;
     padding: 40px 20px 37px;
 

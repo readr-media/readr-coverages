@@ -1,6 +1,6 @@
 module.exports = {
     app: {
         siteProtocol: 'https',
-        domainName: 'www.readr.tw/project/3/character-justice',
+        domainName: 'www.mirrormedia.mg/projects/zhou_zhi_fei',
     },
 }
