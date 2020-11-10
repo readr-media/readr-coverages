@@ -90,6 +90,8 @@ export default {
             this.showNavbar = currentScrollPosition < this.lastScrollPosition
             // Set the current scroll position as the last scroll position
             this.lastScrollPosition = currentScrollPosition
+
+            this.isShareListExpanded = false
         },
         expandShareList() {
             this.isShareListExpanded = !this.isShareListExpanded

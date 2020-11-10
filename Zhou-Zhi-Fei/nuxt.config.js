@@ -88,7 +88,7 @@ export default {
     },
 
     router: {
-        base: '/project/3/zhou_zhi_fei/',
+        base: '/project/zhou_zhi_fei/',
         extendRoutes(routes, resolve) {
             routes.push({
                 name: 'custom',
