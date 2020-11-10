@@ -4,10 +4,11 @@
         id="StoryNav"
         :class="{ fixTopStoryNav: !notFixStoryNav }"
     >
+        {{ currentChapter }}
         <div
             v-for="list in characterList"
             class="StoryNav__list"
-            :class="{ current: currentId === list.id }"
+            :class="{ current: currentChapter === list.id }"
             :key="list.id"
             @click="clickHandler(list)"
         >
@@ -23,7 +24,7 @@ import gaMixin from '~/mixins/gaMixin'
 
 export default {
     mixins: [characterList, gaMixin],
-    props: ['notFixStoryNav', 'currentId'],
+    props: ['notFixStoryNav', 'currentChapter'],
 
     data() {
         return {}
