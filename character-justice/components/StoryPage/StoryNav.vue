@@ -24,7 +24,7 @@ import gaMixin from '~/mixins/gaMixin'
 
 export default {
     mixins: [characterList, gaMixin],
-    props: ['notFixStoryNav', 'currentChapter'],
+    props: ['notFixStoryNav', 'currentId'],
 
     data() {
         return {}
