@@ -1,0 +1,58 @@
+{
+  "name": "part-time-professor",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && next export",
+    "start": "next start",
+    "lint": "eslint --cache --ignore-path .gitignore .",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@linaria/babel-preset": "^3.0.0-beta.1",
+    "@linaria/core": "^3.0.0-beta.1",
+    "@linaria/react": "^3.0.0-beta.1",
+    "@linaria/shaker": "^3.0.0-beta.1",
+    "@readr-media/web-components": "^2.1.0",
+    "intersection-observer": "^0.12.0",
+    "linaria": "^3.0.0-beta.1",
+    "next": "10.0.4",
+    "next-images": "^1.6.2",
+    "next-linaria": "^0.10.0",
+    "rc-slider": "^9.7.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-ga": "^3.3.0",
+    "react-lazyload": "^3.1.0",
+    "sass": "^1.30.0",
+    "scroll-into-view": "^1.15.0"
+  },
+  "devDependencies": {
+    "@apollo/client": "^3.3.6",
+    "@svgr/webpack": "^5.5.0",
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "archieml": "^0.4.2",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.16.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.0",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "graphql": "^15.4.0",
+    "husky": ">=4",
+    "jest": "^26.6.3",
+    "lint-staged": ">=10",
+    "prettier": "^2.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && jest --passWithNoTests"
+    }
+  },
+  "lint-staged": {
+    "*.js": "yarn lint"
+  }
+}
