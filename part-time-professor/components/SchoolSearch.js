@@ -430,7 +430,7 @@ export default function SchoolSearch(props) {
                 </div>
 
                 <div>
-                  <div className="title">今年度刪減課程數比率**</div>
+                  <div className="title">今年度課程變化比率**</div>
                   <div className="num">
                     <strong>{result.coursesCutting}</strong>%
                   </div>
