@@ -39,7 +39,8 @@ const CSS = {
     }
     ${mediaBreakpointXlUp} {
       margin: 0 60px 0 0;
-      max-width: 540px;
+      width: 540px;
+      max-width: none;
       flex-shrink: 0;
     }
 
