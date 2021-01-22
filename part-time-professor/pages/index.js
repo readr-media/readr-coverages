@@ -331,7 +331,7 @@ export async function getStaticProps() {
           Post(where: { id: ${POST_ID} }) {
             contentApiData
 
-            title
+            title: name
             ogTitle
             ogDescription
             ogImage {
