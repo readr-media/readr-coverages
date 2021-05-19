@@ -39,6 +39,7 @@
       ]"
       style="height: 500px"
     />
+    <FlashNews />
     <Credit />
     <Footer />
   </div>
@@ -49,6 +50,7 @@ import Navbar from '~/components/Navbar.vue'
 import DiagramCovid19 from '~/components/DiagramCovid19.vue'
 import DiagramElectric from '~/components/DiagramElectric.vue'
 import DiagramWater from '~/components/DiagramWater.vue'
+import FlashNews from '~/components/FlashNews.vue'
 import TaiwanMap from '~/components/TaiwanMap/TaiwanMap.vue'
 import Credit from '~/components/Credit.vue'
 import Footer from '~/components/Footer.vue'
@@ -59,6 +61,7 @@ export default {
     DiagramCovid19,
     DiagramElectric,
     DiagramWater,
+    FlashNews,
     TaiwanMap,
     Credit,
     Footer,

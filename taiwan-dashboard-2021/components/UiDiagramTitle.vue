@@ -4,9 +4,9 @@
       <div class="diagram-title__icon">
         <img :src="icon" />
       </div>
-      <div class="diagram-title__text">
+      <h2 class="diagram-title__text">
         {{ text }}
-      </div>
+      </h2>
     </div>
 
     <div class="diagram-title__devider" />
