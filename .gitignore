@@ -68,3 +68,7 @@ node_modules/
 config.js
 gcskeyfile.json
 .nuxt
+
+.idea/
+
+.DS_Store
