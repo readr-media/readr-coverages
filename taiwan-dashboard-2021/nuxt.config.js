@@ -36,7 +36,8 @@ export default {
     scss: ['~/scss/_*.scss'],
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [{ src: '~/plugins/web-component.js', ssr: false }],
+
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
@@ -54,7 +55,7 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://localhost:3000/api/graphql',
+        httpEndpoint: `http://localhost:3000/${SITE_BASE}api/graphql`,
         browserHttpEndpoint: '/api/graphql',
       },
     },
