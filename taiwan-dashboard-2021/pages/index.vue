@@ -36,6 +36,7 @@
       ]"
       style="height: 500px"
     />
+    <Footer />
   </div>
 </template>
 
@@ -45,6 +46,7 @@ import DiagramCovid19 from '~/components/DiagramCovid19.vue'
 import DiagramElectric from '~/components/DiagramElectric.vue'
 import DiagramWater from '~/components/DiagramWater.vue'
 import TaiwanMap from '~/components/TaiwanMap/TaiwanMap.vue'
+import Footer from '~/components/Footer.vue'
 
 export default {
   components: {
@@ -53,6 +55,7 @@ export default {
     DiagramElectric,
     DiagramWater,
     TaiwanMap,
+    Footer,
   },
   data() {
     return {}
