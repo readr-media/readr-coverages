@@ -1,0 +1,15 @@
+.test {
+  // tablet range
+  @include media-breakpoint-up(md) {
+    background: red;
+  }
+
+  // desktop range
+  @include media-breakpoint-up(xl) {
+    background: red;
+  }
+  // desktop UHD range
+  @include media-breakpoint-up(xxl) {
+    background: red;
+  }
+}
