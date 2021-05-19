@@ -4,6 +4,38 @@
     <DiagramCovid19 />
     <DiagramElectric />
     <DiagramWater />
+    <TaiwanMap
+      :countyFillColorConfig="[
+        {
+          name: '花蓮縣',
+          color: '#123456',
+          opacity: 0.3,
+          hoverInfo: {
+            title: '南投縣',
+            description: '今日確診 1 例',
+          },
+        },
+        {
+          name: '台北市',
+          color: 'red',
+          opacity: 1,
+          hoverInfo: {
+            title: '範例標題',
+            description: '範例敘述',
+          },
+        },
+        {
+          name: '澎湖縣',
+          color: 'red',
+          opacity: 1,
+          hoverInfo: {
+            title: '範例標題',
+            description: '範例敘述',
+          },
+        },
+      ]"
+      style="height: 500px"
+    />
   </div>
 </template>
 
@@ -12,12 +44,15 @@ import Navbar from '~/components/Navbar.vue'
 import DiagramCovid19 from '~/components/DiagramCovid19.vue'
 import DiagramElectric from '~/components/DiagramElectric.vue'
 import DiagramWater from '~/components/DiagramWater.vue'
+import TaiwanMap from '~/components/TaiwanMap/TaiwanMap.vue'
+
 export default {
   components: {
     Navbar,
     DiagramCovid19,
     DiagramElectric,
     DiagramWater,
+    TaiwanMap,
   },
   data() {
     return {}
