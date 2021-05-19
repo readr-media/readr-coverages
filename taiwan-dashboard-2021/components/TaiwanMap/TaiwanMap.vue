@@ -119,7 +119,7 @@ svg::v-deep path {
 
 .chart-tooltip {
   position: fixed;
-  min-width: 121px;
+  width: 121px;
   min-height: 56px;
   padding: 8px;
   background: rgba(255, 255, 255, 0.95);
