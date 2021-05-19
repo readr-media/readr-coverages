@@ -22,7 +22,7 @@ export default {
 .Navbar {
   position: relative;
   z-index: 1000;
-  background: white;
+  background: transparent;
   width: 100%;
 }
 </style>
