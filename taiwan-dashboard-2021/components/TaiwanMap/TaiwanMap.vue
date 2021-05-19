@@ -31,12 +31,37 @@ export default {
   data() {
     return {
       chart: undefined,
+      paths: undefined,
       shouldShowTooltip: false,
       tooltipX: 0,
       tooltipY: 0,
       tooltipTitle: '',
       tooltipDescription: '',
     }
+  },
+  watch: {
+    countyFillColorConfig() {
+      this.chart
+        .selectAll('path')
+        .data(this.geojson.features)
+        .style('fill', (d) => {
+          const countyConfig = this.countyFillColorConfig.find(
+            function findNameWithProps(county) {
+              return county.name === d.properties.COUNTYNAME
+            }
+          )
+
+          return (countyConfig || {}).color || '#E5E5E5'
+        })
+        .style('opacity', (d) => {
+          const countyConfig = this.countyFillColorConfig.find(
+            function findNameWithProps(county) {
+              return county.name === d.properties.COUNTYNAME
+            }
+          )
+          return (countyConfig || {}).opacity || 1
+        })
+    },
   },
   mounted() {
     const chartDomNode = this.$refs.chart
@@ -51,13 +76,13 @@ export default {
       .attr('width', width)
       .attr('height', height)
     // eslint-disable-next-line import/namespace
-    const geojson = topojson.feature(
+    this.geojson = topojson.feature(
       taiwanTopology,
       taiwanTopology.objects.counties
     )
     this.chart
       .selectAll('path')
-      .data(geojson.features)
+      .data(this.geojson.features)
       .enter()
       .append('path')
       .attr('d', d3.geoPath())
