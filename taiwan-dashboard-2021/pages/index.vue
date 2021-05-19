@@ -1,9 +1,12 @@
 <template>
   <div class="homepage">
     <Navbar />
-    <DiagramCovid19 />
-    <DiagramElectric />
-    <DiagramWater />
+    <div class="homepage__diagram_wrapper">
+      <DiagramCovid19 />
+      <DiagramElectric />
+      <DiagramWater />
+    </div>
+
     <TaiwanMap
       :countyFillColorConfig="[
         {
@@ -36,6 +39,7 @@
       ]"
       style="height: 500px"
     />
+    <Credit />
     <Footer />
   </div>
 </template>
@@ -46,6 +50,7 @@ import DiagramCovid19 from '~/components/DiagramCovid19.vue'
 import DiagramElectric from '~/components/DiagramElectric.vue'
 import DiagramWater from '~/components/DiagramWater.vue'
 import TaiwanMap from '~/components/TaiwanMap/TaiwanMap.vue'
+import Credit from '~/components/Credit.vue'
 import Footer from '~/components/Footer.vue'
 
 export default {
@@ -55,6 +60,7 @@ export default {
     DiagramElectric,
     DiagramWater,
     TaiwanMap,
+    Credit,
     Footer,
   },
   data() {
@@ -68,11 +74,14 @@ export default {
   font-size: 1rem;
   min-height: 100vh;
   background: #f6f6f5;
-  padding: 0 12px;
 
-  // desktop range
-  @include media-breakpoint-up(xl) {
-    padding: 0 40px;
+  &__diagram_wrapper {
+    padding: 0 12px;
+
+    // desktop range
+    @include media-breakpoint-up(xl) {
+      padding: 0 40px;
+    }
   }
 }
 </style>
