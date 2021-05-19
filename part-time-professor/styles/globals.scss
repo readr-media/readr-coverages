@@ -1,0 +1,27 @@
+$base-font-size: 18px;
+$base-line-height: 1.89;
+$base-paragraph-spacing: $base-font-size * $base-line-height;
+
+:root {
+  --base-paragraph-spacing: #{$base-paragraph-spacing};
+}
+
+body {
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  color: #fff;
+  letter-spacing: 0.6px;
+}
+
+picture {
+  display: block;
+}
+
+strong {
+  font-weight: 700;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
