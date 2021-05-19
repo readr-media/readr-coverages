@@ -1,9 +1,27 @@
 <template>
-  <div class="flash-news">I am flash news</div>
+  <div class="flash-news">
+    <h1 class="flash-news__title">快訊</h1>
+    <FlashNewsCategory :setCurrentCategoryId="setCurrentCategoryId" />
+  </div>
 </template>
 
 <script>
-export default {}
+import FlashNewsCategory from '~/components/FlashNewsCategory.vue'
+
+export default {
+  components: { FlashNewsCategory },
+  data() {
+    return {
+      flashNewsCategory: {},
+      currentCategoryId: 0,
+    }
+  },
+  methods: {
+    setCurrentCategoryId(categoryId) {
+      this.currentCategoryId = categoryId
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>

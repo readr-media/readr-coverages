@@ -74,7 +74,6 @@ export default {
 
 <style lang="scss" scoped>
 .homepage {
-  font-size: 1rem;
   min-height: 100vh;
   background: #f6f6f5;
 
