@@ -6,7 +6,7 @@
         :key="category.id"
         :icon="category.icon"
         :title="category.title"
-        @click.native="setCurrentCategoryId(category.id)"
+        @click.native="setCurrentCategoryName(category.id)"
       />
     </div>
   </div>
@@ -17,11 +17,11 @@ import FlashNewsCategoryButton from '~/components/FlashNewsCategoryButton.vue'
 export default {
   components: { FlashNewsCategoryButton },
   props: {
-    setCurrentCategoryId: {
+    setCurrentCategoryName: {
       type: Function,
       isRequired: true,
       default: () => {
-        return 0
+        return '疫情'
       },
     },
   },
