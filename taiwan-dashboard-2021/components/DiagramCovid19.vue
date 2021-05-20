@@ -1,5 +1,5 @@
 <template>
-  <div class="diagram-covid-19 g-diagram">
+  <div id="diagram-covid-19" class="diagram-covid-19 g-diagram">
     <UiDiagramTitle
       engText="Civid-19 "
       text="疫情"

@@ -1,5 +1,5 @@
 <template>
-  <div class="diagram-covid-19 g-diagram">
+  <div id="diagram-water" class="diagram-water g-diagram">
     <UiDiagramTitle
       text="用水狀況"
       :icon="require('@/static/images/icons/water-icon.svg')"
@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.diagram-covid-19 {
+.diagram-water {
   position: relative;
 }
 </style>

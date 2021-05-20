@@ -3,7 +3,11 @@
     <Navbar />
     <Hero />
     <div class="homepage__diagram_wrapper">
-      <DiagramMain />
+      <DiagramMain
+        :currentCovidCount="currentCovidCount"
+        :currentElectricLoading="currentElectricLoading"
+        :currentWaterStatus="currentWaterStatus"
+      />
       <DiagramCovid19 />
       <DiagramElectric />
       <DiagramWater />
@@ -79,6 +83,18 @@ export default {
     }
   },
   computed: {
+    currentCovidCount() {
+      return 254
+    },
+    currentElectricLoading() {
+      return '供電吃緊'
+    },
+    currentWaterStatus() {
+      return {
+        info: '分區或定點供水',
+        region: ['苗栗縣、台中市及彰化縣北部'],
+      }
+    },
     flashNewsList() {
       return JSON.parse(this.flashNewsJson)
     },
