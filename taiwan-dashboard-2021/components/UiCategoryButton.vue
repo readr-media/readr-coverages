@@ -35,6 +35,20 @@ export default {
   align-items: center;
   cursor: pointer;
   padding: 4px 12px;
+  user-select: none;
+  outline: none;
+
+  &:active {
+    background: linear-gradient(
+        0deg,
+        rgba(0, 9, 40, 0.05),
+        rgba(0, 9, 40, 0.05)
+      ),
+      #fff;
+    border: 1px solid #000928;
+    box-sizing: border-box;
+    border-radius: 2px;
+  }
 
   &__icon {
     width: 18px;

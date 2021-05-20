@@ -53,8 +53,6 @@ export default {
       this.isToggled = !this.isToggled
     },
     assignOnlyOneClass(index) {
-      console.log(this.showedContent.length)
-      console.log(index)
       return this.showedContent.length === 1 && index === 0
     },
   },

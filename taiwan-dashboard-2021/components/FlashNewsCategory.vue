@@ -1,7 +1,7 @@
 <template>
   <div class="flash-news-category">
     <div class="flash-news-category__wrapper">
-      <FlashNewsCategoryButton
+      <UiCategoryButton
         v-for="category in flashNewsCategory"
         :key="category.id"
         :icon="category.icon"
@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import FlashNewsCategoryButton from '~/components/FlashNewsCategoryButton.vue'
+import UiCategoryButton from '~/components/UiCategoryButton.vue'
 export default {
-  components: { FlashNewsCategoryButton },
+  components: { UiCategoryButton },
   props: {
     setCurrentCategoryName: {
       type: Function,

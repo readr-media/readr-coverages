@@ -10,15 +10,18 @@
         :flashNews="flashNews"
       />
     </div>
+
+    <UiButton title="展開所有快訊" />
   </div>
 </template>
 
 <script>
 import FlashNewsCategory from '~/components/FlashNewsCategory.vue'
 import FlashNewsCard from '~/components/FlashNewsCard.vue'
+import UiButton from '~/components/UiButton.vue'
 
 export default {
-  components: { FlashNewsCategory, FlashNewsCard },
+  components: { FlashNewsCategory, FlashNewsCard, UiButton },
   props: {
     flashNewsList: {
       type: Array,
@@ -68,6 +71,9 @@ export default {
 <style lang="scss" scoped>
 .flash-news {
   background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   &__container {
     max-width: 640px;
