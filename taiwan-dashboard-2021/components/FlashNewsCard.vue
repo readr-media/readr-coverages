@@ -1,11 +1,11 @@
 <template>
   <div class="flash-news-card">
-    <h3 class="flash-news-card__title">{{ title }}</h3>
+    <h4 class="flash-news-card__title">{{ title }}</h4>
 
     <div class="flash-news-card__info">
       <div class="flash-news-card__info_left">
-        <div class="flash-news-card__publish_time">{{ updateTime }}</div>
-        <div class="flash-news-card__author">記者/{{ author }}</div>
+        <div class="flash-news-card__publish_time Body2">{{ updateTime }}</div>
+        <div class="flash-news-card__author Body2">記者/{{ author }}</div>
       </div>
 
       <div class="flash-news-card__category">{{ category }}</div>
@@ -61,6 +61,11 @@ export default {
     inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   margin-bottom: 16px;
 
+  // tablet range
+  @include media-breakpoint-up(md) {
+    padding: 32px;
+  }
+
   &__title {
     margin-bottom: 12px;
   }
@@ -73,22 +78,12 @@ export default {
   }
 
   &__publish_time {
-    font-family: Roboto, sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 19px;
-    text-align: justify;
     color: #000928;
     opacity: 0.3;
+    margin-bottom: 4px;
   }
 
   &__author {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    text-align: justify;
     color: #000928;
     opacity: 0.66;
   }

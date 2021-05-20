@@ -4,9 +4,16 @@
       <div class="diagram-title__icon">
         <img :src="icon" />
       </div>
-      <h2 class="diagram-title__text">
-        {{ text }}
-      </h2>
+
+      <h3 class="diagram-title__text">
+        <span class="eng">
+          {{ engText }}
+        </span>
+
+        <span>
+          {{ text }}
+        </span>
+      </h3>
     </div>
 
     <div class="diagram-title__devider" />
@@ -17,6 +24,11 @@
 export default {
   props: {
     icon: {
+      type: String,
+      isRequired: true,
+      default: '',
+    },
+    engText: {
       type: String,
       isRequired: true,
       default: '',
@@ -41,12 +53,6 @@ export default {
     flex-direction: column;
     align-items: center;
     margin-bottom: 12px;
-
-    // tablet range
-    @include media-breakpoint-up(md) {
-      flex-direction: row;
-      justify-content: center;
-    }
   }
 
   &__devider {
@@ -68,13 +74,13 @@ export default {
     }
   }
 
-  &__text {
-    // font-family: 'Roboto';
-    font-style: normal;
-    font-weight: bold;
-    font-size: 36px;
-    line-height: 42px;
-    color: #000928;
-  }
+  // &__text {
+  //   // font-family: 'Roboto';
+  //   font-style: normal;
+  //   font-weight: bold;
+  //   font-size: 36px;
+  //   line-height: 42px;
+  //   color: #000928;
+  // }
 }
 </style>

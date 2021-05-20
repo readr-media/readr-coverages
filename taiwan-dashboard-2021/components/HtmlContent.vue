@@ -4,7 +4,7 @@
       v-for="(contentBlock, index) in showedContent"
       :key="index"
       :contentBlock="contentBlock"
-      :class="{ only_one: showedContent > 1 && index === 0 }"
+      :class="{ only_one: assignOnlyOneClass(index) }"
     />
     <span
       v-if="!isToggled"
@@ -51,6 +51,11 @@ export default {
   methods: {
     toggleHandler() {
       this.isToggled = !this.isToggled
+    },
+    assignOnlyOneClass(index) {
+      console.log(this.showedContent.length)
+      console.log(index)
+      return this.showedContent.length === 1 && index === 0
     },
   },
 }

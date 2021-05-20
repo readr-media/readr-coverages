@@ -1,6 +1,6 @@
 <template>
   <!-- eslint-disable vue/no-v-html -->
-  <p class="html-content-block" v-html="contentBlock"></p>
+  <p class="html-content-block Body" v-html="contentBlock"></p>
 </template>
 
 <script>

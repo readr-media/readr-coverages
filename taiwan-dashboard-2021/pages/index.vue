@@ -3,6 +3,7 @@
     <Navbar />
     <Hero />
     <div class="homepage__diagram_wrapper">
+      <DiagramMain />
       <DiagramCovid19 />
       <DiagramElectric />
       <DiagramWater />
@@ -49,6 +50,7 @@
 <script>
 import Navbar from '~/components/Navbar.vue'
 import Hero from '~/components/Hero.vue'
+import DiagramMain from '~/components/DiagramMain.vue'
 import DiagramCovid19 from '~/components/DiagramCovid19.vue'
 import DiagramElectric from '~/components/DiagramElectric.vue'
 import DiagramWater from '~/components/DiagramWater.vue'
@@ -61,6 +63,7 @@ export default {
   components: {
     Navbar,
     Hero,
+    DiagramMain,
     DiagramCovid19,
     DiagramElectric,
     DiagramWater,
@@ -91,8 +94,8 @@ export default {
   &__diagram_wrapper {
     padding: 0 12px;
 
-    // desktop range
-    @include media-breakpoint-up(xl) {
+    // tablet range
+    @include media-breakpoint-up(md) {
       padding: 0 40px;
     }
   }

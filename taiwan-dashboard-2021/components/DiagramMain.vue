@@ -1,9 +1,9 @@
 <template>
-  <div class="diagram-covid-19 g-diagram">
+  <div class="diagram-main g-diagram">
     <UiDiagramTitle
-      engText="Civid-19 "
-      text="疫情"
-      :icon="require('@/static/images/icons/covid-icon.svg')"
+      engText="2021 "
+      text="台灣儀表板"
+      :icon="require('@/static/images/icons/main-icon.svg')"
     />
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.diagram-covid-19 {
+.diagram-main {
   position: relative;
 }
 </style>
