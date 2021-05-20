@@ -1,7 +1,7 @@
 <template>
   <div class="board-title" :style="{ color: color }">
     <template v-if="boardType === 'number'">
-      <h1 class="board-title__plus eng">+</h1>
+      <h1 v-if="isNeededPlus" class="board-title__plus eng">+</h1>
       <h1 class="board-title__count eng">
         {{ count }}
       </h1>
