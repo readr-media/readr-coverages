@@ -1,6 +1,7 @@
 <template>
   <div class="homepage">
     <Navbar />
+    <Hero />
     <div class="homepage__diagram_wrapper">
       <DiagramCovid19 />
       <DiagramElectric />
@@ -47,6 +48,7 @@
 
 <script>
 import Navbar from '~/components/Navbar.vue'
+import Hero from '~/components/Hero.vue'
 import DiagramCovid19 from '~/components/DiagramCovid19.vue'
 import DiagramElectric from '~/components/DiagramElectric.vue'
 import DiagramWater from '~/components/DiagramWater.vue'
@@ -58,6 +60,7 @@ import Footer from '~/components/Footer.vue'
 export default {
   components: {
     Navbar,
+    Hero,
     DiagramCovid19,
     DiagramElectric,
     DiagramWater,
