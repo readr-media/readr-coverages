@@ -1,6 +1,11 @@
 <template>
   <div class="board-info">
-    <a v-if="anchorId" class="board-info__anchor" :href="`#${anchorId}`">
+    <a
+      v-if="anchorId"
+      class="board-info__anchor"
+      :href="`#${anchorId}`"
+      v-smooth-scroll
+    >
       <span>
         {{ info }}
       </span>
