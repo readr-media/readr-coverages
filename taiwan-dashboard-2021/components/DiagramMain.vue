@@ -5,7 +5,7 @@
       :icon="require('@/static/images/icons/main-icon.svg')"
     />
 
-    <div class="g-diagram__wrapper">
+    <div class="g-diagram__board_wrapper">
       <BoardHandler
         boardType="number"
         :count="currentCovidCount"

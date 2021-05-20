@@ -6,7 +6,7 @@
       :icon="require('@/static/images/icons/covid-icon.svg')"
     />
 
-    <div class="g-diagram__wrapper">
+    <div class="g-diagram__board_wrapper">
       <BoardHandler
         boardType="number"
         :count="currentCovidCount"
@@ -139,6 +139,23 @@ export default {
     max-height: 2000px;
     transition: all 0.3s ease-in-out;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    // desktop range
+    @include media-breakpoint-up(xl) {
+      flex-direction: row;
+      justify-content: space-between;
+
+      & > :first-child {
+        flex: 9;
+      }
+
+      & > :last-child {
+        flex: 11;
+      }
+    }
 
     &.hide {
       max-height: 0;

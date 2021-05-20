@@ -18,7 +18,9 @@
   }
 }
 
-.g-diagram__wrapper {
+.g-diagram__board_wrapper {
+  max-width: 928px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
