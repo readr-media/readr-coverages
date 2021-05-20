@@ -1,10 +1,17 @@
 <template>
   <div class="html-content">
     <HtmlContentBlock
-      v-for="(contentBlock, index) in content"
+      v-for="(contentBlock, index) in showedContent"
       :key="index"
       :contentBlock="contentBlock"
+      :class="{ only_one: showedContent > 1 && index === 0 }"
     />
+    <span
+      v-if="!isToggled"
+      class="html-content__read_more"
+      @click="toggleHandler"
+      >...閱讀更多</span
+    >
   </div>
 </template>
 
@@ -23,11 +30,43 @@ export default {
       },
     },
   },
+  data() {
+    return {
+      isToggled: false,
+    }
+  },
+  computed: {
+    showedContent() {
+      if (this.isToggled) {
+        return this.content
+      } else {
+        const newContent = this.content.filter((contentBlock, index) => {
+          return index < 1
+        })
+
+        return newContent
+      }
+    },
+  },
+  methods: {
+    toggleHandler() {
+      this.isToggled = !this.isToggled
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .html-content {
   background: transparent;
+
+  &__read_more {
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 200%;
+    text-align: justify;
+    color: #000928;
+    opacity: 0.5;
+  }
 }
 </style>
