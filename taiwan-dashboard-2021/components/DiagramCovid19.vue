@@ -28,7 +28,7 @@
       />
     </div>
 
-    <div class="diagram-covid-19__diagram">
+    <div class="diagram-covid-19__diagram" :class="{ hide: !isToggled }">
       <TaiwanMap
         :countyFillColorConfig="[
           {
@@ -62,8 +62,13 @@
         style="height: 500px"
       />
 
-      <DiagramCovid19CityList :cityList="totalCityList" />
+      <DiagramCovid19CityList
+        :cityList="totalCityList"
+        :class="{ expand: isToggled }"
+      />
     </div>
+
+    <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
   </div>
 </template>
 
@@ -71,12 +76,14 @@
 import UiDiagramTitle from '~/components/UiDiagramTitle.vue'
 import TaiwanMap from '~/components/TaiwanMap/TaiwanMap.vue'
 import DiagramCovid19CityList from '~/components/DiagramCovid19CityList.vue'
+import UiDiagramToggle from '~/components/UiDiagramToggle.vue'
 
 export default {
   components: {
     UiDiagramTitle,
     TaiwanMap,
     DiagramCovid19CityList,
+    UiDiagramToggle,
   },
   props: {
     covid: {
@@ -86,6 +93,11 @@ export default {
         return {}
       },
     },
+  },
+  data() {
+    return {
+      isToggled: false,
+    }
   },
   computed: {
     currentCovidCount() {
@@ -111,11 +123,30 @@ export default {
       return cityList
     },
   },
+  methods: {
+    toggleHandler() {
+      this.isToggled = !this.isToggled
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .diagram-covid-19 {
   position: relative;
+
+  &__diagram {
+    max-height: 2000px;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+
+    &.hide {
+      max-height: 0;
+      // tablet range
+      @include media-breakpoint-up(md) {
+        max-height: 2000px;
+      }
+    }
+  }
 }
 </style>
