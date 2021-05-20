@@ -28,9 +28,21 @@ export default {
   data() {
     return {
       flashNewsCategory: [
-        { id: 0, icon: '', title: '疫情' },
-        { id: 1, icon: '', title: '電力' },
-        { id: 2, icon: '', title: '水情' },
+        {
+          id: 0,
+          icon: require('@/static/images/icons/covid-icon.svg'),
+          title: '疫情',
+        },
+        {
+          id: 1,
+          icon: require('@/static/images/icons/electric-icon.svg'),
+          title: '電力',
+        },
+        {
+          id: 2,
+          icon: require('@/static/images/icons/water-icon.svg'),
+          title: '水情',
+        },
       ],
     }
   },

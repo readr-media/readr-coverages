@@ -1,6 +1,9 @@
 <template>
   <div class="diagram-covid-19 g-diagram">
-    <UiDiagramTitle icon="" text="用水狀況" />
+    <UiDiagramTitle
+      text="用水狀況"
+      :icon="require('@/static/images/icons/water-icon.svg')"
+    />
   </div>
 </template>
 
