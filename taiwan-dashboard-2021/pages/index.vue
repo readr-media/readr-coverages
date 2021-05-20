@@ -39,6 +39,7 @@
       ]"
       style="height: 500px"
     />
+    <CircleChart />
     <FlashNews :flashNewsList="flashNewsList" />
     <Credit />
     <Footer />
@@ -52,6 +53,7 @@ import DiagramElectric from '~/components/DiagramElectric.vue'
 import DiagramWater from '~/components/DiagramWater.vue'
 import FlashNews from '~/components/FlashNews.vue'
 import TaiwanMap from '~/components/TaiwanMap/TaiwanMap.vue'
+import CircleChart from '~/components/Water/CircleChart.vue'
 import Credit from '~/components/Credit.vue'
 import Footer from '~/components/Footer.vue'
 
@@ -63,6 +65,7 @@ export default {
     DiagramWater,
     FlashNews,
     TaiwanMap,
+    CircleChart,
     Credit,
     Footer,
   },
