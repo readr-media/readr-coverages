@@ -163,13 +163,6 @@ export default {
       }
     },
   },
-  methods: {
-    updateTime(diagram) {
-      const time = diagram?.update_time || '2021-05-20'
-      const newTime = time.split('-').join('.')
-      return `最後更新 ${newTime}`
-    },
-  },
   mounted() {
     axios
       .get('https://storage.googleapis.com/projects.readr.tw/dashboard.json')
@@ -182,6 +175,13 @@ export default {
         this.power = power
         this.water = water
       })
+  },
+  methods: {
+    updateTime(diagram) {
+      const time = diagram?.update_time || '2021-05-20'
+      const newTime = time.split('-').join('.')
+      return `最後更新 ${newTime}`
+    },
   },
 }
 </script>

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.1-rc.5",
+    "@nuxtjs/google-analytics": "^2.4.0",
     "@readr-media/web-components": "^2.1.0",
     "axios": "^0.21.1",
     "core-js": "^3.8.3",

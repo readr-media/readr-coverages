@@ -1,11 +1,14 @@
 <template>
   <div class="donate">
-    <readr-donate-button />
+    <readr-donate-button @click="gaClickHandler('donate')" />
   </div>
 </template>
 
 <script>
-export default {}
+import gaMixin from '~/mixins/gaMixin'
+export default {
+  mixins: [gaMixin],
+}
 </script>
 
 <style lang="scss" scoped>

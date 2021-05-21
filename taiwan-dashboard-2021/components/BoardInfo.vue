@@ -2,9 +2,9 @@
   <div class="board-info">
     <a
       v-if="anchorId"
+      v-smooth-scroll
       class="board-info__anchor"
       :href="`#${anchorId}`"
-      v-smooth-scroll
     >
       <span v-for="(infoItem, index) in info" :key="index">
         {{ infoItem }}

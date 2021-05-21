@@ -1,20 +1,19 @@
 <template>
   <div class="Navbar">
-    <readr-header />
-    <!-- <readr-header
-            @readrLogoLinkClick="gaClickHandler('back to home')"
-            @shareFacebookLinkClick="gaClickHandler('share to fb')"
-            @shareLINELinkClick="gaClickHandler('share to line')"
-        /> -->
+    <readr-header
+      @readrLogoLinkClick="gaClickHandler('back to home')"
+      @shareFacebookLinkClick="gaClickHandler('share to fb')"
+      @shareLINELinkClick="gaClickHandler('share to line')"
+    />
     <div class="Navbar__anchor"></div>
   </div>
 </template>
 
 <script>
-// import gaMixin from '~/mixins/gaMixin'
+import gaMixin from '~/mixins/gaMixin'
 
 export default {
-  //   mixins: [gaMixin],
+  mixins: [gaMixin],
 }
 </script>
 

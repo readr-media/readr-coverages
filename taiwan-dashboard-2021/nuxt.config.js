@@ -50,7 +50,13 @@ export default {
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module',
     '@nuxtjs/style-resources',
+    '@nuxtjs/google-analytics',
   ],
+  googleAnalytics: {
+    id: () => {
+      return 'UA-83609754-1'
+    },
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxtjs/style-resources', '@nuxtjs/apollo'],
