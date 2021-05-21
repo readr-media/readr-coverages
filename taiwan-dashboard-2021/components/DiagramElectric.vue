@@ -26,12 +26,15 @@
 </template>
 
 <script>
+import scrollama from 'scrollama'
+import 'intersection-observer'
 import UiDiagramTitle from '~/components/UiDiagramTitle.vue'
-
+import gaMixin from '~/mixins/gaMixin'
 export default {
   components: {
     UiDiagramTitle,
   },
+  mixins: [gaMixin],
 
   computed: {
     currentUsedPower() {
@@ -40,6 +43,20 @@ export default {
     currentGeneratedPower() {
       return 4027.5
     },
+  },
+  mounted() {
+    const scrollerCredit = scrollama()
+    scrollerCredit
+      .setup({
+        step: '.diagram-electric',
+        offset: 1,
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'up') return
+        this.gaScrollHandler('用電狀況底部')
+      })
+
+    window.addEventListener('resize', scrollerCredit.resize)
   },
 }
 </script>

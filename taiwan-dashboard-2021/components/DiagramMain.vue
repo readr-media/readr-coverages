@@ -35,9 +35,12 @@
 </template>
 
 <script>
+import scrollama from 'scrollama'
+import 'intersection-observer'
 import UiDiagramTitle from '~/components/UiDiagramTitle.vue'
 import BoardHandler from '~/components/BoardHandler.vue'
 import UiUpdateTime from '~/components/UiUpdateTime.vue'
+import gaMixin from '~/mixins/gaMixin'
 
 export default {
   components: {
@@ -45,6 +48,7 @@ export default {
     BoardHandler,
     UiUpdateTime,
   },
+  mixins: [gaMixin],
   props: {
     currentCovidCount: {
       type: Number,
@@ -71,6 +75,20 @@ export default {
       isRequired: true,
       default: '',
     },
+  },
+  mounted() {
+    const scrollerCredit = scrollama()
+    scrollerCredit
+      .setup({
+        step: '.diagram-covid-19',
+        offset: 1,
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'up') return
+        this.gaScrollHandler('全台儀表板底部')
+      })
+
+    window.addEventListener('resize', scrollerCredit.resize)
   },
 }
 </script>

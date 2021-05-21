@@ -3,7 +3,7 @@
     <readr-header
       @readrLogoLinkClick="gaClickHandler('back to home')"
       @shareFacebookLinkClick="gaClickHandler('share to fb')"
-      @shareLINELinkClick="gaClickHandler('share to line')"
+      @shareLineLinkClick="gaClickHandler('share to line')"
     />
     <div class="Navbar__anchor"></div>
   </div>

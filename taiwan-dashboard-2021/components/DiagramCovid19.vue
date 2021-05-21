@@ -73,11 +73,14 @@
 </template>
 
 <script>
+import scrollama from 'scrollama'
+import 'intersection-observer'
 import UiDiagramTitle from '~/components/UiDiagramTitle.vue'
 import TaiwanMap from '~/components/TaiwanMap/TaiwanMap.vue'
 import DiagramCovid19CityList from '~/components/DiagramCovid19CityList.vue'
 import UiDiagramToggle from '~/components/UiDiagramToggle.vue'
 import UiUpdateTime from '~/components/UiUpdateTime.vue'
+import gaMixin from '~/mixins/gaMixin'
 
 export default {
   components: {
@@ -87,6 +90,7 @@ export default {
     UiDiagramToggle,
     UiUpdateTime,
   },
+  mixins: [gaMixin],
   props: {
     covid: {
       type: Object,
@@ -119,6 +123,20 @@ export default {
     totalCityList() {
       return this.covid.city
     },
+  },
+  mounted() {
+    const scrollerCredit = scrollama()
+    scrollerCredit
+      .setup({
+        step: '.diagram-covid-19',
+        offset: 1,
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'up') return
+        this.gaScrollHandler('Covid-19 疫情底部')
+      })
+
+    window.addEventListener('resize', scrollerCredit.resize)
   },
   methods: {
     toggleHandler() {

@@ -25,9 +25,11 @@
 import FlashNewsCategory from '~/components/FlashNewsCategory.vue'
 import FlashNewsCard from '~/components/FlashNewsCard.vue'
 import UiButton from '~/components/UiButton.vue'
+import gaMixin from '~/mixins/gaMixin'
 
 export default {
   components: { FlashNewsCategory, FlashNewsCard, UiButton },
+  mixins: [gaMixin],
   props: {
     flashNewsList: {
       type: Array,
@@ -109,6 +111,7 @@ export default {
           : this.flashCount + 5
 
       this.flashCount = newFlashCount
+      this.gaClickHandler('展開所有快訊')
     },
   },
 }
