@@ -5,7 +5,7 @@
     0px 2px 2px -1px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
   margin-bottom: 16px;
-  padding: 24px 24px;
+  padding: 24px 24px 0;
 
   // tablet range
   @include media-breakpoint-up(md) {

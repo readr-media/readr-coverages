@@ -32,7 +32,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 0 0;
+  padding: 16px 0 16px;
   border-top: 1px solid rgba(0, 9, 40, 0.1);
   user-select: none;
   width: calc(100% + (2 * 24px));

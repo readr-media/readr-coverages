@@ -3,9 +3,9 @@
     <DiagramCovid19CityListItem
       v-for="(city, index) in cityList"
       :key="index"
-      :cityName="city.cityName"
-      :cityPrevTotal="city.cityPrevTotal"
-      :cityToday="1"
+      :cityName="city.city_name"
+      :cityPrevTotal="city.city_prev_total"
+      :cityToday="city.city_today"
       :cityWarningLevel="3"
       :class="{ row1: index < 12 }"
     />

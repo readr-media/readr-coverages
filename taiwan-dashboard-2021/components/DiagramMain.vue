@@ -29,17 +29,21 @@
         anchorId="diagram-water"
       />
     </div>
+
+    <UiUpdateTime :updateTime="updateTime" />
   </div>
 </template>
 
 <script>
 import UiDiagramTitle from '~/components/UiDiagramTitle.vue'
 import BoardHandler from '~/components/BoardHandler.vue'
+import UiUpdateTime from '~/components/UiUpdateTime.vue'
 
 export default {
   components: {
     UiDiagramTitle,
     BoardHandler,
+    UiUpdateTime,
   },
   props: {
     currentCovidCount: {
@@ -61,6 +65,11 @@ export default {
           region: '苗栗縣、台中市及彰化縣北部',
         }
       },
+    },
+    updateTime: {
+      type: String,
+      isRequired: true,
+      default: '',
     },
   },
 }

@@ -67,7 +67,7 @@
         :class="{ expand: isToggled }"
       />
     </div>
-
+    <UiUpdateTime :updateTime="updateTime" />
     <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
   </div>
 </template>
@@ -77,6 +77,7 @@ import UiDiagramTitle from '~/components/UiDiagramTitle.vue'
 import TaiwanMap from '~/components/TaiwanMap/TaiwanMap.vue'
 import DiagramCovid19CityList from '~/components/DiagramCovid19CityList.vue'
 import UiDiagramToggle from '~/components/UiDiagramToggle.vue'
+import UiUpdateTime from '~/components/UiUpdateTime.vue'
 
 export default {
   components: {
@@ -84,6 +85,7 @@ export default {
     TaiwanMap,
     DiagramCovid19CityList,
     UiDiagramToggle,
+    UiUpdateTime,
   },
   props: {
     covid: {
@@ -92,6 +94,11 @@ export default {
       default: () => {
         return {}
       },
+    },
+    updateTime: {
+      type: String,
+      isRequired: true,
+      default: '',
     },
   },
   data() {
@@ -104,23 +111,13 @@ export default {
       return this.covid?.today
     },
     totalCovidCount() {
-      return this.covid?.today
+      return this.covid?.taiwan_total
     },
     currentWarningLevel() {
       return '第三級警戒'
     },
     totalCityList() {
-      const cityObj = this.covid?.city || []
-      const cityArrayTemp = Object.entries(cityObj)
-
-      const cityList = cityArrayTemp.map(([key, value]) => {
-        return {
-          cityName: key,
-          cityPrevTotal: value,
-        }
-      })
-
-      return cityList
+      return this.covid.city
     },
   },
   methods: {

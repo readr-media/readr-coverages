@@ -7,8 +7,9 @@
         :currentCovidCount="currentCovidCount"
         :currentElectricLoading="currentElectricLoading"
         :currentWaterStatus="currentWaterStatus"
+        :updateTime="updateTime(covid)"
       />
-      <DiagramCovid19 :covid="covid" />
+      <DiagramCovid19 :covid="covid" :updateTime="updateTime(covid)" />
       <DiagramElectric />
       <DiagramWater />
     </div>
@@ -113,12 +114,20 @@ export default {
       }
     },
   },
+  methods: {
+    updateTime(diagram) {
+      const time = diagram?.update_time || '2021-05-20'
+      const newTime = time.split('-').join('.')
+      return `最後更新 ${newTime}`
+    },
+  },
   mounted() {
     axios
       .get('https://storage.googleapis.com/projects.readr.tw/dashboard.json')
       .then((res) => {
         // console.log(res.data)
         const { covid, news, power, water } = res.data
+        console.log(res.data)
         this.covid = covid
         this.newsTemp = news
         this.power = power
