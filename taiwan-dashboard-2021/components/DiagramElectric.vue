@@ -28,6 +28,7 @@
       :class="{ hide: !isToggled }"
     >
       <!-- Paste Diagram component in here -->
+      <LineChart />
     </div>
     <UiUpdateTime :updateTime="updateTime" />
     <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
@@ -38,10 +39,12 @@
 import scrollama from 'scrollama'
 import 'intersection-observer'
 import UiDiagramTitle from '~/components/UiDiagramTitle.vue'
+import LineChart from '~/components/Power/LineChart.vue'
 import gaMixin from '~/mixins/gaMixin'
 export default {
   components: {
     UiDiagramTitle,
+    LineChart,
   },
   mixins: [gaMixin],
 

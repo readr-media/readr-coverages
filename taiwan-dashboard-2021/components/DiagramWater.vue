@@ -4,6 +4,15 @@
       text="用水狀況"
       :icon="require('@/static/images/icons/water-icon.svg')"
     />
+
+    <div
+      class="diagram-electric__diagram g-diagram__folder"
+      :class="{ hide: !isToggled }"
+    >
+      <!-- Paste Diagram component in here -->
+    </div>
+    <UiUpdateTime :updateTime="updateTime" />
+    <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
   </div>
 </template>
 
@@ -18,6 +27,11 @@ export default {
     UiDiagramTitle,
   },
   mixins: [gaMixin],
+  data() {
+    return {
+      isToggled: false,
+    }
+  },
   mounted() {
     const scrollerCredit = scrollama()
     scrollerCredit
@@ -31,6 +45,11 @@ export default {
       })
 
     window.addEventListener('resize', scrollerCredit.resize)
+  },
+  methods: {
+    toggleHandler() {
+      this.isToggled = !this.isToggled
+    },
   },
 }
 </script>
