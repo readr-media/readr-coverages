@@ -124,7 +124,7 @@ export default {
   },
   mounted() {
     function bubbleChart() {
-      const width = 300
+      const width = 1000
       const height = 700
 
       const centre = { x: width / 2, y: height / 2 }
@@ -132,8 +132,12 @@ export default {
       const forceStrength = 0.03
 
       let svg = null
+      let baseline = null
       let bubbles = null
-      let labels = null
+      let percentage = null
+      let title = null
+      let amount = null
+
       let nodes = []
 
       function charge(d) {
@@ -152,25 +156,14 @@ export default {
 
       simulation.stop()
 
-      const fillColour = d3
-        .scaleOrdinal()
-        .domain(['1', '2', '3'])
-        .range(['#24c7bd', '#f1a40e', '#e73e33'])
-
-      const fillStroke = d3
-        .scaleOrdinal()
-        .domain(['1', '2', '3'])
-        .range(['#24c7bd', '#f1a40e', '#e73e33'])
-
       function createNodes(rawData) {
-        const radiusScale = d3
-          .scaleOrdinal()
-          .domain(['1', '2', '3'])
-          .range([90, 60, 30])
+        const maxSize = d3.max(rawData, (d) => +d.effectiveCapacity.data)
+
+        const radiusScale = d3.scaleSqrt().domain([0, maxSize]).range([60, 120])
 
         const myNodes = rawData.map((d) => ({
           ...d,
-          radius: radiusScale(+d.sizeId.data),
+          radius: radiusScale(+d.effectiveCapacity.data),
           size: +d.effectiveWaterStorageCapacity.data,
           x: Math.random() * 900,
           y: Math.random() * 800,
@@ -194,29 +187,81 @@ export default {
           .enter()
           .append('g')
 
+        baseline = elements
+          .append('linear-gradient')
+          .attr('x1', 0.5)
+          .attr('y1', 1)
+          .attr('x2', 0.5)
+          .attr('y2', 0)
+
+        baseline
+          .append('stop')
+          .attr('offset', '0%')
+          .attr('stop-opacity', 1)
+          .attr('stop-color', 'blue')
+        baseline
+          .append('stop')
+          .attr('offset', '40%')
+          .attr('stop-opacity', 1)
+          .attr('stop-color', 'blue')
+        baseline
+          .append('stop')
+          .attr('offset', '40%')
+          .attr('stop-opacity', 0)
+          .attr('stop-color', 'blue')
+        baseline
+          .append('stop')
+          .attr('offset', '100%')
+          .attr('stop-opacity', 0)
+          .attr('stop-color', 'blue')
+
         bubbles = elements
           .append('circle')
           .classed('bubble', true)
           .attr('r', (d) => d.radius)
-          .attr('fill', (d) => fillColour(d.groupId.data))
-          .attr('stroke', (d) => fillStroke(d.groupId.data))
+          .attr('fill', 'none')
+          .attr('stroke', '#24c7bd')
           .attr('fill-opacity', 0.1)
           .attr('stroke-width', 2)
 
-        labels = elements
+        percentage = elements
           .append('text')
-          .attr('dy', '.3em')
+          .attr('dy', -30)
           .style('text-anchor', 'middle')
-          .style('font-size', 10)
+          .style('font-size', 40)
+          .style('font-weight', 700)
+          .style('font-family', 'Noto Sans CJK TC')
+          .attr('fill', '#24c7bd')
+          .text((d) => d.effectiveWaterStorageStoragePercentage.data)
+
+        title = elements
+          .append('text')
+          .attr('dy', 15)
+          .style('text-anchor', 'middle')
+          .style('font-size', 28)
+          .style('font-weight', 700)
+          .style('font-family', 'Noto Sans CJK TC')
+          .attr('fill', '#24c7bd')
           .text((d) => d.reservoirName.data)
+
+        amount = elements
+          .append('text')
+          .attr('dy', 50)
+          .style('text-anchor', 'middle')
+          .style('font-size', 12)
+          .style('font-weight', 300)
+          .style('font-family', 'Noto Sans CJK TC')
+          .attr('fill', '#24c7bd')
+          .text((d) => `${d.effectiveCapacity.data} 萬立方公尺`)
 
         simulation.nodes(nodes).on('tick', ticked).restart()
       }
 
       function ticked() {
         bubbles.attr('cx', (d) => d.x).attr('cy', (d) => d.y)
-
-        labels.attr('x', (d) => d.x).attr('y', (d) => d.y)
+        percentage.attr('x', (d) => d.x).attr('y', (d) => d.y)
+        title.attr('x', (d) => d.x).attr('y', (d) => d.y)
+        amount.attr('x', (d) => d.x).attr('y', (d) => d.y)
       }
 
       return chart
