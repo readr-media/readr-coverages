@@ -67,3 +67,4 @@ node_modules/
 
 configs/config.js
 gcskeyfile.json
+dist
