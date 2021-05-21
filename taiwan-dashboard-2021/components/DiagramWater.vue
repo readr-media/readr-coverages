@@ -5,6 +5,8 @@
       :icon="require('@/static/images/icons/water-icon.svg')"
     />
 
+    <DiagramWaterCityList />
+
     <div
       class="diagram-electric__diagram g-diagram__folder"
       :class="{ hide: !isToggled }"
@@ -20,13 +22,29 @@
 import scrollama from 'scrollama'
 import 'intersection-observer'
 import UiDiagramTitle from '~/components/UiDiagramTitle.vue'
+import DiagramWaterCityList from '~/components/DiagramWaterCityList.vue'
 import gaMixin from '~/mixins/gaMixin'
 
 export default {
   components: {
     UiDiagramTitle,
+    DiagramWaterCityList,
   },
   mixins: [gaMixin],
+  props: {
+    water: {
+      type: Object,
+      isRequired: true,
+      default: () => {
+        return {}
+      },
+    },
+    updateTime: {
+      type: String,
+      isRequired: true,
+      default: '',
+    },
+  },
   data() {
     return {
       isToggled: false,

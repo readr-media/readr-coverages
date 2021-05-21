@@ -47,6 +47,20 @@ export default {
     LineChart,
   },
   mixins: [gaMixin],
+  props: {
+    power: {
+      type: Object,
+      isRequired: true,
+      default: () => {
+        return {}
+      },
+    },
+    updateTime: {
+      type: String,
+      isRequired: true,
+      default: '',
+    },
+  },
 
   data() {
     return {
