@@ -31,9 +31,11 @@ export default {
       default: 'number', // number status,region-status
     },
     info: {
-      type: String,
+      type: Array,
       isRequired: true,
-      default: '今日新增本土確診數',
+      default: () => {
+        return ['今日新增本土確診數']
+      },
     },
     // number
     count: {

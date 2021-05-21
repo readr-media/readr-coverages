@@ -11,13 +11,13 @@
         :count="currentCovidCount"
         unit="例"
         :isNeededPlus="true"
-        info="今日新增本土確診數"
+        :info="['今日新增本土確診數']"
         anchorId="diagram-covid-19"
       />
       <BoardHandler
         boardType="status"
         :status="currentElectricLoading"
-        info="供電狀況"
+        :info="['供電狀況']"
         anchorId="diagram-electric"
         color="#F9C408"
       />
@@ -25,7 +25,7 @@
         boardType="region-status"
         :regionStatus="currentWaterStatus.info"
         :regions="currentWaterStatus.regions"
-        info="水情狀況"
+        :info="['水情狀況']"
         anchorId="diagram-water"
       />
     </div>

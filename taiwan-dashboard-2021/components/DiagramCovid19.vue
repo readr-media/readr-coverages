@@ -12,19 +12,19 @@
         :count="currentCovidCount"
         unit="例"
         :isNeededPlus="true"
-        info="今日新增本土確診數"
+        :info="['今日新增本土確診數']"
       />
 
       <BoardHandler
         boardType="number"
         :count="totalCovidCount"
         unit="例"
-        info="累積本土確診數"
+        :info="['累積本土確診數']"
       />
       <BoardHandler
         boardType="status"
         :status="currentWarningLevel"
-        info="目前全國疫情警戒標準"
+        :info="['目前全國疫情警戒標準']"
       />
     </div>
 

@@ -6,8 +6,8 @@
       :href="`#${anchorId}`"
       v-smooth-scroll
     >
-      <span>
-        {{ info }}
+      <span v-for="(infoItem, index) in info" :key="index">
+        {{ infoItem }}
       </span>
 
       <div class="board-info__anchor_icon">
@@ -15,7 +15,8 @@
       </div>
     </a>
     <div v-else class="board-info__content">
-      {{ info }}
+      <span v-for="(infoItem, index) in info" :key="index" v-html="infoItem">
+      </span>
     </div>
   </div>
 </template>
@@ -24,9 +25,11 @@
 export default {
   props: {
     info: {
-      type: String,
+      type: Array,
       isRequired: true,
-      default: '今日新增本土確診數',
+      default: () => {
+        return ['今日新增本土確診數']
+      },
     },
 
     // another settings
@@ -34,6 +37,9 @@ export default {
       type: String,
       default: null,
     },
+  },
+  mounted() {
+    console.log(this.info)
   },
 }
 </script>
@@ -67,6 +73,12 @@ export default {
         background: transparent;
       }
     }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 </style>
