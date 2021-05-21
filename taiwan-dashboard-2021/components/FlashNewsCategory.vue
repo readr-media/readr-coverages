@@ -6,7 +6,8 @@
         :key="category.id"
         :icon="category.icon"
         :title="category.title"
-        @click.native="setCurrentCategoryName(category.id)"
+        :isToggled="category.isToggled"
+        @click.native="toggleHandler(category.id)"
       />
     </div>
   </div>
@@ -17,34 +18,42 @@ import UiCategoryButton from '~/components/UiCategoryButton.vue'
 export default {
   components: { UiCategoryButton },
   props: {
-    setCurrentCategoryName: {
+    flashNewsCategory: {
+      type: Array,
+      isRequired: true,
+      default: () => {
+        return [
+          {
+            id: 0,
+            icon: require('@/static/images/icons/covid-icon.svg'),
+            title: '疫情',
+            isToggled: true,
+          },
+          {
+            id: 1,
+            icon: require('@/static/images/icons/electric-icon.svg'),
+            title: '電力',
+            isToggled: true,
+          },
+          {
+            id: 2,
+            icon: require('@/static/images/icons/water-icon.svg'),
+            title: '水情',
+            isToggled: true,
+          },
+        ]
+      },
+    },
+    toggleHandler: {
       type: Function,
       isRequired: true,
       default: () => {
-        return '疫情'
+        return null
       },
     },
   },
   data() {
-    return {
-      flashNewsCategory: [
-        {
-          id: 0,
-          icon: require('@/static/images/icons/covid-icon.svg'),
-          title: '疫情',
-        },
-        {
-          id: 1,
-          icon: require('@/static/images/icons/electric-icon.svg'),
-          title: '電力',
-        },
-        {
-          id: 2,
-          icon: require('@/static/images/icons/water-icon.svg'),
-          title: '水情',
-        },
-      ],
-    }
+    return {}
   },
 }
 </script>

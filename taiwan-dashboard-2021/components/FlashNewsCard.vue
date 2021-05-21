@@ -68,6 +68,7 @@ export default {
 
   &__title {
     margin-bottom: 12px;
+    text-align: left;
   }
 
   &__info {

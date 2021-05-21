@@ -1,9 +1,14 @@
 <template>
-  <div class="category-button">
+  <div
+    class="category-button"
+    :class="{ disable: !isToggled, active: isToggled }"
+  >
     <div class="category-button__icon">
       <img :src="icon" alt="" />
     </div>
     <div class="category-button__title">{{ title }}</div>
+
+    <div class="category-button__blocker" />
   </div>
 </template>
 
@@ -20,12 +25,17 @@ export default {
       isRequired: true,
       default: '',
     },
+    isToggled: {
+      type: Boolean,
+      default: true,
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .category-button {
+  position: relative;
   background: #fff;
   border: 1px solid #000928;
   box-sizing: border-box;
@@ -37,18 +47,7 @@ export default {
   padding: 4px 12px;
   user-select: none;
   outline: none;
-
-  &:active {
-    background: linear-gradient(
-        0deg,
-        rgba(0, 9, 40, 0.05),
-        rgba(0, 9, 40, 0.05)
-      ),
-      #fff;
-    border: 1px solid #000928;
-    box-sizing: border-box;
-    border-radius: 2px;
-  }
+  overflow: hidden;
 
   &__icon {
     width: 18px;
@@ -62,6 +61,45 @@ export default {
     font-size: 18px;
     line-height: 27px;
     color: #000928;
+  }
+
+  &__blocker {
+    position: absolute;
+    border-top: 1px solid #000928;
+    transform: rotate(384.5deg) translate(-100%, -100%);
+    transition: all 0.1s ease-in;
+    transform-origin: 0 0;
+    width: 87px;
+    top: 0;
+    left: 0;
+  }
+  &.disable {
+    .category-button__blocker {
+      transform: rotate(384.5deg) translate(0, 0);
+    }
+  }
+
+  &.active:hover {
+    .category-button__blocker {
+      transform: rotate(384.5deg) translate(0, 0);
+    }
+  }
+  &.disable:hover {
+    .category-button__blocker {
+      transform: rotate(384.5deg) translate(100%, 100%);
+    }
+  }
+
+  &:active {
+    background: linear-gradient(
+        0deg,
+        rgba(0, 9, 40, 0.05),
+        rgba(0, 9, 40, 0.05)
+      ),
+      #fff;
+    border: 1px solid #000928;
+    box-sizing: border-box;
+    border-radius: 2px;
   }
 }
 </style>

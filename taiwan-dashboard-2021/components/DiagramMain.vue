@@ -78,5 +78,9 @@ export default {
 <style lang="scss" scoped>
 .diagram-main {
   position: relative;
+
+  .g-diagram__board_wrapper {
+    padding-bottom: 32px;
+  }
 }
 </style>

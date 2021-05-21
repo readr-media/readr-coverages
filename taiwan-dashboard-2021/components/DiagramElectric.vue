@@ -10,7 +10,7 @@
         boardType="number"
         :count="currentUsedPower"
         unit="萬瓩"
-        :info="['目前用電量']"
+        :info="['目前用電量', '(歷年五月最高<b>3631.1萬瓩</b>)']"
         color="#F9C408"
       />
 
@@ -18,7 +18,7 @@
         boardType="number"
         :count="currentGeneratedPower"
         unit="萬瓩"
-        :info="['目前發電量', '(歷年五月最高<b>3631.1萬瓩</b>)']"
+        :info="['目前發電量']"
         color="#F9C408"
       />
     </div>

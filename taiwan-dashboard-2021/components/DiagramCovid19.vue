@@ -1,7 +1,7 @@
 <template>
   <div id="diagram-covid-19" class="diagram-covid-19 g-diagram">
     <UiDiagramTitle
-      engText="Civid-19 "
+      engText="Covid-19 "
       text="疫情"
       :icon="require('@/static/images/icons/covid-icon.svg')"
     />
