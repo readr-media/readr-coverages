@@ -1,22 +1,20 @@
 <template>
   <div class="city-list">
-    <DiagramCovid19CityListItem
+    <DiagramWaterCityListItem
       v-for="(city, index) in cityList"
       :key="index"
-      :cityName="city.city_name"
-      :cityPrevTotal="city.city_prev_total"
-      :cityToday="city.city_today"
-      :cityWarningLevel="3"
+      :cityName="city.location"
+      :cityStatus="city.status"
       :class="{ row1: index < 12 }"
     />
   </div>
 </template>
 
 <script>
-import DiagramCovid19CityListItem from '~/components/DiagramCovid19CityListItem.vue'
+import DiagramWaterCityListItem from '~/components/DiagramWaterCityListItem.vue'
 export default {
   components: {
-    DiagramCovid19CityListItem,
+    DiagramWaterCityListItem,
   },
   props: {
     cityList: {
@@ -38,7 +36,7 @@ export default {
   flex-wrap: wrap;
   align-items: flex-start;
   user-select: none;
-
+  margin-top: 40px;
   // tablet range
   @include media-breakpoint-up(md) {
     height: 457px;

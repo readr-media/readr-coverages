@@ -5,7 +5,7 @@
       :icon="require('@/static/images/icons/water-icon.svg')"
     />
 
-    <DiagramWaterCityList />
+    <DiagramWaterCityList :cityList="cityWarningList" />
 
     <div
       class="diagram-electric__diagram g-diagram__folder"
@@ -43,6 +43,11 @@ export default {
       type: String,
       isRequired: true,
       default: '',
+    },
+  },
+  computed: {
+    cityWarningList() {
+      return this.water?.warning
     },
   },
   data() {

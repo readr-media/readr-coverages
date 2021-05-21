@@ -19,7 +19,7 @@
       />
       <DiagramWater
         :water="water"
-        :updateTime="convertUpdateTime(water.update_time)"
+        :updateTime="convertUpdateTime(water.updated)"
       />
     </div>
 
@@ -183,7 +183,7 @@ export default {
         const { covid, news, power, water } = res.data
         console.log(res.data)
         this.covid = covid
-        this.newsTemp = news
+        this.news = news
         this.power = power
         this.water = water
         this.updateTime = res.data.update_time

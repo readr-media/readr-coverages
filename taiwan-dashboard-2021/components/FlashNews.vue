@@ -1,6 +1,6 @@
 <template>
   <div class="flash-news">
-    <h1 class="flash-news__title">最新水情</h1>
+    <h1 class="flash-news__title">快訊</h1>
     <FlashNewsCategory
       :flashNewsCategory="flashNewsCategory"
       :toggleHandler="toggleHandler"
@@ -123,6 +123,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  &__title {
+    margin-top: 96px;
+  }
 
   &__container {
     max-width: 640px;
