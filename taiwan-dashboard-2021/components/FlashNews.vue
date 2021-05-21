@@ -1,6 +1,6 @@
 <template>
   <div class="flash-news">
-    <h1 class="flash-news__title">快訊</h1>
+    <h1 class="flash-news__title">最新水情</h1>
     <FlashNewsCategory
       :flashNewsCategory="flashNewsCategory"
       :toggleHandler="toggleHandler"
@@ -15,7 +15,7 @@
 
     <UiButton
       v-if="showReadMore"
-      title="展開所有快訊"
+      title="看更多消息"
       @click.native="expandHandler"
     />
   </div>
@@ -111,7 +111,7 @@ export default {
           : this.flashCount + 5
 
       this.flashCount = newFlashCount
-      this.gaClickHandler('展開所有快訊')
+      this.gaClickHandler('看更多消息')
     },
   },
 }

@@ -1,7 +1,7 @@
 <template>
   <div id="diagram-electric" class="diagram-electric g-diagram">
     <UiDiagramTitle
-      text="用電狀況"
+      text="目前用電狀況"
       :icon="require('@/static/images/icons/electric-icon.svg')"
     />
 

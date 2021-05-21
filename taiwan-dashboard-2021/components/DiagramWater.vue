@@ -1,7 +1,7 @@
 <template>
   <div id="diagram-water" class="diagram-water g-diagram">
     <UiDiagramTitle
-      text="用水狀況"
+      text="最新水情"
       :icon="require('@/static/images/icons/water-icon.svg')"
     />
 
