@@ -15,6 +15,7 @@
     </div>
 
     <FlashNews :flashNewsList="news" />
+    <Donate />
     <Credit />
     <Footer />
   </div>
@@ -29,6 +30,7 @@ import DiagramCovid19 from '~/components/DiagramCovid19.vue'
 import DiagramElectric from '~/components/DiagramElectric.vue'
 import DiagramWater from '~/components/DiagramWater.vue'
 import FlashNews from '~/components/FlashNews.vue'
+import Donate from '~/components/Donate.vue'
 import Credit from '~/components/Credit.vue'
 import Footer from '~/components/Footer.vue'
 
@@ -41,6 +43,7 @@ export default {
     DiagramElectric,
     DiagramWater,
     FlashNews,
+    Donate,
     Credit,
     Footer,
   },
