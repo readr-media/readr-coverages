@@ -7,7 +7,19 @@
         :currentCovidCount="currentCovidCount"
         :currentElectricLoading="currentElectricLoading"
         :currentWaterStatus="currentWaterStatus"
-        :updateTime="updateTime(covid)"
+        :updateTime="convertUpdateTime(updateTime)"
+      />
+      <DiagramCovid19
+        :covid="covid"
+        :updateTime="convertUpdateTime(covid.update_time)"
+      />
+      <DiagramElectric
+        :power="power"
+        :updateTime="convertUpdateTime(power.update_time)"
+      />
+      <DiagramWater
+        :water="water"
+        :updateTime="convertUpdateTime(water.updated)"
       />
       <DiagramCovid19 :covid="covid" :updateTime="updateTime(covid)" />
       <DiagramElectric :power="power" />
@@ -149,6 +161,7 @@ export default {
       water: {},
       power: {},
       tempNews: {},
+      updateTime: '',
     }
   },
   computed: {
@@ -173,14 +186,15 @@ export default {
         const { covid, news, power, water } = res.data
         console.log(res.data)
         this.covid = covid
-        this.newsTemp = news
+        this.news = news
         this.power = power
         this.water = water
+        this.updateTime = res.data.update_time
       })
   },
   methods: {
-    updateTime(diagram) {
-      const time = diagram?.update_time || '2021-05-20'
+    convertUpdateTime(updateTime) {
+      const time = updateTime || '2021-05-20'
       const newTime = time.split('-').join('.')
       return `最後更新 ${newTime}`
     },

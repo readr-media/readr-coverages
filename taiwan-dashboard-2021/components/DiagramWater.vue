@@ -1,9 +1,11 @@
 <template>
   <div id="diagram-water" class="diagram-water g-diagram">
     <UiDiagramTitle
-      text="用水狀況"
+      text="最新水情"
       :icon="require('@/static/images/icons/water-icon.svg')"
     />
+
+    <DiagramWaterCityList :cityList="cityWarningList" />
 
     <div
       class="diagram-electric__diagram g-diagram__folder"
@@ -20,13 +22,34 @@
 import scrollama from 'scrollama'
 import 'intersection-observer'
 import UiDiagramTitle from '~/components/UiDiagramTitle.vue'
+import DiagramWaterCityList from '~/components/DiagramWaterCityList.vue'
 import gaMixin from '~/mixins/gaMixin'
 
 export default {
   components: {
     UiDiagramTitle,
+    DiagramWaterCityList,
   },
   mixins: [gaMixin],
+  props: {
+    water: {
+      type: Object,
+      isRequired: true,
+      default: () => {
+        return {}
+      },
+    },
+    updateTime: {
+      type: String,
+      isRequired: true,
+      default: '',
+    },
+  },
+  computed: {
+    cityWarningList() {
+      return this.water?.warning
+    },
+  },
   data() {
     return {
       isToggled: false,

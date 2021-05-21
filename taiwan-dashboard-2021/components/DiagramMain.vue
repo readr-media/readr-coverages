@@ -1,7 +1,7 @@
 <template>
   <div class="diagram-main g-diagram">
     <UiDiagramTitle
-      text="全台儀表板"
+      text="全臺最新資訊"
       :icon="require('@/static/images/icons/main-icon.svg')"
     />
 

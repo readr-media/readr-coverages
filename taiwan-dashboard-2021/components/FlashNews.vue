@@ -15,7 +15,7 @@
 
     <UiButton
       v-if="showReadMore"
-      title="展開所有快訊"
+      title="看更多消息"
       @click.native="expandHandler"
     />
   </div>
@@ -111,7 +111,7 @@ export default {
           : this.flashCount + 5
 
       this.flashCount = newFlashCount
-      this.gaClickHandler('展開所有快訊')
+      this.gaClickHandler('看更多消息')
     },
   },
 }
@@ -123,6 +123,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  &__title {
+    margin-top: 96px;
+  }
 
   &__container {
     max-width: 640px;

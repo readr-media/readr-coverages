@@ -2,7 +2,7 @@
   <div id="diagram-covid-19" class="diagram-covid-19 g-diagram">
     <UiDiagramTitle
       engText="Covid-19 "
-      text="疫情"
+      text="最新疫情"
       :icon="require('@/static/images/icons/covid-icon.svg')"
     />
 
@@ -154,9 +154,6 @@ export default {
   position: relative;
 
   &__diagram {
-    max-height: 2000px;
-    transition: all 0.3s ease-in-out;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -172,14 +169,6 @@ export default {
 
       & > :last-child {
         flex: 11;
-      }
-    }
-
-    &.hide {
-      max-height: 0;
-      // tablet range
-      @include media-breakpoint-up(md) {
-        max-height: 2000px;
       }
     }
   }
