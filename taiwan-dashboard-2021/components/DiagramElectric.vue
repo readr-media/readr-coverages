@@ -22,6 +22,15 @@
         color="#F9C408"
       />
     </div>
+
+    <div
+      class="diagram-electric__diagram g-diagram__folder"
+      :class="{ hide: !isToggled }"
+    >
+      <!-- Paste Diagram component in here -->
+    </div>
+    <UiUpdateTime :updateTime="updateTime" />
+    <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
   </div>
 </template>
 
@@ -36,6 +45,12 @@ export default {
   },
   mixins: [gaMixin],
 
+  data() {
+    return {
+      isToggled: false,
+    }
+  },
+
   computed: {
     currentUsedPower() {
       return 3652.5
@@ -44,6 +59,7 @@ export default {
       return 4027.5
     },
   },
+
   mounted() {
     const scrollerCredit = scrollama()
     scrollerCredit
@@ -57,6 +73,12 @@ export default {
       })
 
     window.addEventListener('resize', scrollerCredit.resize)
+  },
+
+  methods: {
+    toggleHandler() {
+      this.isToggled = !this.isToggled
+    },
   },
 }
 </script>

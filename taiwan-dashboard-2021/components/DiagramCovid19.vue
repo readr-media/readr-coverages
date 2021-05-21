@@ -28,7 +28,10 @@
       />
     </div>
 
-    <div class="diagram-covid-19__diagram" :class="{ hide: !isToggled }">
+    <div
+      class="diagram-covid-19__diagram g-diagram__folder"
+      :class="{ hide: !isToggled }"
+    >
       <TaiwanMap
         :countyFillColorConfig="[
           {

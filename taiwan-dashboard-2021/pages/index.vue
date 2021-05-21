@@ -33,6 +33,7 @@ import FlashNews from '~/components/FlashNews.vue'
 import Donate from '~/components/Donate.vue'
 import Credit from '~/components/Credit.vue'
 import Footer from '~/components/Footer.vue'
+import gaMixin from '~/mixins/gaMixin'
 
 export default {
   components: {
@@ -47,6 +48,7 @@ export default {
     Credit,
     Footer,
   },
+  mixins: [gaMixin],
   data() {
     return {
       news: [

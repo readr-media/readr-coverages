@@ -13,7 +13,7 @@
         <div class="credit__employee">
           <div class="credit__employee_head">工程</div>
           <div class="credit__employee_name">
-            呂理詣、温凱傑、邱柏榮、黃竹安、簡信昌
+            熊凱文、呂理詣、温凱傑、邱柏榮、黃竹安、簡信昌
           </div>
         </div>
       </div>
