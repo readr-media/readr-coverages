@@ -36,7 +36,6 @@
       ]"
       style="height: 500px"
     />
-    <LineChart />
     <Footer />
   </div>
 </template>
@@ -47,7 +46,6 @@ import DiagramCovid19 from '~/components/DiagramCovid19.vue'
 import DiagramElectric from '~/components/DiagramElectric.vue'
 import DiagramWater from '~/components/DiagramWater.vue'
 import TaiwanMap from '~/components/TaiwanMap/TaiwanMap.vue'
-import LineChart from '~/components/Power/LineChart.vue'
 import Footer from '~/components/Footer.vue'
 
 export default {
@@ -57,7 +55,6 @@ export default {
     DiagramElectric,
     DiagramWater,
     TaiwanMap,
-    LineChart,
     Footer,
   },
   data() {
