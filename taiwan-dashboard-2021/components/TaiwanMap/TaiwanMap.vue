@@ -19,6 +19,7 @@
 // eslint-disable-next-line import/namespace
 import * as topojson from 'topojson'
 import * as d3 from 'd3'
+import responsive from '../../utils/d3-responsive'
 import taiwanTopology from './counties-mercator-10t.json'
 
 export default {
@@ -69,12 +70,11 @@ export default {
     const width = 500
     const height = 680
     // const aspect = height / width
-    this.chart = d3
-      .select(chartDomNode)
-      .attr('preserveAspectRatio', 'xMidYMid')
-      .attr('viewBox', `0 0 ${width} ${height}`)
-      .attr('width', width)
-      .attr('height', height)
+    this.chart = d3.select(chartDomNode).call(responsive, { width, height })
+    // .attr('preserveAspectRatio', 'xMidYMid')
+    // .attr('viewBox', `0 0 ${width} ${height}`)
+    // .attr('width', width)
+    // .attr('height', height)
     // eslint-disable-next-line import/namespace
     this.geojson = topojson.feature(
       taiwanTopology,
