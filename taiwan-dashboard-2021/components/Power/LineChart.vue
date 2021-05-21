@@ -34,6 +34,7 @@
 <script>
 import * as d3 from 'd3'
 // import _ from 'lodash'
+import responsive from '../../utils/d3-responsive'
 
 export default {
   data() {
@@ -190,6 +191,7 @@ export default {
 
     const svg = d3
       .select(chartDomNode)
+      .call(responsive, { width, height })
       .attr('width', width)
       .attr('height', height)
       .append('g')
