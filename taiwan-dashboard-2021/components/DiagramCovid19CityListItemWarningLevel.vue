@@ -45,5 +45,6 @@ export default {
   background: rgba(231, 62, 51, 0.8);
   line-height: 16px;
   text-align: center;
+  margin-right: 12px;
 }
 </style>

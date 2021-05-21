@@ -43,10 +43,22 @@ export default {
       return this.flashNews.author
     },
     category() {
-      return this.flashNews.category
+      switch (this.flashNews.category) {
+        case '疫情':
+          return '疫情'
+
+        case '電':
+          return '電力'
+
+        case '水':
+          return '水情'
+
+        default:
+          return ''
+      }
     },
     content() {
-      const content = this.flashNews.content.split('<br>')
+      const content = this.flashNews?.content?.split('<br>')
       return content
     },
   },
