@@ -1,29 +1,44 @@
 <template>
   <div class="chart-wrapper">
-    <!-- <section class="graph-title">
+    <section class="graph-title">
       <div class="info">
         <span class="info-title">今日用電狀況</span>
-        <span v-if="isNotEnough" class="info-status">
-          供電吃緊
+        <span v-if="isEnough" class="info-status status">
+          <span />
+          <p>供電正常</p>
         </span>
-        <span v-else class="info-status">供電正常</span>
+        <span v-else class="info-status">
+          <span />
+          <p>供電吃緊</p>
+        </span>
       </div>
       <div class="label">
-        <span class="consume">用電量</span>
-        <span class="supply">發電量</span>
-        <span class="yesterday-consume">昨日用電量</span>
+        <span class="info-status consume">
+          <span />
+          <p>用電量</p>
+        </span>
+        <span class="info-status supply">
+          <span />
+          <p>發電量</p>
+        </span>
+        <span class="info-status yesterday-consume">
+          <span />
+          <p>昨日用電量</p>
+        </span>
       </div>
-    </section> -->
+    </section>
     <svg ref="linechart" />
   </div>
 </template>
 
 <script>
 import * as d3 from 'd3'
+// import _ from 'lodash'
 
 export default {
   data() {
     return {
+      isEnough: true,
       mockData: {
         yesterday: [
           {
@@ -123,25 +138,53 @@ export default {
     const x = d3.scaleTime().range([0, innerWidth])
     const y = d3.scaleLinear().range([innerHeight, 0])
 
+    // const yesterdayGroup = _.groupBy(
+    //   this.mockData.yesterday,
+    //   (d) => d.time.split(':')[0]
+    // )
+    // const yesterdayClean = Object.entries(yesterdayGroup).map(function (
+    //   hourData
+    // ) {
+    //   const hour = hourData[0]
+    //   console.log(hour)
+    //   const data = hourData[1]
+    //   return {
+    //     time: '00',
+    //     用電: data.reduce((acc, curr) => acc + curr['用電'], 0) / data.length,
+    //   }
+    // })
+
+    // const todayGroup = _.groupBy(
+    //   this.mockData.today,
+    //   (d) => d.time.split(':')[0]
+    // )
+    // const todayClean = Object.entries(todayGroup).map(function (hourData) {
+    //   const hour = hourData[0]
+    //   const data = hourData[1]
+    //   return {
+    //     time: `${hour}:00`,
+    //     用電: data.reduce((acc, curr) => acc + curr['用電'], 0) / data.length,
+    //     發電: data.reduce((acc, curr) => acc + curr['發電'], 0) / data.length,
+    //   }
+    // })
+
+    // console.log(todayClean, yesterdayClean)
+
     const supplyLine = d3
       .line()
-      // .curve(d3.curveBasis)
       .x((d) => x(d.time))
       .y((d) => y(d['發電']))
     const todayLine = d3
       .area()
-      // .curve(d3.curveBasis)
       .x((d) => x(d.time))
       .y0(y(0))
       .y1((d) => y(d['用電']))
     const yesterdayLine = d3
       .line()
-      // .curve(d3.curveBasis)
       .x((d) => x(d.time))
       .y((d) => y(d['用電']))
     const todayArea = d3
       .line()
-      // .curve(d3.curveBasis)
       .x((d) => x(d.time))
       .y((d) => y(d['用電']))
 
@@ -152,6 +195,8 @@ export default {
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
+    // const yesterdayData = [...yesterdayClean]
+    // const todayData = [...todayClean]
     const yesterdayData = this.mockData.yesterday
     const todayData = this.mockData.today
     yesterdayData.forEach((d) => {
@@ -171,7 +216,6 @@ export default {
       .extent(yesterdayData, (d) => d.time)
       .concat(d3.extent(todayData, (d) => d.time))
     x.domain(d3.extent(timeData, (d) => d)).nice()
-    console.log(d3.extent(timeData, (d) => d))
     y.domain([0, yMax])
 
     svg
@@ -269,77 +313,77 @@ export default {
       .attr('stroke-width', 1)
 
     // 以下為 hover 動畫
-    const focus = svg
-      .append('g')
-      .attr('class', 'focus')
-      .style('display', 'none')
+    // const focus = svg
+    //   .append('g')
+    //   .attr('class', 'focus')
+    //   .style('display', 'none')
 
-    focus.append('circle').attr('r', 5)
+    // focus.append('circle').attr('r', 5)
 
-    focus
-      .append('rect')
-      .attr('class', 'tooltip')
-      .attr('width', 100)
-      .attr('height', 50)
-      .attr('x', 10)
-      .attr('y', 10)
-      .attr('rx', 4)
-      .attr('ry', 4)
+    // focus
+    //   .append('rect')
+    //   .attr('class', 'tooltip')
+    //   .attr('width', 100)
+    //   .attr('height', 50)
+    //   .attr('x', 10)
+    //   .attr('y', 10)
+    //   .attr('rx', 4)
+    //   .attr('ry', 4)
 
-    focus
-      .append('text')
-      .attr('class', 'tooltip-date')
-      .attr('x', 18)
-      .attr('y', -2)
+    // focus
+    //   .append('text')
+    //   .attr('class', 'tooltip-date')
+    //   .attr('x', 18)
+    //   .attr('y', -2)
 
-    focus.append('text').attr('x', 18).attr('y', 18).text('Likes:')
+    // focus.append('text').attr('x', 18).attr('y', 18).text('Likes:')
 
-    focus
-      .append('text')
-      .attr('class', 'tooltip-likes')
-      .attr('x', 60)
-      .attr('y', 18)
+    // focus
+    //   .append('text')
+    //   .attr('class', 'tooltip-likes')
+    //   .attr('x', 60)
+    //   .attr('y', 18)
 
-    svg
-      .append('rect')
-      .attr('class', 'overlay')
-      .attr('width', width)
-      .attr('height', height)
-      .on('mouseover', function () {
-        focus.style('display', null)
-      })
-      .on('mouseout', function () {
-        focus.style('display', 'none')
-      })
-      .on('mousemove', mousemove)
+    // svg
+    //   .append('rect')
+    //   .attr('class', 'overlay')
+    //   .attr('width', width)
+    //   .attr('height', height)
+    //   .on('mouseover', function () {
+    //     focus.style('display', null)
+    //   })
+    //   .on('mouseout', function () {
+    //     focus.style('display', 'none')
+    //   })
+    //   .on('mousemove', mousemove)
 
-    const bisect = d3.bisector((d) => d.time).left
+    // const bisect = d3.bisector((d) => d.time).left
 
-    function mousemove() {
-      const x0 = d3.pointer(event)[0]
-      const targetTime = x.invert(x0)
-      const t = bisect(todayData, targetTime)
-      const s = bisect(yesterdayData, targetTime)
-      focus.selectAll('circle').remove()
-      focus
-        .append('circle')
-        .attr('r', 3)
-        .attr('cy', y(todayData[t]['用電']))
-        .attr('cx', x(todayData[t].time))
-        .attr('fill', '#f9c408')
-      focus
-        .append('circle')
-        .attr('r', 3)
-        .attr('cy', y(todayData[t]['發電']))
-        .attr('cx', x(todayData[t].time))
-        .attr('fill', '#000928')
-      focus
-        .append('circle')
-        .attr('r', 3)
-        .attr('cy', y(yesterdayData[s]['用電']))
-        .attr('cx', x(yesterdayData[s].time))
-        .attr('fill', '#e0e0e0')
-    }
+    // function mousemove() {
+    //   const x0 = d3.pointer(event)[0]
+    //   const targetTime = x.invert(x0)
+    //   const t = bisect(todayData, targetTime)
+    //   const s = bisect(yesterdayData, targetTime)
+    //   focus.selectAll('circle').remove()
+    //   focus
+    //     .append('circle')
+    //     .attr('r', 3)
+    //     .attr('cy', y(todayData[t]['用電']))
+    //     .attr('cx', x(todayData[t].time))
+    //     .attr('fill', '#f9c408')
+    //   focus
+    //     .append('circle')
+    //     .attr('r', 3)
+    //     .attr('cy', y(todayData[t]['發電']))
+    //     .attr('cx', x(todayData[t].time))
+    //     .attr('fill', '#000928')
+    //   focus
+    //     .append('circle')
+    //     .attr('r', 3)
+    //     .attr('cy', y(yesterdayData[s]['用電']))
+    //     .attr('cx', x(yesterdayData[s].time))
+    //     .attr('fill', '#e0e0e0')
+    // }
   },
 }
 </script>
@@ -347,7 +391,73 @@ export default {
 <style lang="scss" scoped>
 .chart-wrapper {
   width: 100%;
-  height: 100%;
+  .graph-title {
+    margin-bottom: 8px;
+    @media (min-width: 768px) {
+      margin-bottom: 4px;
+    }
+    .info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+      @media (min-width: 768px) {
+        margin-bottom: 12px;
+      }
+      &-title {
+        font-size: 18px;
+        line-height: 27px;
+        font-weight: 300;
+      }
+      &-status {
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        span {
+          display: block;
+          width: 12px;
+          height: 12px;
+        }
+        p {
+          margin-left: 4px;
+          font-size: 14px;
+          line-height: 30px;
+        }
+        &.status {
+          span {
+            border-radius: 50%;
+            background-color: #f9c408;
+          }
+        }
+        &.consume {
+          span {
+            border-radius: 2px;
+            background-color: #f9c408;
+          }
+        }
+        &.supply {
+          margin-left: 12px;
+          span {
+            border-radius: 2px;
+            background-color: #000928;
+          }
+        }
+        &.yesterday-consume {
+          margin-left: 12px;
+          span {
+            border-radius: 2px;
+            background-color: #000928;
+            opacity: 0.1;
+          }
+        }
+      }
+    }
+    .label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
   svg {
     margin: 0 auto;
     &::v-deep {
