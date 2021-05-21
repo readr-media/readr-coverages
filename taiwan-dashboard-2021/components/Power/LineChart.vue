@@ -27,370 +27,306 @@
         </span>
       </div>
     </section>
-    <svg ref="linechart" />
+    <svg ref="linechart">
+      <div
+        v-show="shouldShowTooltip"
+        class="chart-tooltip"
+        :style="{
+          top: `${tooltipY + 20}px`,
+          left: `${tooltipX + 20}px`,
+        }"
+      >
+        <p v-text="tooltipTime" />
+        <p v-text="tooltipTodaySupply" />
+        <p v-text="tooltipTodayConsume" />
+        <p v-text="tooltipYesterdayConsume" />
+      </div>
+    </svg>
   </div>
 </template>
 
 <script>
 import * as d3 from 'd3'
-// import _ from 'lodash'
 import responsive from '../../utils/d3-responsive'
 
 export default {
+  props: {
+    power: {
+      type: Object,
+      isRequired: true,
+      default: () => {
+        return {}
+      },
+    },
+  },
   data() {
     return {
       isEnough: true,
-      mockData: {
-        yesterday: [
-          {
-            time: '00:50',
-            用電: 22470.4,
-          },
-          {
-            time: '03:10',
-            用電: 20470.4,
-          },
-          {
-            time: '07:10',
-            用電: 24470.4,
-          },
-          {
-            time: '09:10',
-            用電: 19470.4,
-          },
-          {
-            time: '11:10',
-            用電: 22470.4,
-          },
-          {
-            time: '15:10',
-            用電: 28470.4,
-          },
-          {
-            time: '17:10',
-            用電: 29470.4,
-          },
-          {
-            time: '19:10',
-            用電: 22570.4,
-          },
-          {
-            time: '21:10',
-            用電: 29070.4,
-          },
-          {
-            time: '23:10',
-            用電: 19970.4,
-          },
-        ],
-        today: [
-          {
-            time: '00:10',
-            發電: 32222,
-            用電: 29911.4,
-          },
-          {
-            time: '02:10',
-            發電: 34222,
-            用電: 28001.4,
-          },
-          {
-            time: '05:10',
-            發電: 30022,
-            用電: 20001.4,
-          },
-          {
-            time: '08:20',
-            發電: 31837.9,
-            用電: 31840.4,
-          },
-          {
-            time: '12:20',
-            發電: 32537.9,
-            用電: 31184.4,
-          },
-          {
-            time: '15:20',
-            發電: 37537.9,
-            用電: 29184.4,
-          },
-          {
-            time: '19:20',
-            發電: 29537.9,
-            用電: 25184.4,
-          },
-        ],
-        last_year_peak: 3802.01,
-        update_time: '2021-05-19',
-      },
+      shouldShowTooltip: true,
+      tooltipX: 0,
+      tooltipY: 0,
+      tooltipTime: '',
+      tooltipTodaySupply: '',
+      tooltipTodayConsume: '',
+      tooltipYesterdayConsume: '',
     }
   },
-  mounted() {
-    const chartDomNode = this.$refs.linechart
-    const width = 272
-    const height = 217
-    const margin = { top: 0, right: 15, bottom: 24, left: 38 }
-    const innerWidth = width - margin.left - margin.right
-    const innerHeight = height - margin.top - margin.bottom
-    const parseTime = d3.timeParse('%H:%M')
+  watch: {
+    power() {
+      const chartDomNode = this.$refs.linechart
+      const width = 272
+      const height = 217
+      const margin = { top: 0, right: 15, bottom: 24, left: 38 }
+      const innerWidth = width - margin.left - margin.right
+      const innerHeight = height - margin.top - margin.bottom
+      const parseTime = d3.timeParse('%H:%M')
 
-    const xAxisTickInterval = window.innerWidth < 768 ? 12 : 6
+      const xAxisTickInterval = window.innerWidth < 768 ? 12 : 6
 
-    const x = d3.scaleTime().range([0, innerWidth])
-    const y = d3.scaleLinear().range([innerHeight, 0])
+      const x = d3.scaleTime().range([0, innerWidth])
+      const y = d3.scaleLinear().range([innerHeight, 0])
 
-    // const yesterdayGroup = _.groupBy(
-    //   this.mockData.yesterday,
-    //   (d) => d.time.split(':')[0]
-    // )
-    // const yesterdayClean = Object.entries(yesterdayGroup).map(function (
-    //   hourData
-    // ) {
-    //   const hour = hourData[0]
-    //   console.log(hour)
-    //   const data = hourData[1]
-    //   return {
-    //     time: '00',
-    //     用電: data.reduce((acc, curr) => acc + curr['用電'], 0) / data.length,
-    //   }
-    // })
+      const supplyLine = d3
+        .line()
+        .x((d) => x(d.time))
+        .y((d) => y(d.status['發電']))
+      const todayLine = d3
+        .area()
+        .x((d) => x(d.time))
+        .y0(y(0))
+        .y1((d) => y(d.status['用電']))
+      const yesterdayLine = d3
+        .line()
+        .x((d) => x(d.time))
+        .y((d) => y(d.status['用電']))
+      const todayArea = d3
+        .line()
+        .x((d) => x(d.time))
+        .y((d) => y(d.status['用電']))
 
-    // const todayGroup = _.groupBy(
-    //   this.mockData.today,
-    //   (d) => d.time.split(':')[0]
-    // )
-    // const todayClean = Object.entries(todayGroup).map(function (hourData) {
-    //   const hour = hourData[0]
-    //   const data = hourData[1]
-    //   return {
-    //     time: `${hour}:00`,
-    //     用電: data.reduce((acc, curr) => acc + curr['用電'], 0) / data.length,
-    //     發電: data.reduce((acc, curr) => acc + curr['發電'], 0) / data.length,
-    //   }
-    // })
+      const svg = d3
+        .select(chartDomNode)
+        .call(responsive, { width, height })
+        .attr('width', width)
+        .attr('height', height)
+        .append('g')
+        .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
-    // console.log(todayClean, yesterdayClean)
+      const yesterdayData = this.power.power_24h_yesterday
+      const todayData = this.power?.power_24h_today
+      yesterdayData.forEach((d) => {
+        d.time = parseTime(d.time?.split(' ')[1])
+        d.status['用電'] = +d.status['用電']
+      })
+      todayData.forEach((d) => {
+        d.time = parseTime(d.time?.split(' ')[1])
+        d.status['發電'] = +d.status['發電'] / 10
+        d.status['用電'] = +d.status['用電']
+      })
 
-    const supplyLine = d3
-      .line()
-      .x((d) => x(d.time))
-      .y((d) => y(d['發電']))
-    const todayLine = d3
-      .area()
-      .x((d) => x(d.time))
-      .y0(y(0))
-      .y1((d) => y(d['用電']))
-    const yesterdayLine = d3
-      .line()
-      .x((d) => x(d.time))
-      .y((d) => y(d['用電']))
-    const todayArea = d3
-      .line()
-      .x((d) => x(d.time))
-      .y((d) => y(d['用電']))
-
-    const svg = d3
-      .select(chartDomNode)
-      .call(responsive, { width, height })
-      .attr('width', width)
-      .attr('height', height)
-      .append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`)
-
-    // const yesterdayData = [...yesterdayClean]
-    // const todayData = [...todayClean]
-    const yesterdayData = this.mockData.yesterday
-    const todayData = this.mockData.today
-    yesterdayData.forEach((d) => {
-      d.time = parseTime(d.time)
-      d['用電'] = +d['用電']
-    })
-    todayData.forEach((d) => {
-      d.time = parseTime(d.time)
-      d['發電'] = +d['發電']
-      d['用電'] = +d['用電']
-    })
-
-    const yyMax = d3.max(yesterdayData, (d) => d['用電'])
-    const ytMax = d3.max(todayData, (d) => Math.max(d['用電'], d['發電']))
-    const yMax = d3.max([yyMax, ytMax]) + 10000
-    const timeData = d3
-      .extent(yesterdayData, (d) => d.time)
-      .concat(d3.extent(todayData, (d) => d.time))
-    x.domain(d3.extent(timeData, (d) => d)).nice()
-    y.domain([0, yMax])
-
-    svg
-      .append('path')
-      .data([todayData])
-      .attr('fill', 'none')
-      .attr('stroke', '#000928')
-      .attr('stroke-width', 2)
-      .attr('stroke-linecap', 'round')
-      .attr('stroke-linejoin', 'round')
-      .attr('d', supplyLine)
-
-    svg
-      .append('path')
-      .data([yesterdayData])
-      .attr('fill', 'none')
-      .attr('stroke', '#000928')
-      .attr('stroke-opacity', 0.1)
-      .attr('stroke-width', 2)
-      .attr('stroke-linecap', 'round')
-      .attr('stroke-linejoin', 'round')
-      .attr('d', yesterdayLine)
-
-    svg
-      .append('path')
-      .data([todayData])
-      .attr('fill', 'none')
-      .attr('stroke', '#f9c408')
-      .attr('stroke-width', 2)
-      .attr('stroke-linecap', 'round')
-      .attr('stroke-linejoin', 'round')
-      .attr('d', todayArea)
-
-    svg
-      .append('path')
-      .data([todayData])
-      .attr('fill', '#f9c408')
-      .attr('opacity', 0.1)
-      .attr('d', todayLine)
-
-    svg
-      .append('g')
-      .attr('transform', `translate(0, ${innerHeight})`)
-      .call(
-        d3
-          .axisBottom(x)
-          .ticks(d3.timeHour.every(xAxisTickInterval))
-          .tickFormat((d, i) => `${i * xAxisTickInterval}時`)
+      const yyMax = d3.max(yesterdayData, (d) => d.status['用電'])
+      const ytMax = d3.max(todayData, (d) =>
+        Math.max(d.status['用電'], d.status['發電'])
       )
-      .call((g) => g.selectAll('.tick line').attr('y2', 0))
-      .call((g) => g.selectAll('.tick text').attr('font-size', 14))
-      .select('.domain')
-      .remove()
+      const yMax = d3.max([yyMax, ytMax]) + 1000
+      const timeData = d3
+        .extent(yesterdayData, (d) => d.time)
+        .concat(d3.extent(todayData, (d) => d.time))
+      x.domain(d3.extent(timeData, (d) => d)).nice()
+      y.domain([0, yMax])
 
-    svg
-      .append('g')
-      .call(d3.axisLeft(y).ticks(5).tickSize(-width, 0))
-      .call((g) =>
-        g
-          .selectAll('.tick:not(:first-of-type) line')
-          .attr('stroke', '#000928')
-          .attr('stroke-opacity', 0.1)
-          .attr('x1', -margin.left)
-          .attr('x2', width)
-      )
-      .call((g) =>
-        g
-          .selectAll('.tick text')
-          .attr('x', -margin.left)
-          .attr('dy', -5)
-          .attr('font-size', 12)
-          .attr('stroke', '#000928')
-          .attr('opacity', 0.1)
-          .attr('text-anchor', 'start')
-      )
-      .select('.domain')
-      .remove()
+      svg
+        .append('path')
+        .data([todayData])
+        .attr('fill', 'none')
+        .attr('stroke', '#000928')
+        .attr('stroke-width', 2)
+        .attr('stroke-linecap', 'round')
+        .attr('stroke-linejoin', 'round')
+        .attr('d', supplyLine)
 
-    svg
-      .append('text')
-      .text('單位：萬瓩')
-      .attr('font-size', 12)
-      .attr('stroke', '#ccc')
-      .attr('word-spacing', 2)
-      .attr('x', innerWidth - 60) // 60為文字寬度
-      .attr('y', 22)
+      svg
+        .append('path')
+        .data([yesterdayData])
+        .attr('fill', 'none')
+        .attr('stroke', '#000928')
+        .attr('stroke-opacity', 0.1)
+        .attr('stroke-width', 2)
+        .attr('stroke-linecap', 'round')
+        .attr('stroke-linejoin', 'round')
+        .attr('d', yesterdayLine)
 
-    svg
-      .append('line')
-      .attr('x1', -margin.left)
-      .attr('x2', width)
-      .attr('y1', height - margin.bottom)
-      .attr('y2', height - margin.bottom)
-      .attr('stroke', '#000928')
-      .attr('stroke-width', 1)
+      svg
+        .append('path')
+        .data([todayData])
+        .attr('fill', 'none')
+        .attr('stroke', '#f9c408')
+        .attr('stroke-width', 2)
+        .attr('stroke-linecap', 'round')
+        .attr('stroke-linejoin', 'round')
+        .attr('d', todayArea)
 
-    // 以下為 hover 動畫
-    // const focus = svg
-    //   .append('g')
-    //   .attr('class', 'focus')
-    //   .style('display', 'none')
+      svg
+        .append('path')
+        .data([todayData])
+        .attr('fill', '#f9c408')
+        .attr('opacity', 0.1)
+        .attr('d', todayLine)
 
-    // focus.append('circle').attr('r', 5)
+      svg
+        .append('g')
+        .attr('transform', `translate(0, ${innerHeight})`)
+        .call(
+          d3
+            .axisBottom(x)
+            .ticks(d3.timeHour.every(xAxisTickInterval))
+            .tickFormat((d, i) => `${i * xAxisTickInterval}時`)
+        )
+        .call((g) => g.selectAll('.tick line').attr('y2', 0))
+        .call((g) => g.selectAll('.tick text').attr('font-size', 14))
+        .select('.domain')
+        .remove()
 
-    // focus
-    //   .append('rect')
-    //   .attr('class', 'tooltip')
-    //   .attr('width', 100)
-    //   .attr('height', 50)
-    //   .attr('x', 10)
-    //   .attr('y', 10)
-    //   .attr('rx', 4)
-    //   .attr('ry', 4)
+      svg
+        .append('g')
+        .call(d3.axisLeft(y).ticks(5).tickSize(-width, 0))
+        .call((g) =>
+          g
+            .selectAll('.tick:not(:first-of-type) line')
+            .attr('stroke', '#000928')
+            .attr('stroke-opacity', 0.1)
+            .attr('x1', -margin.left)
+            .attr('x2', width)
+        )
+        .call((g) =>
+          g
+            .selectAll('.tick text')
+            .attr('x', -margin.left)
+            .attr('dy', -5)
+            .attr('font-size', 12)
+            .attr('fill', '#000928')
+            .attr('opacity', 0.1)
+            .attr('text-anchor', 'start')
+        )
+        .select('.domain')
+        .remove()
 
-    // focus
-    //   .append('text')
-    //   .attr('class', 'tooltip-date')
-    //   .attr('x', 18)
-    //   .attr('y', -2)
+      svg
+        .append('text')
+        .text('單位：萬瓩')
+        .attr('font-size', 12)
+        .attr('fill', '#ccc')
+        .attr('word-spacing', 2)
+        .attr('x', innerWidth - 60) // 60為文字寬度
+        .attr('y', 22)
 
-    // focus.append('text').attr('x', 18).attr('y', 18).text('Likes:')
+      svg
+        .append('line')
+        .attr('x1', -margin.left)
+        .attr('x2', width)
+        .attr('y1', height - margin.bottom)
+        .attr('y2', height - margin.bottom)
+        .attr('stroke', '#000928')
+        .attr('stroke-width', 1)
 
-    // focus
-    //   .append('text')
-    //   .attr('class', 'tooltip-likes')
-    //   .attr('x', 60)
-    //   .attr('y', 18)
+      // 以下為 hover 動畫
+      const focus = svg.append('g').attr('class', 'focus')
 
-    // svg
-    //   .append('rect')
-    //   .attr('class', 'overlay')
-    //   .attr('width', width)
-    //   .attr('height', height)
-    //   .on('mouseover', function () {
-    //     focus.style('display', null)
-    //   })
-    //   .on('mouseout', function () {
-    //     focus.style('display', 'none')
-    //   })
-    //   .on('mousemove', mousemove)
+      svg
+        .append('rect')
+        .attr('class', 'overlay')
+        .attr('width', innerWidth)
+        .attr('height', innerHeight)
+        .on('mouseover', function () {
+          this.shouldShowTooltip = true
+        })
+        .on('mouseout', function () {
+          this.shouldShowTooltip = false
+          this.tooltipTime = ''
+          this.tooltipTodaySupply = ''
+          this.tooltipTodayConsume = ''
+          this.tooltipYesterdayConsume = ''
+        })
+        .on('mousemove', mousemove)
 
-    // const bisect = d3.bisector((d) => d.time).left
+      const bisect = d3.bisector((d) => d.time).left
 
-    // function mousemove() {
-    //   const x0 = d3.pointer(event)[0]
-    //   const targetTime = x.invert(x0)
-    //   const t = bisect(todayData, targetTime)
-    //   const s = bisect(yesterdayData, targetTime)
-    //   focus.selectAll('circle').remove()
-    //   focus
-    //     .append('circle')
-    //     .attr('r', 3)
-    //     .attr('cy', y(todayData[t]['用電']))
-    //     .attr('cx', x(todayData[t].time))
-    //     .attr('fill', '#f9c408')
-    //   focus
-    //     .append('circle')
-    //     .attr('r', 3)
-    //     .attr('cy', y(todayData[t]['發電']))
-    //     .attr('cx', x(todayData[t].time))
-    //     .attr('fill', '#000928')
-    //   focus
-    //     .append('circle')
-    //     .attr('r', 3)
-    //     .attr('cy', y(yesterdayData[s]['用電']))
-    //     .attr('cx', x(yesterdayData[s].time))
-    //     .attr('fill', '#e0e0e0')
-    // }
+      function mousemove(event) {
+        this.tooltipX = event.clientX
+        this.tooltipY = event.clientY
+        const x0 = d3.pointer(event)[0]
+        const targetTime = x.invert(x0)
+        const t = bisect(todayData, targetTime)
+        const s = bisect(yesterdayData, targetTime)
+        focus.selectAll('circle').remove()
+        if (yesterdayData[s]) {
+          focus
+            .append('circle')
+            .attr('r', 3)
+            .attr('cy', y(yesterdayData[s].status['用電']))
+            .attr('cx', x(yesterdayData[s].time))
+            .attr('fill', '#e0e0e0')
+            .attr('fill-opacity', 0.7)
+          this.tooltipTime = `${s}時`
+          this.tooltipYesterdayConsume = `昨日用電量${yesterdayData[s].status['用電']}萬瓩`
+        }
+        if (todayData[t]) {
+          focus
+            .append('circle')
+            .attr('r', 3)
+            .attr('cy', y(todayData[t].status['用電']))
+            .attr('cx', x(todayData[t].time))
+            .attr('fill', '#f9c408')
+            .attr('fill-opacity', 0.7)
+          focus
+            .append('circle')
+            .attr('r', 3)
+            .attr('cy', y(todayData[t].status['發電']))
+            .attr('cx', x(todayData[t].time))
+            .attr('fill', '#000928')
+            .attr('fill-opacity', 0.7)
+          this.tooltipTodaySupply = `今日發電量${todayData[t].status['發電']}萬瓩`
+          this.tooltipTodayConsume = `今日用電量${todayData[t].status['用電']}萬瓩`
+        }
+      }
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.chart-tooltip {
+  position: fixed;
+  z-index: 100;
+  width: 121px;
+  min-height: 56px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #000;
+  box-sizing: border-box;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.chart-tooltip h1 {
+  font-size: 16px;
+  line-height: 24px;
+  color: #000;
+  opacity: 0.5;
+  margin: 0;
+  font-weight: 400;
+}
+
+.chart-tooltip p {
+  font-size: 16px;
+  line-height: 24px;
+  color: #000;
+  margin: 0;
+  font-weight: 400;
+}
 .chart-wrapper {
   width: 100%;
   .graph-title {
@@ -470,33 +406,9 @@ export default {
         shape-rendering: crispEdges;
       }
 
-      .x.axis path {
-        display: none;
-      }
-
-      .line {
-        fill: none;
-        stroke: steelblue;
-        stroke-width: 1.5px;
-      }
-
       .overlay {
         fill: none;
         pointer-events: all;
-      }
-
-      .focus text {
-        font-size: 14px;
-      }
-
-      .tooltip {
-        fill: white;
-        stroke: #000;
-      }
-
-      .tooltip-date,
-      .tooltip-likes {
-        font-weight: bold;
       }
     }
   }

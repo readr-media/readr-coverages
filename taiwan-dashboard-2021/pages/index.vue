@@ -10,7 +10,7 @@
         :updateTime="updateTime(covid)"
       />
       <DiagramCovid19 :covid="covid" :updateTime="updateTime(covid)" />
-      <DiagramElectric />
+      <DiagramElectric :power="power" />
       <DiagramWater />
     </div>
 
