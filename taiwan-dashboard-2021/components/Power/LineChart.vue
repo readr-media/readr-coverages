@@ -25,104 +25,125 @@ export default {
   data() {
     return {
       mockData: {
-        power: {
-          power_24h: [
-            {
-              time: '2021-05-18 00:10',
-              status: {
-                發電: 34467.200000001,
-                用電: 3447.4,
-                昨日用電: 3999.4,
-              },
-            },
-            {
-              time: '2021-05-18 06:10',
-              status: {
-                發電: 32222,
-                用電: 6711.4,
-                昨日用電: 6868.4,
-              },
-            },
-            {
-              time: '2021-05-18 08:20',
-              status: {
-                發電: 31837.9,
-                用電: 3184.4,
-                昨日用電: 4000.4,
-              },
-            },
-            {
-              time: '2021-05-18 13:10',
-              status: {
-                發電: 35449.764,
-                用電: 30545.6,
-                昨日用電: 28700.4,
-              },
-            },
-            {
-              time: '2021-05-18 15:10',
-              status: {
-                發電: 30000.764,
-                用電: 28545.6,
-                昨日用電: 28678.4,
-              },
-            },
-            {
-              time: '2021-05-18 18:20',
-              status: {
-                發電: 36652.43599999,
-                用電: 12665.9,
-                昨日用電: 13333.4,
-              },
-            },
-            {
-              time: '2021-05-18 23:30',
-              status: {
-                發電: 36910.7099999,
-                用電: 20691.7,
-                昨日用電: 19800.4,
-              },
-            },
-          ],
-          last_year_peak: 3802.01,
-          update_time: '2021-05-19',
-        },
+        yesterday: [
+          {
+            time: '00:50',
+            用電: 22470.4,
+          },
+          {
+            time: '03:10',
+            用電: 20470.4,
+          },
+          {
+            time: '07:10',
+            用電: 24470.4,
+          },
+          {
+            time: '09:10',
+            用電: 19470.4,
+          },
+          {
+            time: '11:10',
+            用電: 22470.4,
+          },
+          {
+            time: '15:10',
+            用電: 28470.4,
+          },
+          {
+            time: '17:10',
+            用電: 29470.4,
+          },
+          {
+            time: '19:10',
+            用電: 22570.4,
+          },
+          {
+            time: '21:10',
+            用電: 29070.4,
+          },
+          {
+            time: '23:10',
+            用電: 19970.4,
+          },
+        ],
+        today: [
+          {
+            time: '00:10',
+            發電: 32222,
+            用電: 29911.4,
+          },
+          {
+            time: '02:10',
+            發電: 34222,
+            用電: 28001.4,
+          },
+          {
+            time: '05:10',
+            發電: 30022,
+            用電: 20001.4,
+          },
+          {
+            time: '08:20',
+            發電: 31837.9,
+            用電: 31840.4,
+          },
+          {
+            time: '12:20',
+            發電: 32537.9,
+            用電: 31184.4,
+          },
+          {
+            time: '15:20',
+            發電: 37537.9,
+            用電: 29184.4,
+          },
+          {
+            time: '19:20',
+            發電: 29537.9,
+            用電: 25184.4,
+          },
+        ],
+        last_year_peak: 3802.01,
+        update_time: '2021-05-19',
       },
     }
   },
   mounted() {
     const chartDomNode = this.$refs.linechart
-    let width = 0
-    let height = 0
-    if (window.innerWidth < 768) {
-      width = window.innerWidth * 0.85
-      height = window.innerWidth * 0.68
-    } else {
-      width = 600
-      height = 284
-    }
-
-    const margin = { top: 18, right: 25, bottom: 30, left: 89 }
+    const width = 272
+    const height = 217
+    const margin = { top: 0, right: 15, bottom: 24, left: 38 }
     const innerWidth = width - margin.left - margin.right
     const innerHeight = height - margin.top - margin.bottom
-    const parseTime = d3.timeParse('%Y-%m-%d %H:%M')
+    const parseTime = d3.timeParse('%H:%M')
+
+    const xAxisTickInterval = window.innerWidth < 768 ? 12 : 6
 
     const x = d3.scaleTime().range([0, innerWidth])
     const y = d3.scaleLinear().range([innerHeight, 0])
 
-    const valueLine = d3
+    const supplyLine = d3
       .line()
+      // .curve(d3.curveBasis)
       .x((d) => x(d.time))
-      .y((d) => y(d.status['發電']))
-    const valueLine2 = d3
+      .y((d) => y(d['發電']))
+    const todayLine = d3
       .area()
+      // .curve(d3.curveBasis)
       .x((d) => x(d.time))
       .y0(y(0))
-      .y1((d) => y(d.status['用電']))
-    const valueLine3 = d3
+      .y1((d) => y(d['用電']))
+    const yesterdayLine = d3
       .line()
+      // .curve(d3.curveBasis)
       .x((d) => x(d.time))
-      .y((d) => y(d.status['昨日用電']))
+      .y((d) => y(d['用電']))
+    const todayArea = d3
+      .line()
+      // .curve(d3.curveBasis)
+      .x((d) => x(d.time))
+      .y((d) => y(d['用電']))
 
     const svg = d3
       .select(chartDomNode)
@@ -131,60 +152,79 @@ export default {
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
-    const data = this.mockData.power.power_24h
-    data.forEach((d) => {
+    const yesterdayData = this.mockData.yesterday
+    const todayData = this.mockData.today
+    yesterdayData.forEach((d) => {
       d.time = parseTime(d.time)
-      d.status['發電'] = +d.status['發電']
-      d.status['用電'] = +d.status['用電']
-      d.status['昨日用電'] = +d.status['昨日用電']
+      d['用電'] = +d['用電']
+    })
+    todayData.forEach((d) => {
+      d.time = parseTime(d.time)
+      d['發電'] = +d['發電']
+      d['用電'] = +d['用電']
     })
 
-    x.domain(d3.extent(data, (d) => d.time))
-    y.domain([
-      0,
-      d3.max(data, (d) =>
-        Math.max(d.status['發電'], d.status['用電'], d.status['昨日用電'])
-      ),
-    ])
+    const yyMax = d3.max(yesterdayData, (d) => d['用電'])
+    const ytMax = d3.max(todayData, (d) => Math.max(d['用電'], d['發電']))
+    const yMax = d3.max([yyMax, ytMax]) + 10000
+    const timeData = d3
+      .extent(yesterdayData, (d) => d.time)
+      .concat(d3.extent(todayData, (d) => d.time))
+    x.domain(d3.extent(timeData, (d) => d)).nice()
+    console.log(d3.extent(timeData, (d) => d))
+    y.domain([0, yMax])
 
     svg
       .append('path')
-      .data([data])
+      .data([todayData])
       .attr('fill', 'none')
       .attr('stroke', '#000928')
       .attr('stroke-width', 2)
       .attr('stroke-linecap', 'round')
       .attr('stroke-linejoin', 'round')
-      .attr('d', valueLine)
+      .attr('d', supplyLine)
 
     svg
       .append('path')
-      .data([data])
+      .data([yesterdayData])
       .attr('fill', 'none')
       .attr('stroke', '#000928')
       .attr('stroke-opacity', 0.1)
       .attr('stroke-width', 2)
       .attr('stroke-linecap', 'round')
       .attr('stroke-linejoin', 'round')
-      .attr('d', valueLine3)
+      .attr('d', yesterdayLine)
 
     svg
       .append('path')
-      .data([data])
-      .attr('fill', '#f9c408')
-      .attr('fill-opacity', 0.1)
+      .data([todayData])
+      .attr('fill', 'none')
+      .attr('stroke', '#f9c408')
       .attr('stroke-width', 2)
       .attr('stroke-linecap', 'round')
       .attr('stroke-linejoin', 'round')
-      .style('stroke', '#f9c408')
-      .attr('d', valueLine2)
+      .attr('d', todayArea)
+
+    svg
+      .append('path')
+      .data([todayData])
+      .attr('fill', '#f9c408')
+      .attr('opacity', 0.1)
+      .attr('d', todayLine)
 
     svg
       .append('g')
       .attr('transform', `translate(0, ${innerHeight})`)
-      .call(d3.axisBottom(x).ticks(d3.timeHour.every(6)))
+      .call(
+        d3
+          .axisBottom(x)
+          .ticks(d3.timeHour.every(xAxisTickInterval))
+          .tickFormat((d, i) => `${i * xAxisTickInterval}時`)
+      )
       .call((g) => g.selectAll('.tick line').attr('y2', 0))
       .call((g) => g.selectAll('.tick text').attr('font-size', 14))
+      .select('.domain')
+      .remove()
 
     svg
       .append('g')
@@ -194,19 +234,112 @@ export default {
           .selectAll('.tick:not(:first-of-type) line')
           .attr('stroke', '#000928')
           .attr('stroke-opacity', 0.1)
-          .attr('transform', 'translate(-89, 0)')
+          .attr('x1', -margin.left)
+          .attr('x2', width)
       )
       .call((g) =>
         g
           .selectAll('.tick text')
-          .attr('x', -50)
-          .attr('dy', -10)
+          .attr('x', -margin.left)
+          .attr('dy', -5)
           .attr('font-size', 12)
           .attr('stroke', '#000928')
           .attr('opacity', 0.1)
+          .attr('text-anchor', 'start')
       )
       .select('.domain')
       .remove()
+
+    svg
+      .append('text')
+      .text('單位：萬瓩')
+      .attr('font-size', 12)
+      .attr('stroke', '#ccc')
+      .attr('word-spacing', 2)
+      .attr('x', innerWidth - 60) // 60為文字寬度
+      .attr('y', 22)
+
+    svg
+      .append('line')
+      .attr('x1', -margin.left)
+      .attr('x2', width)
+      .attr('y1', height - margin.bottom)
+      .attr('y2', height - margin.bottom)
+      .attr('stroke', '#000928')
+      .attr('stroke-width', 1)
+
+    // 以下為 hover 動畫
+    const focus = svg
+      .append('g')
+      .attr('class', 'focus')
+      .style('display', 'none')
+
+    focus.append('circle').attr('r', 5)
+
+    focus
+      .append('rect')
+      .attr('class', 'tooltip')
+      .attr('width', 100)
+      .attr('height', 50)
+      .attr('x', 10)
+      .attr('y', 10)
+      .attr('rx', 4)
+      .attr('ry', 4)
+
+    focus
+      .append('text')
+      .attr('class', 'tooltip-date')
+      .attr('x', 18)
+      .attr('y', -2)
+
+    focus.append('text').attr('x', 18).attr('y', 18).text('Likes:')
+
+    focus
+      .append('text')
+      .attr('class', 'tooltip-likes')
+      .attr('x', 60)
+      .attr('y', 18)
+
+    svg
+      .append('rect')
+      .attr('class', 'overlay')
+      .attr('width', width)
+      .attr('height', height)
+      .on('mouseover', function () {
+        focus.style('display', null)
+      })
+      .on('mouseout', function () {
+        focus.style('display', 'none')
+      })
+      .on('mousemove', mousemove)
+
+    const bisect = d3.bisector((d) => d.time).left
+
+    function mousemove() {
+      const x0 = d3.pointer(event)[0]
+      const targetTime = x.invert(x0)
+      const t = bisect(todayData, targetTime)
+      const s = bisect(yesterdayData, targetTime)
+      focus.selectAll('circle').remove()
+      focus
+        .append('circle')
+        .attr('r', 3)
+        .attr('cy', y(todayData[t]['用電']))
+        .attr('cx', x(todayData[t].time))
+        .attr('fill', '#f9c408')
+      focus
+        .append('circle')
+        .attr('r', 3)
+        .attr('cy', y(todayData[t]['發電']))
+        .attr('cx', x(todayData[t].time))
+        .attr('fill', '#000928')
+      focus
+        .append('circle')
+        .attr('r', 3)
+        .attr('cy', y(yesterdayData[s]['用電']))
+        .attr('cx', x(yesterdayData[s].time))
+        .attr('fill', '#e0e0e0')
+    }
   },
 }
 </script>
@@ -217,6 +350,43 @@ export default {
   height: 100%;
   svg {
     margin: 0 auto;
+    &::v-deep {
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+
+      .x.axis path {
+        display: none;
+      }
+
+      .line {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+      }
+
+      .overlay {
+        fill: none;
+        pointer-events: all;
+      }
+
+      .focus text {
+        font-size: 14px;
+      }
+
+      .tooltip {
+        fill: white;
+        stroke: #000;
+      }
+
+      .tooltip-date,
+      .tooltip-likes {
+        font-weight: bold;
+      }
+    }
   }
 }
 </style>
