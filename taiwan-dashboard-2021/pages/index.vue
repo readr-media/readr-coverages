@@ -21,6 +21,9 @@
         :water="water"
         :updateTime="convertUpdateTime(water.updated)"
       />
+      <DiagramCovid19 :covid="covid" :updateTime="updateTime(covid)" />
+      <DiagramElectric :power="power" />
+      <DiagramWater />
     </div>
 
     <FlashNews :flashNewsList="news" />

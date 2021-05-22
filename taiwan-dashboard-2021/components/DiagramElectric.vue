@@ -10,7 +10,7 @@
         boardType="number"
         :count="currentUsedPower"
         unit="萬瓩"
-        :info="['目前用電量', '(歷年五月最高<b>3631.1萬瓩</b>)']"
+        :info="monthPeak"
         color="#F9C408"
       />
 
@@ -28,9 +28,11 @@
       :class="{ hide: !isToggled }"
     >
       <!-- Paste Diagram component in here -->
-      <LineChart />
+      <div class="diagram-electric__diagram__line-chart-container">
+        <LineChart :power="power" />
+      </div>
     </div>
-    <UiUpdateTime :updateTime="updateTime" />
+    <UiUpdateTime />
     <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
   </div>
 </template>
@@ -55,11 +57,6 @@ export default {
         return {}
       },
     },
-    updateTime: {
-      type: String,
-      isRequired: true,
-      default: '',
-    },
   },
 
   data() {
@@ -69,11 +66,23 @@ export default {
   },
 
   computed: {
+    monthPeak() {
+      const monthPeak = this.power?.month_peak ?? 0
+      const month = this.detectMonth()
+      return ['目前用電量', `(歷年${month}月最高<b>${monthPeak}萬瓩</b>)`]
+    },
+    todayData() {
+      return this.power?.power_24h_today ?? []
+    },
+    latestPowerData() {
+      return this.todayData[this.todayData.length - 1]
+    },
     currentUsedPower() {
-      return 3652.5
+      console.log(this.latestPowerData)
+      return this.latestPowerData?.status['用電'] ?? 0
     },
     currentGeneratedPower() {
-      return 4027.5
+      return this.latestPowerData?.status['發電'] ?? 0
     },
   },
 
@@ -96,6 +105,11 @@ export default {
     toggleHandler() {
       this.isToggled = !this.isToggled
     },
+    detectMonth() {
+      const now = new Date()
+      const months = '一,二,三,四,五,六,七,八,九,十,十一,十二'.split(',')
+      return months[now.getMonth()]
+    },
   },
 }
 </script>
@@ -103,5 +117,12 @@ export default {
 <style lang="scss" scoped>
 .diagram-electric {
   position: relative;
+  &__diagram__line-chart-container {
+    margin: 0 auto;
+    width: 272px;
+    @media (min-width: 768px) {
+      width: 600px;
+    }
+  }
 }
 </style>
