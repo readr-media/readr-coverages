@@ -123,13 +123,20 @@ export default {
     }
   },
   mounted() {
+    const maxSize = d3.max(this.mockData, (d) => +d.effectiveCapacity.data)
+
+    function titleFontSize(data) {
+      console.log(data)
+      d3.scaleLinear().domain(d3.extent(data)).range([12, 66])
+    }
+
     function bubbleChart() {
       const width = 1000
       const height = 700
 
       const centre = { x: width / 2, y: height / 2 }
 
-      const forceStrength = 0.03
+      const forceStrength = 0.01
 
       let svg = null
       let baseline = null
@@ -157,8 +164,6 @@ export default {
       simulation.stop()
 
       function createNodes(rawData) {
-        const maxSize = d3.max(rawData, (d) => +d.effectiveCapacity.data)
-
         const radiusScale = d3.scaleSqrt().domain([0, maxSize]).range([60, 120])
 
         const myNodes = rawData.map((d) => ({
@@ -168,7 +173,7 @@ export default {
           x: Math.random() * 900,
           y: Math.random() * 800,
         }))
-
+        console.log(myNodes)
         return myNodes
       }
 
@@ -185,10 +190,11 @@ export default {
           .selectAll('.bubble')
           .data(nodes, (d) => d.id)
           .enter()
-          .append('g')
+          .append('svg')
 
         baseline = elements
           .append('linear-gradient')
+          .attr('id', 'lg')
           .attr('x1', 0.5)
           .attr('y1', 1)
           .attr('x2', 0.5)
@@ -219,7 +225,7 @@ export default {
           .append('circle')
           .classed('bubble', true)
           .attr('r', (d) => d.radius)
-          .attr('fill', 'none')
+          .attr('fill', 'url(#lg)')
           .attr('stroke', '#24c7bd')
           .attr('fill-opacity', 0.1)
           .attr('stroke-width', 2)
@@ -238,7 +244,7 @@ export default {
           .append('text')
           .attr('dy', 15)
           .style('text-anchor', 'middle')
-          .style('font-size', 28)
+          .style('font-size', (d) => titleFontSize(d.effectiveCapacity.data))
           .style('font-weight', 700)
           .style('font-family', 'Noto Sans CJK TC')
           .attr('fill', '#24c7bd')
