@@ -18,6 +18,7 @@
         boardType="number"
         :count="currentGeneratedPower"
         unit="萬瓩"
+        :isNeededPoint="true"
         :info="['目前發電量']"
         color="#F9C408"
       />

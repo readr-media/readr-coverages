@@ -48,6 +48,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isNeededPoint: {
+      type: Boolean,
+      default: false,
+    },
     // status
     status: {
       type: String,
@@ -70,7 +74,11 @@ export default {
 
   computed: {
     formatedCount() {
-      return this.count.toFixed(1)
+      if (this.isNeededPoint) {
+        return this.count.toFixed(1)
+      } else {
+        return this.count
+      }
     },
   },
 }

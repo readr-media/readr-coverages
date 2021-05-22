@@ -25,7 +25,7 @@ export default {
         case '減壓供水':
           return '#F97C08'
 
-        case '分區或定點供水':
+        case '分區供水或定點供水':
           return '#E73E33'
 
         default:

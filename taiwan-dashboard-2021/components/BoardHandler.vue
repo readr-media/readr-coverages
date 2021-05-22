@@ -5,6 +5,7 @@
       :count="count"
       :unit="unit"
       :isNeededPlus="isNeededPlus"
+      :isNeededPoint="isNeededPoint"
       :status="status"
       :regionStatus="regionStatus"
       :regions="regions"
@@ -47,6 +48,10 @@ export default {
       default: '例',
     },
     isNeededPlus: {
+      type: Boolean,
+      default: false,
+    },
+    isNeededPoint: {
       type: Boolean,
       default: false,
     },

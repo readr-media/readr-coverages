@@ -1,7 +1,7 @@
 <template>
   <div class="city-list">
     <DiagramWaterCityListItem
-      v-for="(city, index) in cityList"
+      v-for="(city, index) in sortedCityList"
       :key="index"
       :cityName="city.location"
       :cityStatus="city.status"
@@ -23,6 +23,48 @@ export default {
       default: () => {
         return []
       },
+    },
+  },
+  computed: {
+    sortedCityList() {
+      const sortCityList = this.cityList
+      sortCityList.forEach((city) => {
+        let order
+        switch (city.status) {
+          case '供水充沛':
+            order = 5
+            break
+
+          case '水情提醒':
+            order = 4
+            break
+
+          case '減量供水':
+            order = 3
+            break
+
+          case '減壓供水':
+            order = 2
+            break
+
+          case '分區供水或定點供水':
+            order = 1
+            break
+
+          default:
+            order = 5
+            break
+        }
+        city.order = order
+      })
+
+      sortCityList.sort(function (a, b) {
+        if (a.order > b.order) return 1
+        if (a.order < b.order) return -1
+        return 0
+      })
+
+      return sortCityList
     },
   },
 }
