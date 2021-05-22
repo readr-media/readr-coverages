@@ -41,7 +41,6 @@ export default {
     },
     mainCityName() {
       const mainCityName = this.cityName.substring(0, 3)
-      console.log(mainCityName)
       return mainCityName
     },
     subCityName() {

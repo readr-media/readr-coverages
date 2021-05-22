@@ -33,35 +33,7 @@
       :class="{ hide: !isToggled }"
     >
       <TaiwanMap
-        :countyFillColorConfig="[
-          {
-            name: '花蓮縣',
-            color: '#123456',
-            opacity: 0.3,
-            hoverInfo: {
-              title: '南投縣',
-              description: '今日確診 1 例',
-            },
-          },
-          {
-            name: '台北市',
-            color: 'red',
-            opacity: 1,
-            hoverInfo: {
-              title: '範例標題',
-              description: '範例敘述',
-            },
-          },
-          {
-            name: '澎湖縣',
-            color: 'red',
-            opacity: 1,
-            hoverInfo: {
-              title: '範例標題',
-              description: '範例敘述',
-            },
-          },
-        ]"
+        :countyFillColorConfig="countyFillColorConfig"
         style="height: 500px"
       />
 
@@ -78,6 +50,8 @@
 <script>
 import scrollama from 'scrollama'
 import 'intersection-observer'
+import { handleTaiWord } from '~/utils/text-handler'
+import { colorHandler } from '~/utils/diagram-handler'
 import UiDiagramTitle from '~/components/UiDiagramTitle.vue'
 import TaiwanMap from '~/components/TaiwanMap/TaiwanMap.vue'
 import DiagramCovid19CityList from '~/components/DiagramCovid19CityList.vue'
@@ -125,6 +99,54 @@ export default {
     },
     totalCityList() {
       return this.covid.city
+    },
+    countyFillColorConfig() {
+      const color = colorHandler(1)
+      console.log(color)
+      const configArray = []
+      console.log(this.covid.city)
+      this.covid?.city?.forEach((city) => {
+        configArray.push({
+          name: handleTaiWord(city.city_name),
+          color: colorHandler(city.city_warning_level || 3),
+          opacity: 1,
+          hoverInfo: {
+            title: handleTaiWord(city.city_name),
+            description: `今日確診 ${city.city_today} 例`,
+          },
+        })
+      })
+
+      return configArray
+      // return [
+      //   {
+      //     name: '花蓮縣',
+      //     color: '#123456',
+      //     opacity: 0.3,
+      //     hoverInfo: {
+      //       title: '南投縣',
+      //       description: '今日確診 1 例',
+      //     },
+      //   },
+      //   {
+      //     name: '台北市',
+      //     color: 'red',
+      //     opacity: 1,
+      //     hoverInfo: {
+      //       title: '範例標題',
+      //       description: '範例敘述',
+      //     },
+      //   },
+      //   {
+      //     name: '澎湖縣',
+      //     color: 'red',
+      //     opacity: 1,
+      //     hoverInfo: {
+      //       title: '範例標題',
+      //       description: '範例敘述',
+      //     },
+      //   },
+      // ]
     },
   },
   mounted() {

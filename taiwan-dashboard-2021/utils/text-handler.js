@@ -6,4 +6,8 @@ function handleLineBreak(text) {
   }
 }
 
-export { handleLineBreak }
+function handleTaiWord(text) {
+  return text.replace('臺', '台')
+}
+
+export { handleLineBreak, handleTaiWord }

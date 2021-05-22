@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { colorHandler } from '~/utils/diagram-handler'
+
 export default {
   props: {
     cityWarningLevel: {
@@ -14,22 +16,7 @@ export default {
   },
   computed: {
     backgroundHandler() {
-      switch (this.cityWarningLevel) {
-        case 3:
-          return 'rgba(231, 62, 51, 0.8)'
-
-        case 2:
-          return 'rgba(231, 62, 51, 0.3)'
-
-        case 1:
-          return 'rgba(231, 62, 51, 0.2)'
-
-        case 0:
-          return 'rgba(231, 62, 51, 0.1)'
-
-        default:
-          return 'rgba(231, 62, 51, 1)'
-      }
+      return colorHandler(this.cityWarningLevel)
     },
   },
 }
