@@ -3,23 +3,19 @@
     <section class="graph-title">
       <div class="info">
         <span class="info-title">今日用電狀況</span>
-        <span v-if="isEnough" class="info-status status">
-          <span />
-          <p>供電正常</p>
-        </span>
-        <span v-else class="info-status">
-          <span />
-          <p>供電吃緊</p>
+        <span class="info-status status">
+          <span :style="{ background: currentElectricStatusColor }" />
+          <p>{{ currentElectricLoading }}</p>
         </span>
       </div>
       <div class="label">
         <span class="info-status consume">
-          <span />
+          <span :style="{ background: currentElectricStatusColor }" />
           <p>用電量</p>
         </span>
         <span class="info-status supply">
           <span />
-          <p>發電量</p>
+          <p>最大供電量</p>
         </span>
         <span class="info-status yesterday-consume">
           <span />
@@ -58,10 +54,19 @@ export default {
         return {}
       },
     },
+    currentElectricLoading: {
+      type: String,
+      isRequired: true,
+      default: '供電充裕',
+    },
+    currentElectricStatusColor: {
+      type: String,
+      isRequired: true,
+      default: '#24c7bd',
+    },
   },
   data() {
     return {
-      isEnough: true,
       shouldShowTooltip: true,
       tooltipX: 0,
       tooltipY: 0,
@@ -81,6 +86,11 @@ export default {
       const innerHeight = height - margin.top - margin.bottom
       const parseTime = d3.timeParse('%H:%M')
 
+      const fillColour = d3
+        .scaleOrdinal()
+        .domain(['供電充裕', '供電吃緊', '供電警戒', '限電警戒'])
+        .range(['#24c7bd', '#f9c408', '#f97c08', '#e73e33'])
+
       const xAxisTickInterval = window.innerWidth < 768 ? 12 : 6
 
       const x = d3.scaleTime().range([0, innerWidth])
@@ -89,7 +99,7 @@ export default {
       const supplyLine = d3
         .line()
         .x((d) => x(d.time))
-        .y((d) => y(d.status['發電']))
+        .y((d) => y(d.status['最大供電']))
       const todayLine = d3
         .area()
         .x((d) => x(d.time))
@@ -120,13 +130,13 @@ export default {
       })
       todayData.forEach((d) => {
         d.time = parseTime(d.time?.split(' ')[1])
-        d.status['發電'] = +d.status['發電'] / 10
+        d.status['最大供電'] = +d.status['最大供電']
         d.status['用電'] = +d.status['用電']
       })
 
       const yyMax = d3.max(yesterdayData, (d) => d.status['用電'])
       const ytMax = d3.max(todayData, (d) =>
-        Math.max(d.status['用電'], d.status['發電'])
+        Math.max(d.status['用電'], d.status['最大供電'])
       )
       const yMax = d3.max([yyMax, ytMax]) + 1000
       const timeData = d3
@@ -160,7 +170,7 @@ export default {
         .append('path')
         .data([todayData])
         .attr('fill', 'none')
-        .attr('stroke', '#f9c408')
+        .attr('stroke', fillColour(this.currentElectricLoading))
         .attr('stroke-width', 2)
         .attr('stroke-linecap', 'round')
         .attr('stroke-linejoin', 'round')
@@ -169,7 +179,7 @@ export default {
       svg
         .append('path')
         .data([todayData])
-        .attr('fill', '#f9c408')
+        .attr('fill', fillColour(this.currentElectricLoading))
         .attr('opacity', 0.1)
         .attr('d', todayLine)
 
@@ -274,18 +284,18 @@ export default {
           focus
             .append('circle')
             .attr('r', 3)
-            .attr('cy', y(todayData[t].status['用電']))
+            .attr('cy', y(todayData[t].status['最大供電']))
             .attr('cx', x(todayData[t].time))
-            .attr('fill', '#f9c408')
+            .attr('fill', '#000928')
             .attr('fill-opacity', 0.7)
           focus
             .append('circle')
             .attr('r', 3)
-            .attr('cy', y(todayData[t].status['發電']))
+            .attr('cy', y(todayData[t].status['用電']))
             .attr('cx', x(todayData[t].time))
-            .attr('fill', '#000928')
+            .attr('fill', fillColour(this.currentElectricLoading))
             .attr('fill-opacity', 0.7)
-          this.tooltipTodaySupply = `今日發電量${todayData[t].status['發電']}萬瓩`
+          this.tooltipTodaySupply = `今日發電量${todayData[t].status['最大供電']}萬瓩`
           this.tooltipTodayConsume = `今日用電量${todayData[t].status['用電']}萬瓩`
         }
       }
@@ -364,13 +374,11 @@ export default {
         &.status {
           span {
             border-radius: 50%;
-            background-color: #f9c408;
           }
         }
         &.consume {
           span {
             border-radius: 2px;
-            background-color: #f9c408;
           }
         }
         &.supply {
