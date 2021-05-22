@@ -19,7 +19,7 @@
       />
       <DiagramWater
         :water="water"
-        :updateTime="convertUpdateTime(water.updated)"
+        :updateTime="convertUpdateTime(water.updated, true)"
       />
       <!-- <DiagramCovid19
         :covid="covid"
@@ -38,6 +38,7 @@
 
 <script>
 import axios from 'axios'
+import { amPmHandler } from '~/utils/time-handler'
 import Navbar from '~/components/Navbar.vue'
 import Hero from '~/components/Hero.vue'
 import DiagramMain from '~/components/DiagramMain.vue'
@@ -103,10 +104,31 @@ export default {
       })
   },
   methods: {
-    convertUpdateTime(updateTime) {
-      const time = updateTime || '2021-05-20'
-      const newTime = time.split('-').join('.')
-      return `最後更新 ${newTime}`
+    convertUpdateTime(updateTime, isFromWater) {
+      let timeArray
+      if (isFromWater) {
+        timeArray = updateTime?.split('T')
+      } else {
+        timeArray = updateTime?.split(' ')
+      }
+
+      let date = timeArray?.[0]
+      let time = timeArray?.[1]
+      const AMPM = timeArray?.[2]
+
+      // handle date format
+      const dateDevideChar = date?.substring(4, 5)
+      date = date?.split(dateDevideChar).join('.')
+
+      // handle time format
+      // remove +08:00
+      time = time?.split('+')[0]
+
+      if (AMPM) {
+        time = amPmHandler(time, AMPM)
+      }
+
+      return `最後更新 ${date} ${time}`
     },
   },
 }
