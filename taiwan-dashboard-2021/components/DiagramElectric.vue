@@ -67,8 +67,8 @@ export default {
 
   computed: {
     monthPeak() {
-      const monthPeak = this.power?.month_peak ?? 0
-      // monthPeak=(monthPeak/1000).toFixed(1)
+      let monthPeak = this.power?.month_peak ?? 0
+      monthPeak = monthPeak.toFixed(1)
       const month = this.detectMonth()
       return ['目前用電量', `(歷年${month}月最高<b>${monthPeak}萬瓩</b>)`]
     },
