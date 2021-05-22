@@ -3,7 +3,7 @@
     <template v-if="boardType === 'number'">
       <h1 v-if="isNeededPlus" class="board-title__plus eng">+</h1>
       <h1 class="board-title__count eng">
-        {{ count }}
+        {{ formatedCount }}
       </h1>
       <h4>{{ unit }}</h4>
     </template>
@@ -65,6 +65,12 @@ export default {
     color: {
       type: String,
       default: '#E73E33',
+    },
+  },
+
+  computed: {
+    formatedCount() {
+      return this.count.toFixed(1)
     },
   },
 }

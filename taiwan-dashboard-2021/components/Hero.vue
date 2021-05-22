@@ -1,8 +1,14 @@
 <template>
   <div class="hero">
+    <h3 class="hero__sub_title">READr 民生情報站</h3>
+
     <h1 class="hero__title">
-      持續更新！READr 民生情報站：疫情、供水、用電最新資訊
+      疫情<span class="hero__title_dot" />供水<span
+        class="hero__title_dot"
+      />用電最新資訊
     </h1>
+
+    <UiContinueUpdate />
 
     <p class="hero__content Body">
       COVID-19
@@ -13,13 +19,21 @@
 </template>
 
 <script>
-export default {}
+import UiContinueUpdate from '~/components/UiContinueUpdate'
+export default {
+  components: {
+    UiContinueUpdate,
+  },
+}
 </script>
 
 <style lang="scss" scoped>
 .hero {
   background: transparent;
   padding: 48px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   // tablet range
   @include media-breakpoint-up(md) {
@@ -30,9 +44,37 @@ export default {}
   @include media-breakpoint-up(xl) {
     padding: 60px 16px 60px;
   }
+  &__sub_title {
+    color: #000928;
+    opacity: 0.3;
+  }
 
   &__title {
     margin-bottom: 24px;
+    // tablet range
+    @include media-breakpoint-up(md) {
+      margin-bottom: 32px;
+    }
+
+    &_dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #000928;
+      opacity: 0.3;
+      margin: 0 16px 9px;
+      @include media-breakpoint-up(md) {
+        margin: 0 16px 15px;
+      }
+    }
+  }
+
+  .continue-update {
+    margin: 0 auto 32px;
+    @include media-breakpoint-up(md) {
+      margin: 0 auto 48px;
+    }
   }
 
   &__content {
