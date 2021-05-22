@@ -47,7 +47,19 @@ export default {
   },
   computed: {
     cityWarningList() {
-      return this.water?.warning
+      const tempCityList = this.water?.warning || []
+      const container = []
+      // 將太長的city分成兩個 ex 台中市及彰化縣北部地區
+      tempCityList.forEach((city) => {
+        const location = city.location.split('及')
+
+        if (location.length > 1) {
+          container.push({ ...city, location: location[1] })
+          city.location = location[0]
+        }
+      })
+
+      return tempCityList
     },
   },
   data() {

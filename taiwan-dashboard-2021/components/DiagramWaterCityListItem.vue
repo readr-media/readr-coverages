@@ -2,11 +2,14 @@
   <div class="city Body">
     <div class="city__key">
       <DiagramWaterCityListItemLevel :cityStatus="cityStatus" />
-      <div class="city__name">{{ cityName }}</div>
+      <div class="city__name">
+        <div class="city__name_main">{{ mainCityName }}</div>
+        <div class="city__name_sub Caption">{{ subCityName }}</div>
+      </div>
     </div>
 
     <div class="city__value">
-      <span>{{ cityStatus }}</span>
+      <span>{{ formatCityStatus }}</span>
     </div>
   </div>
 </template>
@@ -31,8 +34,19 @@ export default {
   },
 
   computed: {
-    count() {
-      return `${this.cityPrevTotal}+${this.cityToday}例`
+    formatCityStatus() {
+      if (this.cityStatus === '分區供水或定點供水') {
+        return '分區或定點供水'
+      } else return this.cityStatus
+    },
+    mainCityName() {
+      const mainCityName = this.cityName.substring(0, 3)
+      console.log(mainCityName)
+      return mainCityName
+    },
+    subCityName() {
+      const subCityName = this.cityName.substring(3, 10)
+      return subCityName
     },
   },
 }
@@ -58,6 +72,20 @@ export default {
   &__value > span {
     &:last-child {
       margin-left: 4px;
+    }
+  }
+
+  &__name {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    &_main {
+      margin-right: 4px;
+    }
+
+    &_sub {
+      margin-bottom: -3px;
     }
   }
 }
