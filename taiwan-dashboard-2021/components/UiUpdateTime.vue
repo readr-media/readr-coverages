@@ -26,9 +26,11 @@ export default {
   color: #000928;
   opacity: 0.3;
   padding-bottom: 24px;
+  // margin-top: 24px;
 
   // tablet range
   @include media-breakpoint-up(md) {
+    // margin-top: 32px;
     padding-bottom: 0;
   }
 }

@@ -33,7 +33,7 @@
         <LineChart :power="power" />
       </div>
     </div>
-    <UiUpdateTime />
+    <UiUpdateTime :updateTime="updateTime" />
     <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
   </div>
 </template>
@@ -57,6 +57,11 @@ export default {
       default: () => {
         return {}
       },
+    },
+    updateTime: {
+      type: String,
+      isRequired: true,
+      default: '',
     },
   },
 

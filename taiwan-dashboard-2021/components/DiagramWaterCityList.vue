@@ -79,9 +79,11 @@ export default {
   align-items: flex-start;
   user-select: none;
   margin-top: 40px;
+  margin-bottom: 24px;
   // tablet range
   @include media-breakpoint-up(md) {
     height: 457px;
+    margin-bottom: 32px;
   }
 
   // desktop range
