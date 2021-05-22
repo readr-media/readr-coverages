@@ -1,6 +1,7 @@
 <template>
   <div class="diagram-toggle" :class="{ expanded: isToggled }">
-    <span class="diagram-toggle__text">{{ showToggleText }}</span>
+    <span v-if="isToggled" class="diagram-toggle__text">收合全部</span>
+    <span v-else class="diagram-toggle__text">展開全部</span>
 
     <div class="diagram-toggle__icon">
       <img :src="require('@/static/images/icons/toggle-icon.svg')" />
@@ -15,11 +16,6 @@ export default {
       type: Boolean,
       isRequired: true,
       default: false,
-    },
-  },
-  computed: {
-    showToggleText() {
-      return this.isToggled ? '收合全部' : '展開全部'
     },
   },
 }

@@ -6,11 +6,11 @@
       :contentBlock="contentBlock"
       :class="{ only_one: assignOnlyOneClass(index) }"
     />
-    <span
+    <nobr
       v-if="!isToggled"
       class="html-content__read_more"
       @click="toggleHandler"
-      >...閱讀更多</span
+      >...閱讀更多</nobr
     >
   </div>
 </template>
@@ -70,6 +70,14 @@ export default {
     text-align: justify;
     color: #000928;
     opacity: 0.5;
+
+    &:hover {
+      opacity: 0.87;
+    }
+
+    &:active {
+      opacity: 1;
+    }
   }
 }
 </style>

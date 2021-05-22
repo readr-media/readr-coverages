@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="continue-update"
-    :class="{ disable: !isToggled, active: isToggled }"
-  >
+  <div class="continue-update">
     <span class="continue-update__dot" />
     <h5>持續更新</h5>
   </div>

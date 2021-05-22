@@ -101,10 +101,7 @@ export default {
       return this.covid.city
     },
     countyFillColorConfig() {
-      const color = colorHandler(1)
-      console.log(color)
       const configArray = []
-      console.log(this.covid.city)
       this.covid?.city?.forEach((city) => {
         configArray.push({
           name: handleTaiWord(city.city_name),
