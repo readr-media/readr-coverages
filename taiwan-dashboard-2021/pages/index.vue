@@ -41,6 +41,7 @@
 
 <script>
 import axios from 'axios'
+import _ from 'lodash'
 import Navbar from '~/components/Navbar.vue'
 import Hero from '~/components/Hero.vue'
 import DiagramMain from '~/components/DiagramMain.vue'
@@ -100,9 +101,27 @@ export default {
       return color[index]
     },
     currentWaterStatus() {
+      const warning = _.cloneDeep(this.water?.warning) ?? []
+      const group = _.groupBy(warning, (city) => city.status)
+      const status = ['分區供水或定點供水', '減壓供水', '減量供水', '水情提醒']
+      let i = 0
+      while (i < status.length) {
+        if (group[status[i + 1]]) {
+          let regionStr = ''
+          group[status[i + 1]].forEach((item) => {
+            regionStr = regionStr + '、' + item.location
+          })
+          console.log(regionStr)
+          return {
+            info: status[i + 1],
+            region: [regionStr],
+          }
+        }
+        i++
+      }
       return {
-        info: '分區或定點供水',
-        region: ['苗栗縣、台中市及彰化縣北部'],
+        info: '供水充沛',
+        region: ['全國各縣市'],
       }
     },
   },
