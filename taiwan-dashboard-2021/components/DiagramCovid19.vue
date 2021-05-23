@@ -60,7 +60,7 @@
 import scrollama from 'scrollama'
 import 'intersection-observer'
 import { handleTaiWord } from '~/utils/text-handler'
-import { colorHandler } from '~/utils/diagram-handler'
+import { mapColorHandler } from '~/utils/diagram-handler'
 import UiDiagramTitle from '~/components/UiDiagramTitle.vue'
 import TaiwanMap from '~/components/TaiwanMap/TaiwanMap.vue'
 import UiColorLevel from '~/components/UiColorLevel.vue'
@@ -127,11 +127,13 @@ export default {
       return this.covid.city
     },
     countyFillColorConfig() {
+      const taiwanTodayTotal = this.covid?.today
+
       const configArray = []
       this.covid?.city?.forEach((city) => {
         configArray.push({
           name: handleTaiWord(city?.city_name),
-          color: colorHandler(city?.level || 3),
+          color: mapColorHandler(city, taiwanTodayTotal),
           opacity: 1,
           hoverInfo: {
             title: handleTaiWord(city?.city_name),

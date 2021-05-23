@@ -24,4 +24,29 @@ function colorHandler(level) {
   return color
 }
 
-export { colorHandler }
+function mapColorHandler(city, taiwanTodayTotal) {
+  let color
+  const cityCount = city.city_today
+  // const percentage = (cityCount / taiwanTotal) * 100
+
+  console.log('taiwanTodayTotal', taiwanTodayTotal)
+  // 4是暫定變數
+  const X = taiwanTodayTotal / 4 / 100
+
+  if (cityCount === 0 * X) {
+    color = 'rgba(0, 9, 40, 0.1)'
+  } else if (cityCount < 20 * X) {
+    color = 'rgba(231, 62, 51, 0.2)'
+  } else if (cityCount < 40 * X) {
+    color = 'rgba(231, 62, 51, 0.4)'
+  } else if (cityCount < 60 * X) {
+    color = 'rgba(231, 62, 51, 0.6)'
+  } else if (cityCount < 80 * X) {
+    color = 'rgba(231, 62, 51, 0.8)'
+  } else if (cityCount > 80 * X) {
+    color = 'rgba(231, 62, 51, 1)'
+  }
+  return color
+}
+
+export { colorHandler, mapColorHandler }
