@@ -76,6 +76,11 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 27px;
+    color: #000928;
   }
 }
 </style>

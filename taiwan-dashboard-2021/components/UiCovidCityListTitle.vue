@@ -1,18 +1,9 @@
 <template>
-  <div class="city Body">
-    <div class="city__key">
-      <DiagramCovid19CityListItemWarningLevel
-        :cityWarningLevel="cityWarningLevel"
-      />
-      <h5 class="city__name">{{ cityName }}</h5>
-    </div>
-
-    <div class="city__value">
-      <span class="number">{{ cityPrevTotal }}</span>
-      <span class="number">+</span>
-      <span class="number">{{ cityToday }}</span>
-      <span>例</span>
-    </div>
+  <div class="covid-city-title Body">
+    <DiagramCovid19CityListItemWarningLevel
+      :cityWarningLevel="cityWarningLevel"
+    />
+    <h5 class="covid-city-title__name">各縣市疫情警戒標準</h5>
   </div>
 </template>
 
@@ -53,41 +44,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.city {
+.covid-city-title {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(0, 9, 40, 0.1);
-  padding: 2px 0;
-  & > div {
-    display: flex;
-    align-items: center;
-  }
-
-  &__value > span {
-    &:last-child {
-      margin-left: 4px;
-    }
-  }
+  justify-content: center;
 
   &__name {
     font-style: normal;
     font-weight: normal;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 27px;
     display: flex;
     align-items: center;
-    color: #000928;
-  }
-
-  .number {
-    font-family: Roboto, sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 21px;
-    text-align: right;
     color: #000928;
   }
 }

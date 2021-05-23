@@ -6,7 +6,7 @@
       :cityName="city.city_name"
       :cityPrevTotal="city.city_prev_total"
       :cityToday="city.city_today"
-      :cityWarningLevel="3"
+      :cityWarningLevel="city.level"
       :class="{ row1: index < 12 }"
     />
   </div>
@@ -38,12 +38,12 @@ export default {
   flex-wrap: wrap;
   align-items: flex-start;
   user-select: none;
-  margin-bottom: 24px;
+  // margin-bottom: 24px;
 
   // tablet range
   @include media-breakpoint-up(md) {
-    height: 457px;
-    margin-bottom: 32px;
+    height: 465px;
+    // margin-bottom: 32px;
   }
 
   // desktop range
