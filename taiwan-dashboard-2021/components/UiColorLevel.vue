@@ -1,6 +1,6 @@
 <template>
   <div class="color-level">
-    <span class="color-level__title Body">各縣市累積本土確診數</span>
+    <span class="color-level__title Body">各縣市最新新增病例數</span>
 
     <div class="color-level__bar">
       <div class="color-level__bar_color" />
@@ -25,6 +25,13 @@ export default {}
 
   &__title {
     margin-bottom: 4px;
+    font-family: 'Noto Sans CJK TC', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000928;
+    opacity: 0.87;
   }
 
   &__bar {
