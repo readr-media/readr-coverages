@@ -19,7 +19,7 @@
         :count="currentGeneratedPower"
         unit="萬瓩"
         :isNeededPoint="true"
-        :info="['目前發電量']"
+        :info="['目前最大供電量']"
         color="#F9C408"
       />
     </div>
@@ -89,7 +89,7 @@ export default {
       return this.latestPowerData?.status['用電'] ?? 0
     },
     currentGeneratedPower() {
-      return this.latestPowerData?.status['發電'] ?? 0
+      return this.latestPowerData?.status['最大供電'] ?? 0
     },
   },
 
