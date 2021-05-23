@@ -81,7 +81,7 @@ export default {
       const chartDomNode = this.$refs.linechart
       const width = 272
       const height = 217
-      const margin = { top: 0, right: 15, bottom: 24, left: 38 }
+      const margin = { top: 20, right: 15, bottom: 24, left: 38 }
       const innerWidth = width - margin.left - margin.right
       const innerHeight = height - margin.top - margin.bottom
       const parseTime = d3.timeParse('%H:%M')
@@ -228,14 +228,14 @@ export default {
         .attr('fill', '#ccc')
         .attr('word-spacing', 2)
         .attr('x', innerWidth - 60) // 60為文字寬度
-        .attr('y', 22)
+        .attr('y', margin.top - 4)
 
       svg
         .append('line')
         .attr('x1', -margin.left)
         .attr('x2', width)
-        .attr('y1', height - margin.bottom)
-        .attr('y2', height - margin.bottom)
+        .attr('y1', height - margin.bottom - margin.top)
+        .attr('y2', height - margin.bottom - margin.top)
         .attr('stroke', '#000928')
         .attr('stroke-width', 1)
 
@@ -268,6 +268,10 @@ export default {
         const targetTime = x.invert(x0)
         const t = bisect(todayData, targetTime)
         const s = bisect(yesterdayData, targetTime)
+        const fillColor = d3
+          .scaleOrdinal()
+          .domain(['', '供電充裕', '供電吃緊', '供電警戒', '限電警戒'])
+          .range(['#ccc', '#f9c408', '#24c7bd', '#f97c08', '#e73e33'])
         focus.selectAll('circle').remove()
         if (yesterdayData[s]) {
           focus
@@ -293,7 +297,7 @@ export default {
             .attr('r', 3)
             .attr('cy', y(todayData[t].status['用電']))
             .attr('cx', x(todayData[t].time))
-            .attr('fill', fillColour(this.currentElectricLoading))
+            .attr('fill', fillColor(this.currentElectricLoading))
             .attr('fill-opacity', 0.7)
           this.tooltipTodaySupply = `今日最大供電量${todayData[t].status['最大供電']}萬瓩`
           this.tooltipTodayConsume = `今日用電量${todayData[t].status['用電']}萬瓩`

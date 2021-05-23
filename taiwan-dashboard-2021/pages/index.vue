@@ -139,7 +139,7 @@ export default {
           '減量供水',
           '水情提醒',
           '供水充沛',
-        ].indexOf(status) ?? 0
+        ].indexOf(status) ?? 4
       const color = ['#e73e33', '#24c7bd', '#f9c408', '#f97c08', '#000928']
       return color[index]
     },
