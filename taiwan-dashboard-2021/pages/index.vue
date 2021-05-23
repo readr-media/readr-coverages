@@ -8,6 +8,7 @@
         :currentElectricLoading="currentElectricLoading"
         :currentElectricStatusColor="currentElectricStatusColor"
         :currentWaterStatus="currentWaterStatus"
+        :currentWaterStatusColor="currentWaterStatusColor"
         :updateTime="convertUpdateTime(updateTime)"
       />
       <DiagramCovid19
@@ -97,33 +98,50 @@ export default {
     currentElectricStatusColor() {
       const status = this.currentElectricLoading
       const index =
-        ['供電充裕', '供電吃緊', '供電警戒', '限電警戒'].indexOf(status) ?? 2
+        ['供電充裕', '供電吃緊', '供電警戒', '限電警戒'].indexOf(status) ?? 0
       const color = ['#24c7bd', '#f9c408', '#f97c08', '#e73e33']
       return color[index]
     },
     currentWaterStatus() {
-      const warning = _.cloneDeep(this.water?.warning) ?? []
+      const warning = _.cloneDeep(this.water?.warning) || []
       const group = _.groupBy(warning, (city) => city.status)
       const status = ['分區供水或定點供水', '減壓供水', '減量供水', '水情提醒']
       let i = 0
       while (i < status.length) {
-        if (group[status[i + 1]]) {
+        if (group[status[i]]) {
           let regionStr = ''
-          group[status[i + 1]].forEach((item) => {
-            regionStr = regionStr + '、' + item.location
+          group[status[i]].forEach((item) => {
+            if (regionStr) {
+              regionStr = regionStr + '、' + item.location
+            } else {
+              regionStr = item.location
+            }
           })
-          console.log(regionStr)
+          const statusStr = i ? status[i] : '分區或定點供水'
           return {
-            info: status[i + 1],
-            region: [regionStr],
+            info: statusStr,
+            region: regionStr,
           }
         }
         i++
       }
       return {
         info: '供水充沛',
-        region: ['全國各縣市'],
+        region: '',
       }
+    },
+    currentWaterStatusColor() {
+      const status = this.currentWaterStatus.info
+      const index =
+        [
+          '分區或定點供水',
+          '減壓供水',
+          '減量供水',
+          '水情提醒',
+          '供水充沛',
+        ].indexOf(status) ?? 0
+      const color = ['#e73e33', '#24c7bd', '#f9c408', '#f97c08', '#000928']
+      return color[index]
     },
   },
   mounted() {

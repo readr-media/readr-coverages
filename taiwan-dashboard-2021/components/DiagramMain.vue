@@ -24,7 +24,8 @@
       <BoardHandler
         boardType="region-status"
         :regionStatus="currentWaterStatus.info"
-        :regions="currentWaterStatus.regions"
+        :regions="currentWaterStatus.region"
+        :color="currentWaterStatusColor"
         :info="['水情狀況']"
         anchorId="diagram-water"
       />
@@ -74,6 +75,11 @@ export default {
           region: '苗栗縣、台中市及彰化縣北部',
         }
       },
+    },
+    currentWaterStatusColor: {
+      type: String,
+      isRequired: true,
+      default: '#24c7bd',
     },
     updateTime: {
       type: String,
