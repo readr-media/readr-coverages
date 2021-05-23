@@ -139,8 +139,14 @@ export default {
   position: relative;
   &__diagram__line-chart-container {
     margin: 0 auto 24px;
-    width: 272px;
+    width: 248px;
+    @media (min-width: 344px) {
+      width: 272px;
+    }
     @media (min-width: 768px) {
+      width: 540px;
+    }
+    @media (min-width: 830px) {
       width: 600px;
     }
   }
