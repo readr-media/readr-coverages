@@ -269,11 +269,16 @@ export default {
         const targetTime = x.invert(x0)
         const t = bisect(todayData, targetTime)
         const s = bisect(yesterdayData, targetTime)
+
+        const eStatus = todayData[todayData.length - 1].status['供電狀況'] ?? ''
+        const colorIndex =
+          ['', '供電充裕。', '供電吃緊。', '供電警戒。', '限電警戒。'].indexOf(
+            eStatus
+          ) ?? 0
+        const color = ['#ccc', '#24c7bd', '#f9c408', '#f97c08', '#e73e33']
+        const colorStatus = color[colorIndex]
+
         focus.selectAll('circle').remove()
-        // const colorStatus =
-        //   this.this.power?.power_24h_today[this.todayData.length - 1].status[
-        //     '供電狀況'
-        //   ] ?? ''
         if (yesterdayData[s]) {
           focus
             .append('circle')
@@ -298,7 +303,7 @@ export default {
             .attr('r', 3)
             .attr('cy', y(todayData[t].status['用電']))
             .attr('cx', x(todayData[t].time))
-            .attr('fill', fillColour(this.currentElectricLoading))
+            .attr('fill', colorStatus)
             .attr('fill-opacity', 0.7)
           this.tooltipTodaySupply = `今日最大供電量${todayData[t].status['最大供電']}萬瓩`
           this.tooltipTodayConsume = `今日用電量${todayData[t].status['用電']}萬瓩`
