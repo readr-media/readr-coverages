@@ -71,11 +71,11 @@ export default {
     left: 0;
   }
 
-  &:hover {
-    .category-button__blocker {
-      transform: rotate(384.5deg) translate(0, 0);
-    }
-  }
+  // &:hover {
+  //   .category-button__blocker {
+  //     transform: rotate(384.5deg) translate(0, 0);
+  //   }
+  // }
   &:active {
     background: linear-gradient(
         0deg,
