@@ -86,7 +86,7 @@ export default {
   }
   &.disable:hover {
     .category-button__blocker {
-      transform: rotate(384.5deg) translate(100%, 100%);
+      transform: rotate(384.5deg) translate(0, 0);
     }
   }
 

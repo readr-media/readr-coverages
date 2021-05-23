@@ -42,6 +42,7 @@
         :class="{ expand: isToggled }"
       />
     </div>
+
     <UiUpdateTime :updateTime="updateTime" />
     <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
   </div>

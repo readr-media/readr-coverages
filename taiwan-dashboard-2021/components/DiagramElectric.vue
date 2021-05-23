@@ -19,7 +19,7 @@
         :count="currentGeneratedPower"
         unit="萬瓩"
         :isNeededPoint="true"
-        :info="['目前發電量']"
+        :info="['目前最大供電量']"
         :color="currentElectricStatusColor"
       />
     </div>

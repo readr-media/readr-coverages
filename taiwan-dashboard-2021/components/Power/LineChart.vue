@@ -295,7 +295,7 @@ export default {
             .attr('cx', x(todayData[t].time))
             .attr('fill', fillColour(this.currentElectricLoading))
             .attr('fill-opacity', 0.7)
-          this.tooltipTodaySupply = `今日發電量${todayData[t].status['最大供電']}萬瓩`
+          this.tooltipTodaySupply = `今日最大供電量${todayData[t].status['最大供電']}萬瓩`
           this.tooltipTodayConsume = `今日用電量${todayData[t].status['用電']}萬瓩`
         }
       }

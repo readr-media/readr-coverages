@@ -38,10 +38,12 @@ export default {
   flex-wrap: wrap;
   align-items: flex-start;
   user-select: none;
+  margin-bottom: 24px;
 
   // tablet range
   @include media-breakpoint-up(md) {
     height: 457px;
+    margin-bottom: 32px;
   }
 
   // desktop range
