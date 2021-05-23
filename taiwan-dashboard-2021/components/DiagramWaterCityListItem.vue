@@ -81,10 +81,21 @@ export default {
 
     &_main {
       margin-right: 4px;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 27px;
+      text-align: right;
+      color: #000928;
     }
 
     &_sub {
       margin-bottom: -3px;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 27px;
+      color: #000928;
     }
   }
 }

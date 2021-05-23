@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="category-button"
-    :class="{ disable: !isToggled, active: isToggled }"
-  >
+  <div class="category-button" :class="{ disable: !isToggled }">
     <div class="category-button__icon">
       <img :src="icon" alt="" />
     </div>
@@ -73,23 +70,12 @@ export default {
     top: 0;
     left: 0;
   }
-  &.disable {
-    .category-button__blocker {
-      transform: rotate(384.5deg) translate(0, 0);
-    }
-  }
 
-  &.active:hover {
+  &:hover {
     .category-button__blocker {
       transform: rotate(384.5deg) translate(0, 0);
     }
   }
-  &.disable:hover {
-    .category-button__blocker {
-      transform: rotate(384.5deg) translate(0, 0);
-    }
-  }
-
   &:active {
     background: linear-gradient(
         0deg,
@@ -100,6 +86,12 @@ export default {
     border: 1px solid #000928;
     box-sizing: border-box;
     border-radius: 2px;
+  }
+
+  &.disable {
+    .category-button__blocker {
+      transform: rotate(384.5deg) translate(0, 0);
+    }
   }
 }
 </style>
