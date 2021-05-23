@@ -19,7 +19,7 @@
         :status="currentElectricLoading"
         :info="['供電狀況']"
         anchorId="diagram-electric"
-        color="#F9C408"
+        :color="currentElectricStatusColor"
       />
       <BoardHandler
         boardType="region-status"
@@ -58,7 +58,12 @@ export default {
     currentElectricLoading: {
       type: String,
       isRequired: true,
-      default: '供電吃緊',
+      default: '供電充裕',
+    },
+    currentElectricStatusColor: {
+      type: String,
+      isRequired: true,
+      default: '#24c7bd',
     },
     currentWaterStatus: {
       type: Object,

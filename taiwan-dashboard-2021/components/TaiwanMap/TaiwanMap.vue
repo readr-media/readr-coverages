@@ -155,6 +155,7 @@ svg::v-deep path {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  z-index: 100;
 }
 
 .chart-tooltip h1 {

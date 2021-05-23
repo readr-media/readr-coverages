@@ -6,6 +6,7 @@
       <DiagramMain
         :currentCovidCount="currentCovidCount"
         :currentElectricLoading="currentElectricLoading"
+        :currentElectricStatusColor="currentElectricStatusColor"
         :currentWaterStatus="currentWaterStatus"
         :updateTime="convertUpdateTime(updateTime)"
       />
@@ -15,6 +16,8 @@
       />
       <DiagramElectric
         :power="power"
+        :currentElectricLoading="currentElectricLoading"
+        :currentElectricStatusColor="currentElectricStatusColor"
         :updateTime="convertUpdateTime(power.update_time)"
       />
       <DiagramWater
@@ -38,6 +41,7 @@
 
 <script>
 import axios from 'axios'
+import _ from 'lodash'
 import { amPmHandler } from '~/utils/time-handler'
 import Navbar from '~/components/Navbar.vue'
 import Hero from '~/components/Hero.vue'
@@ -79,13 +83,46 @@ export default {
     currentCovidCount() {
       return this.covid?.today || 0
     },
+    todayData() {
+      return this.power?.power_24h_today ?? []
+    },
     currentElectricLoading() {
-      return '供電吃緊'
+      return (
+        this.todayData[this.todayData.length - 1]?.status['供電狀況']?.slice(
+          0,
+          4
+        ) ?? '供電充裕'
+      )
+    },
+    currentElectricStatusColor() {
+      const status = this.currentElectricLoading
+      const index =
+        ['供電充裕', '供電吃緊', '供電警戒', '限電警戒'].indexOf(status) ?? 2
+      const color = ['#24c7bd', '#f9c408', '#f97c08', '#e73e33']
+      return color[index]
     },
     currentWaterStatus() {
+      const warning = _.cloneDeep(this.water?.warning) ?? []
+      const group = _.groupBy(warning, (city) => city.status)
+      const status = ['分區供水或定點供水', '減壓供水', '減量供水', '水情提醒']
+      let i = 0
+      while (i < status.length) {
+        if (group[status[i + 1]]) {
+          let regionStr = ''
+          group[status[i + 1]].forEach((item) => {
+            regionStr = regionStr + '、' + item.location
+          })
+          console.log(regionStr)
+          return {
+            info: status[i + 1],
+            region: [regionStr],
+          }
+        }
+        i++
+      }
       return {
-        info: '分區或定點供水',
-        region: ['苗栗縣、台中市及彰化縣北部'],
+        info: '供水充沛',
+        region: ['全國各縣市'],
       }
     },
   },

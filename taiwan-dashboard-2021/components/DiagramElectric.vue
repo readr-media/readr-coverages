@@ -11,7 +11,7 @@
         :count="currentUsedPower"
         unit="萬瓩"
         :info="monthPeak"
-        color="#F9C408"
+        :color="currentElectricStatusColor"
       />
 
       <BoardHandler
@@ -20,7 +20,7 @@
         unit="萬瓩"
         :isNeededPoint="true"
         :info="['目前最大供電量']"
-        color="#F9C408"
+        :color="currentElectricStatusColor"
       />
     </div>
 
@@ -30,7 +30,11 @@
     >
       <!-- Paste Diagram component in here -->
       <div class="diagram-electric__diagram__line-chart-container">
-        <LineChart :power="power" />
+        <LineChart
+          :power="power"
+          :currentElectricLoading="currentElectricLoading"
+          :currentElectricStatusColor="currentElectricStatusColor"
+        />
       </div>
     </div>
     <UiUpdateTime :updateTime="updateTime" />
@@ -63,6 +67,16 @@ export default {
       isRequired: true,
       default: '',
     },
+    currentElectricLoading: {
+      type: String,
+      isRequired: true,
+      default: '供電充裕',
+    },
+    currentElectricStatusColor: {
+      type: String,
+      isRequired: true,
+      default: '#24c7bd',
+    },
   },
 
   data() {
@@ -85,7 +99,6 @@ export default {
       return this.todayData[this.todayData.length - 1]
     },
     currentUsedPower() {
-      console.log(this.latestPowerData)
       return this.latestPowerData?.status['用電'] ?? 0
     },
     currentGeneratedPower() {
@@ -125,7 +138,7 @@ export default {
 .diagram-electric {
   position: relative;
   &__diagram__line-chart-container {
-    margin: 0 auto;
+    margin: 0 auto 24px;
     width: 272px;
     @media (min-width: 768px) {
       width: 600px;
