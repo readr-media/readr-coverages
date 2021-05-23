@@ -32,15 +32,23 @@
       class="diagram-covid-19__diagram g-diagram__folder"
       :class="{ hide: !isToggled }"
     >
-      <TaiwanMap
-        :countyFillColorConfig="countyFillColorConfig"
-        style="height: 500px"
-      />
+      <div class="diagram-covid-19__diagram_col_wrapper">
+        <TaiwanMap
+          :countyFillColorConfig="countyFillColorConfig"
+          style="height: 500px"
+        />
 
-      <DiagramCovid19CityList
-        :cityList="totalCityList"
-        :class="{ expand: isToggled }"
-      />
+        <UiColorLevel />
+      </div>
+
+      <div class="diagram-covid-19__diagram_col_wrapper">
+        <UiCovidCityListTitle />
+
+        <DiagramCovid19CityList
+          :cityList="totalCityList"
+          :class="{ expand: isToggled }"
+        />
+      </div>
     </div>
 
     <UiUpdateTime :updateTime="updateTime" />
@@ -55,18 +63,22 @@ import { handleTaiWord } from '~/utils/text-handler'
 import { colorHandler } from '~/utils/diagram-handler'
 import UiDiagramTitle from '~/components/UiDiagramTitle.vue'
 import TaiwanMap from '~/components/TaiwanMap/TaiwanMap.vue'
+import UiColorLevel from '~/components/UiColorLevel.vue'
 import DiagramCovid19CityList from '~/components/DiagramCovid19CityList.vue'
 import UiDiagramToggle from '~/components/UiDiagramToggle.vue'
 import UiUpdateTime from '~/components/UiUpdateTime.vue'
 import gaMixin from '~/mixins/gaMixin'
+import UiCovidCityListTitle from '~/components/UiCovidCityListTitle.vue'
 
 export default {
   components: {
     UiDiagramTitle,
     TaiwanMap,
+    UiColorLevel,
     DiagramCovid19CityList,
     UiDiagramToggle,
     UiUpdateTime,
+    UiCovidCityListTitle,
   },
   mixins: [gaMixin],
   props: {
@@ -96,7 +108,20 @@ export default {
       return this.covid?.taiwan_total
     },
     currentWarningLevel() {
-      return '第三級警戒'
+      const taiwanLevel = this.covid?.taiwan_level
+      switch (taiwanLevel) {
+        case 3:
+          return '第三級警戒'
+
+        case 2:
+          return '第二級警戒'
+
+        case 1:
+          return '第一級警戒'
+
+        default:
+          return '警戒解除'
+      }
     },
     totalCityList() {
       return this.covid.city
@@ -104,13 +129,14 @@ export default {
     countyFillColorConfig() {
       const configArray = []
       this.covid?.city?.forEach((city) => {
+        console.log(city)
         configArray.push({
-          name: handleTaiWord(city.city_name),
-          color: colorHandler(city.city_warning_level || 3),
+          name: handleTaiWord(city?.city_name),
+          color: colorHandler(city?.level || 3),
           opacity: 1,
           hoverInfo: {
-            title: handleTaiWord(city.city_name),
-            description: `今日確診 ${city.city_today} 例`,
+            title: handleTaiWord(city?.city_name),
+            description: `今日確診 ${city?.city_today} 例`,
           },
         })
       })
@@ -172,6 +198,32 @@ export default {
 <style lang="scss" scoped>
 .diagram-covid-19 {
   position: relative;
+
+  &__diagram_col_wrapper {
+    // height: 465px;
+    margin-bottom: 24px;
+    padding-top: 24px;
+    &:first-child {
+      margin-bottom: 0;
+    }
+    // tablet range
+    @include media-breakpoint-up(md) {
+      padding-top: 16px;
+      margin-bottom: 32px;
+      &:first-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .color-level {
+      margin-top: -53px;
+    }
+
+    .covid-city-title {
+      padding-top: 16px;
+      margin-bottom: 24px;
+    }
+  }
 
   &__diagram {
     display: flex;

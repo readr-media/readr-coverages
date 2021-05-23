@@ -9,7 +9,7 @@
     </template>
 
     <template v-else-if="boardType === 'status'">
-      <h2 class="board-title__status eng">
+      <h2 class="board-title__status chn">
         {{ status }}
       </h2>
     </template>
