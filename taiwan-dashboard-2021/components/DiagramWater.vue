@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import scrollama from 'scrollama'
 import 'intersection-observer'
 import UiDiagramTitle from '~/components/UiDiagramTitle.vue'
@@ -47,7 +48,7 @@ export default {
   },
   computed: {
     cityWarningList() {
-      const tempCityList = this.water?.warning || []
+      const tempCityList = _.cloneDeep(this.water?.warning) || []
       const container = []
       // 將太長的city分成兩個 ex 台中市及彰化縣北部地區
       tempCityList.forEach((city) => {
@@ -57,7 +58,6 @@ export default {
           city.location = location[0]
         }
       })
-
       return tempCityList.concat(container)
     },
   },
