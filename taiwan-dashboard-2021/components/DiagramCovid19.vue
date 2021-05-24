@@ -245,5 +245,17 @@ export default {
       }
     }
   }
+
+  .g-diagram__board_wrapper {
+    min-height: 436px;
+    // tablet range
+    @include media-breakpoint-up(md) {
+      min-height: 484px;
+    }
+    // desktop range
+    @include media-breakpoint-up(xl) {
+      min-height: auto;
+    }
+  }
 }
 </style>

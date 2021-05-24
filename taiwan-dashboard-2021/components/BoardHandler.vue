@@ -90,6 +90,7 @@ export default {
   align-items: center;
   flex-grow: 1;
   flex-basis: 0;
+  height: fit-content;
 
   &__anchor {
     display: flex;

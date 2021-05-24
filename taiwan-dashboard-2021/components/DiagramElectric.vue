@@ -150,5 +150,17 @@ export default {
       width: 600px;
     }
   }
+
+  .g-diagram__board_wrapper {
+    min-height: 356px;
+    // tablet range
+    @include media-breakpoint-up(md) {
+      min-height: 406px;
+    }
+    // desktop range
+    @include media-breakpoint-up(xl) {
+      min-height: auto;
+    }
+  }
 }
 </style>

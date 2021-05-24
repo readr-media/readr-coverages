@@ -107,5 +107,17 @@ export default {
 <style lang="scss" scoped>
 .diagram-main {
   position: relative;
+
+  .g-diagram__board_wrapper {
+    min-height: 432px;
+    // tablet range
+    @include media-breakpoint-up(md) {
+      min-height: 486px;
+    }
+    // desktop range
+    @include media-breakpoint-up(xl) {
+      min-height: auto;
+    }
+  }
 }
 </style>

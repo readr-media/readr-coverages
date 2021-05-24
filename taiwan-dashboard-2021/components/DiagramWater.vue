@@ -14,7 +14,11 @@
       <!-- Paste Diagram component in here -->
     </div>
     <UiUpdateTime :updateTime="updateTime" />
-    <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
+    <UiDiagramToggle
+      :isToggled="isToggled"
+      @click.native="toggleHandler"
+      :style="{ display: none }"
+    />
   </div>
 </template>
 
@@ -91,5 +95,17 @@ export default {
 <style lang="scss" scoped>
 .diagram-water {
   position: relative;
+
+  .g-diagram__board_wrapper {
+    min-height: 237px;
+    // tablet range
+    @include media-breakpoint-up(md) {
+      min-height: 265px;
+    }
+    // desktop range
+    @include media-breakpoint-up(xl) {
+      min-height: auto;
+    }
+  }
 }
 </style>

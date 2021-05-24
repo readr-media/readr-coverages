@@ -93,8 +93,8 @@ export default {
       margin-bottom: -3px;
       font-style: normal;
       font-weight: normal;
-      font-size: 18px;
-      line-height: 27px;
+      font-size: 14px;
+      line-height: 21px;
       color: #000928;
     }
   }
