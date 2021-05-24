@@ -221,29 +221,50 @@ export default {
         .attr('class', 'focus')
         .style('display', 'none')
 
-      focus
+      const focus2 = svg
+        .append('g')
+        .attr('class', 'focus2')
+        .attr('fill', '#fff')
+        .attr('fill-opacity', 0.9)
+        .style('display', 'none')
+
+      focus2
         .append('rect')
         .attr('class', 'tooltip')
-        .attr('width', 100)
-        .attr('height', 50)
         .attr('x', 10)
         .attr('y', -22)
-        .attr('rx', 4)
-        .attr('ry', 4)
+        .attr('width', 120)
+        .attr('height', 60)
+        .attr('rx', 1)
+        .attr('ry', 1)
+        .attr('stroke', '#000928')
+        .attr('stroke-width', 1)
+        .attr('stroke-opacity', 0.7)
 
-      focus
+      focus2
         .append('text')
-        .attr('class', 'tooltip-date')
-        .attr('x', 18)
-        .attr('y', -2)
+        .attr('class', 'tooltip-time')
+        .attr('fill', '#000928')
+        .attr('opacity', 0.5)
+        .attr('font-size', 10)
 
-      focus.append('text').attr('x', 18).attr('y', 18).text('Likes:')
-
-      focus
+      focus2
         .append('text')
-        .attr('class', 'tooltip-likes')
-        .attr('x', 60)
-        .attr('y', 18)
+        .attr('class', 'tooltip-consume')
+        .attr('fill', '#000928')
+        .attr('font-size', 10)
+
+      focus2
+        .append('text')
+        .attr('class', 'tooltip-supply')
+        .attr('fill', '#000928')
+        .attr('font-size', 10)
+
+      focus2
+        .append('text')
+        .attr('class', 'yesterday-consume')
+        .attr('fill', '#000928')
+        .attr('font-size', 10)
 
       svg
         .append('rect')
@@ -252,9 +273,11 @@ export default {
         .attr('height', innerHeight)
         .on('mouseover', function () {
           focus.style('display', null)
+          focus2.style('display', null)
         })
         .on('mouseout', function () {
           focus.style('display', 'none')
+          focus2.style('display', 'none')
         })
         .on('mousemove', mousemove)
 
@@ -274,27 +297,37 @@ export default {
         const color = ['#ccc', '#24c7bd', '#f9c408', '#f97c08', '#e73e33']
         const colorStatus = color[colorIndex]
 
-        focus
-          .select('tooltip')
-          .attr(
-            'transform',
-            `translate(${x(yesterdayData[s].time)},${y(
-              yesterdayData[s].status['用電']
-            )})`
-          )
-        focus.select('.tooltip-date').text('texttt')
-        focus.select('.tooltip-likes').text('yoooop')
+        const timeFormat = d3.timeFormat('%H:%M')
+        const rectPos = { x: 10, y: -22 }
+        if (x(yesterdayData[s].time) > 85) {
+          rectPos.x = -125
+          rectPos.y = 0
+        }
+        const text1Pos = { x: rectPos.x + 4, y: rectPos.y + 12 }
+        const text2Pos = { x: rectPos.x + 4, y: rectPos.y + 26 }
+        const text3Pos = { x: rectPos.x + 4, y: rectPos.y + 40 }
+        const text4Pos = { x: rectPos.x + 4, y: rectPos.y + 54 }
+
+        // focus2.select('rect').remove()
+
+        focus2.attr(
+          'transform',
+          `translate(${x(yesterdayData[s].time)}, ${y(
+            yesterdayData[s].status['用電']
+          )})`
+        )
+
+        focus2.select('rect').attr('x', rectPos.x).attr('y', rectPos.y)
 
         focus.selectAll('circle').remove()
-        if (yesterdayData[s]) {
-          focus
-            .append('circle')
-            .attr('r', 3)
-            .attr('cy', y(yesterdayData[s].status['用電']))
-            .attr('cx', x(yesterdayData[s].time))
-            .attr('fill', '#e0e0e0')
-            .attr('fill-opacity', 0.7)
-        }
+        focus2.selectAll('text').text('')
+
+        focus2
+          .select('.tooltip-time')
+          .attr('x', text1Pos.x)
+          .attr('y', text1Pos.y)
+          .text(timeFormat(yesterdayData[s].time))
+
         if (todayData[t]) {
           focus
             .append('circle')
@@ -310,6 +343,39 @@ export default {
             .attr('cx', x(todayData[t].time))
             .attr('fill', colorStatus)
             .attr('fill-opacity', 0.7)
+          focus2
+            .select('.tooltip-supply')
+            .attr('x', text2Pos.x)
+            .attr('y', text2Pos.y)
+            .text(`今日用電量 ${todayData[t].status['用電']} 萬瓩`)
+          focus2
+            .select('.tooltip-consume')
+            .attr('x', text3Pos.x)
+            .attr('y', text3Pos.y)
+            .text(`最大供電量 ${todayData[t].status['最大供電']} 萬瓩`)
+        }
+
+        if (yesterdayData[s]) {
+          focus
+            .append('circle')
+            .attr('r', 3)
+            .attr('cy', y(yesterdayData[s].status['用電']))
+            .attr('cx', x(yesterdayData[s].time))
+            .attr('fill', '#e0e0e0')
+            .attr('fill-opacity', 0.7)
+          if (todayData[t]) {
+            focus2
+              .select('.yesterday-consume')
+              .attr('x', text4Pos.x)
+              .attr('y', text4Pos.y)
+              .text(`昨日用電量 ${yesterdayData[s].status['用電']} 萬瓩`)
+          } else {
+            focus2
+              .select('.yesterday-consume')
+              .attr('x', text2Pos.x)
+              .attr('y', text2Pos.y)
+              .text(`昨日用電量 ${yesterdayData[s].status['用電']} 萬瓩`)
+          }
         }
       }
     },
