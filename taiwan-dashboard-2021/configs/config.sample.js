@@ -2,7 +2,7 @@ module.exports = {
   app: {
     siteProtocol: 'https',
     domain: 'www.readr.tw',
-    base: '/project/3/taiwan-dashboard-2021',
+    base: '/project/3/taiwan-dashboard-2021_LIYI',
   },
 }
 /* 
@@ -10,7 +10,7 @@ module.exports = {
 生成的dist資料夾裏面就是靜態檔案了
 
 再來到terminal（注意 路徑要在此專題底下！）執行以下code：
-gsutil -m cp -r -a public-read ./dist/* gs://readr-coverages/3/taiwan-dashboard-2021
+gsutil -m cp -r -a public-read ./dist/* gs://readr-coverages/3/taiwan-dashboard-2021_LIYI
 
 注意！
 因為此專題有設定router.base

@@ -35,7 +35,7 @@
       <div class="diagram-covid-19__diagram_col_wrapper">
         <TaiwanMap
           :countyFillColorConfig="countyFillColorConfig"
-          style="height: 500px"
+          style="height: 410px"
         />
 
         <UiColorLevel :maxCount="cityMaxCount" />
@@ -224,7 +224,7 @@ export default {
     }
 
     .color-level {
-      margin-top: -53px;
+      margin-top: -32px;
     }
 
     .covid-city-title {
