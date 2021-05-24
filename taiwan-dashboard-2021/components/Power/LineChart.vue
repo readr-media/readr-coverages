@@ -24,21 +24,7 @@
       </div>
     </section>
     <div class="linechart-label">單位：萬瓩</div>
-    <svg ref="linechart">
-      <div
-        v-show="shouldShowTooltip"
-        class="chart-tooltip"
-        :style="{
-          top: `${tooltipY + 20}px`,
-          left: `${tooltipX + 20}px`,
-        }"
-      >
-        <p v-text="tooltipTime" />
-        <p v-text="tooltipTodaySupply" />
-        <p v-text="tooltipTodayConsume" />
-        <p v-text="tooltipYesterdayConsume" />
-      </div>
-    </svg>
+    <svg ref="linechart"></svg>
   </div>
 </template>
 
@@ -65,17 +51,6 @@ export default {
       isRequired: true,
       default: '#24c7bd',
     },
-  },
-  data() {
-    return {
-      shouldShowTooltip: true,
-      tooltipX: 0,
-      tooltipY: 0,
-      tooltipTime: '',
-      tooltipTodaySupply: '',
-      tooltipTodayConsume: '',
-      tooltipYesterdayConsume: '',
-    }
   },
   watch: {
     power() {
@@ -241,7 +216,34 @@ export default {
         .attr('stroke-width', 1)
 
       // 以下為 hover 動畫
-      const focus = svg.append('g').attr('class', 'focus')
+      const focus = svg
+        .append('g')
+        .attr('class', 'focus')
+        .style('display', 'none')
+
+      focus
+        .append('rect')
+        .attr('class', 'tooltip')
+        .attr('width', 100)
+        .attr('height', 50)
+        .attr('x', 10)
+        .attr('y', -22)
+        .attr('rx', 4)
+        .attr('ry', 4)
+
+      focus
+        .append('text')
+        .attr('class', 'tooltip-date')
+        .attr('x', 18)
+        .attr('y', -2)
+
+      focus.append('text').attr('x', 18).attr('y', 18).text('Likes:')
+
+      focus
+        .append('text')
+        .attr('class', 'tooltip-likes')
+        .attr('x', 60)
+        .attr('y', 18)
 
       svg
         .append('rect')
@@ -249,22 +251,16 @@ export default {
         .attr('width', innerWidth)
         .attr('height', innerHeight)
         .on('mouseover', function () {
-          this.shouldShowTooltip = true
+          focus.style('display', null)
         })
         .on('mouseout', function () {
-          this.shouldShowTooltip = false
-          this.tooltipTime = ''
-          this.tooltipTodaySupply = ''
-          this.tooltipTodayConsume = ''
-          this.tooltipYesterdayConsume = ''
+          focus.style('display', 'none')
         })
         .on('mousemove', mousemove)
 
       const bisect = d3.bisector((d) => d.time).left
 
       function mousemove(event) {
-        this.tooltipX = event.clientX
-        this.tooltipY = event.clientY
         const x0 = d3.pointer(event)[0]
         const targetTime = x.invert(x0)
         const t = bisect(todayData, targetTime)
@@ -278,6 +274,17 @@ export default {
         const color = ['#ccc', '#24c7bd', '#f9c408', '#f97c08', '#e73e33']
         const colorStatus = color[colorIndex]
 
+        focus
+          .select('tooltip')
+          .attr(
+            'transform',
+            `translate(${x(yesterdayData[s].time)},${y(
+              yesterdayData[s].status['用電']
+            )})`
+          )
+        focus.select('.tooltip-date').text('texttt')
+        focus.select('.tooltip-likes').text('yoooop')
+
         focus.selectAll('circle').remove()
         if (yesterdayData[s]) {
           focus
@@ -287,8 +294,6 @@ export default {
             .attr('cx', x(yesterdayData[s].time))
             .attr('fill', '#e0e0e0')
             .attr('fill-opacity', 0.7)
-          this.tooltipTime = `${s}時`
-          this.tooltipYesterdayConsume = `昨日用電量${yesterdayData[s].status['用電']}萬瓩`
         }
         if (todayData[t]) {
           focus
@@ -305,8 +310,6 @@ export default {
             .attr('cx', x(todayData[t].time))
             .attr('fill', colorStatus)
             .attr('fill-opacity', 0.7)
-          this.tooltipTodaySupply = `今日最大供電量${todayData[t].status['最大供電']}萬瓩`
-          this.tooltipTodayConsume = `今日用電量${todayData[t].status['用電']}萬瓩`
         }
       }
     },
@@ -315,38 +318,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chart-tooltip {
-  position: fixed;
-  z-index: 100;
-  width: 121px;
-  min-height: 56px;
-  padding: 8px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid #000;
-  box-sizing: border-box;
-  border-radius: 2px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.chart-tooltip h1 {
-  font-size: 16px;
-  line-height: 24px;
-  color: #000;
-  opacity: 0.5;
-  margin: 0;
-  font-weight: 400;
-}
-
-.chart-tooltip p {
-  font-size: 16px;
-  line-height: 24px;
-  color: #000;
-  margin: 0;
-  font-weight: 400;
-}
 .chart-wrapper {
   width: 100%;
   position: relative;
