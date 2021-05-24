@@ -40,7 +40,7 @@
           style="height: 410px"
         />
 
-        <UiColorLevel :maxCount="cityMaxCount" />
+        <UiColorLevel :maxCount="cityMaxCount" :isBacklog="isBacklog" />
       </div>
 
       <div class="diagram-covid-19__diagram_col_wrapper">
@@ -103,8 +103,11 @@ export default {
     }
   },
   computed: {
+    isBacklog() {
+      const backlog = this.covid?.backlog
+      return backlog === 'y'
+    },
     currentCovidCount() {
-      console.log(this.covid?.today)
       return this.covid?.today
     },
     currentCovidDeathCount() {

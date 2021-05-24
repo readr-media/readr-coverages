@@ -17,7 +17,7 @@
         <span>{{ maxCount }}</span>
       </div>
 
-      <div class="color-level__bar_prompt">
+      <div v-if="isBacklog" class="color-level__bar_prompt">
         ※ 今日縣市新增病例數包括前幾日的校正回歸數
       </div>
     </div>
@@ -31,6 +31,11 @@ export default {
       type: Number,
       isRequired: true,
       default: 100,
+    },
+    isBacklog: {
+      type: Boolean,
+      isRequired: true,
+      default: false,
     },
   },
 }
