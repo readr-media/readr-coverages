@@ -5,15 +5,23 @@
     <div class="color-level__bar">
       <div class="color-level__bar_color" />
       <div class="color-level__bar_text">
-        <span>min</span>
-        <span>max</span>
+        <span>0</span>
+        <span>{{ maxCount }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    maxCount: {
+      type: Number,
+      isRequired: true,
+      default: 100,
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>

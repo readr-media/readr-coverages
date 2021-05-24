@@ -38,7 +38,7 @@
           style="height: 500px"
         />
 
-        <UiColorLevel />
+        <UiColorLevel :maxCount="cityMaxCount" />
       </div>
 
       <div class="diagram-covid-19__diagram_col_wrapper">
@@ -128,12 +128,13 @@ export default {
     },
     countyFillColorConfig() {
       const taiwanTodayTotal = this.covid?.today
+      const taiwanTodayCityMax = this.cityMaxCount
 
       const configArray = []
       this.covid?.city?.forEach((city) => {
         configArray.push({
           name: handleTaiWord(city?.city_name),
-          color: mapColorHandler(city, taiwanTodayTotal),
+          color: mapColorHandler(city, taiwanTodayTotal, taiwanTodayCityMax),
           opacity: 1,
           hoverInfo: {
             title: handleTaiWord(city?.city_name),
@@ -172,6 +173,12 @@ export default {
       //     },
       //   },
       // ]
+    },
+    cityMaxCount() {
+      const cityList = this.covid?.city || [100]
+      const max = Math.max(...cityList.map((city) => city.city_today))
+
+      return max
     },
   },
   mounted() {

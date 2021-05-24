@@ -15,6 +15,7 @@
       </div>
     </a>
     <div v-else class="board-info__content">
+      <!-- eslint-disable vue/no-v-html -->
       <span v-for="(infoItem, index) in info" :key="index" v-html="infoItem">
       </span>
     </div>

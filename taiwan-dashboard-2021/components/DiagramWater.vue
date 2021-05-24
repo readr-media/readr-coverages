@@ -16,8 +16,8 @@
     <UiUpdateTime :updateTime="updateTime" />
     <UiDiagramToggle
       :isToggled="isToggled"
-      @click.native="toggleHandler"
       :style="{ display: none }"
+      @click.native="toggleHandler"
     />
   </div>
 </template>
@@ -50,6 +50,11 @@ export default {
       default: '',
     },
   },
+  data() {
+    return {
+      isToggled: false,
+    }
+  },
   computed: {
     cityWarningList() {
       const tempCityList = _.cloneDeep(this.water?.warning) || []
@@ -64,11 +69,6 @@ export default {
       })
       return tempCityList.concat(container)
     },
-  },
-  data() {
-    return {
-      isToggled: false,
-    }
   },
   mounted() {
     const scrollerCredit = scrollama()
