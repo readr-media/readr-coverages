@@ -8,6 +8,12 @@
       <h4>{{ unit }}</h4>
     </template>
 
+    <template v-else-if="boardType === 'multi-number'">
+      <h1 v-if="isNeededPlus" class="board-title__plus eng">+</h1>
+      <h1 class="board-title__count eng">{{ leftCount }}/{{ rightCount }}</h1>
+      <h4>{{ unit }}</h4>
+    </template>
+
     <template v-else-if="boardType === 'status'">
       <h2 class="board-title__status chn">
         {{ status }}
@@ -51,6 +57,15 @@ export default {
     isNeededPoint: {
       type: Boolean,
       default: false,
+    },
+    // multi-number
+    leftCount: {
+      type: Number,
+      default: 0,
+    },
+    rightCount: {
+      type: Number,
+      default: 0,
     },
     // status
     status: {

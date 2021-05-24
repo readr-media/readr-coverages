@@ -4,6 +4,8 @@
       :boardType="boardType"
       :count="count"
       :unit="unit"
+      :leftCount="leftCount"
+      :rightCount="rightCount"
       :isNeededPlus="isNeededPlus"
       :isNeededPoint="isNeededPoint"
       :status="status"
@@ -54,6 +56,15 @@ export default {
     isNeededPoint: {
       type: Boolean,
       default: false,
+    },
+    // multi-number
+    leftCount: {
+      type: Number,
+      default: 0,
+    },
+    rightCount: {
+      type: Number,
+      default: 0,
     },
     // status
     status: {

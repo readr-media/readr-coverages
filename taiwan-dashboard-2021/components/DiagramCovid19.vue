@@ -8,18 +8,20 @@
 
     <div class="g-diagram__board_wrapper">
       <BoardHandler
-        boardType="number"
-        :count="currentCovidCount"
+        boardType="multi-number"
+        :leftCount="currentCovidCount"
+        :rightCount="currentCovidDeathCount"
         unit="例"
         :isNeededPlus="true"
-        :info="['今日新增本土確診數']"
+        :info="['今日新增本土確診數/死亡人數']"
       />
 
       <BoardHandler
-        boardType="number"
-        :count="totalCovidCount"
+        boardType="multi-number"
+        :leftCount="totalCovidCount"
+        :rightCount="totalCovidDeathCount"
         unit="例"
-        :info="['累積本土確診數']"
+        :info="['累積本土確診數/死亡人數']"
       />
       <BoardHandler
         boardType="status"
@@ -102,10 +104,17 @@ export default {
   },
   computed: {
     currentCovidCount() {
+      console.log(this.covid?.today)
       return this.covid?.today
+    },
+    currentCovidDeathCount() {
+      return this.covid?.death_today
     },
     totalCovidCount() {
       return this.covid?.taiwan_total
+    },
+    totalCovidDeathCount() {
+      return this.covid?.death_total
     },
     currentWarningLevel() {
       const taiwanLevel = this.covid?.taiwan_level

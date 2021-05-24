@@ -84,7 +84,7 @@ export default {
   .number {
     font-family: Roboto, sans-serif;
     font-style: normal;
-    font-weight: normal;
+    font-weight: bold;
     font-size: 18px;
     line-height: 21px;
     text-align: right;
