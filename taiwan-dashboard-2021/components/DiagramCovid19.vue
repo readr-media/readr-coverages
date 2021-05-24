@@ -37,7 +37,7 @@
       <div class="diagram-covid-19__diagram_col_wrapper">
         <TaiwanMap
           :countyFillColorConfig="countyFillColorConfig"
-          style="height: 410px"
+          :style="`height: ${isBacklog ? '410px' : '500px'}`"
         />
 
         <UiColorLevel :maxCount="cityMaxCount" :isBacklog="isBacklog" />
