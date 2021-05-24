@@ -20,10 +20,10 @@ export default {
           return '#24C7BD'
 
         case '減量供水':
-          return '#F9C408'
+          return '#F97C08'
 
         case '減壓供水':
-          return '#F97C08'
+          return '#F9C408'
 
         case '分區供水或定點供水':
           return '#E73E33'

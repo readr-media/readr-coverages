@@ -299,7 +299,7 @@ export default {
 
         const timeFormat = d3.timeFormat('%H:%M')
         const rectPos = { x: 10, y: -22 }
-        if (x(yesterdayData[s].time) > 85) {
+        if (x(yesterdayData[s].time) > 84) {
           rectPos.x = -125
           rectPos.y = 0
         }
@@ -347,12 +347,12 @@ export default {
             .select('.tooltip-supply')
             .attr('x', text2Pos.x)
             .attr('y', text2Pos.y)
-            .text(`今日用電量 ${todayData[t].status['用電']} 萬瓩`)
+            .text(`最大供電量 ${todayData[t].status['最大供電']} 萬瓩`)
           focus2
             .select('.tooltip-consume')
             .attr('x', text3Pos.x)
             .attr('y', text3Pos.y)
-            .text(`最大供電量 ${todayData[t].status['最大供電']} 萬瓩`)
+            .text(`今日用電量 ${todayData[t].status['用電']} 萬瓩`)
         }
 
         if (yesterdayData[s]) {
