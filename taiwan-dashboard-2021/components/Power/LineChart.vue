@@ -23,6 +23,7 @@
         </span>
       </div>
     </section>
+    <div class="linechart-label">單位：萬瓩</div>
     <svg ref="linechart">
       <div
         v-show="shouldShowTooltip"
@@ -79,8 +80,8 @@ export default {
   watch: {
     power() {
       const chartDomNode = this.$refs.linechart
-      const width = 272
-      const height = 217
+      const width = 250
+      const height = 200
       const margin = { top: 20, right: 15, bottom: 24, left: 38 }
       const innerWidth = width - margin.left - margin.right
       const innerHeight = height - margin.top - margin.bottom
@@ -221,14 +222,14 @@ export default {
         .select('.domain')
         .remove()
 
-      svg
-        .append('text')
-        .text('單位：萬瓩')
-        .attr('font-size', 12)
-        .attr('fill', '#ccc')
-        .attr('word-spacing', 2)
-        .attr('x', innerWidth - 60) // 60為文字寬度
-        .attr('y', margin.top - 4)
+      // svg
+      //   .append('text')
+      //   .text('單位：萬瓩')
+      //   .attr('font-size', 12)
+      //   .attr('fill', '#ccc')
+      //   .attr('word-spacing', 2)
+      //   .attr('x', innerWidth - 60) // 60為文字寬度
+      //   .attr('y', margin.top - 4)
 
       svg
         .append('line')
@@ -268,10 +269,15 @@ export default {
         const targetTime = x.invert(x0)
         const t = bisect(todayData, targetTime)
         const s = bisect(yesterdayData, targetTime)
-        const fillColor = d3
-          .scaleOrdinal()
-          .domain(['', '供電充裕', '供電吃緊', '供電警戒', '限電警戒'])
-          .range(['#ccc', '#f9c408', '#24c7bd', '#f97c08', '#e73e33'])
+
+        const eStatus = todayData[todayData.length - 1].status['供電狀況'] ?? ''
+        const colorIndex =
+          ['', '供電充裕。', '供電吃緊。', '供電警戒。', '限電警戒。'].indexOf(
+            eStatus
+          ) ?? 0
+        const color = ['#ccc', '#24c7bd', '#f9c408', '#f97c08', '#e73e33']
+        const colorStatus = color[colorIndex]
+
         focus.selectAll('circle').remove()
         if (yesterdayData[s]) {
           focus
@@ -297,7 +303,7 @@ export default {
             .attr('r', 3)
             .attr('cy', y(todayData[t].status['用電']))
             .attr('cx', x(todayData[t].time))
-            .attr('fill', fillColor(this.currentElectricLoading))
+            .attr('fill', colorStatus)
             .attr('fill-opacity', 0.7)
           this.tooltipTodaySupply = `今日最大供電量${todayData[t].status['最大供電']}萬瓩`
           this.tooltipTodayConsume = `今日用電量${todayData[t].status['用電']}萬瓩`
@@ -343,6 +349,7 @@ export default {
 }
 .chart-wrapper {
   width: 100%;
+  position: relative;
   .graph-title {
     margin-bottom: 8px;
     @media (min-width: 768px) {
@@ -372,8 +379,11 @@ export default {
         }
         p {
           margin-left: 4px;
-          font-size: 14px;
-          line-height: 30px;
+          font-size: 12px;
+          @media (min-width: 344px) {
+            font-size: 14px;
+            line-height: 30px;
+          }
         }
         &.status {
           span {
@@ -386,14 +396,20 @@ export default {
           }
         }
         &.supply {
-          margin-left: 12px;
+          margin-left: 6px;
+          @media (min-width: 344px) {
+            margin-left: 12px;
+          }
           span {
             border-radius: 2px;
             background-color: #000928;
           }
         }
         &.yesterday-consume {
-          margin-left: 12px;
+          margin-left: 6px;
+          @media (min-width: 344px) {
+            margin-left: 12px;
+          }
           span {
             border-radius: 2px;
             background-color: #000928;
@@ -408,8 +424,27 @@ export default {
       align-items: center;
     }
   }
+  .linechart-label {
+    position: absolute;
+    top: 66px;
+    right: 0;
+    font-size: 12px;
+    color: #000928;
+    opacity: 0.3;
+    @media (min-width: 344px) {
+      top: 80px;
+    }
+    @media (min-width: 768px) {
+      top: 88px;
+      font-size: 20px;
+    }
+    @media (min-width: 1200px) {
+      top: 92px;
+    }
+  }
   svg {
     margin: 0 auto;
+    position: relative;
     &::v-deep {
       .axis path,
       .axis line {

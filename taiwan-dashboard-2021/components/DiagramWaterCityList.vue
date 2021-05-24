@@ -39,11 +39,11 @@ export default {
             order = 4
             break
 
-          case '減量供水':
+          case '減壓供水':
             order = 3
             break
 
-          case '減壓供水':
+          case '減量供水':
             order = 2
             break
 

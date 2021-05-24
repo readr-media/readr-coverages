@@ -135,12 +135,12 @@ export default {
       const index =
         [
           '分區或定點供水',
-          '減壓供水',
           '減量供水',
+          '減壓供水',
           '水情提醒',
           '供水充沛',
         ].indexOf(status) ?? 4
-      const color = ['#e73e33', '#24c7bd', '#f9c408', '#f97c08', '#000928']
+      const color = ['#e73e33', '#f97c08', '#f9c408', '#24c7bd', '#000928']
       return color[index]
     },
   },
@@ -150,7 +150,6 @@ export default {
       .then((res) => {
         // console.log(res.data)
         const { covid, news, power, water } = res.data
-        console.log(res.data)
         this.covid = covid
         this.news = news
         this.power = power
