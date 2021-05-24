@@ -62,6 +62,11 @@ export default {
       isRequired: true,
       default: 0,
     },
+    currentCovidDeathCount: {
+      type: Number,
+      isRequired: true,
+      default: 1,
+    },
     currentElectricLoading: {
       type: String,
       isRequired: true,

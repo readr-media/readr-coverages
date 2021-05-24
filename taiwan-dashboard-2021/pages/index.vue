@@ -83,7 +83,10 @@ export default {
   },
   computed: {
     currentCovidCount() {
-      return this.covid?.today || 0
+      return this.covid?.today
+    },
+    currentCovidDeathCount() {
+      return this.covid?.death_today
     },
     currentCovidDeathCount() {
       return this.covid?.death_today || 0

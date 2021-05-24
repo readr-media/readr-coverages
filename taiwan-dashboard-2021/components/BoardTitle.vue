@@ -10,7 +10,9 @@
 
     <template v-else-if="boardType === 'multi-number'">
       <h1 v-if="isNeededPlus" class="board-title__plus eng">+</h1>
-      <h1 class="board-title__count eng">{{ leftCount }}/{{ rightCount }}</h1>
+      <h1 class="board-title__count eng">
+        {{ leftCount }}<span>/</span>{{ rightCount }}
+      </h1>
       <h4>{{ unit }}</h4>
     </template>
 
@@ -115,6 +117,34 @@ export default {
 
   &__plus {
     transform: translateY(-5px);
+  }
+
+  h1.eng {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 56px;
+
+    // tablet range
+    @include media-breakpoint-up(md) {
+      font-size: 60px;
+      line-height: 70px;
+    }
+    span {
+      font-size: 36px;
+      line-height: 42.19px;
+    }
+  }
+  h4 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 30px;
+    // tablet range
+    @include media-breakpoint-up(md) {
+      font-size: 32px;
+      line-height: 47px;
+    }
   }
 }
 </style>
