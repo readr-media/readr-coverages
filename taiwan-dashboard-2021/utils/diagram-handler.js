@@ -29,7 +29,7 @@ function mapColorHandler(city, taiwanTodayTotal) {
   const cityCount = city.city_today
   // const percentage = (cityCount / taiwanTotal) * 100
 
-  console.log('taiwanTodayTotal', taiwanTodayTotal)
+  // console.log('taiwanTodayTotal', taiwanTodayTotal)
   // 4是暫定變數
   const X = taiwanTodayTotal / 4 / 100
 

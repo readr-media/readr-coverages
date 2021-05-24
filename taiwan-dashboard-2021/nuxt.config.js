@@ -45,6 +45,16 @@ export default {
         property: 'og:url',
         content: SITE_URL,
       },
+      {
+        hid: 'og:type',
+        property: 'og:type',
+        content: 'article',
+      },
+      {
+        hid: 'fb:app_id',
+        property: 'fb:app_id',
+        content: '',
+      },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
