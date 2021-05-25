@@ -236,7 +236,7 @@ export default {
               d.radius -
               20
           )
-          .attr('y', (d) => d.y - 12 - 4 - d.radius * 0.66)
+          .attr('y', (d) => d.y - 12 - 5 - d.radius * 0.66)
       }
 
       function createNodes(rawData) {
