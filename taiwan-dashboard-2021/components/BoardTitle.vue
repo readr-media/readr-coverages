@@ -22,9 +22,12 @@
 
     <template v-else>
       <div class="board-title__region">
-        <h3 class="board-title__region_status">
+        <h3 v-if="regions" class="board-title__region_status">
           {{ regionStatus }}
         </h3>
+        <h2 v-else class="board-title__region_status">
+          {{ regionStatus }}
+        </h2>
         <h5 class="board-title__region_regions">
           {{ regions }}
         </h5>

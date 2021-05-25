@@ -60,6 +60,9 @@ export default {
   justify-content: space-between;
   border-bottom: 1px solid rgba(0, 9, 40, 0.1);
   padding: 2px 0;
+  &:last-child {
+    border-bottom: none;
+  }
   & > div {
     display: flex;
     align-items: center;
