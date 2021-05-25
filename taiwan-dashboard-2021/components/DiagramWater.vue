@@ -12,13 +12,111 @@
       :class="{ hide: !isToggled }"
     >
       <!-- Paste Diagram component in here -->
+      <div>
+        <h1 class="water-title">北部水庫蓄水量</h1>
+        <div class="bubbles-wrapper">
+          <ReservoirBubbles
+            v-if="!shouldShowWaterDataAreaNorth"
+            :key="'north-main'"
+            class="bubbles-wrapper__bubbles"
+            :data="waterDataNorthMain"
+          />
+          <ReservoirBubbles
+            v-else
+            :key="'north-area'"
+            class="bubbles-wrapper__bubbles"
+            :data="waterDataNorth"
+            :height="640"
+          />
+          <button
+            class="water-button"
+            @click="
+              shouldShowWaterDataAreaNorth = !shouldShowWaterDataAreaNorth
+            "
+          >
+            {{
+              shouldShowWaterDataAreaNorth ? '收合' : '展開'
+            }}所有北部民生用水水庫
+            <img
+              :src="
+                shouldShowWaterDataAreaNorth ? waterFoldIcon : waterExpandIcon
+              "
+              alt=""
+            />
+          </button>
+        </div>
+      </div>
+      <div>
+        <h1 class="water-title">中部水庫蓄水量</h1>
+        <div class="bubbles-wrapper">
+          <ReservoirBubbles
+            v-if="!shouldShowWaterDataAreaMiddle"
+            :key="'middle-main'"
+            class="bubbles-wrapper__bubbles"
+            :data="waterDataMiddleMain"
+          />
+          <ReservoirBubbles
+            v-else
+            :key="'middle-area'"
+            class="bubbles-wrapper__bubbles"
+            :data="waterDataMiddle"
+            :height="640"
+          />
+          <button
+            class="water-button"
+            @click="
+              shouldShowWaterDataAreaMiddle = !shouldShowWaterDataAreaMiddle
+            "
+          >
+            {{
+              shouldShowWaterDataAreaMiddle ? '收合' : '展開'
+            }}所有中部民生用水水庫
+            <img
+              :src="
+                shouldShowWaterDataAreaMiddle ? waterFoldIcon : waterExpandIcon
+              "
+              alt=""
+            />
+          </button>
+        </div>
+      </div>
+      <div>
+        <h1 class="water-title">南部水庫蓄水量</h1>
+        <div class="bubbles-wrapper">
+          <ReservoirBubbles
+            v-if="!shouldShowWaterDataAreaSouth"
+            :key="'south-main'"
+            class="bubbles-wrapper__bubbles"
+            :data="waterDataSouthMain"
+          />
+          <ReservoirBubbles
+            v-else
+            :key="'south-area'"
+            class="bubbles-wrapper__bubbles"
+            :data="waterDataSouth"
+            :height="800"
+          />
+          <button
+            class="water-button"
+            @click="
+              shouldShowWaterDataAreaSouth = !shouldShowWaterDataAreaSouth
+            "
+          >
+            {{
+              shouldShowWaterDataAreaSouth ? '收合' : '展開'
+            }}所有南部民生用水水庫
+            <img
+              :src="
+                shouldShowWaterDataAreaSouth ? waterFoldIcon : waterExpandIcon
+              "
+              alt=""
+            />
+          </button>
+        </div>
+      </div>
     </div>
-    <UiUpdateTime :updateTime="updateTime" />
-    <UiDiagramToggle
-      :isToggled="isToggled"
-      :style="{ display: none }"
-      @click.native="toggleHandler"
-    />
+    <UiUpdateTime style="margin: 30px 0 0 0" :updateTime="updateTime" />
+    <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
   </div>
 </template>
 
@@ -26,6 +124,7 @@
 import _ from 'lodash'
 import scrollama from 'scrollama'
 import 'intersection-observer'
+import ReservoirBubbles from './ReservoirBubbles.vue'
 import UiDiagramTitle from '~/components/UiDiagramTitle.vue'
 import DiagramWaterCityList from '~/components/DiagramWaterCityList.vue'
 import gaMixin from '~/mixins/gaMixin'
@@ -34,6 +133,7 @@ export default {
   components: {
     UiDiagramTitle,
     DiagramWaterCityList,
+    ReservoirBubbles,
   },
   mixins: [gaMixin],
   props: {
@@ -53,6 +153,20 @@ export default {
   data() {
     return {
       isToggled: false,
+
+      reservoirSupportList: [
+        '新竹-永和山水庫',
+        '苗栗-鯉魚潭水庫',
+        '彰雲投-石岡壩',
+        '嘉義-曾文水庫',
+        '嘉義-烏山頭水庫',
+        '高雄-高屏堰',
+      ],
+      shouldShowWaterDataAreaNorth: false,
+      shouldShowWaterDataAreaMiddle: false,
+      shouldShowWaterDataAreaSouth: false,
+      waterFoldIcon: require('@/static/images/icons/water-fold.svg'),
+      waterExpandIcon: require('@/static/images/icons/water-expand.svg'),
     }
   },
   computed: {
@@ -68,6 +182,24 @@ export default {
         }
       })
       return tempCityList.concat(container)
+    },
+    waterDataNorthMain() {
+      return this.getWaterDataBy('main', '北部')
+    },
+    waterDataNorth() {
+      return this.getWaterDataBy('area', '北部')
+    },
+    waterDataMiddleMain() {
+      return this.getWaterDataBy('main', '中部')
+    },
+    waterDataMiddle() {
+      return this.getWaterDataBy('area', '中部')
+    },
+    waterDataSouthMain() {
+      return this.getWaterDataBy('main', '南部')
+    },
+    waterDataSouth() {
+      return this.getWaterDataBy('area', '南部')
     },
   },
   mounted() {
@@ -88,6 +220,52 @@ export default {
     toggleHandler() {
       this.isToggled = !this.isToggled
     },
+
+    getWaterDataBy(category, area) {
+      if (category === 'area') {
+        return Object.entries(this.water?.status?.[area]?.[category] ?? {})
+          .map(this.mapWaterDataToChart)
+          .flat()
+      } else if (category === 'main') {
+        return (this.water?.status?.[area]?.[category] ?? []).map(
+          (reservoir) => {
+            return {
+              nameArea: '',
+              nameReservoir: reservoir?.reservoirName?.data,
+              size: Number(reservoir?.effectiveCapacity?.data),
+              percentage: Number(
+                reservoir?.effectiveWaterStorageStoragePercentage?.data.replace(
+                  '%',
+                  ''
+                )
+              ),
+              isSupportReservoir: false,
+            }
+          }
+        )
+      }
+    },
+    mapWaterDataToChart(value) {
+      const [areaName, reservoirs] = value
+      return reservoirs
+        .map((reservoir) => {
+          return {
+            nameArea: areaName,
+            nameReservoir: reservoir?.reservoirName?.data,
+            size: Number(reservoir?.effectiveCapacity?.data),
+            percentage: Number(
+              reservoir?.effectiveWaterStorageStoragePercentage?.data.replace(
+                '%',
+                ''
+              )
+            ),
+            isSupportReservoir: this.reservoirSupportList.includes(
+              `${areaName}-${reservoir?.reservoirName?.data}`
+            ),
+          }
+        })
+        .flat()
+    },
   },
 }
 </script>
@@ -106,6 +284,26 @@ export default {
     @include media-breakpoint-up(xl) {
       min-height: auto;
     }
+  }
+}
+
+.water-title {
+  font-size: 24px;
+  margin: 60px 0 0 0;
+}
+.bubbles-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.water-button {
+  display: flex;
+  align-items: center;
+  color: #000928;
+  opacity: 0.5;
+  img {
+    margin: 0 0 0 8px;
   }
 }
 </style>

@@ -55,14 +55,14 @@
 }
 
 .g-diagram__folder {
-  max-height: 2000px;
+  max-height: 4000px;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
   &.hide {
     max-height: 0;
     // tablet range
     @include media-breakpoint-up(md) {
-      max-height: 2000px;
+      max-height: 4000px;
     }
   }
 }
