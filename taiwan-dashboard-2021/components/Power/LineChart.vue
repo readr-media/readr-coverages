@@ -232,7 +232,7 @@ export default {
         .append('rect')
         .attr('class', 'tooltip')
         .attr('x', 10)
-        .attr('y', -22)
+        .attr('y', -150)
         .attr('width', 120)
         .attr('height', 60)
         .attr('rx', 1)
