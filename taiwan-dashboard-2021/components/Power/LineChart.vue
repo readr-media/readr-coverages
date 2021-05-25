@@ -169,7 +169,7 @@ export default {
             .tickFormat((d, i) => `${i * xAxisTickInterval}時`)
         )
         .call((g) => g.selectAll('.tick line').attr('y2', 0))
-        .call((g) => g.selectAll('.tick text').attr('font-size', 14))
+        .call((g) => g.selectAll('.tick text').attr('font-size', 10))
         .select('.domain')
         .remove()
 
@@ -188,8 +188,8 @@ export default {
           g
             .selectAll('.tick text')
             .attr('x', -margin.left)
-            .attr('dy', -5)
-            .attr('font-size', 12)
+            .attr('dy', -3)
+            .attr('font-size', 8)
             .attr('fill', '#000928')
             .attr('opacity', 0.1)
             .attr('text-anchor', 'start')
