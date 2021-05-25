@@ -411,12 +411,20 @@ export default {
         margin-left: 10px;
         span {
           display: block;
-          width: 12px;
-          height: 12px;
+          width: 10px;
+          height: 10px;
+          @media (min-width: 344px) {
+            width: 12px;
+            height: 12px;
+          }
         }
         p {
-          margin-left: 4px;
-          font-size: 12px;
+          margin-left: 2px;
+          font-size: 10px;
+          @media (min-width: 320px) {
+            margin-left: 4px;
+            font-size: 12px;
+          }
           @media (min-width: 344px) {
             font-size: 14px;
             line-height: 30px;
@@ -428,12 +436,13 @@ export default {
           }
         }
         &.consume {
+          margin-left: 0;
           span {
             border-radius: 2px;
           }
         }
         &.supply {
-          margin-left: 6px;
+          margin-left: 4px;
           @media (min-width: 344px) {
             margin-left: 12px;
           }
@@ -443,7 +452,7 @@ export default {
           }
         }
         &.yesterday-consume {
-          margin-left: 6px;
+          margin-left: 4px;
           @media (min-width: 344px) {
             margin-left: 12px;
           }

@@ -87,12 +87,13 @@ export default {
     todayData() {
       return this.power?.power_24h_today ?? []
     },
+    yesterdayData() {
+      return this.power?.power_24h_yesterday ?? []
+    },
     currentElectricLoading() {
+      const data = this.todayData.length ? this.todayData : this.yesterdayData
       return (
-        this.todayData[this.todayData.length - 1]?.status['供電狀況']?.slice(
-          0,
-          4
-        ) ?? '供電充裕'
+        data[data.length - 1]?.status['供電狀況']?.slice(0, 4) ?? '供電充裕'
       )
     },
     currentElectricStatusColor() {

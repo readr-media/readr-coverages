@@ -95,8 +95,14 @@ export default {
     todayData() {
       return this.power?.power_24h_today ?? []
     },
+    yesterdayData() {
+      return this.power?.power_24h_yesterday ?? []
+    },
     latestPowerData() {
-      return this.todayData[this.todayData.length - 1]
+      if (this.todayData.length) {
+        return this.todayData[this.todayData.length - 1]
+      }
+      return this.yesterdayData[this.yesterdayData.length - 1]
     },
     currentUsedPower() {
       return this.latestPowerData?.status['用電'] ?? 0
@@ -139,7 +145,10 @@ export default {
   position: relative;
   &__diagram__line-chart-container {
     margin: 0 auto 24px;
-    width: 248px;
+    width: 200px;
+    @media (min-width: 320px) {
+      width: 248px;
+    }
     @media (min-width: 344px) {
       width: 272px;
     }
