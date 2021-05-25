@@ -94,7 +94,7 @@
             :key="'south-area'"
             class="bubbles-wrapper__bubbles"
             :data="waterDataSouth"
-            :height="800"
+            :height="700"
           />
           <button
             class="water-button"

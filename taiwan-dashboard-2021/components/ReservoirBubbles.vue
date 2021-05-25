@@ -4,6 +4,7 @@
 
 <script>
 import * as d3 from 'd3'
+import _ from 'lodash'
 import responsive from '../utils/d3-responsive'
 
 export default {
@@ -20,6 +21,7 @@ export default {
   data() {
     return {
       chart: undefined,
+      windowWidth: undefined,
     }
   },
   watch: {
@@ -29,13 +31,25 @@ export default {
   },
   mounted() {
     this.drawChart()
+
+    window.addEventListener(
+      'resize',
+      _.debounce(() => {
+        if (window.innerWidth !== this.windowWidth) {
+          this.drawChart()
+        }
+      }, 250)
+    )
   },
   methods: {
     drawChart() {
+      this.windowWidth = window.innerWidth
+      this.chart?.selectAll('svg g')?.remove()
+
       const chartDomNode = this.$refs.chart
 
-      const width = 940
-      const height = this.height
+      const width = Math.min(940, window.innerWidth)
+      const height = this.height * (window.innerWidth <= 768 ? 1.5 : 1)
       // location to centre the bubbles
       const centre = { x: width / 2, y: height / 2 }
       const forceStrength = 0.03
@@ -44,22 +58,49 @@ export default {
         return Math.pow(d.radius, 2.0) * 0.01
       }
 
-      const simulation = d3
-        .forceSimulation()
-        .force('charge', d3.forceManyBody().strength(charge))
-        .force('center', d3.forceCenter(centre.x, centre.y))
-        .force('x', d3.forceX().strength(forceStrength).x(centre.x))
-        .force(
-          'y',
-          d3
-            .forceY()
-            .strength(forceStrength * 2)
-            .y(centre.y)
-        )
-        .force(
-          'collision',
-          d3.forceCollide().radius((d) => d.radius + 10)
-        )
+      let simulation
+      if (window.innerWidth <= 768) {
+        simulation = d3
+          .forceSimulation()
+          .force('charge', d3.forceManyBody().strength(800))
+          .force('center', d3.forceCenter(centre.x, centre.y))
+          .force(
+            'x',
+            d3
+              .forceX()
+              .strength(forceStrength * 20)
+              .x(centre.x)
+          )
+          .force(
+            'y',
+            d3
+              .forceY()
+              .strength(forceStrength * 1.5)
+              .y(centre.y)
+          )
+          .force(
+            'collision',
+            d3.forceCollide().radius((d) => d.radius + 10)
+            // .strength(9)
+          )
+      } else {
+        simulation = d3
+          .forceSimulation()
+          .force('charge', d3.forceManyBody().strength(charge))
+          .force('center', d3.forceCenter(centre.x, centre.y))
+          .force('x', d3.forceX().strength(forceStrength).x(centre.x))
+          .force(
+            'y',
+            d3
+              .forceY()
+              .strength(forceStrength * 2)
+              .y(centre.y)
+          )
+          .force(
+            'collision',
+            d3.forceCollide().radius((d) => d.radius + 10)
+          )
+      }
 
       // this.chart = d3.select(chartDomNode).call(responsive, { width, height })
 
@@ -271,4 +312,9 @@ export default {
 
 <style scoped>
 /* styles */
+@media (max-width: 768px) {
+  svg {
+    min-height: 600px;
+  }
+}
 </style>
