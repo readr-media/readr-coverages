@@ -7,11 +7,12 @@
 
     <div class="g-diagram__board_wrapper">
       <BoardHandler
-        boardType="number"
-        :count="currentCovidCount"
+        boardType="multi-number"
+        :leftCount="currentCovidCount"
+        :rightCount="currentCovidDeathCount"
         unit="例"
         :isNeededPlus="true"
-        :info="['今日新增本土確診數']"
+        :info="['今日新增本土確診數/死亡人數']"
         anchorId="diagram-covid-19"
       />
       <BoardHandler
@@ -54,7 +55,12 @@ export default {
     currentCovidCount: {
       type: Number,
       isRequired: true,
-      default: 254,
+      default: 0,
+    },
+    currentCovidDeathCount: {
+      type: Number,
+      isRequired: true,
+      default: 0,
     },
     currentElectricLoading: {
       type: String,

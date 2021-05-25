@@ -29,7 +29,7 @@
       :class="{ hide: !isToggled }"
     >
       <!-- Paste Diagram component in here -->
-      <div class="diagram-electric__diagram__line-chart-container">
+      <div v-if="power" class="diagram-electric__diagram__line-chart-container">
         <LineChart
           :power="power"
           :currentElectricLoading="currentElectricLoading"

@@ -5,6 +5,7 @@
     <div class="homepage__diagram_wrapper">
       <DiagramMain
         :currentCovidCount="currentCovidCount"
+        :currentCovidDeathCount="currentCovidDeathCount"
         :currentElectricLoading="currentElectricLoading"
         :currentElectricStatusColor="currentElectricStatusColor"
         :currentWaterStatus="currentWaterStatus"
@@ -83,6 +84,9 @@ export default {
   computed: {
     currentCovidCount() {
       return this.covid?.today || 0
+    },
+    currentCovidDeathCount() {
+      return this.covid?.death_today || 0
     },
     todayData() {
       return this.power?.power_24h_today ?? []
