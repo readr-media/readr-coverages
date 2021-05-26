@@ -265,7 +265,6 @@ export default {
       const [areaName, reservoirs] = value
       return reservoirs
         .map((reservoir) => {
-          console.log(reservoir?.additionalTag)
           return {
             nameArea: areaName,
             nameReservoir: reservoir?.reservoirName?.data,
