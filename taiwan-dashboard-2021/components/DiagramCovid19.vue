@@ -6,6 +6,8 @@
       :icon="require('@/static/images/icons/covid-icon.svg')"
     />
 
+    <UiBoardLoading />
+
     <div class="g-diagram__board_wrapper">
       <BoardHandler
         boardType="multi-number"
@@ -71,6 +73,7 @@ import UiDiagramToggle from '~/components/UiDiagramToggle.vue'
 import UiUpdateTime from '~/components/UiUpdateTime.vue'
 import gaMixin from '~/mixins/gaMixin'
 import UiCovidCityListTitle from '~/components/UiCovidCityListTitle.vue'
+import UiBoardLoading from '~/components/UiBoardLoading'
 
 export default {
   components: {
@@ -81,6 +84,7 @@ export default {
     UiDiagramToggle,
     UiUpdateTime,
     UiCovidCityListTitle,
+    UiBoardLoading,
   },
   mixins: [gaMixin],
   props: {

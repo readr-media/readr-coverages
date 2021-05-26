@@ -5,7 +5,9 @@
       :icon="require('@/static/images/icons/main-icon.svg')"
     />
 
-    <div class="g-diagram__board_wrapper">
+    <UiBoardLoading v-if="true" />
+
+    <div v-else class="g-diagram__board_wrapper">
       <BoardHandler
         boardType="multi-number"
         :leftCount="currentCovidCount"
@@ -43,12 +45,14 @@ import UiDiagramTitle from '~/components/UiDiagramTitle.vue'
 import BoardHandler from '~/components/BoardHandler.vue'
 import UiUpdateTime from '~/components/UiUpdateTime.vue'
 import gaMixin from '~/mixins/gaMixin'
+import UiBoardLoading from '~/components/UiBoardLoading'
 
 export default {
   components: {
     UiDiagramTitle,
     BoardHandler,
     UiUpdateTime,
+    UiBoardLoading,
   },
   mixins: [gaMixin],
   props: {
