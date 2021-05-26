@@ -227,16 +227,34 @@ export default {
         // .attr('dy', '-3em')
         .style('text-anchor', 'middle')
         .style('font-size', '14px')
+        .style('line-height', '20.72px')
         .style('fill', 'transparent')
         .style('pointer-events', 'none')
         .text((d) => d.nameArea)
+      let labelsAreaText2 = labelsArea
+        .append('text')
+        // .attr('dy', '-3em')
+        .style('text-anchor', 'middle')
+        .style('font-size', '14px')
+        .style('line-height', '20.72px')
+        .style('fill', 'transparent')
+        .style('pointer-events', 'none')
+        .text((d) => d.additionalTag)
       const labelsAreaTextBBox = labelsArea
         .append('rect')
         .attr('width', (d, i, n) => {
-          return n[i].parentElement.querySelector('text').getBBox().width + 16
+          const textDOMArray = n[i].parentElement.querySelectorAll('text')
+          const hasAdditionalTag = d.additionalTag?.length > 0
+          const maxWidth = hasAdditionalTag
+            ? textDOMArray[1].getBBox()?.width
+            : textDOMArray[0].getBBox()?.width
+
+          return maxWidth + 16
         })
         .attr('height', (d, i, n) => {
-          return n[i].parentElement.querySelector('text').getBBox().height + 8
+          const hasAdditionalTag = d.additionalTag?.length > 0
+          const lineHeight = 20.72
+          return lineHeight * (hasAdditionalTag ? 2 : 1) + 8
         })
         .style('fill', 'white')
         .style('stroke', '#000928')
@@ -247,9 +265,20 @@ export default {
         // .attr('dy', '-3em')
         .style('text-anchor', 'middle')
         .style('font-size', '14px')
+        .style('line-height', '20.72px')
         .style('fill', '#000928')
         .style('z-index', 2)
         .text((d) => d.nameArea)
+      labelsAreaText2 = labelsArea
+        .append('text')
+        // .attr('dy', '-3em')
+        .style('text-anchor', 'middle')
+        .style('font-size', '14px')
+        .style('line-height', '20.72px')
+        .style('fill', '#000928')
+        .style('z-index', 2)
+        .style('opacity', 0.5)
+        .text((d) => d.additionalTag)
 
       // set simulation's nodes to our newly created nodes array
       // simulation starts running automatically once nodes are set
@@ -265,19 +294,46 @@ export default {
           .attr('y', (d) => d.y - 16)
 
         labelsAreaText
+          .attr('x', (d, i, n) => {
+            const textDOMArray = n[i].parentElement.querySelectorAll('text')
+            const hasAdditionalTag = d.additionalTag?.length > 0
+            if (hasAdditionalTag) {
+              const leftDistance =
+                (textDOMArray[1].getBBox()?.width -
+                  textDOMArray[0].getBBox()?.width) /
+                2
+              return d.x + d.radius - leftDistance - 20
+            } else {
+              return d.x + d.radius - 20
+            }
+          })
+          .attr('y', (d) => {
+            const hasAdditionalTag = d.additionalTag?.length > 0
+            const originalY = d.y - d.radius * 0.6
+            return hasAdditionalTag ? originalY - 25 : originalY
+          })
+        labelsAreaText2
           .attr('x', (d) => d.x + d.radius - 20)
-          .attr('y', (d) => d.y - d.radius * 0.66)
+          .attr('y', (d) => {
+            const hasAdditionalTag = d.additionalTag?.length > 0
+            const originalY = d.y - d.radius * 0.6 + 20
+            return hasAdditionalTag ? originalY - 25 : originalY
+          })
         labelsAreaTextBBox
-          .attr(
-            'x',
-            (d, i, n) =>
-              d.x -
-              n[i].parentElement.querySelector('text').getBBox().width / 2 -
-              8 +
-              d.radius -
-              20
-          )
-          .attr('y', (d) => d.y - 12 - 5 - d.radius * 0.66)
+          .attr('x', (d, i, n) => {
+            const textDOMArray = n[i].parentElement.querySelectorAll('text')
+            const hasAdditionalTag = d.additionalTag?.length > 0
+            const maxWidth = hasAdditionalTag
+              ? textDOMArray[1].getBBox()?.width
+              : textDOMArray[0].getBBox()?.width
+
+            return d.x - maxWidth / 2 - 8 + d.radius - 20
+          })
+          .attr('y', (d) => {
+            const hasAdditionalTag = d.additionalTag?.length > 0
+            const originalY = d.y - 12 - 5 - d.radius * 0.66 + 3
+            return hasAdditionalTag ? originalY - 25 : originalY
+          }) // y -18
       }
 
       function createNodes(rawData) {
