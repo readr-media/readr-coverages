@@ -11,20 +11,24 @@
         :currentWaterStatus="currentWaterStatus"
         :currentWaterStatusColor="currentWaterStatusColor"
         :updateTime="convertUpdateTime(updateTime)"
+        :isLoadingData="isLoadingData"
       />
       <DiagramCovid19
         :covid="covid"
         :updateTime="convertUpdateTime(covid.update_time)"
+        :isLoadingData="isLoadingData"
       />
       <DiagramElectric
         :power="power"
         :currentElectricLoading="currentElectricLoading"
         :currentElectricStatusColor="currentElectricStatusColor"
         :updateTime="convertUpdateTime(power.update_time)"
+        :isLoadingData="isLoadingData"
       />
       <DiagramWater
         :water="water"
         :updateTime="convertUpdateTime(water.updated, true)"
+        :isLoadingData="isLoadingData"
       />
       <!-- <DiagramCovid19
         :covid="covid"
@@ -73,6 +77,7 @@ export default {
   mixins: [gaMixin],
   data() {
     return {
+      isLoadingData: true,
       news: [],
       covid: {},
       water: {},
@@ -163,6 +168,10 @@ export default {
         this.power = power
         this.water = water
         this.updateTime = res.data.update_time
+
+        setTimeout(() => {
+          this.isLoadingData = false
+        }, 5000)
       })
   },
   methods: {

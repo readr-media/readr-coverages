@@ -5,7 +5,7 @@
       :icon="require('@/static/images/icons/water-icon.svg')"
     />
 
-    <DiagramWaterCityList :cityList="cityWarningList" />
+    <UiBoardLoading v-if="isLoadingData" :boardCount="0" />
 
     <div
       class="diagram-electric__diagram g-diagram__folder"
@@ -137,6 +137,11 @@ export default {
   },
   mixins: [gaMixin],
   props: {
+    isLoadingData: {
+      type: Boolean,
+      isRequired: true,
+      default: true,
+    },
     water: {
       type: Object,
       isRequired: true,

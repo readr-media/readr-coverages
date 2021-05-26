@@ -5,24 +5,16 @@
       :icon="require('@/static/images/icons/electric-icon.svg')"
     />
 
-    <div class="g-diagram__board_wrapper">
-      <BoardHandler
-        boardType="number"
-        :count="currentUsedPower"
-        unit="萬瓩"
-        :info="monthPeak"
-        :color="currentElectricStatusColor"
-      />
-
-      <BoardHandler
-        boardType="number"
-        :count="currentGeneratedPower"
-        unit="萬瓩"
-        :isNeededPoint="true"
-        :info="['目前最大供電量']"
-        :color="currentElectricStatusColor"
-      />
-    </div>
+    <UiBoardLoading v-if="isLoadingData" :boardCount="2" />
+    <div v-else class="loaded-block">
+      <div class="g-diagram__board_wrapper">
+        <BoardHandler
+          boardType="number"
+          :count="currentUsedPower"
+          unit="萬瓩"
+          :info="monthPeak"
+          :color="currentElectricStatusColor"
+        />
 
     <div
       class="diagram-electric__diagram g-diagram__folder"
@@ -36,9 +28,23 @@
           :currentElectricStatusColor="currentElectricStatusColor"
         />
       </div>
+
+      <div
+        class="diagram-electric__diagram g-diagram__folder"
+        :class="{ hide: !isToggled }"
+      >
+        <!-- Paste Diagram component in here -->
+        <div class="diagram-electric__diagram__line-chart-container">
+          <LineChart
+            :power="power"
+            :currentElectricLoading="currentElectricLoading"
+            :currentElectricStatusColor="currentElectricStatusColor"
+          />
+        </div>
+      </div>
+      <UiUpdateTime :updateTime="updateTime" />
+      <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
     </div>
-    <UiUpdateTime :updateTime="updateTime" />
-    <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
   </div>
 </template>
 
@@ -55,6 +61,11 @@ export default {
   },
   mixins: [gaMixin],
   props: {
+    isLoadingData: {
+      type: Boolean,
+      isRequired: true,
+      default: true,
+    },
     power: {
       type: Object,
       isRequired: true,

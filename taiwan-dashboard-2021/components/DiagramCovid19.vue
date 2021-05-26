@@ -6,57 +6,58 @@
       :icon="require('@/static/images/icons/covid-icon.svg')"
     />
 
-    <UiBoardLoading />
-
-    <div class="g-diagram__board_wrapper">
-      <BoardHandler
-        boardType="multi-number"
-        :leftCount="currentCovidCount"
-        :rightCount="currentCovidDeathCount"
-        unit="例"
-        :isNeededPlus="true"
-        :info="['今日新增本土確診數/死亡人數']"
-      />
-
-      <BoardHandler
-        boardType="multi-number"
-        :leftCount="totalCovidCount"
-        :rightCount="totalCovidDeathCount"
-        unit="例"
-        :info="['累積本土確診數/死亡人數']"
-      />
-      <BoardHandler
-        boardType="status"
-        :status="currentWarningLevel"
-        :info="['目前全國疫情警戒標準']"
-      />
-    </div>
-
-    <div
-      class="diagram-covid-19__diagram g-diagram__folder"
-      :class="{ hide: !isToggled }"
-    >
-      <div class="diagram-covid-19__diagram_col_wrapper">
-        <TaiwanMap
-          :countyFillColorConfig="countyFillColorConfig"
-          :style="`height: ${isBacklog ? '410px' : '500px'}`"
+    <UiBoardLoading v-if="isLoadingData" />
+    <div v-else class="loaded-block">
+      <div class="g-diagram__board_wrapper">
+        <BoardHandler
+          boardType="multi-number"
+          :leftCount="currentCovidCount"
+          :rightCount="currentCovidDeathCount"
+          unit="例"
+          :isNeededPlus="true"
+          :info="['今日新增本土確診數/死亡人數']"
         />
 
-        <UiColorLevel :maxCount="cityMaxCount" :isBacklog="isBacklog" />
-      </div>
-
-      <div class="diagram-covid-19__diagram_col_wrapper">
-        <UiCovidCityListTitle />
-
-        <DiagramCovid19CityList
-          :cityList="totalCityList"
-          :class="{ expand: isToggled }"
+        <BoardHandler
+          boardType="multi-number"
+          :leftCount="totalCovidCount"
+          :rightCount="totalCovidDeathCount"
+          unit="例"
+          :info="['累積本土確診數/死亡人數']"
+        />
+        <BoardHandler
+          boardType="status"
+          :status="currentWarningLevel"
+          :info="['目前全國疫情警戒標準']"
         />
       </div>
-    </div>
 
-    <UiUpdateTime :updateTime="updateTime" />
-    <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
+      <div
+        class="diagram-covid-19__diagram g-diagram__folder"
+        :class="{ hide: !isToggled }"
+      >
+        <div class="diagram-covid-19__diagram_col_wrapper">
+          <TaiwanMap
+            :countyFillColorConfig="countyFillColorConfig"
+            :style="`height: ${isBacklog ? '410px' : '500px'}`"
+          />
+
+          <UiColorLevel :maxCount="cityMaxCount" :isBacklog="isBacklog" />
+        </div>
+
+        <div class="diagram-covid-19__diagram_col_wrapper">
+          <UiCovidCityListTitle />
+
+          <DiagramCovid19CityList
+            :cityList="totalCityList"
+            :class="{ expand: isToggled }"
+          />
+        </div>
+      </div>
+
+      <UiUpdateTime :updateTime="updateTime" />
+      <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
+    </div>
   </div>
 </template>
 
@@ -88,6 +89,11 @@ export default {
   },
   mixins: [gaMixin],
   props: {
+    isLoadingData: {
+      type: Boolean,
+      isRequired: true,
+      default: true,
+    },
     covid: {
       type: Object,
       isRequired: true,

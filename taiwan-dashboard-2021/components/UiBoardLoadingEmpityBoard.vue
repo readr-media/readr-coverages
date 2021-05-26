@@ -11,6 +11,8 @@ export default {}
 
 <style lang="scss" scoped>
 .empity-board {
+  flex-grow: 1;
+  flex-basis: 0;
   margin-bottom: 32px;
   display: flex;
   flex-direction: column;

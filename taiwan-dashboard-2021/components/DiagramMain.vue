@@ -5,36 +5,37 @@
       :icon="require('@/static/images/icons/main-icon.svg')"
     />
 
-    <UiBoardLoading v-if="true" />
+    <UiBoardLoading v-if="isLoadingData" />
+    <div v-else class="loaded-block">
+      <div class="g-diagram__board_wrapper">
+        <BoardHandler
+          boardType="multi-number"
+          :leftCount="currentCovidCount"
+          :rightCount="currentCovidDeathCount"
+          unit="例"
+          :isNeededPlus="true"
+          :info="['今日新增本土確診數/死亡人數']"
+          anchorId="diagram-covid-19"
+        />
+        <BoardHandler
+          boardType="status"
+          :status="currentElectricLoading"
+          :info="['供電狀況']"
+          anchorId="diagram-electric"
+          :color="currentElectricStatusColor"
+        />
+        <BoardHandler
+          boardType="region-status"
+          :regionStatus="currentWaterStatus.info"
+          :regions="currentWaterStatus.region"
+          :color="currentWaterStatusColor"
+          :info="['水情狀況']"
+          anchorId="diagram-water"
+        />
+      </div>
 
-    <div v-else class="g-diagram__board_wrapper">
-      <BoardHandler
-        boardType="multi-number"
-        :leftCount="currentCovidCount"
-        :rightCount="currentCovidDeathCount"
-        unit="例"
-        :isNeededPlus="true"
-        :info="['今日新增本土確診數/死亡人數']"
-        anchorId="diagram-covid-19"
-      />
-      <BoardHandler
-        boardType="status"
-        :status="currentElectricLoading"
-        :info="['供電狀況']"
-        anchorId="diagram-electric"
-        :color="currentElectricStatusColor"
-      />
-      <BoardHandler
-        boardType="region-status"
-        :regionStatus="currentWaterStatus.info"
-        :regions="currentWaterStatus.region"
-        :color="currentWaterStatusColor"
-        :info="['水情狀況']"
-        anchorId="diagram-water"
-      />
+      <UiUpdateTime :updateTime="updateTime" />
     </div>
-
-    <UiUpdateTime :updateTime="updateTime" />
   </div>
 </template>
 
@@ -56,6 +57,11 @@ export default {
   },
   mixins: [gaMixin],
   props: {
+    isLoadingData: {
+      type: Boolean,
+      isRequired: true,
+      default: true,
+    },
     currentCovidCount: {
       type: Number,
       isRequired: true,
