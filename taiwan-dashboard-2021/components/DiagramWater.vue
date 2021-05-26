@@ -6,117 +6,122 @@
     />
 
     <UiBoardLoading v-if="isLoadingData" :boardCount="0" />
+    <div v-else class="loaded-block">
+      <DiagramWaterCityList :cityList="cityWarningList" />
 
-    <div
-      class="diagram-electric__diagram g-diagram__folder"
-      :class="{ hide: !isToggled }"
-    >
-      <!-- Paste Diagram component in here -->
-      <div>
-        <h1 class="water-title">北部水庫蓄水量</h1>
-        <div class="bubbles-wrapper">
-          <ReservoirBubbles
-            v-if="!shouldShowWaterDataAreaNorth"
-            :key="'north-main'"
-            class="bubbles-wrapper__bubbles"
-            :data="waterDataNorthMain"
-          />
-          <ReservoirBubbles
-            v-else
-            :key="'north-area'"
-            class="bubbles-wrapper__bubbles"
-            :data="waterDataNorth"
-            :height="640"
-          />
-          <button
-            class="water-button"
-            @click="
-              shouldShowWaterDataAreaNorth = !shouldShowWaterDataAreaNorth
-            "
-          >
-            {{
-              shouldShowWaterDataAreaNorth ? '收合' : '展開'
-            }}所有北部民生用水水庫
-            <img
-              :src="
-                shouldShowWaterDataAreaNorth ? waterFoldIcon : waterExpandIcon
-              "
-              alt=""
+      <div
+        class="diagram-electric__diagram g-diagram__folder"
+        :class="{ hide: !isToggled }"
+      >
+        <!-- Paste Diagram component in here -->
+        <div>
+          <h1 class="water-title">北部水庫蓄水量</h1>
+          <div class="bubbles-wrapper">
+            <ReservoirBubbles
+              v-if="!shouldShowWaterDataAreaNorth"
+              :key="'north-main'"
+              class="bubbles-wrapper__bubbles"
+              :data="waterDataNorthMain"
             />
-          </button>
+            <ReservoirBubbles
+              v-else
+              :key="'north-area'"
+              class="bubbles-wrapper__bubbles"
+              :data="waterDataNorth"
+              :height="640"
+            />
+            <button
+              class="water-button"
+              @click="
+                shouldShowWaterDataAreaNorth = !shouldShowWaterDataAreaNorth
+              "
+            >
+              {{
+                shouldShowWaterDataAreaNorth ? '收合' : '展開'
+              }}所有北部民生用水水庫
+              <img
+                :src="
+                  shouldShowWaterDataAreaNorth ? waterFoldIcon : waterExpandIcon
+                "
+                alt=""
+              />
+            </button>
+          </div>
+        </div>
+        <div>
+          <h1 class="water-title">中部水庫蓄水量</h1>
+          <div class="bubbles-wrapper">
+            <ReservoirBubbles
+              v-if="!shouldShowWaterDataAreaMiddle"
+              :key="'middle-main'"
+              class="bubbles-wrapper__bubbles"
+              :data="waterDataMiddleMain"
+            />
+            <ReservoirBubbles
+              v-else
+              :key="'middle-area'"
+              class="bubbles-wrapper__bubbles"
+              :data="waterDataMiddle"
+              :height="640"
+            />
+            <button
+              class="water-button"
+              @click="
+                shouldShowWaterDataAreaMiddle = !shouldShowWaterDataAreaMiddle
+              "
+            >
+              {{
+                shouldShowWaterDataAreaMiddle ? '收合' : '展開'
+              }}所有中部民生用水水庫
+              <img
+                :src="
+                  shouldShowWaterDataAreaMiddle
+                    ? waterFoldIcon
+                    : waterExpandIcon
+                "
+                alt=""
+              />
+            </button>
+          </div>
+        </div>
+        <div>
+          <h1 class="water-title">南部水庫蓄水量</h1>
+          <div class="bubbles-wrapper">
+            <ReservoirBubbles
+              v-if="!shouldShowWaterDataAreaSouth"
+              :key="'south-main'"
+              class="bubbles-wrapper__bubbles"
+              :data="waterDataSouthMain"
+            />
+            <ReservoirBubbles
+              v-else
+              :key="'south-area'"
+              class="bubbles-wrapper__bubbles"
+              :data="waterDataSouth"
+              :height="700"
+            />
+            <button
+              class="water-button"
+              @click="
+                shouldShowWaterDataAreaSouth = !shouldShowWaterDataAreaSouth
+              "
+            >
+              {{
+                shouldShowWaterDataAreaSouth ? '收合' : '展開'
+              }}所有南部民生用水水庫
+              <img
+                :src="
+                  shouldShowWaterDataAreaSouth ? waterFoldIcon : waterExpandIcon
+                "
+                alt=""
+              />
+            </button>
+          </div>
         </div>
       </div>
-      <div>
-        <h1 class="water-title">中部水庫蓄水量</h1>
-        <div class="bubbles-wrapper">
-          <ReservoirBubbles
-            v-if="!shouldShowWaterDataAreaMiddle"
-            :key="'middle-main'"
-            class="bubbles-wrapper__bubbles"
-            :data="waterDataMiddleMain"
-          />
-          <ReservoirBubbles
-            v-else
-            :key="'middle-area'"
-            class="bubbles-wrapper__bubbles"
-            :data="waterDataMiddle"
-            :height="640"
-          />
-          <button
-            class="water-button"
-            @click="
-              shouldShowWaterDataAreaMiddle = !shouldShowWaterDataAreaMiddle
-            "
-          >
-            {{
-              shouldShowWaterDataAreaMiddle ? '收合' : '展開'
-            }}所有中部民生用水水庫
-            <img
-              :src="
-                shouldShowWaterDataAreaMiddle ? waterFoldIcon : waterExpandIcon
-              "
-              alt=""
-            />
-          </button>
-        </div>
-      </div>
-      <div>
-        <h1 class="water-title">南部水庫蓄水量</h1>
-        <div class="bubbles-wrapper">
-          <ReservoirBubbles
-            v-if="!shouldShowWaterDataAreaSouth"
-            :key="'south-main'"
-            class="bubbles-wrapper__bubbles"
-            :data="waterDataSouthMain"
-          />
-          <ReservoirBubbles
-            v-else
-            :key="'south-area'"
-            class="bubbles-wrapper__bubbles"
-            :data="waterDataSouth"
-            :height="700"
-          />
-          <button
-            class="water-button"
-            @click="
-              shouldShowWaterDataAreaSouth = !shouldShowWaterDataAreaSouth
-            "
-          >
-            {{
-              shouldShowWaterDataAreaSouth ? '收合' : '展開'
-            }}所有南部民生用水水庫
-            <img
-              :src="
-                shouldShowWaterDataAreaSouth ? waterFoldIcon : waterExpandIcon
-              "
-              alt=""
-            />
-          </button>
-        </div>
-      </div>
+      <UiUpdateTime style="margin: 30px 0 0 0" :updateTime="updateTime" />
+      <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
     </div>
-    <UiUpdateTime style="margin: 30px 0 0 0" :updateTime="updateTime" />
-    <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
   </div>
 </template>
 

@@ -88,10 +88,7 @@ export default {
   },
   computed: {
     currentCovidCount() {
-      return this.covid?.today
-    },
-    currentCovidDeathCount() {
-      return this.covid?.death_today
+      return this.covid?.today || 0
     },
     currentCovidDeathCount() {
       return this.covid?.death_today || 0
@@ -168,10 +165,10 @@ export default {
         this.power = power
         this.water = water
         this.updateTime = res.data.update_time
-
+        console.log(covid)
         setTimeout(() => {
           this.isLoadingData = false
-        }, 5000)
+        }, 1000)
       })
   },
   methods: {

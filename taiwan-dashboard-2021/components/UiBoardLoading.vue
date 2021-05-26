@@ -27,9 +27,6 @@ export default {
       default: 3,
     },
   },
-  mounted() {
-    console.log(this.boardCount)
-  },
 }
 </script>
 

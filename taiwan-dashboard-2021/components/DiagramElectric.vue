@@ -5,16 +5,27 @@
       :icon="require('@/static/images/icons/electric-icon.svg')"
     />
 
-    <UiBoardLoading v-if="isLoadingData" :boardCount="2" />
-    <div v-else class="loaded-block">
-      <div class="g-diagram__board_wrapper">
-        <BoardHandler
-          boardType="number"
-          :count="currentUsedPower"
-          unit="萬瓩"
-          :info="monthPeak"
-          :color="currentElectricStatusColor"
-        />
+    <UiBoardLoading v-if="isLoadingData" :boardCount="0" />
+
+    <!-- <div v-else class="loaded-block"> -->
+    <div class="g-diagram__board_wrapper">
+      <BoardHandler
+        boardType="number"
+        :count="currentUsedPower"
+        unit="萬瓩"
+        :info="monthPeak"
+        :color="currentElectricStatusColor"
+      />
+
+      <BoardHandler
+        boardType="number"
+        :count="currentGeneratedPower"
+        unit="萬瓩"
+        :isNeededPoint="true"
+        :info="['目前最大供電量']"
+        :color="currentElectricStatusColor"
+      />
+    </div>
 
     <div
       class="diagram-electric__diagram g-diagram__folder"
@@ -28,24 +39,11 @@
           :currentElectricStatusColor="currentElectricStatusColor"
         />
       </div>
-
-      <div
-        class="diagram-electric__diagram g-diagram__folder"
-        :class="{ hide: !isToggled }"
-      >
-        <!-- Paste Diagram component in here -->
-        <div class="diagram-electric__diagram__line-chart-container">
-          <LineChart
-            :power="power"
-            :currentElectricLoading="currentElectricLoading"
-            :currentElectricStatusColor="currentElectricStatusColor"
-          />
-        </div>
-      </div>
-      <UiUpdateTime :updateTime="updateTime" />
-      <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
     </div>
+    <UiUpdateTime :updateTime="updateTime" />
+    <UiDiagramToggle :isToggled="isToggled" @click.native="toggleHandler" />
   </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -89,13 +87,11 @@ export default {
       default: '#24c7bd',
     },
   },
-
   data() {
     return {
       isToggled: false,
     }
   },
-
   computed: {
     monthPeak() {
       let monthPeak = this.power?.month_peak ?? 0
@@ -122,7 +118,6 @@ export default {
       return this.latestPowerData?.status['最大供電'] ?? 0
     },
   },
-
   mounted() {
     const scrollerCredit = scrollama()
     scrollerCredit
@@ -134,10 +129,8 @@ export default {
         if (response.direction === 'up') return
         this.gaScrollHandler('用電狀況底部')
       })
-
     window.addEventListener('resize', scrollerCredit.resize)
   },
-
   methods: {
     toggleHandler() {
       this.isToggled = !this.isToggled
@@ -150,7 +143,6 @@ export default {
   },
 }
 </script>
-
 <style lang="scss" scoped>
 .diagram-electric {
   position: relative;
@@ -170,7 +162,6 @@ export default {
       width: 600px;
     }
   }
-
   .g-diagram__board_wrapper {
     min-height: 356px;
     // tablet range
