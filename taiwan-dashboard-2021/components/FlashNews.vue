@@ -1,6 +1,6 @@
 <template>
   <div class="flash-news">
-    <h1 class="flash-news__title">快訊</h1>
+    <h1 class="flash-news__title">最新重點消息</h1>
     <FlashNewsCategory
       :flashNewsCategory="flashNewsCategory"
       :toggleHandler="toggleHandler"

@@ -1,6 +1,6 @@
 <template>
   <div class="hero">
-    <h3 class="hero__sub_title">READr 民生情報站</h3>
+    <h3 class="hero__sub_title"><span class="eng">READr</span> 民生情報站</h3>
 
     <h1 class="hero__title">
       疫情<span class="hero__title_dot" />供水<span
@@ -11,7 +11,7 @@
     <UiContinueUpdate />
 
     <p class="hero__content Body">
-      COVID-19
+      <span class="eng">COVID-19</span>
       疫情持續延燒、能源轉型路漫漫、乾旱缺水衝擊民生與產業⋯⋯透過即時資料，READr
       帶你持續追蹤臺灣目前面臨的挑戰。
     </p>

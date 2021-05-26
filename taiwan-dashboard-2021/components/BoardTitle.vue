@@ -139,11 +139,11 @@ export default {
     font-style: normal;
     font-weight: bold;
     font-size: 20px;
-    line-height: 30px;
+    line-height: 37px;
     // tablet range
     @include media-breakpoint-up(md) {
       font-size: 32px;
-      line-height: 47px;
+      line-height: 52px;
     }
   }
 }
