@@ -5,7 +5,7 @@
       :icon="require('@/static/images/icons/electric-icon.svg')"
     />
 
-    <UiBoardLoading v-if="isLoadingData" :boardCount="0" />
+    <UiBoardLoading v-if="isLoadingData" :boardCount="2" />
 
     <!-- <div v-else class="loaded-block"> -->
     <div class="g-diagram__board_wrapper">

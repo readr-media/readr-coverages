@@ -165,10 +165,11 @@ export default {
         this.power = power
         this.water = water
         this.updateTime = res.data.update_time
-        console.log(covid)
-        setTimeout(() => {
-          this.isLoadingData = false
-        }, 1000)
+        this.isLoadingData = false
+
+        // setTimeout(() => {
+        //   this.isLoadingData = false
+        // }, 5000)
       })
   },
   methods: {

@@ -233,6 +233,12 @@ export default {
 
     getWaterDataBy(category, area) {
       if (category === 'area') {
+        // console.log(
+        //   Object.entries(this.water?.status?.[area]?.[category] ?? {})
+        //     .map(this.mapWaterDataToChart)
+        //     .flat()
+        // )
+
         return Object.entries(this.water?.status?.[area]?.[category] ?? {})
           .map(this.mapWaterDataToChart)
           .flat()
@@ -259,6 +265,7 @@ export default {
       const [areaName, reservoirs] = value
       return reservoirs
         .map((reservoir) => {
+          // console.log(reservoir)
           return {
             nameArea: areaName,
             nameReservoir: reservoir?.reservoirName?.data,
@@ -272,6 +279,7 @@ export default {
             isSupportReservoir: this.reservoirSupportList.includes(
               `${areaName}-${reservoir?.reservoirName?.data}`
             ),
+            additionalTag: reservoir?.additionalTag?.data,
           }
         })
         .flat()
