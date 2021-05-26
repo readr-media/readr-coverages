@@ -131,7 +131,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 svg {
   width: 100%;
   height: 100%;
@@ -140,6 +140,14 @@ svg::v-deep path {
   fill: #e5e5e5;
   stroke: white;
   stroke-width: 2px;
+  &[data-county-name='金門縣'],
+  &[data-county-name='澎湖縣'],
+  &[data-county-name='連江縣'] {
+    stroke: gray;
+    stroke-width: 0.1px;
+    transform-origin: center center;
+    transform: scale(1.2) translate(25px, 25px);
+  }
 }
 
 .chart-tooltip {
