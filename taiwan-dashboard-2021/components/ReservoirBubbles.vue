@@ -368,9 +368,7 @@ export default {
 
 <style scoped>
 /* styles */
-@media (max-width: 768px) {
-  svg {
-    min-height: 600px;
-  }
+svg {
+  min-height: 600px;
 }
 </style>
