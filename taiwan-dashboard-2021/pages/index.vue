@@ -109,7 +109,7 @@ export default {
       const status = this.currentElectricLoading
       const index =
         ['供電充裕', '供電吃緊', '供電警戒', '限電警戒'].indexOf(status) ?? 0
-      const color = ['#24c7bd', '#f97c08', '#f9c408', '#e73e33']
+      const color = ['#24c7bd', '#f9c408', '#f97c08', '#e73e33']
       return color[index]
     },
     currentWaterStatus() {
