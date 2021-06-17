@@ -175,6 +175,13 @@ export default {
   methods: {
     convertUpdateTime(updateTime, isFromWater) {
       let timeArray
+
+      if (typeof updateTime !== 'string') {
+        const date = new Date(Date.now())
+
+        return date.toString()
+      }
+
       if (isFromWater) {
         timeArray = updateTime?.split('T')
       } else {
