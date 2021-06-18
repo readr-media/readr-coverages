@@ -1,5 +1,5 @@
 {
-  "name": "vaccines-tracker",
+  "name": "covid19-vaccines-tracker",
   "version": "1.0.0",
   "private": true,
   "scripts": {
