@@ -1,7 +1,7 @@
 <template>
-  <div class="landing-page">
-    <div class="landing-page__image"></div>
-    <div class="landing-page__content">
+  <div class="cover">
+    <div class="cover__image"></div>
+    <div class="cover__content">
       <h1>我什麼時候可以打疫苗？</h1>
       <p>
         COVID-19
@@ -9,27 +9,36 @@
         帶你持續追蹤臺灣目前面臨的挑戰。
       </p>
     </div>
-    <div class="landing-page__btns">
-      <PrimaryBtn :text="'開始查詢'" class="landing-page__btns--primary" />
-      <SkipBtn />
+    <div class="cover__btns">
+      <button
+        type="button"
+        class="g-primary-btn cover__btns--primary"
+        @click="handleStart"
+      >
+        開始查詢
+      </button>
+      <button type="button" class="g-skip-btn" @click="handleSkip">
+        我想直接看最新資訊
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import PrimaryBtn from '~/components/PrimaryBtn.vue'
-import SkipBtn from '~/components/SkipBtn.vue'
-
 export default {
-  components: {
-    PrimaryBtn,
-    SkipBtn,
+  methods: {
+    handleStart() {
+      this.$emit('get-start')
+    },
+    handleSkip() {
+      this.$emit('skip-to-result')
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.landing-page {
+.cover {
   max-width: 600px;
   margin: 0 auto;
   &__image {

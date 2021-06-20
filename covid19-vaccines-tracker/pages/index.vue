@@ -1,8 +1,19 @@
 <template>
-  <div class="homepage">
+  <div class="vt">
     <Navbar />
-    <div class="homepage__content">
-      <LandingPage v-if="shouldShowLandingPage" />
+    <div class="vt__content">
+      <Cover
+        v-if="shouldShowCover"
+        @get-start="handleGetStart"
+        @skip-to-result="handleSkipToResult"
+      />
+      <InputAge
+        v-if="shouldShowInputAge"
+        @finish-age="handleFinishAge"
+        @under-one-year="handleToResult"
+        @skip-to-result="handleSkipToResult"
+      />
+      <InputOther v-if="shouldShowInputOther" />
       <Credit v-if="shouldShowCredit" />
       <Donate v-if="shouldShowDonate" />
     </div>
@@ -12,7 +23,9 @@
 
 <script>
 import Navbar from '~/components/Navbar.vue'
-import LandingPage from '~/components/LandingPage.vue'
+import Cover from '~/components/Cover.vue'
+import InputAge from '~/components/InputAge.vue'
+import InputOther from '~/components/InputOther.vue'
 import Donate from '~/components/Donate.vue'
 import Credit from '~/components/Credit.vue'
 import Footer from '~/components/Footer.vue'
@@ -21,7 +34,9 @@ import gaMixin from '~/mixins/gaMixin'
 export default {
   components: {
     Navbar,
-    LandingPage,
+    Cover,
+    InputAge,
+    InputOther,
     Donate,
     Credit,
     Footer,
@@ -29,19 +44,67 @@ export default {
   mixins: [gaMixin],
   data() {
     return {
-      isLoadingData: true,
-      shouldShowLandingPage: true,
-      shouldShowInquiryPage: false,
-      shouldShowResultPage: false,
+      shouldShowCover: true,
+      shouldShowInputAge: false,
+      shouldShowInputOther: false,
+      shouldShowResult: false,
       shouldShowCredit: false,
       shouldShowDonate: false,
+      inputData: {
+        age: 0,
+        county: '',
+      },
     }
+  },
+  methods: {
+    hideCover() {
+      this.shouldShowCover = false
+    },
+    hideInputAge() {
+      this.shouldShowInputAge = false
+    },
+    hideInputOther() {
+      this.shouldShowInputOther = false
+    },
+    hideResult() {
+      this.shouldShowResult = false
+    },
+    showCover() {
+      this.shouldShowCover = true
+    },
+    showInputAge() {
+      this.shouldShowInputAge = true
+    },
+    showInputOther() {
+      this.shouldShowInputOther = true
+    },
+    showResult() {
+      this.shouldShowResult = true
+    },
+    handleGetStart() {
+      this.hideCover()
+      this.showInputAge()
+    },
+    handleSkipToResult() {
+      this.hideCover()
+      this.hideInputAge()
+      this.hideInputOther()
+      this.showResult()
+    },
+    handleFinishAge(payload) {
+      this.inputData.age = payload
+      this.hideInputAge()
+      this.showInputOther()
+    },
+    handleToResult() {
+      this.hideInputAge()
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.homepage {
+.vt {
   min-height: 100vh;
   background: #f6f6f5;
   &__content {
