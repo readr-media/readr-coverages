@@ -106,3 +106,77 @@ h5 {
   letter-spacing: 0em;
   text-align: center;
 }
+
+.g-primary-btn {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  background-color: #04295e;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.5;
+  border-radius: 6px;
+  outline: none;
+  padding: 12px;
+  &:hover {
+    background-color: #03214a;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.g-secondary-btn {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  color: #04295e;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.5;
+  border: 1px solid #04295e;
+  border-radius: 6px;
+  outline: none;
+  padding: 12px;
+  &:hover,
+  &:active {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.g-skip-btn {
+  width: 100%;
+  max-width: 320px;
+  color: #04295e;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.5;
+  outline: none;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.g-disabled-btn {
+  width: 100%;
+  max-width: 320px;
+  background-color: #e0e0e0;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.5;
+  border-radius: 6px;
+  padding: 12px;
+  outline: none;
+  pointer-events: none;
+  &:focus {
+    outline: none;
+  }
+}
