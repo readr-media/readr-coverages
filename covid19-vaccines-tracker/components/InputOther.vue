@@ -24,15 +24,11 @@
     </section>
     <section class="input-other__select occupation">
       <p class="label">3. 你的職業？</p>
-      <div class="input-other__select-input occupation-input">
-        <input
-          id="occupation"
-          v-model="occupationInput"
-          type="text"
-          placeholder="請選擇"
-          autocomplete="off"
-          disabled
-        />
+      <div class="input-other__select-input">
+        <div class="mock-input" @click="toggleOccupationIcon">
+          {{ occupationInput }}
+          <span class="arrow" :class="{ rotate: openOccupationList }" />
+        </div>
         <ul v-if="shouldShowOccupationList">
           <li
             v-for="option in mockOptions"
@@ -42,11 +38,22 @@
             {{ option }}
           </li>
         </ul>
-        <div
-          class="arrow"
-          :class="{ rotate: openOccupationList }"
-          @click="toggleOccupationIcon"
+      </div>
+    </section>
+    <section class="input-other__condition">
+      <p class="label">4. 你是否符合以下身份或條件？</p>
+      <div
+        v-for="condition in mockConditions"
+        :key="condition"
+        class="input-other__condition--checklist"
+      >
+        <input
+          :id="condition"
+          v-model="conditionInput"
+          :value="condition"
+          type="checkbox"
         />
+        <label :for="condition">{{ condition }}</label>
       </div>
     </section>
     <section class="input-other__injection">
@@ -84,10 +91,13 @@
         type="button"
         :class="[shouldShowNextBtn ? 'g-primary-btn' : 'g-disabled-btn']"
         class="input-other__btns--primary"
+        @click="goToNextPage"
       >
         送出
       </button>
-      <button type="button" class="g-skip-btn">我想直接看最新資訊</button>
+      <button type="button" class="g-skip-btn" @click="skipToResultPage">
+        我想直接看最新資訊
+      </button>
     </div>
   </div>
 </template>
@@ -100,15 +110,26 @@ export default {
     return {
       countyInput: '',
       currentCountyInput: undefined,
-      occupationInput: undefined,
+      occupationInput: '請選擇',
       injectionInput: undefined,
       injectionYearInput: undefined,
+      conditionInput: [],
       openOccupationList: false,
+      pageData: {},
       mockOptions: [
         '中央及地方政府防疫人員',
         '國際航空機組員',
         '國際商船船員',
         '防疫車隊駕駛',
+        '因外交或公務奉派出國人員、以互惠原則提供我國外交人員接種之該國駐臺員眷等',
+      ],
+      mockConditions: [
+        '無',
+        '洗腎患者',
+        '重大傷病',
+        '原住民',
+        '同住者為高風險職業',
+        '確診者',
       ],
     }
   },
@@ -122,7 +143,12 @@ export default {
       return this.mockOptions.length && this.openOccupationList
     },
     shouldShowNextBtn() {
-      return this.countyInput && this.injectionInput
+      return (
+        this.countyInput &&
+        this.occupationInput &&
+        this.conditionInput.length &&
+        this.injectionInput
+      )
     },
   },
   methods: {
@@ -141,6 +167,18 @@ export default {
     },
     toggleOccupationIcon() {
       this.openOccupationList = !this.openOccupationList
+    },
+    goToNextPage() {
+      this.pageData = {
+        county: this.countyInput,
+        occupation: this.occupationInput,
+        condition: this.conditionInput,
+        injection: this.injectionInput,
+      }
+      this.$emit('finish-other', this.pageData)
+    },
+    skipToResultPage() {
+      this.$emit('skip-to-result')
     },
   },
 }
@@ -173,6 +211,26 @@ export default {
           outline: none;
         }
       }
+      .mock-input {
+        width: 100%;
+        position: relative;
+        cursor: pointer;
+        padding: 12px 48px 12px 16px;
+        .arrow {
+          position: absolute;
+          top: 42%;
+          right: 16px;
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 10px 10px 0 10px;
+          border-color: #04295e transparent transparent transparent;
+          transition: all 0.3s ease-in-out;
+        }
+        .rotate {
+          transform: rotate(180deg);
+        }
+      }
       ul {
         position: relative;
         margin: 4px 0;
@@ -195,6 +253,22 @@ export default {
           height: 1px;
           background-color: #e0e0e0;
         }
+      }
+    }
+  }
+  &__condition {
+    margin: 0 0 24px;
+    &--checklist {
+      display: flex;
+      align-items: center;
+      input[type='checkbox'] {
+        width: 18px;
+        height: 18px;
+      }
+      label {
+        font-size: 18px;
+        line-height: 2;
+        margin: 0 0 0 8px;
       }
     }
   }
@@ -267,24 +341,6 @@ export default {
     margin: 0 0 4px;
     @include media-breakpoint-up(md) {
       margin: 0 0 8px;
-    }
-  }
-  .occupation-input {
-    position: relative;
-    .arrow {
-      position: absolute;
-      top: 22px;
-      right: 20px;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 10px 10px 0 10px;
-      border-color: #04295e transparent transparent transparent;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-    }
-    .rotate {
-      transform: rotate(180deg);
     }
   }
 }

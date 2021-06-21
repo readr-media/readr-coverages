@@ -13,7 +13,11 @@
         @under-one-year="handleToResult"
         @skip-to-result="handleSkipToResult"
       />
-      <InputOther v-if="shouldShowInputOther" />
+      <InputOther
+        v-if="shouldShowInputOther"
+        @finish-other="handleFinishOther"
+        @skip-to-result="handleSkipToResult"
+      />
       <Credit v-if="shouldShowCredit" />
       <Donate v-if="shouldShowDonate" />
     </div>
@@ -53,6 +57,12 @@ export default {
       inputData: {
         age: 0,
         county: '',
+        injection: '',
+        injectionTime: undefined,
+        condition: [],
+        occupation: {
+          first: '',
+        },
       },
     }
   },
@@ -95,6 +105,15 @@ export default {
       this.inputData.age = payload
       this.hideInputAge()
       this.showInputOther()
+    },
+    handleFinishOther(payload) {
+      this.hideInputOther()
+      this.inputData.county = payload.county
+      this.inputData.condition = [...payload.condition]
+      this.inputData.injection = payload.injection
+      this.inputData.occupation.first = payload.occupation
+      console.log(this.inputData)
+      this.showResult()
     },
     handleToResult() {
       this.hideInputAge()

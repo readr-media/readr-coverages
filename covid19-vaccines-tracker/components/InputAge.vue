@@ -75,10 +75,18 @@ export default {
       border: 1px solid #e0e0e0;
       border-radius: 6px;
       padding: 12px 16px;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
       &:focus {
         outline: none;
         border: 1px solid #04295e;
       }
+    }
+    input[type='number'] {
+      -moz-appearance: textfield;
     }
   }
   &__btns {
