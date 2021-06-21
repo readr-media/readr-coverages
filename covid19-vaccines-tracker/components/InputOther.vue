@@ -42,40 +42,43 @@
     </section>
     <section class="input-other__condition">
       <p class="label">4. 你是否符合以下身份或條件？</p>
-      <div
+      <label
         v-for="condition in mockConditions"
         :key="condition"
         class="input-other__condition--checklist"
       >
+        {{ condition }}
         <input
           :id="condition"
           v-model="conditionInput"
           :value="condition"
           type="checkbox"
         />
-        <label :for="condition">{{ condition }}</label>
-      </div>
+        <span class="checkmark"></span>
+      </label>
     </section>
     <section class="input-other__injection">
       <p class="label">5. 你是否已經打過第一劑？</p>
-      <div class="input-other__injection--no">
+      <label class="input-other__injection--no">
+        否，還沒打過
         <input
           v-model="injectionInput"
           type="radio"
           value="n"
           class="injection-input"
         />
-        <label>否，還沒打過</label>
-      </div>
-      <div class="input-other__injection--yes">
+        <span class="radiomark"></span>
+      </label>
+      <label class="input-other__injection--yes">
+        是，已經打過
         <input
           v-model="injectionInput"
           type="radio"
           value="y"
           class="injection-input"
         />
-        <label>是，已經打過</label>
-      </div>
+        <span class="radiomark"></span>
+      </label>
       <div v-if="injectionInput === 'y'" class="input-other__injection--year">
         <label for="yearInput">請輸入注射時間</label>
         <input
@@ -259,16 +262,46 @@ export default {
   &__condition {
     margin: 0 0 24px;
     &--checklist {
+      position: relative;
       display: flex;
       align-items: center;
-      input[type='checkbox'] {
-        width: 18px;
+      font-size: 18px;
+      line-height: 2;
+      padding: 0 0 0 26px;
+      cursor: pointer;
+      user-select: none;
+      .checkmark {
+        position: absolute;
+        top: 9px;
+        left: 0;
         height: 18px;
+        width: 18px;
+        border: 2px solid #e0e0e0;
+        border-radius: 3px;
+        &::after {
+          content: '';
+          position: absolute;
+          display: block;
+          left: 3px;
+          top: -1px;
+          width: 7px;
+          height: 12px;
+          border: solid #f6f6f5;
+          border-width: 0 2px 2px 0;
+          transform: rotate(45deg);
+        }
       }
-      label {
-        font-size: 18px;
-        line-height: 2;
-        margin: 0 0 0 8px;
+      input[type='checkbox'] {
+        position: absolute;
+        top: 9px;
+        left: 0;
+        opacity: 0;
+        height: 18px;
+        width: 18px;
+        &:checked ~ .checkmark {
+          background-color: #04295e;
+          border: 2px solid #04295e;
+        }
       }
     }
   }
@@ -279,17 +312,48 @@ export default {
     }
     &--no,
     &--yes {
+      position: relative;
       display: flex;
       align-items: center;
-      .injection-input {
-        width: 18px;
+      font-size: 18px;
+      line-height: 18px;
+      color: #000928;
+      padding: 0 0 0 26px;
+      cursor: pointer;
+      user-select: none;
+      .radiomark {
+        position: absolute;
+        top: 0;
+        left: 0;
         height: 18px;
+        width: 18px;
+        border: 2px solid #e0e0e0;
+        border-radius: 18px;
+        &::after {
+          content: '';
+          position: absolute;
+          display: none;
+          top: 3px;
+          left: 3px;
+          width: 8px;
+          height: 8px;
+          border-radius: 8px;
+          background-color: #04295e;
+        }
       }
-      label {
-        font-size: 18px;
-        line-height: 18px;
-        color: #000928;
-        margin: 0 0 0 8px;
+      input[type='radio'] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        height: 18px;
+        width: 18px;
+        &:checked ~ .radiomark {
+          border: 2px solid #04295e;
+        }
+        &:checked ~ .radiomark::after {
+          display: block;
+        }
       }
     }
     &--no {
