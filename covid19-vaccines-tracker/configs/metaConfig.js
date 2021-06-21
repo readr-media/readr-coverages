@@ -1,6 +1,6 @@
 const { app } = require('./config')
 
-export const SITE_TITLE = '疫苗追蹤'
+export const SITE_TITLE = '【疫苗追蹤】covid19-vaccines-tracker'
 export const SITE_DESCRIPTION = 'COVID-19 疫情持續延燒、能源轉型路漫漫、乾旱缺水衝擊民生與產業⋯⋯透過即時資料，READr 帶你持續追蹤臺灣目前面臨的挑戰。'
 export const SITE_URL = `${app.siteProtocol}://${app.domain}${app.base}`
 export const SITE_DOMAIN = `${app.domain}${app.base}`

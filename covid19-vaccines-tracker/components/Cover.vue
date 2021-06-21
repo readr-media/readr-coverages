@@ -1,6 +1,8 @@
 <template>
   <div class="cover">
-    <div class="cover__image"></div>
+    <div class="cover__image">
+      <img src="~static/images/cover-icon.png" alt="cover image" />
+    </div>
     <div class="cover__content">
       <h1>我什麼時候可以打疫苗？</h1>
       <p>
@@ -42,11 +44,13 @@ export default {
   max-width: 600px;
   margin: 0 auto;
   &__image {
-    background-color: #c4c4c4;
     margin: 0 auto 12px;
     height: calc((100vw - 80px) / 3);
     max-width: 300px;
     max-height: 100px;
+    img {
+      width: 100%;
+    }
   }
   &__content {
     h1 {
