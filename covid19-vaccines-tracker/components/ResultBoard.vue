@@ -1,68 +1,71 @@
 <template>
   <div class="result-board">
-    <h2>你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。</h2>
+    <ResultBoardTitle
+      :title="mockData.title"
+      :firstInjectTime="mockData.firstInjectTime"
+      class="result-board__title"
+    />
+    <ResultBoardDesc
+      :brief="mockData.brief"
+      :description="mockData.description"
+      :timeStamp="mockData.timeStamp"
+      :graphUrl="mockData.graphUrl"
+      :listItems="mockData.listItems"
+      class="result-board__desc"
+    />
     <div class="result-board__list-wrapper">
-      <ul>
-        <li>
-          <span class="list-items__title">疫苗廠牌</span>
-          <div class="list-items__list">
-            <span
-              v-for="brand in mockData.brands"
-              :key="brand"
-              class="list-items__items"
-            >
-              {{ brand }}
-            </span>
-          </div>
-        </li>
-        <li>
-          <span class="list-items__title">疫苗來源</span>
-          <div class="list-items__list">
-            <span
-              v-for="source in mockData.sources"
-              :key="source"
-              class="list-items__items"
-            >
-              {{ source }}
-            </span>
-          </div>
-        </li>
-        <li>
-          <span class="list-items__title">疫苗到貨時間</span>
-          <div class="list-items__list">
-            <span
-              v-for="item in mockData.time"
-              :key="item"
-              class="list-items__items"
-            >
-              {{ item }}
-            </span>
-          </div>
-        </li>
-      </ul>
-      <div class="second-injection">
-        <p>預計施打第二劑的時間</p>
-        <div class="second-injection__time">
-          <span v-for="item in mockData.secTime" :key="item">
-            {{ item }}
-          </span>
-        </div>
-        <small>僅為推估，實際情況以指揮中心為主</small>
-        <small class="second-injection__timestamp">2021/6/22 更新</small>
-      </div>
+      <ResultBoardList
+        :brands="mockData.brands"
+        :sources="mockData.sources"
+        :readyTime="mockData.readyTime"
+        :startTime="mockData.startTime"
+        class="result-board__list-wrapper__list"
+      />
+      <ResultBoardInjection
+        :injectTime="mockData.injectTime"
+        :timeStamp="mockData.timeStamp"
+        :isA2="true"
+        class="result-board__list-wrapper__injection"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import ResultBoardTitle from '~/components/ResultBoardTitle.vue'
+import ResultBoardDesc from '~/components/ResultBoardDesc.vue'
+import ResultBoardList from '~/components/ResultBoardList.vue'
+import ResultBoardInjection from '~/components/ResultBoardInjection.vue'
+
 export default {
+  components: {
+    ResultBoardTitle,
+    ResultBoardDesc,
+    ResultBoardList,
+    ResultBoardInjection,
+  },
   data() {
     return {
       mockData: {
+        title: '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
+        brief: '為什麼還沒輪到我？',
+        description:
+          '臺灣疫苗存貨有限，中央疫情流行指揮中心會在最新疫苗到貨時公佈此批疫苗的優先施打對象。你可以透過下圖追蹤最新的情形，或訂閱通知，我們會在你可以施打疫苗時通知您。',
+        timeStamp: '2021/6/22 更新',
+        firstInjectTime: '2021/6/22',
+        graphUrl: 'xxx',
+        listItems: [
+          '具有執業登記的醫事人員',
+          '醫療院所的非醫事人員',
+          '集中檢疫所的非醫事人員',
+          '直接照顧（含採檢）確診/疑似個人第一線工作人員',
+          '非直接照顧（含採檢）確診/疑似個人第一線工作人員',
+        ],
         brands: ['AstraZeneca(AZ)', 'Moderna(莫德納)'],
         sources: ['COVEX', '直接與廠商購買'],
-        time: ['2021 / 05 / 19', '2021 / 05 / 28'],
-        secTime: ['2021 年 8 月初', '2021 年 8 月中旬'],
+        injectTime: ['2021 年 8 月初', '2021 年 8 月中旬'],
+        readyTime: ['2021 / 05 / 19', '2021 / 05 / 28'],
+        startTime: ['2021 / 05 / 28'],
       },
     }
   },
@@ -76,76 +79,28 @@ export default {
   @include media-breakpoint-up(md) {
     padding: 32px 40px;
   }
-  h2 {
+  &__title {
     margin: 0 0 24px;
+  }
+  &__desc {
+    margin: 0 0 4px;
   }
   &__list-wrapper {
     @include media-breakpoint-up(md) {
       display: flex;
     }
-    ul {
+    &__list {
       margin: 0 0 12px;
       @include media-breakpoint-up(md) {
         min-width: 260px;
         max-width: 260px;
         margin: 0;
       }
-      li {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        border-bottom: 1px solid #e0e0e0;
-        padding: 12px 0;
-        .list-items__title {
-          font-size: 16px;
-          line-height: 1.5;
-        }
-        .list-items__list {
-          font-size: 18px;
-          line-height: 1.5;
-          color: #04295e;
-          text-align: right;
-          .list-items__items {
-            display: block;
-          }
-          .list-items__items + .list-items__items {
-            margin: 4px 0 0;
-          }
-        }
-      }
     }
-    .second-injection {
+    &__injection {
       @include media-breakpoint-up(md) {
         margin: 0 0 0 40px;
         padding: 12px 0 0;
-      }
-      p {
-        font-size: 16px;
-        line-height: 1.5;
-        color: #000928;
-        opacity: 0.87;
-        margin: 0 0 4px;
-      }
-      small {
-        font-size: 14px;
-        line-height: 21px;
-        color: #000928;
-        opacity: 0.3;
-      }
-      &__time {
-        margin: 0 0 12px;
-        span {
-          font-size: 18px;
-          line-height: 1.5;
-          color: #04295e;
-          display: block;
-        }
-        span + span {
-          margin: 4px 0 0;
-        }
-      }
-      &__timestamp {
-        margin: 4px 0 0;
       }
     }
   }

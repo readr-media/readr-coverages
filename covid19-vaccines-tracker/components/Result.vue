@@ -2,9 +2,13 @@
   <div class="result">
     <div class="result__info">
       <ResultBoard />
-      <EmailBoard />
+      <EmailBoard v-if="!isA467" />
       <div class="result__info-btn">
-        <button type="button" class="g-skip-btn" @click="handleSeachAgain">
+        <button
+          type="button"
+          :class="[isA467 ? 'g-primary-btn' : 'g-skip-btn']"
+          @click="handleSeachAgain"
+        >
           重新查詢
         </button>
       </div>
@@ -55,6 +59,7 @@ export default {
   },
   data() {
     return {
+      isA467: true,
       mockList: [
         {
           title: '勞工前往接種COVID-19疫苗，以及接種後擔心，可否請疫苗接種假？',
