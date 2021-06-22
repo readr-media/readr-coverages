@@ -18,6 +18,7 @@
         @finish-other="handleFinishOther"
         @skip-to-result="handleSkipToResult"
       />
+      <Result v-if="shouldShowResult" />
       <Credit v-if="shouldShowCredit" />
       <Donate v-if="shouldShowDonate" />
     </div>
@@ -30,6 +31,7 @@ import Navbar from '~/components/Navbar.vue'
 import Cover from '~/components/Cover.vue'
 import InputAge from '~/components/InputAge.vue'
 import InputOther from '~/components/InputOther.vue'
+import Result from '~/components/Result.vue'
 import Donate from '~/components/Donate.vue'
 import Credit from '~/components/Credit.vue'
 import Footer from '~/components/Footer.vue'
@@ -41,6 +43,7 @@ export default {
     Cover,
     InputAge,
     InputOther,
+    Result,
     Donate,
     Credit,
     Footer,
