@@ -32,24 +32,14 @@ h2 {
 }
 
 h3 {
-  font-size: 28px;
+  font-family: 'Noto Serif TC', sans-serif;
+  color: #000928;
+  font-size: 20px;
   font-style: normal;
-  font-weight: 700;
-  line-height: 41px;
-  letter-spacing: 0em;
-  text-align: center;
+  font-weight: bold;
+  line-height: 1.5;
   @include media-breakpoint-up(md) {
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 53px;
-    letter-spacing: 0m;
-    text-align: center;
-  }
-
-  & .eng {
-    font-family: 'Roboto', sans-serif;
-    line-height: 32.81px;
+    font-size: 24px;
   }
 }
 
