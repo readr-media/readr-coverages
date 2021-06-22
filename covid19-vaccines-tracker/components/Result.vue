@@ -211,13 +211,29 @@ export default {
       margin: 0 auto 120px;
     }
     h2 {
-      margin: 0 0 12px;
+      margin: 0 0 12px 12px;
       @include media-breakpoint-up(md) {
         margin: 0 0 24px;
       }
     }
     &__toggle-card {
-      margin: 0 0 16px;
+      margin: 0 0 8px;
+      @include media-breakpoint-up(md) {
+        margin: 0 0 16px;
+      }
+    }
+  }
+  &__morefaq {
+    max-width: 600px;
+    margin: 0 auto 96px;
+    @include media-breakpoint-up(md) {
+      margin: 0 auto 108px;
+    }
+    h2 {
+      margin: 0 0 12px 12px;
+      @include media-breakpoint-up(md) {
+        margin: 0 0 12px;
+      }
     }
   }
 }

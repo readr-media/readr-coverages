@@ -61,7 +61,7 @@ export default {
   &__title {
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start;
     cursor: pointer;
     p {
       max-width: 90%;
