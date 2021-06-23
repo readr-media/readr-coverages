@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+
 body {
-  font-family: 'Noto Serif TC', sans-serif;
+  font-family: 'Noto Sans CJK TC', sans-serif;
   font-style: normal;
   font-weight: normal;
 }
@@ -41,31 +43,6 @@ h3 {
   @include media-breakpoint-up(md) {
     font-size: 24px;
   }
-}
-
-h4 {
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 36px;
-  letter-spacing: 0em;
-  text-align: center;
-  @include media-breakpoint-up(md) {
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 43px;
-    letter-spacing: 0em;
-    text-align: center;
-  }
-}
-h5 {
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0em;
-  text-align: center;
 }
 
 .g-primary-btn {

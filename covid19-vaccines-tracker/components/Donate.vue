@@ -16,6 +16,6 @@ export default {
   background: transparent;
   max-width: 395px;
   margin: auto;
-  padding: 100px 0 31px;
+  padding: 24px 12px 0;
 }
 </style>

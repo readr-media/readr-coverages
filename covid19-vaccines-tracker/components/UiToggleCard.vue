@@ -35,11 +35,18 @@ export default {
       type: String,
       default: '',
     },
+    isFirstItem: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       shouldShowContent: false,
     }
+  },
+  mounted() {
+    this.shouldShowContent = this.isFirstItem
   },
   methods: {
     toggleContent() {

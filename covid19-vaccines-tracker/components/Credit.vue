@@ -12,15 +12,13 @@
         </div>
         <div class="credit__employee">
           <div class="credit__employee_head">工程</div>
-          <div class="credit__employee_name">
-            呂理詣、温凱傑、邱柏榮、黃竹安、簡信昌、熊凱文
-          </div>
+          <div class="credit__employee_name">簡信昌、温凱傑</div>
         </div>
       </div>
       <div class="credit__row">
         <div class="credit__employee">
           <div class="credit__employee_head">記者</div>
-          <div class="credit__employee_name">李又如、陳珮瑜、徐湘芸</div>
+          <div class="credit__employee_name">李又如、陳珮瑜</div>
         </div>
         <div class="credit__employee">
           <div class="credit__employee_head">社群</div>
@@ -37,11 +35,14 @@ export default {}
 
 <style lang="scss" scoped>
 .credit {
-  padding: 48px 60px;
+  padding: 48px 52px;
   background: transparent;
+  @include media-breakpoint-up(md) {
+    margin: 0 auto;
+  }
 
   &__wrapper {
-    max-width: 508px;
+    max-width: 420px;
     margin: auto;
     display: flex;
     flex-direction: column;

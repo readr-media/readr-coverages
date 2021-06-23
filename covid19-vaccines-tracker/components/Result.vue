@@ -17,7 +17,7 @@
       <h2>你可能還想知道</h2>
       <ul>
         <li
-          v-for="item in mockList"
+          v-for="(item, i) in mockList"
           :key="item.title"
           class="result__faq__toggle-card"
         >
@@ -25,6 +25,7 @@
             :title="item.title"
             :content="item.content"
             :graphUrl="item.url"
+            :isFirstItem="!i"
           />
         </li>
       </ul>
@@ -33,14 +34,20 @@
       <h2>所有問答</h2>
       <ul>
         <li
-          v-for="category in mockList2"
+          v-for="(category, i) in mockList2"
           :key="category.name"
           class="result__morefaq__toggle-category"
         >
-          <UiToggleCategory :name="category.name" :items="category.items" />
+          <UiToggleCategory
+            :name="category.name"
+            :items="category.items"
+            :isFirstItem="!i"
+          />
         </li>
       </ul>
     </div>
+    <Credit />
+    <Donate />
   </div>
 </template>
 
@@ -49,6 +56,8 @@ import ResultBoard from '~/components/ResultBoard.vue'
 import EmailBoard from '~/components/EmailBoard.vue'
 import UiToggleCard from '~/components/UiToggleCard.vue'
 import UiToggleCategory from '~/components/UiToggleCategory.vue'
+import Donate from '~/components/Donate.vue'
+import Credit from '~/components/Credit.vue'
 
 export default {
   components: {
@@ -56,6 +65,8 @@ export default {
     EmailBoard,
     UiToggleCard,
     UiToggleCategory,
+    Donate,
+    Credit,
   },
   data() {
     return {
@@ -172,7 +183,7 @@ export default {
   },
   methods: {
     handleSeachAgain() {
-      console.log('serach')
+      this.$emit('search-again')
     },
   },
 }
@@ -230,7 +241,7 @@ export default {
   }
   &__morefaq {
     max-width: 600px;
-    margin: 0 auto 96px;
+    margin: 0 auto 48px;
     @include media-breakpoint-up(md) {
       margin: 0 auto 108px;
     }
