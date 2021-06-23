@@ -18,13 +18,19 @@
         @finish-other="handleFinishOther"
         @skip-to-result="handleSkipToResult"
       />
-      <Result v-if="shouldShowResult" @search-again="handleSearchAgain" />
+      <Result
+        v-if="shouldShowResult"
+        :qa="qa"
+        @search-again="handleSearchAgain"
+      />
     </div>
     <Footer />
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import _ from 'lodash'
 import Navbar from '~/components/Navbar.vue'
 import Cover from '~/components/Cover.vue'
 import InputAge from '~/components/InputAge.vue'
@@ -49,6 +55,11 @@ export default {
       shouldShowInputAge: false,
       shouldShowInputOther: false,
       shouldShowResult: false,
+      government: [],
+      cities: [],
+      vaccinesId: [],
+      questions: [],
+      qa: {},
       inputData: {
         age: 0,
         county: '',
@@ -59,6 +70,32 @@ export default {
           first: '',
         },
       },
+    }
+  },
+  async mounted() {
+    try {
+      const govRes = await axios.get(
+        'https://projects.readr.tw/vaccine_tracker_government.json'
+      )
+      const cityRes = await axios.get(
+        'https://projects.readr.tw/vaccine_tracker_cities.json'
+      )
+      const idRes = await axios.get(
+        'https://projects.readr.tw/vaccine_tracker_vaccine_id.json'
+      )
+      const qoRes = await axios.get(
+        'https://projects.readr.tw/vaccine_tracker_question_options.json'
+      )
+      const qaRes = await axios.get(
+        'https://projects.readr.tw/vaccine_tracker_questions_answers.json'
+      )
+      this.government = govRes?.data ?? []
+      this.cities = cityRes?.data ?? []
+      this.vaccinesId = idRes?.data ?? []
+      this.questions = qoRes?.data ?? []
+      this.qa = this.formatQA(qaRes?.data)
+    } catch (err) {
+      console.log(err)
     }
   },
   methods: {
@@ -117,6 +154,12 @@ export default {
       this.inputData = {}
       this.hideResult()
       this.showInputAge()
+    },
+    formatQA(rawData) {
+      const data = rawData.filter(
+        (item) => item.category && item.answer && item.question
+      )
+      return _.groupBy(data, 'category') ?? {}
     },
   },
 }
