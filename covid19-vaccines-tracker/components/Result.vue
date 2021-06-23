@@ -17,7 +17,7 @@
       <h2>你可能還想知道</h2>
       <ul>
         <li
-          v-for="item in mockList"
+          v-for="(item, i) in mockList"
           :key="item.title"
           class="result__faq__toggle-card"
         >
@@ -25,6 +25,7 @@
             :title="item.title"
             :content="item.content"
             :graphUrl="item.url"
+            :isFirstItem="!i"
           />
         </li>
       </ul>
@@ -33,11 +34,15 @@
       <h2>所有問答</h2>
       <ul>
         <li
-          v-for="category in mockList2"
+          v-for="(category, i) in mockList2"
           :key="category.name"
           class="result__morefaq__toggle-category"
         >
-          <UiToggleCategory :name="category.name" :items="category.items" />
+          <UiToggleCategory
+            :name="category.name"
+            :items="category.items"
+            :isFirstItem="!i"
+          />
         </li>
       </ul>
     </div>
