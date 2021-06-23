@@ -41,6 +41,8 @@
         </li>
       </ul>
     </div>
+    <Credit />
+    <Donate />
   </div>
 </template>
 
@@ -49,6 +51,8 @@ import ResultBoard from '~/components/ResultBoard.vue'
 import EmailBoard from '~/components/EmailBoard.vue'
 import UiToggleCard from '~/components/UiToggleCard.vue'
 import UiToggleCategory from '~/components/UiToggleCategory.vue'
+import Donate from '~/components/Donate.vue'
+import Credit from '~/components/Credit.vue'
 
 export default {
   components: {
@@ -56,6 +60,8 @@ export default {
     EmailBoard,
     UiToggleCard,
     UiToggleCategory,
+    Donate,
+    Credit,
   },
   data() {
     return {
@@ -230,7 +236,7 @@ export default {
   }
   &__morefaq {
     max-width: 600px;
-    margin: 0 auto 96px;
+    margin: 0 auto 48px;
     @include media-breakpoint-up(md) {
       margin: 0 auto 108px;
     }

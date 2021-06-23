@@ -19,8 +19,6 @@
         @skip-to-result="handleSkipToResult"
       />
       <Result v-if="shouldShowResult" />
-      <Credit v-if="shouldShowCredit" />
-      <Donate v-if="shouldShowDonate" />
     </div>
     <Footer />
   </div>
@@ -32,8 +30,6 @@ import Cover from '~/components/Cover.vue'
 import InputAge from '~/components/InputAge.vue'
 import InputOther from '~/components/InputOther.vue'
 import Result from '~/components/Result.vue'
-import Donate from '~/components/Donate.vue'
-import Credit from '~/components/Credit.vue'
 import Footer from '~/components/Footer.vue'
 import gaMixin from '~/mixins/gaMixin'
 
@@ -44,8 +40,6 @@ export default {
     InputAge,
     InputOther,
     Result,
-    Donate,
-    Credit,
     Footer,
   },
   mixins: [gaMixin],
@@ -55,8 +49,6 @@ export default {
       shouldShowInputAge: false,
       shouldShowInputOther: false,
       shouldShowResult: false,
-      shouldShowCredit: false,
-      shouldShowDonate: false,
       inputData: {
         age: 0,
         county: '',
