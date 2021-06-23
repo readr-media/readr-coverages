@@ -15,6 +15,7 @@
       />
       <InputOther
         v-if="shouldShowInputOther"
+        :questions="questions"
         @finish-other="handleFinishOther"
         @skip-to-result="handleSkipToResult"
       />
@@ -58,7 +59,7 @@ export default {
       government: [],
       cities: [],
       vaccinesId: [],
-      questions: [],
+      questions: {},
       qa: {},
       inputData: {
         age: 0,
@@ -92,7 +93,7 @@ export default {
       this.government = govRes?.data ?? []
       this.cities = cityRes?.data ?? []
       this.vaccinesId = idRes?.data ?? []
-      this.questions = qoRes?.data ?? []
+      this.questions = this.formatQuestions(qoRes?.data)
       this.qa = this.formatQA(qaRes?.data)
     } catch (err) {
       console.log(err)
@@ -154,6 +155,9 @@ export default {
       this.inputData = {}
       this.hideResult()
       this.showInputAge()
+    },
+    formatQuestions(rawData) {
+      return _.groupBy(rawData, 'question') ?? {}
     },
     formatQA(rawData) {
       const data = rawData.filter(
