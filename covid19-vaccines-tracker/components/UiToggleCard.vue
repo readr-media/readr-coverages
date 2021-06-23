@@ -40,10 +40,13 @@ export default {
       default: false,
     },
   },
-  computed: {
-    shouldShowContent() {
-      return this.isFirstItem
-    },
+  data() {
+    return {
+      shouldShowContent: false,
+    }
+  },
+  mounted() {
+    this.shouldShowContent = this.isFirstItem
   },
   methods: {
     toggleContent() {
