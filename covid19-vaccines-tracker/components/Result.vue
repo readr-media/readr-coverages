@@ -183,7 +183,7 @@ export default {
   },
   methods: {
     handleSeachAgain() {
-      console.log('serach')
+      this.$emit('search-again')
     },
   },
 }

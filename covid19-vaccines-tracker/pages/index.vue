@@ -18,7 +18,7 @@
         @finish-other="handleFinishOther"
         @skip-to-result="handleSkipToResult"
       />
-      <Result v-if="shouldShowResult" />
+      <Result v-if="shouldShowResult" @search-again="handleSearchAgain" />
     </div>
     <Footer />
   </div>
@@ -112,6 +112,11 @@ export default {
     },
     handleToResult() {
       this.hideInputAge()
+    },
+    handleSearchAgain() {
+      this.inputData = {}
+      this.hideResult()
+      this.showInputAge()
     },
   },
 }
