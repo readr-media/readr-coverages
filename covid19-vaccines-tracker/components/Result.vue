@@ -1,7 +1,7 @@
 <template>
   <div class="result">
     <div class="result__info">
-      <ResultBoard :result="result" />
+      <ResultBoard v-if="shouldShowResultBoard" :result="result" />
       <EmailBoard v-if="!isA467" />
       <div class="result__info-btn">
         <button
@@ -79,6 +79,11 @@ export default {
       required: true,
       default: () => {},
     },
+    shouldShowResultBoard: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   data() {
     return {
@@ -106,7 +111,11 @@ export default {
   },
   computed: {
     isA467() {
-      return this.result.type === ('A4' || 'A6' || 'A7')
+      return (
+        this.result.type === 'A4' ||
+        this.result.type === 'A6' ||
+        this.result.type === 'A7'
+      )
     },
   },
   methods: {

@@ -3,7 +3,11 @@
     <li v-if="hasBrands">
       <span class="list-items__title">疫苗廠牌</span>
       <div class="list-items__list">
-        <span v-for="brand in brands" :key="brand" class="list-items__items">
+        <span
+          v-for="(brand, i) in brands"
+          :key="`${brand}-${i}`"
+          class="list-items__items"
+        >
           {{ brand }}
         </span>
       </div>
@@ -11,7 +15,11 @@
     <li v-if="hasSources">
       <span class="list-items__title">疫苗來源</span>
       <div class="list-items__list">
-        <span v-for="source in sources" :key="source" class="list-items__items">
+        <span
+          v-for="(source, i) in sources"
+          :key="`${source}-${i}`"
+          class="list-items__items"
+        >
           {{ source }}
         </span>
       </div>
@@ -19,7 +27,11 @@
     <li v-if="hasReadyTime">
       <span class="list-items__title">疫苗到貨時間</span>
       <div class="list-items__list">
-        <span v-for="item in readyTime" :key="item" class="list-items__items">
+        <span
+          v-for="(item, i) in readyTime"
+          :key="`${item}-${i}`"
+          class="list-items__items"
+        >
           {{ item }}
         </span>
       </div>
@@ -27,8 +39,24 @@
     <li v-if="hasStartTime">
       <span class="list-items__title">開始施打時間</span>
       <div class="list-items__list">
-        <span v-for="item in startTime" :key="item" class="list-items__items">
+        <span
+          v-for="(item, i) in startTime"
+          :key="`${item}-${i}`"
+          class="list-items__items"
+        >
           {{ item }}
+        </span>
+      </div>
+    </li>
+    <li v-if="hasEndTime">
+      <span class="list-items__title">預計結束時間</span>
+      <div class="list-items__list">
+        <span
+          v-for="(item, i) in endTime"
+          :key="`${item}-${i}`"
+          class="list-items__items"
+        >
+          {{ item ? item : '- -' }}
         </span>
       </div>
     </li>
@@ -54,6 +82,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    endTime: {
+      type: Array,
+      default: () => [],
+    },
   },
   computed: {
     hasBrands() {
@@ -67,6 +99,9 @@ export default {
     },
     hasStartTime() {
       return this.startTime && this.startTime?.length
+    },
+    hasEndTime() {
+      return this.endTime && this.endTime?.length
     },
   },
 }

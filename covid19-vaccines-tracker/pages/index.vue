@@ -10,7 +10,7 @@
       <InputAge
         v-if="shouldShowInputAge"
         @finish-age="handleFinishAge"
-        @under-one-year="handleToResult"
+        @under-one-year="handleUnderOneYear"
         @skip-to-result="handleSkipToResult"
       />
       <InputOther
@@ -22,6 +22,7 @@
       <Result
         v-if="shouldShowResult"
         :result="result"
+        :shouldShowResultBoard="shouldShowResultBoard"
         :qa="qa"
         @search-again="handleSearchAgain"
       />
@@ -57,6 +58,7 @@ export default {
       shouldShowInputAge: false,
       shouldShowInputOther: false,
       shouldShowResult: false,
+      shouldShowResultBoard: true,
       result: {},
       government: [],
       cities: [],
@@ -138,19 +140,12 @@ export default {
       this.hideCover()
       this.hideInputAge()
       this.hideInputOther()
+      this.shouldShowResultBoard = false
       this.showResult()
     },
     handleFinishAge(payload) {
       if (payload < 18) {
-        // A4
-        this.result = {
-          title: '你的年紀還不適合接種疫苗。',
-          brief:
-            '幾歲可以打疫苗？如果我還沒到達可以打疫苗的年紀，該如何保護自己？',
-          description:
-            '臺灣疫苗存貨有限，中央疫情流行指揮中心會在最新疫苗到貨時公佈此批疫苗的優先施打對象。你可以透過下圖追蹤最新的情形，或訂閱通知，我們會在你可以施打疫苗時通知您。',
-          type: 'A4',
-        }
+        this.result = this.handleA4()
         this.hideInputAge()
         this.showResult()
       } else {
@@ -166,11 +161,14 @@ export default {
       this.inputData.injection = payload.injection
       this.inputData.occupation = payload.occupation
       this.result = this.generateResult(this.inputData)
-      console.log(this.result)
+      this.shouldShowResultBoard = true
       this.showResult()
     },
-    handleToResult() {
+    handleUnderOneYear() {
       this.hideInputAge()
+      this.shouldShowResultBoard = true
+      this.result = this.handleA4()
+      this.showResult()
     },
     handleSearchAgain() {
       this.inputData = {}
@@ -179,16 +177,143 @@ export default {
     },
     generateResult(data) {
       if (data.injection.isInjection && data.injection.injectionTime) {
-        const interval = 75
-        // A7 && A5
-        return interval >= 70
-          ? this.handleA7(data)
-          : {
-              firstInjectTime: data.injection.injectionTime,
-              title: '建議接種第二劑的時間是10至12週後，目前還沒到。',
-              injectTime: '2021/10/10',
-              type: 'A5',
-            }
+        return this.handleA5A7(data)
+      }
+      if (
+        data.occupation.option1 === '我不確定' ||
+        data.occupation.option2 === '我不確定'
+      ) {
+        return this.handleA6(data)
+      }
+      return this.handleA1A2A3(data)
+    },
+    handleA1A2A3(data) {
+      const matchedList = this.government.filter(
+        (item) =>
+          item.status !== '暫緩施打' &&
+          (item.city === '不限' || item.city === data.county) &&
+          item.job === data.occupation.major &&
+          (item.job2 === '' || item.job2 === data.occupation.option1) &&
+          (item.job3 === '' || item.job3 === data.occupation.option2) &&
+          (item.identity === '' ||
+            data.condition.find((d) => d === item.identity)) &&
+          (item.age === '' || this.handleAgeCompare(item.age, data.age))
+      )
+      if (matchedList.length) {
+        return this.handleA1A2(matchedList, data)
+      } else {
+        return {
+          title: '你不在目前到貨疫苗的施打對象名單內，請繼續等待。',
+          brief: '為什麼還沒輪到我？',
+          description:
+            '臺灣疫苗存貨有限，中央疫情流行指揮中心會在最新疫苗到貨時公佈此批疫苗的優先施打對象。你可以透過下圖追蹤最新的情形，或訂閱通知，我們會在你可以施打疫苗時通知您。',
+          graphUrl: 'xxx',
+          type: 'A3',
+        }
+      }
+    },
+    handleA1A2(govList, data) {
+      const cityList = this.cities.filter(
+        (item) =>
+          item.status !== '暫緩施打' &&
+          item.city === data.county &&
+          item.job === data.occupation.major &&
+          (item.job2 === '' || item.job2 === data.occupation.option1) &&
+          (item.job3 === '' || item.job3 === data.occupation.option2) &&
+          (item.identity === '' ||
+            data.condition.find((d) => d === item.identity)) &&
+          (item.age === '' || this.handleAgeCompare(item.age, data.age))
+      )
+      console.log(cityList)
+      if (cityList.length) {
+        const groupedList = _.groupBy(cityList, 'vaccines_id')
+        const newCityList = []
+        const vaccine = Object.keys(groupedList).map((item) =>
+          this.vaccinesId.find(
+            (d) => d.vaccines_id === item && d.status === '施打中'
+          )
+        )
+        vaccine.forEach((item) => {
+          const newItem =
+            groupedList[item.vaccines_id].find((d) => d.end_date === '') ??
+            '2021/10/10'
+          newCityList.push(newItem)
+        })
+        return {
+          title: '你在最新一批公費疫苗的施打對象名單內，接種日期已經公佈。',
+          brands: vaccine.map((item) => item.brand),
+          sources: vaccine.map((item) => item.source),
+          startTime: newCityList.map((item) => item.open_date),
+          endTime: newCityList.map((item) => item.end_date),
+          howTo: newCityList.map((item) => item.how_to),
+          secondInjectTime: vaccine.map(
+            (item) => item.time_for_the_second_vaccine
+          ),
+          type: 'A2',
+        }
+      } else {
+        const vaccineIds = Object.keys(_.groupBy(govList, 'vaccines_id'))
+        const vaccine = vaccineIds.map(
+          (item) =>
+            this.vaccinesId.find(
+              (d) => d.vaccines_id === item && d.status === '施打中'
+            ) ?? {}
+        )
+        return {
+          title: '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
+          brands: vaccine.map((item) => item.brand),
+          sources: vaccine.map((item) => item.source),
+          secondInjectTime: vaccine.map(
+            (item) => item.time_for_the_second_vaccine
+          ),
+          type: 'A1',
+        }
+      }
+    },
+    handleA4() {
+      return {
+        title: '你的年紀還不適合接種疫苗。',
+        brief:
+          '幾歲可以打疫苗？如果我還沒到達可以打疫苗的年紀，該如何保護自己？',
+        description:
+          '臺灣疫苗存貨有限，中央疫情流行指揮中心會在最新疫苗到貨時公佈此批疫苗的優先施打對象。你可以透過下圖追蹤最新的情形，或訂閱通知，我們會在你可以施打疫苗時通知您。',
+        type: 'A4',
+      }
+    },
+    handleA5A7(data) {
+      const interval = 75
+      return interval >= 70
+        ? this.handleA7(data)
+        : {
+            firstInjectTime: data.injection.injectionTime,
+            title: '建議接種第二劑的時間是10至12週後，目前還沒到。',
+            injectTime: '2021/10/10',
+            type: 'A5',
+          }
+    },
+    handleA6(data) {
+      const dataList = []
+      const matchedList = this.government.filter(
+        (item) =>
+          item.job === data.occupation.major &&
+          item.date &&
+          item.status !== '暫緩施打'
+      )
+      matchedList.forEach((item) => {
+        if (item.job2 && !dataList.includes(item.job2)) {
+          dataList.push(item.job2)
+        }
+        if (item.job3 && !dataList.includes(item.job3)) {
+          dataList.push(item.job3)
+        }
+      })
+      return {
+        occupation: data.occupation.major,
+        brief: '可施打疫苗的身份',
+        listItems: dataList,
+        description:
+          '你可以向主管機關確認你的疫苗接種資格。若你的職業不在以上名單，代表你目前還不在疫苗施打的優先名單內，請繼續等待。',
+        type: 'A6',
       }
     },
     handleA7(data) {
@@ -208,6 +333,15 @@ export default {
         sources: [vaccine.source],
         type: 'A7',
       }
+    },
+    handleAgeCompare(str, num) {
+      if (str.includes('>') && num > parseInt(str.slice(1))) {
+        return true
+      }
+      if (str.includes('<') && num < parseInt(str.slice(1))) {
+        return true
+      }
+      return false
     },
     formatQuestions(rawData) {
       return _.groupBy(rawData, 'question') ?? {}
