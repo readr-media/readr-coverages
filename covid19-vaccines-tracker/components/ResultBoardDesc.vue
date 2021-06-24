@@ -11,7 +11,7 @@
       {{ description }}
     </p>
     <small class="result-desc__timestamp">{{ timeStamp }}</small>
-    <div class="result-desc__graph"></div>
+    <div v-if="graphUrl" class="result-desc__graph"></div>
   </div>
 </template>
 
@@ -20,7 +20,6 @@ export default {
   props: {
     brief: {
       type: String,
-      required: true,
       default: '',
     },
     description: {

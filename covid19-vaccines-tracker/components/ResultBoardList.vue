@@ -1,6 +1,6 @@
 <template>
   <ul class="result-list">
-    <li>
+    <li v-if="hasBrands">
       <span class="list-items__title">疫苗廠牌</span>
       <div class="list-items__list">
         <span v-for="brand in brands" :key="brand" class="list-items__items">
@@ -8,7 +8,7 @@
         </span>
       </div>
     </li>
-    <li>
+    <li v-if="hasSources">
       <span class="list-items__title">疫苗來源</span>
       <div class="list-items__list">
         <span v-for="source in sources" :key="source" class="list-items__items">
@@ -16,7 +16,7 @@
         </span>
       </div>
     </li>
-    <li>
+    <li v-if="hasReadyTime">
       <span class="list-items__title">疫苗到貨時間</span>
       <div class="list-items__list">
         <span v-for="item in readyTime" :key="item" class="list-items__items">
@@ -24,7 +24,7 @@
         </span>
       </div>
     </li>
-    <li>
+    <li v-if="hasStartTime">
       <span class="list-items__title">開始施打時間</span>
       <div class="list-items__list">
         <span v-for="item in startTime" :key="item" class="list-items__items">
@@ -53,6 +53,20 @@ export default {
     startTime: {
       type: Array,
       default: () => [],
+    },
+  },
+  computed: {
+    hasBrands() {
+      return this.brands && this.brands?.length
+    },
+    hasSources() {
+      return this.sources && this.sources?.length
+    },
+    hasReadyTime() {
+      return this.readyTime && this.readyTime?.length
+    },
+    hasStartTime() {
+      return this.startTime && this.startTime?.length
     },
   },
 }

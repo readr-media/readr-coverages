@@ -1,7 +1,7 @@
 <template>
   <div class="result">
     <div class="result__info">
-      <ResultBoard />
+      <ResultBoard :result="result" />
       <EmailBoard v-if="!isA467" />
       <div class="result__info-btn">
         <button
@@ -69,6 +69,11 @@ export default {
     Credit,
   },
   props: {
+    result: {
+      type: Object,
+      required: true,
+      default: () => {},
+    },
     qa: {
       type: Object,
       required: true,
@@ -77,7 +82,6 @@ export default {
   },
   data() {
     return {
-      isA467: true,
       mockList: [
         {
           title: '勞工前往接種COVID-19疫苗，以及接種後擔心，可否請疫苗接種假？',
@@ -99,6 +103,11 @@ export default {
         },
       ],
     }
+  },
+  computed: {
+    isA467() {
+      return this.result.type === ('A4' || 'A6' || 'A7')
+    },
   },
   methods: {
     handleSeachAgain() {

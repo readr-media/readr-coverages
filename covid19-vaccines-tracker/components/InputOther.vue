@@ -111,7 +111,7 @@
         <input
           v-model="injectionInput"
           type="radio"
-          value="n"
+          :value="false"
           class="injection-input"
         />
         <span class="radiomark"></span>
@@ -121,19 +121,18 @@
         <input
           v-model="injectionInput"
           type="radio"
-          value="y"
+          :value="true"
           class="injection-input"
         />
         <span class="radiomark"></span>
       </label>
-      <div v-if="injectionInput === 'y'" class="input-other__injection--year">
+      <div v-if="injectionInput" class="input-other__injection--year">
         <label for="yearInput">請輸入注射時間</label>
         <input
           id="yearInput"
           v-model="injectionYearInput"
           type="text"
           placeholder="YYYY / MM / DD"
-          @focus="this.placeholder"
         />
       </div>
     </section>
@@ -227,7 +226,7 @@ export default {
         this.countyInput &&
         this.occupationInput.major &&
         this.conditionInput.length &&
-        this.injectionInput
+        this.injectionInput !== undefined
       )
     },
   },
@@ -295,9 +294,16 @@ export default {
     goToNextPage() {
       this.pageData = {
         county: this.countyInput,
-        occupation: this.occupationInput.major,
+        occupation: {
+          major: this.occupationInput.major,
+          option1: this.occupationInput.second,
+          option2: this.occupationInput.third,
+        },
         condition: this.conditionInput,
-        injection: this.injectionInput,
+        injection: {
+          isInjection: this.injectionInput,
+          injectionTime: this.injectionYearInput,
+        },
       }
       this.$emit('finish-other', this.pageData)
     },

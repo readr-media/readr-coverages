@@ -21,6 +21,7 @@
       />
       <Result
         v-if="shouldShowResult"
+        :result="result"
         :qa="qa"
         @search-again="handleSearchAgain"
       />
@@ -56,6 +57,7 @@ export default {
       shouldShowInputAge: false,
       shouldShowInputOther: false,
       shouldShowResult: false,
+      result: {},
       government: [],
       cities: [],
       vaccinesId: [],
@@ -64,11 +66,15 @@ export default {
       inputData: {
         age: 0,
         county: '',
-        injection: '',
-        injectionTime: undefined,
+        injection: {
+          isInjection: false,
+          injectionTime: '',
+        },
         condition: [],
         occupation: {
-          first: '',
+          major: '',
+          option1: '',
+          option2: '',
         },
       },
     }
@@ -135,17 +141,32 @@ export default {
       this.showResult()
     },
     handleFinishAge(payload) {
-      this.inputData.age = payload
-      this.hideInputAge()
-      this.showInputOther()
+      if (payload < 18) {
+        // A4
+        this.result = {
+          title: '你的年紀還不適合接種疫苗。',
+          brief:
+            '幾歲可以打疫苗？如果我還沒到達可以打疫苗的年紀，該如何保護自己？',
+          description:
+            '臺灣疫苗存貨有限，中央疫情流行指揮中心會在最新疫苗到貨時公佈此批疫苗的優先施打對象。你可以透過下圖追蹤最新的情形，或訂閱通知，我們會在你可以施打疫苗時通知您。',
+          type: 'A4',
+        }
+        this.hideInputAge()
+        this.showResult()
+      } else {
+        this.inputData.age = payload
+        this.hideInputAge()
+        this.showInputOther()
+      }
     },
     handleFinishOther(payload) {
       this.hideInputOther()
       this.inputData.county = payload.county
       this.inputData.condition = [...payload.condition]
       this.inputData.injection = payload.injection
-      this.inputData.occupation.first = payload.occupation
-      console.log(this.inputData)
+      this.inputData.occupation = payload.occupation
+      this.result = this.generateResult(this.inputData)
+      console.log(this.result)
       this.showResult()
     },
     handleToResult() {
@@ -155,6 +176,38 @@ export default {
       this.inputData = {}
       this.hideResult()
       this.showInputAge()
+    },
+    generateResult(data) {
+      if (data.injection.isInjection && data.injection.injectionTime) {
+        const interval = 75
+        // A7 && A5
+        return interval >= 70
+          ? this.handleA7(data)
+          : {
+              firstInjectTime: data.injection.injectionTime,
+              title: '建議接種第二劑的時間是10至12週後，目前還沒到。',
+              injectTime: '2021/10/10',
+              type: 'A5',
+            }
+      }
+    },
+    handleA7(data) {
+      const matchedItem = this.government.find(
+        (item) => item.identity === '已完成第一劑疫苗者' && item.data !== ''
+      )
+      const vaccine = this.vaccinesId.find(
+        (item) =>
+          item.vaccines_id === matchedItem.vaccines_id &&
+          item.status === '施打中'
+      )
+      return {
+        firstInjectTime: data.injection.injectionTime,
+        title:
+          '目前已經到了建議接種第二劑的時間，你也已被納入政府列出的公費優先施打名單內。',
+        brands: [vaccine.brand],
+        sources: [vaccine.source],
+        type: 'A7',
+      }
     },
     formatQuestions(rawData) {
       return _.groupBy(rawData, 'question') ?? {}
