@@ -14,14 +14,10 @@
     <ul v-if="shouldShowContent" class="toggle-category__content">
       <li
         v-for="item in items"
-        :key="item.title"
+        :key="item.question"
         class="toggle-category__content-items"
       >
-        <UiToggleCard
-          :title="item.title"
-          :content="item.content"
-          :graphUrl="item.url"
-        />
+        <UiToggleCard :title="item.question" :content="item.answer" />
       </li>
     </ul>
   </div>

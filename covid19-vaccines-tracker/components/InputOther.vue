@@ -26,24 +26,70 @@
       <p class="label">3. 你的職業？</p>
       <div class="input-other__select-input">
         <div class="mock-input" @click="toggleOccupationIcon">
-          {{ occupationInput }}
-          <span class="arrow" :class="{ rotate: openOccupationList }" />
+          {{ occupationInput.major }}
+          <span class="arrow" :class="{ rotate: openOccupationList.major }" />
         </div>
         <ul v-if="shouldShowOccupationList">
+          <li @click="setOccupationInput('以下皆非')">以下皆非</li>
           <li
-            v-for="option in mockOptions"
-            :key="option"
-            @click="setOccupationInput(option)"
+            v-for="occupation in Object.keys(occupations.major)"
+            :key="occupation"
+            @click="setOccupationInput(occupation)"
           >
-            {{ option }}
+            {{ occupation }}
           </li>
+        </ul>
+      </div>
+      <div v-if="hasSecond" class="input-other__select-input">
+        <div class="mock-input" @click="toggleSecondIcon">
+          {{ occupationInput.second }}
+          <span class="arrow" :class="{ rotate: openOccupationList.second }" />
+        </div>
+        <ul v-if="shouldShowSecondList">
+          <li
+            v-for="occupation in Object.keys(occupations.second)"
+            :key="occupation"
+            @click="setSecondInput(occupation)"
+          >
+            {{ occupation }}
+          </li>
+          <li @click="setSecondInput('以上皆非')">以上皆非</li>
+          <li @click="setSecondInput('我不確定')">我不確定</li>
+        </ul>
+      </div>
+      <div v-if="hasThird" class="input-other__select-input">
+        <div class="mock-input" @click="toggleThirdIcon">
+          {{ occupationInput.third }}
+          <span class="arrow" :class="{ rotate: openOccupationList.third }" />
+        </div>
+        <ul v-if="shouldShowThirdList">
+          <li
+            v-for="occupation in Object.keys(occupations.third)"
+            :key="occupation"
+            @click="setThirdInput(occupation)"
+          >
+            {{ occupation }}
+          </li>
+          <li @click="setThirdInput('以上皆非')">以上皆非</li>
+          <li @click="setThirdInput('我不確定')">我不確定</li>
         </ul>
       </div>
     </section>
     <section class="input-other__condition">
       <p class="label">4. 你是否符合以下身份或條件？</p>
+      <label class="input-other__condition--checklist">
+        無
+        <input
+          :id="'無'"
+          v-model="conditionInput"
+          :value="'無'"
+          type="checkbox"
+          @change="removeOtherCheck"
+        />
+        <span class="checkmark"></span>
+      </label>
       <label
-        v-for="condition in mockConditions"
+        v-for="condition in Object.keys(conditions)"
         :key="condition"
         class="input-other__condition--checklist"
       >
@@ -53,6 +99,7 @@
           v-model="conditionInput"
           :value="condition"
           type="checkbox"
+          :disabled="shouldDisabledCheckbox"
         />
         <span class="checkmark"></span>
       </label>
@@ -64,7 +111,7 @@
         <input
           v-model="injectionInput"
           type="radio"
-          value="n"
+          :value="false"
           class="injection-input"
         />
         <span class="radiomark"></span>
@@ -74,12 +121,12 @@
         <input
           v-model="injectionInput"
           type="radio"
-          value="y"
+          :value="true"
           class="injection-input"
         />
         <span class="radiomark"></span>
       </label>
-      <div v-if="injectionInput === 'y'" class="input-other__injection--year">
+      <div v-if="injectionInput" class="input-other__injection--year">
         <label for="yearInput">請輸入注射時間</label>
         <input
           id="yearInput"
@@ -106,58 +153,100 @@
 </template>
 
 <script>
-import { COUNTIES } from '~/constants'
+import _ from 'lodash'
 
 export default {
+  props: {
+    questions: {
+      type: Object,
+      required: true,
+      default: () => {},
+    },
+  },
   data() {
     return {
+      counties: {},
+      conditions: {},
+      occupations: {
+        major: {},
+        second: {},
+        third: {},
+      },
+      occupationInput: {
+        major: '請選擇',
+        second: '請選擇',
+        third: '請選擇',
+      },
+      openOccupationList: {
+        major: false,
+        second: false,
+        third: false,
+      },
       countyInput: '',
+      conditionInput: [],
       currentCountyInput: undefined,
-      occupationInput: '請選擇',
       injectionInput: undefined,
       injectionYearInput: undefined,
-      conditionInput: [],
-      openOccupationList: false,
+      shouldDisabledCheckbox: false,
       pageData: {},
-      mockOptions: [
-        '中央及地方政府防疫人員',
-        '國際航空機組員',
-        '國際商船船員',
-        '防疫車隊駕駛',
-        '因外交或公務奉派出國人員、以互惠原則提供我國外交人員接種之該國駐臺員眷等',
-      ],
-      mockConditions: [
-        '無',
-        '洗腎患者',
-        '重大傷病',
-        '原住民',
-        '同住者為高風險職業',
-        '確診者',
-      ],
     }
   },
   computed: {
+    hasSecond() {
+      return Object.keys(this.occupations.second).length
+    },
+    hasThird() {
+      return Object.keys(this.occupations.third).length
+    },
     matchedCounty() {
-      return COUNTIES.filter((county) =>
+      return Object.keys(this.counties).filter((county) =>
         county.includes(this.currentCountyInput)
       )
     },
     shouldShowOccupationList() {
-      return this.mockOptions.length && this.openOccupationList
+      return (
+        Object.keys(this.occupations.major).length &&
+        this.openOccupationList.major
+      )
+    },
+    shouldShowSecondList() {
+      return (
+        Object.keys(this.occupations.second).length &&
+        this.openOccupationList.second
+      )
+    },
+    shouldShowThirdList() {
+      return (
+        Object.keys(this.occupations.third).length &&
+        this.openOccupationList.third
+      )
     },
     shouldShowNextBtn() {
       return (
         this.countyInput &&
-        this.occupationInput &&
+        this.occupationInput.major &&
         this.conditionInput.length &&
-        this.injectionInput
+        this.injectionInput !== undefined
       )
     },
+  },
+  mounted() {
+    Object.entries(this.questions).forEach((item) => {
+      if (item[0] === '你是否有這些身份或符合這些條件') {
+        this.conditions = this.formatOptions(item[1], 'major_option')
+      }
+      if (item[0] === '你的職業') {
+        this.occupations.major = this.formatOptions(item[1], 'major_option')
+      }
+      if (item[0] === '你居住的縣市') {
+        this.counties = this.formatOptions(item[1], 'major_option')
+      }
+    })
   },
   methods: {
     getCurrentCountyInput(e) {
       this.currentCountyInput = e.target.value.length
-        ? e.target.value
+        ? this.formatTai(e.target.value)
         : undefined
     },
     setCountyInput(county) {
@@ -165,23 +254,71 @@ export default {
       this.countyInput = county
     },
     setOccupationInput(option) {
-      this.occupationInput = option
-      this.openOccupationList = false
+      this.occupationInput.second = '請選擇'
+      this.occupations.second = {}
+      this.occupations.third = {}
+      this.occupationInput.major = option
+      this.occupations.second = this.formatOptions(
+        this.occupations.major[option],
+        'option2'
+      )
+      this.openOccupationList.major = false
+    },
+    setSecondInput(option) {
+      this.occupationInput.third = '請選擇'
+      this.occupations.third = {}
+      this.occupationInput.second = option
+      this.occupations.third = this.formatOptions(
+        this.occupations.second[option],
+        'option3'
+      )
+      this.openOccupationList.second = false
+    },
+    setThirdInput(option) {
+      this.occupationInput.third = option
+      this.openOccupationList.third = false
     },
     toggleOccupationIcon() {
-      this.openOccupationList = !this.openOccupationList
+      this.openOccupationList.major = !this.openOccupationList.major
+    },
+    toggleSecondIcon() {
+      this.openOccupationList.second = !this.openOccupationList.second
+    },
+    toggleThirdIcon() {
+      this.openOccupationList.third = !this.openOccupationList.third
+    },
+    removeOtherCheck() {
+      this.conditionInput = ['無']
+      this.shouldDisabledCheckbox = !this.shouldDisabledCheckbox
     },
     goToNextPage() {
       this.pageData = {
         county: this.countyInput,
-        occupation: this.occupationInput,
+        occupation: {
+          major: this.occupationInput.major,
+          option1: this.occupationInput.second,
+          option2: this.occupationInput.third,
+        },
         condition: this.conditionInput,
-        injection: this.injectionInput,
+        injection: {
+          isInjection: this.injectionInput,
+          injectionTime: this.injectionYearInput,
+        },
       }
       this.$emit('finish-other', this.pageData)
     },
     skipToResultPage() {
       this.$emit('skip-to-result')
+    },
+    formatTai(str) {
+      return str.replace('臺', '台')
+    },
+    formatOptions(arr, aim) {
+      if (!arr || !arr.length) {
+        return {}
+      }
+      const data = arr.filter((item) => item[aim])
+      return _.groupBy(data, aim)
     },
   },
 }
@@ -257,6 +394,9 @@ export default {
           background-color: #e0e0e0;
         }
       }
+    }
+    &-input + &-input {
+      margin: 8px 0 0;
     }
   }
   &__condition {

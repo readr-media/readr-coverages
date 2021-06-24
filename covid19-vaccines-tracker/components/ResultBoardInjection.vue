@@ -4,7 +4,7 @@
       <p>施打方式</p>
       <span>請至<a :href="href" target="_blank">地方政府網站</a>預約</span>
     </div>
-    <div class="result-injection__other">
+    <div v-if="hasInjectInfo" class="result-injection__other">
       <p>預計施打第二劑的時間</p>
       <span v-if="isA7">您無需預約，會由地方政府寄發通知單給您</span>
       <div class="result-injection__time">
@@ -43,6 +43,11 @@ export default {
     isA2: {
       type: Boolean,
       default: false,
+    },
+  },
+  computed: {
+    hasInjectInfo() {
+      return (this.injectTime && this.injectTime.length) || this.isA7
     },
   },
 }
