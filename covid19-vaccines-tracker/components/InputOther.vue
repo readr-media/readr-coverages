@@ -84,6 +84,7 @@
           v-model="conditionInput"
           :value="'無'"
           type="checkbox"
+          @change="removeOtherCheck"
         />
         <span class="checkmark"></span>
       </label>
@@ -98,6 +99,7 @@
           v-model="conditionInput"
           :value="condition"
           type="checkbox"
+          :disabled="shouldDisabledCheckbox"
         />
         <span class="checkmark"></span>
       </label>
@@ -186,6 +188,7 @@ export default {
       currentCountyInput: undefined,
       injectionInput: undefined,
       injectionYearInput: undefined,
+      shouldDisabledCheckbox: false,
       pageData: {},
     }
   },
@@ -285,6 +288,10 @@ export default {
     toggleThirdIcon() {
       this.openOccupationList.third = !this.openOccupationList.third
     },
+    removeOtherCheck() {
+      this.conditionInput = ['無']
+      this.shouldDisabledCheckbox = !this.shouldDisabledCheckbox
+    },
     goToNextPage() {
       this.pageData = {
         county: this.countyInput,
@@ -381,6 +388,9 @@ export default {
           background-color: #e0e0e0;
         }
       }
+    }
+    &-input + &-input {
+      margin: 8px 0 0;
     }
   }
   &__condition {
