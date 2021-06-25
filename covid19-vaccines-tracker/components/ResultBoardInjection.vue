@@ -1,29 +1,31 @@
 <template>
   <div class="result-injection">
     <div v-if="isA2" class="result-injection__a2">
-      <p>施打方式</p>
-      <span>請至<a :href="href" target="_blank">地方政府網站</a>預約</span>
+      <p>接種方式</p>
+      <span v-for="(item, i) in howTo" :key="`${item}-${i}`">
+        {{ item }}
+      </span>
     </div>
     <div v-if="hasInjectInfo" class="result-injection__other">
-      <p>預計施打第二劑的時間</p>
+      <p>預計接種第二劑的時間</p>
       <span v-if="isA7">您無需預約，會由地方政府寄發通知單給您</span>
       <div class="result-injection__time">
-        <span v-for="item in injectTime" :key="item">
+        <span v-for="(item, i) in secondInjectTime" :key="`${item}-${i}`">
           {{ item }}
         </span>
       </div>
+      <small class="result-injection__announce">
+        僅為推估，實際情況以指揮中心為主
+      </small>
     </div>
-    <small class="result-injection__announce">
-      僅為推估，實際情況以指揮中心為主
-    </small>
-    <small class="result-injection__timestamp">2021/6/22 更新</small>
+    <small class="result-injection__timestamp">{{ timeStamp }}</small>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    injectTime: {
+    secondInjectTime: {
       type: Array,
       default: () => [],
     },
@@ -32,9 +34,9 @@ export default {
       required: true,
       default: '',
     },
-    href: {
-      type: String,
-      default: '',
+    howTo: {
+      type: Array,
+      default: () => [],
     },
     isA7: {
       type: Boolean,
@@ -47,7 +49,9 @@ export default {
   },
   computed: {
     hasInjectInfo() {
-      return (this.injectTime && this.injectTime.length) || this.isA7
+      return (
+        (this.secondInjectTime && this.secondInjectTime.length) || this.isA7
+      )
     },
   },
 }

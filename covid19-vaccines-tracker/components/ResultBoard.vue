@@ -3,6 +3,7 @@
     <ResultBoardTitle
       :title="result.title"
       :firstInjectTime="result.firstInjectTime"
+      :occupation="result.occupation"
       class="result-board__title"
     />
     <ResultBoardDesc
@@ -19,10 +20,12 @@
         :sources="result.sources"
         :readyTime="result.readyTime"
         :startTime="result.startTime"
+        :endTime="result.endTime"
         class="result-board__list-wrapper__list"
       />
       <ResultBoardInjection
-        :injectTime="result.injectTime"
+        :secondInjectTime="result.secondInjectTime"
+        :howTo="result.howTo"
         :timeStamp="result.timeStamp"
         :isA2="isA2"
         :isA7="isA7"
@@ -39,18 +42,18 @@ import ResultBoardList from '~/components/ResultBoardList.vue'
 import ResultBoardInjection from '~/components/ResultBoardInjection.vue'
 
 export default {
+  components: {
+    ResultBoardTitle,
+    ResultBoardDesc,
+    ResultBoardList,
+    ResultBoardInjection,
+  },
   props: {
     result: {
       type: Object,
       required: true,
       default: () => {},
     },
-  },
-  components: {
-    ResultBoardTitle,
-    ResultBoardDesc,
-    ResultBoardList,
-    ResultBoardInjection,
   },
   computed: {
     isA2() {
