@@ -14,11 +14,11 @@
           {{ item }}
         </span>
       </div>
+      <small class="result-injection__announce">
+        僅為推估，實際情況以指揮中心為主
+      </small>
     </div>
-    <small class="result-injection__announce">
-      僅為推估，實際情況以指揮中心為主
-    </small>
-    <small class="result-injection__timestamp">2021/6/22 更新</small>
+    <small class="result-injection__timestamp">{{ timeStamp }}</small>
   </div>
 </template>
 
