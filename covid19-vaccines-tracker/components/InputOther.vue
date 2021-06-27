@@ -132,7 +132,10 @@
           id="yearInput"
           v-model="injectionYearInput"
           type="text"
+          autocomplete="off"
           placeholder="YYYY / MM / DD"
+          maxlength="14"
+          @input.prevent="handleTimeInput"
         />
       </div>
     </section>
@@ -183,11 +186,12 @@ export default {
         third: false,
       },
       countyInput: '',
-      conditionInput: [],
+      conditionInput: ['無'],
       currentCountyInput: undefined,
-      injectionInput: undefined,
+      injectionInput: false,
       injectionYearInput: undefined,
-      shouldDisabledCheckbox: false,
+      shouldAddInputBorder: false,
+      yearInputLastLength: 0,
       pageData: {},
     }
   },
@@ -296,6 +300,17 @@ export default {
         this.conditionInput.splice(index, 1)
       }
     },
+    handleTimeInput() {
+      const length = this.injectionYearInput.length
+      const dif = this.yearInputLastLength - length
+      if (dif >= 0 && (length === 6 || length === 11)) {
+        this.injectionYearInput = this.injectionYearInput.slice(0, -3)
+      }
+      if (dif <= 0 && (length === 4 || length === 9)) {
+        this.injectionYearInput = this.injectionYearInput + ' / '
+      }
+      this.yearInputLastLength = this.injectionYearInput.length
+    },
     goToNextPage() {
       this.pageData = {
         county: this.countyInput,
@@ -338,6 +353,7 @@ export default {
     flex-direction: column;
     margin: 0 0 24px;
     &-input {
+      position: relative;
       border: 1px solid #e0e0e0;
       border-radius: 6px;
       font-size: 18px;
@@ -378,7 +394,9 @@ export default {
       }
       ul {
         position: relative;
-        margin: 4px 0;
+        padding: 4px 0;
+        max-height: 240px;
+        overflow-y: auto;
         li {
           padding: 8px 16px;
           color: #000928;
@@ -392,7 +410,7 @@ export default {
         &::before {
           content: '';
           position: absolute;
-          top: -4px;
+          top: 0;
           right: 16px;
           left: 16px;
           height: 1px;
@@ -508,6 +526,7 @@ export default {
       }
     }
     &--year {
+      position: relative;
       display: flex;
       flex-direction: column;
       margin: 12px 0 0;
@@ -526,6 +545,12 @@ export default {
         border: 1px solid #e0e0e0;
         border-radius: 6px;
         padding: 12px 16px;
+        -moz-appearance: textfield;
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
         &:focus {
           outline: none;
           border: 1px solid #04295e;
