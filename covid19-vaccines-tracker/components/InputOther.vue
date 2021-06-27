@@ -99,7 +99,7 @@
           v-model="conditionInput"
           :value="condition"
           type="checkbox"
-          :disabled="shouldDisabledCheckbox"
+          @change="removeNoCheck"
         />
         <span class="checkmark"></span>
       </label>
@@ -289,7 +289,12 @@ export default {
     },
     removeOtherCheck() {
       this.conditionInput = ['無']
-      this.shouldDisabledCheckbox = !this.shouldDisabledCheckbox
+    },
+    removeNoCheck() {
+      const index = this.conditionInput.indexOf('無')
+      if (index !== -1) {
+        this.conditionInput.splice(index, 1)
+      }
     },
     goToNextPage() {
       this.pageData = {
