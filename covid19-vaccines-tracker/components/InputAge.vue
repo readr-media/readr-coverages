@@ -3,6 +3,7 @@
     <div class="input-age__input">
       <label for="age">1. 你的年齡？</label>
       <input id="age" v-model="age" type="number" placeholder="28" />
+      <ErrHandler :target="'age'" :currentInput="age" @has-err="handleHasErr" />
     </div>
     <div class="input-age__btns">
       <button
@@ -28,10 +29,16 @@
 </template>
 
 <script>
+import ErrHandler from '~/components/ErrHandler.vue'
+
 export default {
+  components: {
+    ErrHandler,
+  },
   data() {
     return {
       age: undefined,
+      hasErr: true,
     }
   },
   computed: {
@@ -39,7 +46,7 @@ export default {
       return parseInt(this.age)
     },
     shouldShowNextBtn() {
-      return this.formatAge !== 0 && !isNaN(this.formatAge)
+      return this.formatAge !== 0 && !this.hasErr
     },
   },
   methods: {
@@ -51,6 +58,9 @@ export default {
     },
     skipToResultPage() {
       this.$emit('skip-to-result')
+    },
+    handleHasErr(payload) {
+      this.hasErr = payload
     },
   },
 }
