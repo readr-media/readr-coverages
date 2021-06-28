@@ -149,6 +149,21 @@
           @has-err="handleHasErr"
         />
       </div>
+      <div v-if="injectionInput" class="input-other__select-input">
+        <div class="mock-input" @click="toggleBrandIcon">
+          {{ brandInput }}
+          <span class="arrow" :class="{ rotate: openBrandList }" />
+        </div>
+        <ul v-if="shouldShowBrandList">
+          <li
+            v-for="brand in Object.keys(brands)"
+            :key="brand"
+            @click="setBrandInput(brand)"
+          >
+            {{ brand }}
+          </li>
+        </ul>
+      </div>
     </section>
     <div class="input-other__btns">
       <button
@@ -180,6 +195,11 @@ export default {
       required: true,
       default: () => {},
     },
+    vaccinesList: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
   },
   data() {
     return {
@@ -207,6 +227,9 @@ export default {
       injectionYearInput: '',
       shouldAddInputBorder: false,
       yearInputLastLength: 0,
+      brands: {},
+      brandInput: '疫苗廠牌',
+      openBrandList: false,
       hasErr: true,
       pageData: {},
     }
@@ -235,6 +258,9 @@ export default {
     shouldShowThirdList() {
       return Object.keys(this.jobs.third).length && this.openJobList.third
     },
+    shouldShowBrandList() {
+      return Object.keys(this.brands).length && this.openBrandList
+    },
     shouldShowNextBtn() {
       return (
         !this.hasErr &&
@@ -257,6 +283,7 @@ export default {
         this.counties = this.formatOptions(item[1], 'major_option')
       }
     })
+    this.brands = this.formatOptions(this.vaccinesList, 'brand')
   },
   methods: {
     getCurrentCountyInput(e) {
@@ -287,6 +314,10 @@ export default {
       this.jobInput.third = option
       this.openJobList.third = false
     },
+    setBrandInput(option) {
+      this.brandInput = option
+      this.openBrandList = false
+    },
     toggleJobIcon() {
       this.openJobList.major = !this.openJobList.major
     },
@@ -295,6 +326,9 @@ export default {
     },
     toggleThirdIcon() {
       this.openJobList.third = !this.openJobList.third
+    },
+    toggleBrandIcon() {
+      this.openBrandList = !this.openBrandList
     },
     removeOtherCheck() {
       this.conditionInput = ['無']

@@ -16,6 +16,7 @@
       <InputOther
         v-if="shouldShowInputOther"
         :questions="questions"
+        :vaccinesList="vaccinesList"
         @finish-other="handleFinishOther"
         @skip-to-result="handleSkipToResult"
       />
@@ -62,7 +63,7 @@ export default {
       result: {},
       government: [],
       cities: [],
-      vaccinesId: [],
+      vaccinesList: [],
       questions: {},
       qa: {},
       inputData: {
@@ -100,7 +101,7 @@ export default {
       )
       this.government = govRes?.data ?? []
       this.cities = cityRes?.data ?? []
-      this.vaccinesId = idRes?.data ?? []
+      this.vaccinesList = idRes?.data ?? []
       this.questions = this.formatQuestions(qoRes?.data)
       this.qa = this.formatQA(qaRes?.data)
     } catch (err) {
@@ -226,7 +227,7 @@ export default {
         const groupedList = _.groupBy(cityList, 'vaccines_id')
         const newCityList = []
         const vaccine = Object.keys(groupedList).map((item) =>
-          this.vaccinesId.find(
+          this.vaccinesList.find(
             (d) => d.vaccines_id === item && d.status === '施打中'
           )
         )
@@ -252,7 +253,7 @@ export default {
         const vaccineIds = Object.keys(_.groupBy(govList, 'vaccines_id'))
         const vaccine = vaccineIds.map(
           (item) =>
-            this.vaccinesId.find(
+            this.vaccinesList.find(
               (d) => d.vaccines_id === item && d.status === '施打中'
             ) ?? {}
         )
@@ -323,7 +324,7 @@ export default {
         (item) =>
           item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
       )
-      const vaccine = this.vaccinesId.find(
+      const vaccine = this.vaccinesList.find(
         (item) =>
           item.vaccines_id === matchedItem.vaccines_id &&
           item.status === '施打中'
