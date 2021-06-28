@@ -1,5 +1,5 @@
 <template>
-  <small>{{ errText }}</small>
+  <small v-if="errText">{{ errText }}</small>
 </template>
 
 <script>

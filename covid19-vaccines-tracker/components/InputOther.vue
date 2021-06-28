@@ -29,7 +29,7 @@
       />
     </section>
     <section class="input-other__select job">
-      <p class="label">3. 你的職業？</p>
+      <p class="label">3. 你的職業是否符合清單裡的條件？</p>
       <div class="input-other__select-input">
         <div class="mock-input" @click="toggleMajorIcon">
           {{ jobInput.major }}

@@ -24,7 +24,6 @@
           <UiToggleCard
             :title="item.title"
             :content="item.content"
-            :graphUrl="item.url"
             :isFirstItem="!i"
           />
         </li>

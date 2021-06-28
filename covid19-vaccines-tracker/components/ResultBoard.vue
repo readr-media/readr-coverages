@@ -10,7 +10,6 @@
       :brief="result.brief"
       :description="result.description"
       :timeStamp="result.timeStamp"
-      :graphUrl="result.graphUrl"
       :listItems="result.listItems"
       class="result-board__desc"
     />
