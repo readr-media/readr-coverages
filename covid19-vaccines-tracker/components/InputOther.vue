@@ -141,6 +141,9 @@
           autocomplete="off"
           placeholder="YYYY / MM / DD"
           maxlength="14"
+          @keypress="onlyNumber"
+          @keyup="preventArrows"
+          @keydown="preventArrows"
           @input.prevent="handleTimeInput"
         />
         <ErrHandler
@@ -272,6 +275,7 @@ export default {
     },
   },
   mounted() {
+    window.scrollTo(0, 0)
     Object.entries(this.questions).forEach((item) => {
       if (item[0] === '你是否有這些身份或符合這些條件') {
         this.conditions = this.formatOptions(item[1], 'major_option')
@@ -337,6 +341,18 @@ export default {
       const index = this.conditionInput.indexOf('無')
       if (index !== -1) {
         this.conditionInput.splice(index, 1)
+      }
+    },
+    onlyNumber(e) {
+      const keyCode = e.keyCode ?? e.which
+      if (keyCode < 48 || keyCode > 57) {
+        e.preventDefault()
+      }
+    },
+    preventArrows(e) {
+      const keyCode = e.keyCode ?? e.which
+      if (keyCode > 36 && keyCode < 41) {
+        e.preventDefault()
       }
     },
     handleTimeInput() {

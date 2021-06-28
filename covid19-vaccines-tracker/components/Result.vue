@@ -119,6 +119,9 @@ export default {
       )
     },
   },
+  mounted() {
+    window.scrollTo(0, 0)
+  },
   methods: {
     handleSeachAgain() {
       this.$emit('search-again')
