@@ -32,9 +32,6 @@ export default {
       if (this.target === 'county') {
         msg = this.handleTargetCounty()
       }
-      if (this.target === 'occupation') {
-        msg = this.handleTargetOccupation()
-      }
       if (this.target === 'injectTime') {
         msg = this.handleTargetInjectTime()
       }
@@ -54,9 +51,6 @@ export default {
         item.includes(this.currentInput)
       )
       return this.currentInput === 'matched' || findItem ? '' : '找不到這個縣市'
-    },
-    handleTargetOccupation() {
-      return this.currentInput === '請選擇' ? '請選擇至少一項' : ''
     },
     handleTargetInjectTime() {
       const now = new Date()

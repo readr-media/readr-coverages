@@ -73,7 +73,7 @@ export default {
           injectionTime: '',
         },
         condition: [],
-        occupation: {
+        job: {
           major: '',
           option1: '',
           option2: '',
@@ -159,7 +159,7 @@ export default {
       this.inputData.county = payload.county
       this.inputData.condition = [...payload.condition]
       this.inputData.injection = payload.injection
-      this.inputData.occupation = payload.occupation
+      this.inputData.job = payload.job
       this.result = this.generateResult(this.inputData)
       this.shouldShowResultBoard = true
       this.showResult()
@@ -179,10 +179,7 @@ export default {
       if (data.injection.isInjection && data.injection.injectionTime) {
         return this.handleA5A7(data)
       }
-      if (
-        data.occupation.option1 === '我不確定' ||
-        data.occupation.option2 === '我不確定'
-      ) {
+      if (data.job.option1 === '我不確定' || data.job.option2 === '我不確定') {
         return this.handleA6(data)
       }
       return this.handleA1A2A3(data)
@@ -192,9 +189,9 @@ export default {
         (item) =>
           item.status !== '暫緩施打' &&
           (item.city === '不限' || item.city === data.county) &&
-          item.job === data.occupation.major &&
-          (item.job2 === '' || item.job2 === data.occupation.option1) &&
-          (item.job3 === '' || item.job3 === data.occupation.option2) &&
+          item.job === data.job.major &&
+          (item.job2 === '' || item.job2 === data.job.option1) &&
+          (item.job3 === '' || item.job3 === data.job.option2) &&
           (item.identity === '' ||
             data.condition.find((d) => d === item.identity)) &&
           (item.age === '' || this.handleAgeCompare(item.age, data.age))
@@ -217,9 +214,9 @@ export default {
         (item) =>
           item.status !== '暫緩施打' &&
           item.city === data.county &&
-          item.job === data.occupation.major &&
-          (item.job2 === '' || item.job2 === data.occupation.option1) &&
-          (item.job3 === '' || item.job3 === data.occupation.option2) &&
+          item.job === data.job.major &&
+          (item.job2 === '' || item.job2 === data.job.option1) &&
+          (item.job3 === '' || item.job3 === data.job.option2) &&
           (item.identity === '' ||
             data.condition.find((d) => d === item.identity)) &&
           (item.age === '' || this.handleAgeCompare(item.age, data.age))
@@ -302,9 +299,7 @@ export default {
       const dataList = []
       const matchedList = this.government.filter(
         (item) =>
-          item.job === data.occupation.major &&
-          item.date &&
-          item.status !== '暫緩施打'
+          item.job === data.job.major && item.date && item.status !== '暫緩施打'
       )
       matchedList.forEach((item) => {
         if (item.job2 && !dataList.includes(item.job2)) {
@@ -315,7 +310,7 @@ export default {
         }
       })
       return {
-        occupation: data.occupation.major,
+        job: data.job.major,
         brief: '可施打疫苗的身份',
         listItems: dataList,
         description:
@@ -325,7 +320,8 @@ export default {
     },
     handleA7(data) {
       const matchedItem = this.government.find(
-        (item) => item.identity === '已接種第一劑疫苗者' && item.date !== ''
+        (item) =>
+          item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
       )
       const vaccine = this.vaccinesId.find(
         (item) =>

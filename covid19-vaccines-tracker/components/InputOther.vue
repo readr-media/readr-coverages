@@ -28,75 +28,58 @@
         @has-err="handleHasErr"
       />
     </section>
-    <section class="input-other__select occupation">
+    <section class="input-other__select job">
       <p class="label">3. 你的職業？</p>
       <div class="input-other__select-input">
-        <div class="mock-input" @click="toggleOccupationIcon">
-          {{ occupationInput.major }}
-          <span class="arrow" :class="{ rotate: openOccupationList.major }" />
+        <div class="mock-input" @click="toggleJobIcon">
+          {{ jobInput.major }}
+          <span class="arrow" :class="{ rotate: openJobList.major }" />
         </div>
-        <ul v-if="shouldShowOccupationList">
-          <li @click="setOccupationInput('以下皆非')">以下皆非</li>
+        <ul v-if="shouldShowJobList">
+          <li @click="setJobInput('都不是')">都不是</li>
           <li
-            v-for="occupation in Object.keys(occupations.major)"
-            :key="occupation"
-            @click="setOccupationInput(occupation)"
+            v-for="job in Object.keys(jobs.major)"
+            :key="job"
+            @click="setJobInput(job)"
           >
-            {{ occupation }}
+            {{ job }}
           </li>
         </ul>
       </div>
-      <ErrHandler
-        :target="'occupation'"
-        :currentInput="occupationInput.major"
-        @has-err="handleHasErr"
-      />
       <div v-if="hasSecond" class="input-other__select-input">
         <div class="mock-input" @click="toggleSecondIcon">
-          {{ occupationInput.second }}
-          <span class="arrow" :class="{ rotate: openOccupationList.second }" />
+          {{ jobInput.second }}
+          <span class="arrow" :class="{ rotate: openJobList.second }" />
         </div>
         <ul v-if="shouldShowSecondList">
           <li
-            v-for="occupation in Object.keys(occupations.second)"
-            :key="occupation"
-            @click="setSecondInput(occupation)"
+            v-for="job in Object.keys(jobs.second)"
+            :key="job"
+            @click="setSecondInput(job)"
           >
-            {{ occupation }}
+            {{ job }}
           </li>
           <li @click="setSecondInput('以上皆非')">以上皆非</li>
           <li @click="setSecondInput('我不確定')">我不確定</li>
         </ul>
       </div>
-      <ErrHandler
-        v-if="hasSecond"
-        :target="'occupation'"
-        :currentInput="occupationInput.second"
-        @has-err="handleHasErr"
-      />
       <div v-if="hasThird" class="input-other__select-input">
         <div class="mock-input" @click="toggleThirdIcon">
-          {{ occupationInput.third }}
-          <span class="arrow" :class="{ rotate: openOccupationList.third }" />
+          {{ jobInput.third }}
+          <span class="arrow" :class="{ rotate: openJobList.third }" />
         </div>
         <ul v-if="shouldShowThirdList">
           <li
-            v-for="occupation in Object.keys(occupations.third)"
-            :key="occupation"
-            @click="setThirdInput(occupation)"
+            v-for="job in Object.keys(jobs.third)"
+            :key="job"
+            @click="setThirdInput(job)"
           >
-            {{ occupation }}
+            {{ job }}
           </li>
           <li @click="setThirdInput('以上皆非')">以上皆非</li>
           <li @click="setThirdInput('我不確定')">我不確定</li>
         </ul>
       </div>
-      <ErrHandler
-        v-if="hasThird"
-        :target="'occupation'"
-        :currentInput="occupationInput.third"
-        @has-err="handleHasErr"
-      />
     </section>
     <section class="input-other__condition">
       <p class="label">4. 你是否符合以下身份或條件？</p>
@@ -202,17 +185,17 @@ export default {
     return {
       counties: {},
       conditions: {},
-      occupations: {
+      jobs: {
         major: {},
         second: {},
         third: {},
       },
-      occupationInput: {
-        major: '請選擇',
-        second: '請選擇',
-        third: '請選擇',
+      jobInput: {
+        major: '都不是',
+        second: '都不是',
+        third: '都不是',
       },
-      openOccupationList: {
+      openJobList: {
         major: false,
         second: false,
         third: false,
@@ -230,10 +213,10 @@ export default {
   },
   computed: {
     hasSecond() {
-      return Object.keys(this.occupations.second).length
+      return Object.keys(this.jobs.second).length
     },
     hasThird() {
-      return Object.keys(this.occupations.third).length
+      return Object.keys(this.jobs.third).length
     },
     matchedCounty() {
       if (this.currentCountyInput === 'matched') {
@@ -243,29 +226,20 @@ export default {
         county.includes(this.currentCountyInput)
       )
     },
-    shouldShowOccupationList() {
-      return (
-        Object.keys(this.occupations.major).length &&
-        this.openOccupationList.major
-      )
+    shouldShowJobList() {
+      return Object.keys(this.jobs.major).length && this.openJobList.major
     },
     shouldShowSecondList() {
-      return (
-        Object.keys(this.occupations.second).length &&
-        this.openOccupationList.second
-      )
+      return Object.keys(this.jobs.second).length && this.openJobList.second
     },
     shouldShowThirdList() {
-      return (
-        Object.keys(this.occupations.third).length &&
-        this.openOccupationList.third
-      )
+      return Object.keys(this.jobs.third).length && this.openJobList.third
     },
     shouldShowNextBtn() {
       return (
         !this.hasErr &&
         this.countyInput &&
-        this.occupationInput.major &&
+        this.jobInput.major &&
         this.conditionInput.length &&
         this.injectionInput !== undefined
       )
@@ -277,7 +251,7 @@ export default {
         this.conditions = this.formatOptions(item[1], 'major_option')
       }
       if (item[0] === '你的職業') {
-        this.occupations.major = this.formatOptions(item[1], 'major_option')
+        this.jobs.major = this.formatOptions(item[1], 'major_option')
       }
       if (item[0] === '你居住的縣市') {
         this.counties = this.formatOptions(item[1], 'major_option')
@@ -294,39 +268,33 @@ export default {
       this.currentCountyInput = 'matched'
       this.countyInput = county
     },
-    setOccupationInput(option) {
-      this.occupationInput.second = '請選擇'
-      this.occupations.second = {}
-      this.occupations.third = {}
-      this.occupationInput.major = option
-      this.occupations.second = this.formatOptions(
-        this.occupations.major[option],
-        'option2'
-      )
-      this.openOccupationList.major = false
+    setJobInput(option) {
+      this.jobInput.second = '都不是'
+      this.jobs.second = {}
+      this.jobs.third = {}
+      this.jobInput.major = option
+      this.jobs.second = this.formatOptions(this.jobs.major[option], 'option2')
+      this.openJobList.major = false
     },
     setSecondInput(option) {
-      this.occupationInput.third = '請選擇'
-      this.occupations.third = {}
-      this.occupationInput.second = option
-      this.occupations.third = this.formatOptions(
-        this.occupations.second[option],
-        'option3'
-      )
-      this.openOccupationList.second = false
+      this.jobInput.third = '都不是'
+      this.jobs.third = {}
+      this.jobInput.second = option
+      this.jobs.third = this.formatOptions(this.jobs.second[option], 'option3')
+      this.openJobList.second = false
     },
     setThirdInput(option) {
-      this.occupationInput.third = option
-      this.openOccupationList.third = false
+      this.jobInput.third = option
+      this.openJobList.third = false
     },
-    toggleOccupationIcon() {
-      this.openOccupationList.major = !this.openOccupationList.major
+    toggleJobIcon() {
+      this.openJobList.major = !this.openJobList.major
     },
     toggleSecondIcon() {
-      this.openOccupationList.second = !this.openOccupationList.second
+      this.openJobList.second = !this.openJobList.second
     },
     toggleThirdIcon() {
-      this.openOccupationList.third = !this.openOccupationList.third
+      this.openJobList.third = !this.openJobList.third
     },
     removeOtherCheck() {
       this.conditionInput = ['無']
@@ -354,10 +322,10 @@ export default {
     goToNextPage() {
       this.pageData = {
         county: this.countyInput,
-        occupation: {
-          major: this.occupationInput.major,
-          option1: this.occupationInput.second,
-          option2: this.occupationInput.third,
+        job: {
+          major: this.jobInput.major,
+          option1: this.jobInput.second,
+          option2: this.jobInput.third,
         },
         condition: this.conditionInput,
         injection: {

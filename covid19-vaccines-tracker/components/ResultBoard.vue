@@ -3,7 +3,7 @@
     <ResultBoardTitle
       :title="result.title"
       :firstInjectTime="result.firstInjectTime"
-      :occupation="result.occupation"
+      :job="result.job"
       class="result-board__title"
     />
     <ResultBoardDesc
