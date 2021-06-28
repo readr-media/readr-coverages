@@ -2,11 +2,11 @@
   <div class="result">
     <div class="result__info">
       <ResultBoard v-if="shouldShowResultBoard" :result="result" />
-      <EmailBoard v-if="!isA467" />
+      <EmailBoard v-if="shouldShowEmail" />
       <div class="result__info-btn">
         <button
           type="button"
-          :class="[isA467 ? 'g-primary-btn' : 'g-skip-btn']"
+          :class="[shouldShowEmail ? 'g-skip-btn' : 'g-primary-btn']"
           @click="handleSeachAgain"
         >
           重新查詢
@@ -110,11 +110,12 @@ export default {
     }
   },
   computed: {
-    isA467() {
+    shouldShowEmail() {
       return (
-        this.result.type === 'A4' ||
-        this.result.type === 'A6' ||
-        this.result.type === 'A7'
+        this.result.length &&
+        this.result.type !== 'A4' &&
+        this.result.type !== 'A6' &&
+        this.result.type !== 'A7'
       )
     },
   },

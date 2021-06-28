@@ -21,6 +21,12 @@
           </li>
         </ul>
       </div>
+      <ErrHandler
+        :target="'county'"
+        :currentInput="currentCountyInput"
+        :cityList="Object.keys(counties)"
+        @has-err="handleHasErr"
+      />
     </section>
     <section class="input-other__select occupation">
       <p class="label">3. 你的職業？</p>
@@ -40,6 +46,11 @@
           </li>
         </ul>
       </div>
+      <ErrHandler
+        :target="'occupation'"
+        :currentInput="occupationInput.major"
+        @has-err="handleHasErr"
+      />
       <div v-if="hasSecond" class="input-other__select-input">
         <div class="mock-input" @click="toggleSecondIcon">
           {{ occupationInput.second }}
@@ -57,6 +68,12 @@
           <li @click="setSecondInput('我不確定')">我不確定</li>
         </ul>
       </div>
+      <ErrHandler
+        v-if="hasSecond"
+        :target="'occupation'"
+        :currentInput="occupationInput.second"
+        @has-err="handleHasErr"
+      />
       <div v-if="hasThird" class="input-other__select-input">
         <div class="mock-input" @click="toggleThirdIcon">
           {{ occupationInput.third }}
@@ -74,6 +91,12 @@
           <li @click="setThirdInput('我不確定')">我不確定</li>
         </ul>
       </div>
+      <ErrHandler
+        v-if="hasThird"
+        :target="'occupation'"
+        :currentInput="occupationInput.third"
+        @has-err="handleHasErr"
+      />
     </section>
     <section class="input-other__condition">
       <p class="label">4. 你是否符合以下身份或條件？</p>
@@ -99,7 +122,7 @@
           v-model="conditionInput"
           :value="condition"
           type="checkbox"
-          :disabled="shouldDisabledCheckbox"
+          @change="removeNoCheck"
         />
         <span class="checkmark"></span>
       </label>
@@ -132,7 +155,15 @@
           id="yearInput"
           v-model="injectionYearInput"
           type="text"
+          autocomplete="off"
           placeholder="YYYY / MM / DD"
+          maxlength="14"
+          @input.prevent="handleTimeInput"
+        />
+        <ErrHandler
+          :target="'injectTime'"
+          :currentInput="injectionYearInput"
+          @has-err="handleHasErr"
         />
       </div>
     </section>
@@ -154,8 +185,12 @@
 
 <script>
 import _ from 'lodash'
+import ErrHandler from '~/components/ErrHandler.vue'
 
 export default {
+  components: {
+    ErrHandler,
+  },
   props: {
     questions: {
       type: Object,
@@ -183,11 +218,13 @@ export default {
         third: false,
       },
       countyInput: '',
-      conditionInput: [],
+      conditionInput: ['無'],
       currentCountyInput: undefined,
-      injectionInput: undefined,
-      injectionYearInput: undefined,
-      shouldDisabledCheckbox: false,
+      injectionInput: false,
+      injectionYearInput: '',
+      shouldAddInputBorder: false,
+      yearInputLastLength: 0,
+      hasErr: true,
       pageData: {},
     }
   },
@@ -199,6 +236,9 @@ export default {
       return Object.keys(this.occupations.third).length
     },
     matchedCounty() {
+      if (this.currentCountyInput === 'matched') {
+        return []
+      }
       return Object.keys(this.counties).filter((county) =>
         county.includes(this.currentCountyInput)
       )
@@ -223,6 +263,7 @@ export default {
     },
     shouldShowNextBtn() {
       return (
+        !this.hasErr &&
         this.countyInput &&
         this.occupationInput.major &&
         this.conditionInput.length &&
@@ -250,7 +291,7 @@ export default {
         : undefined
     },
     setCountyInput(county) {
-      this.currentCountyInput = undefined
+      this.currentCountyInput = 'matched'
       this.countyInput = county
     },
     setOccupationInput(option) {
@@ -289,7 +330,26 @@ export default {
     },
     removeOtherCheck() {
       this.conditionInput = ['無']
-      this.shouldDisabledCheckbox = !this.shouldDisabledCheckbox
+    },
+    removeNoCheck() {
+      const index = this.conditionInput.indexOf('無')
+      if (index !== -1) {
+        this.conditionInput.splice(index, 1)
+      }
+    },
+    handleTimeInput() {
+      const length = this.injectionYearInput.length
+      const dif = this.yearInputLastLength - length
+      if (dif >= 0 && (length === 6 || length === 11)) {
+        this.injectionYearInput = this.injectionYearInput.slice(0, -3)
+      }
+      if (dif <= 0 && (length === 4 || length === 9)) {
+        this.injectionYearInput = this.injectionYearInput + ' / '
+      }
+      this.yearInputLastLength = this.injectionYearInput.length
+    },
+    handleHasErr(payload) {
+      this.hasErr = payload
     },
     goToNextPage() {
       this.pageData = {
@@ -333,6 +393,7 @@ export default {
     flex-direction: column;
     margin: 0 0 24px;
     &-input {
+      position: relative;
       border: 1px solid #e0e0e0;
       border-radius: 6px;
       font-size: 18px;
@@ -373,7 +434,9 @@ export default {
       }
       ul {
         position: relative;
-        margin: 4px 0;
+        padding: 4px 0;
+        max-height: 240px;
+        overflow-y: auto;
         li {
           padding: 8px 16px;
           color: #000928;
@@ -387,7 +450,7 @@ export default {
         &::before {
           content: '';
           position: absolute;
-          top: -4px;
+          top: 0;
           right: 16px;
           left: 16px;
           height: 1px;
@@ -503,6 +566,7 @@ export default {
       }
     }
     &--year {
+      position: relative;
       display: flex;
       flex-direction: column;
       margin: 12px 0 0;
@@ -521,6 +585,12 @@ export default {
         border: 1px solid #e0e0e0;
         border-radius: 6px;
         padding: 12px 16px;
+        -moz-appearance: textfield;
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
         &:focus {
           outline: none;
           border: 1px solid #04295e;
