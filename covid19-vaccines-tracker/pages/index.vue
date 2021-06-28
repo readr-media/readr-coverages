@@ -281,7 +281,14 @@ export default {
       }
     },
     handleA5A7(data) {
-      const interval = 75
+      const now = new Date().getTime()
+      const [year, month, date] = data.injection.injectionTime?.split(' / ')
+      const yearInt = parseInt(year)
+      const monthInt = parseInt(month)
+      const dateInt = parseInt(date)
+      const inputDate = new Date(yearInt, monthInt, dateInt).getTime()
+      const interval = Math.floor((now - inputDate) / (24 * 3600 * 1000))
+      console.log(interval)
       return interval >= 70
         ? this.handleA7(data)
         : {
@@ -318,7 +325,7 @@ export default {
     },
     handleA7(data) {
       const matchedItem = this.government.find(
-        (item) => item.identity === '已完成第一劑疫苗者' && item.data !== ''
+        (item) => item.identity === '已接種第一劑疫苗者' && item.date !== ''
       )
       const vaccine = this.vaccinesId.find(
         (item) =>
