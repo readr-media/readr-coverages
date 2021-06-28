@@ -31,7 +31,7 @@
     <section class="input-other__select job">
       <p class="label">3. 你的職業？</p>
       <div class="input-other__select-input">
-        <div class="mock-input" @click="toggleJobIcon">
+        <div class="mock-input" @click="toggleMajorIcon">
           {{ jobInput.major }}
           <span class="arrow" :class="{ rotate: openJobList.major }" />
         </div>
@@ -81,13 +81,13 @@
         </ul>
       </div>
     </section>
-    <section class="input-other__condition">
+    <section class="input-other__identity">
       <p class="label">4. 你是否符合以下身份或條件？</p>
-      <label class="input-other__condition--checklist">
+      <label class="input-other__identity--checklist">
         無
         <input
           :id="'無'"
-          v-model="conditionInput"
+          v-model="identityInput"
           :value="'無'"
           type="checkbox"
           @change="removeOtherCheck"
@@ -95,15 +95,15 @@
         <span class="checkmark"></span>
       </label>
       <label
-        v-for="condition in Object.keys(conditions)"
-        :key="condition"
-        class="input-other__condition--checklist"
+        v-for="identity in Object.keys(identitys)"
+        :key="identity"
+        class="input-other__identity--checklist"
       >
-        {{ condition }}
+        {{ identity }}
         <input
-          :id="condition"
-          v-model="conditionInput"
-          :value="condition"
+          :id="identity"
+          v-model="identityInput"
+          :value="identity"
           type="checkbox"
           @change="removeNoCheck"
         />
@@ -132,41 +132,48 @@
         />
         <span class="radiomark"></span>
       </label>
-      <div v-if="injectionInput" class="input-other__injection--year">
-        <label for="yearInput">請輸入注射時間</label>
-        <input
-          id="yearInput"
-          v-model="injectionYearInput"
-          type="text"
-          autocomplete="off"
-          placeholder="YYYY / MM / DD"
-          maxlength="14"
-          @keypress="onlyNumber"
-          @keyup="preventArrows"
-          @keydown="preventArrows"
-          @input.prevent="handleTimeInput"
-        />
+      <template v-if="injectionInput">
+        <div class="input-other__injection--year">
+          <label for="yearInput">請輸入注射時間</label>
+          <input
+            id="yearInput"
+            v-model="injectionYearInput"
+            type="text"
+            autocomplete="off"
+            placeholder="YYYY / MM / DD"
+            maxlength="14"
+            @keypress="onlyNumber"
+            @keyup="preventArrows"
+            @keydown="preventArrows"
+            @input.prevent="handleTimeInput"
+          />
+          <ErrHandler
+            :target="'injectTime'"
+            :currentInput="injectionYearInput"
+            @has-err="handleHasErr"
+          />
+        </div>
+        <div v-if="injectionInput" class="input-other__select-input brand">
+          <div class="mock-input" @click="toggleBrandIcon">
+            {{ brandInput }}
+            <span class="arrow" :class="{ rotate: openBrandList }" />
+          </div>
+          <ul v-if="shouldShowBrandList">
+            <li
+              v-for="brand in Object.keys(brands)"
+              :key="brand"
+              @click="setBrandInput(brand)"
+            >
+              {{ brand }}
+            </li>
+          </ul>
+        </div>
         <ErrHandler
-          :target="'injectTime'"
-          :currentInput="injectionYearInput"
+          :target="'injectBrand'"
+          :currentInput="brandInput"
           @has-err="handleHasErr"
         />
-      </div>
-      <div v-if="injectionInput" class="input-other__select-input">
-        <div class="mock-input" @click="toggleBrandIcon">
-          {{ brandInput }}
-          <span class="arrow" :class="{ rotate: openBrandList }" />
-        </div>
-        <ul v-if="shouldShowBrandList">
-          <li
-            v-for="brand in Object.keys(brands)"
-            :key="brand"
-            @click="setBrandInput(brand)"
-          >
-            {{ brand }}
-          </li>
-        </ul>
-      </div>
+      </template>
     </section>
     <div class="input-other__btns">
       <button
@@ -207,7 +214,7 @@ export default {
   data() {
     return {
       counties: {},
-      conditions: {},
+      identitys: {},
       jobs: {
         major: {},
         second: {},
@@ -224,7 +231,7 @@ export default {
         third: false,
       },
       countyInput: '',
-      conditionInput: ['無'],
+      identityInput: ['無'],
       currentCountyInput: undefined,
       injectionInput: false,
       injectionYearInput: '',
@@ -269,7 +276,7 @@ export default {
         !this.hasErr &&
         this.countyInput &&
         this.jobInput.major &&
-        this.conditionInput.length &&
+        this.identityInput.length &&
         this.injectionInput !== undefined
       )
     },
@@ -278,7 +285,7 @@ export default {
     window.scrollTo(0, 0)
     Object.entries(this.questions).forEach((item) => {
       if (item[0] === '你是否有這些身份或符合這些條件') {
-        this.conditions = this.formatOptions(item[1], 'major_option')
+        this.identitys = this.formatOptions(item[1], 'major_option')
       }
       if (item[0] === '你的職業') {
         this.jobs.major = this.formatOptions(item[1], 'major_option')
@@ -322,7 +329,7 @@ export default {
       this.brandInput = option
       this.openBrandList = false
     },
-    toggleJobIcon() {
+    toggleMajorIcon() {
       this.openJobList.major = !this.openJobList.major
     },
     toggleSecondIcon() {
@@ -335,12 +342,12 @@ export default {
       this.openBrandList = !this.openBrandList
     },
     removeOtherCheck() {
-      this.conditionInput = ['無']
+      this.identityInput = ['無']
     },
     removeNoCheck() {
-      const index = this.conditionInput.indexOf('無')
+      const index = this.identityInput.indexOf('無')
       if (index !== -1) {
-        this.conditionInput.splice(index, 1)
+        this.identityInput.splice(index, 1)
       }
     },
     onlyNumber(e) {
@@ -377,10 +384,11 @@ export default {
           option1: this.jobInput.second,
           option2: this.jobInput.third,
         },
-        condition: this.conditionInput,
+        identity: this.identityInput,
         injection: {
           isInjection: this.injectionInput,
           injectionTime: this.injectionYearInput,
+          injectionBrand: this.brandInput,
         },
       }
       this.$emit('finish-other', this.pageData)
@@ -475,12 +483,15 @@ export default {
           background-color: #e0e0e0;
         }
       }
+      &.brand {
+        margin: 8px 0 0;
+      }
     }
     &-input + &-input {
       margin: 8px 0 0;
     }
   }
-  &__condition {
+  &__identity {
     margin: 0 0 24px;
     &--checklist {
       position: relative;

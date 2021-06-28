@@ -73,7 +73,7 @@ export default {
           isInjection: false,
           injectionTime: '',
         },
-        condition: [],
+        identity: [],
         job: {
           major: '',
           option1: '',
@@ -158,7 +158,7 @@ export default {
     handleFinishOther(payload) {
       this.hideInputOther()
       this.inputData.county = payload.county
-      this.inputData.condition = [...payload.condition]
+      this.inputData.identity = [...payload.identity]
       this.inputData.injection = payload.injection
       this.inputData.job = payload.job
       this.result = this.generateResult(this.inputData)
@@ -194,7 +194,7 @@ export default {
           (item.job2 === '' || item.job2 === data.job.option1) &&
           (item.job3 === '' || item.job3 === data.job.option2) &&
           (item.identity === '' ||
-            data.condition.find((d) => d === item.identity)) &&
+            data.identity.find((d) => d === item.identity)) &&
           (item.age === '' || this.handleAgeCompare(item.age, data.age))
       )
       if (matchedList.length) {
@@ -219,7 +219,7 @@ export default {
           (item.job2 === '' || item.job2 === data.job.option1) &&
           (item.job3 === '' || item.job3 === data.job.option2) &&
           (item.identity === '' ||
-            data.condition.find((d) => d === item.identity)) &&
+            data.identity.find((d) => d === item.identity)) &&
           (item.age === '' || this.handleAgeCompare(item.age, data.age))
       )
       console.log(cityList)
