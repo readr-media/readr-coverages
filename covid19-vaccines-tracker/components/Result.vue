@@ -2,6 +2,11 @@
   <div class="result">
     <div class="result__info">
       <ResultBoard v-if="shouldShowResultBoard" :result="result" />
+      <RemainDoseBoard
+        v-if="shouldShowDoze"
+        :county="result.county"
+        :dozeInfo="result.dozeInfo"
+      />
       <EmailBoard v-if="shouldShowEmail" />
       <div class="result__info-btn">
         <button
@@ -52,6 +57,7 @@
 
 <script>
 import ResultBoard from '~/components/ResultBoard.vue'
+import RemainDoseBoard from '~/components/RemainDoseBoard.vue'
 import EmailBoard from '~/components/EmailBoard.vue'
 import UiToggleCard from '~/components/UiToggleCard.vue'
 import UiToggleCategory from '~/components/UiToggleCategory.vue'
@@ -61,6 +67,7 @@ import Credit from '~/components/Credit.vue'
 export default {
   components: {
     ResultBoard,
+    RemainDoseBoard,
     EmailBoard,
     UiToggleCard,
     UiToggleCategory,
@@ -116,6 +123,13 @@ export default {
         this.result.type !== 'A7'
       )
     },
+    shouldShowDoze() {
+      return (
+        this.result.type === 'A1' ||
+        this.result.type === 'A2' ||
+        this.result.type === 'A6'
+      )
+    },
   },
   mounted() {
     window.scrollTo(0, 0)
@@ -123,6 +137,9 @@ export default {
   methods: {
     handleSeachAgain() {
       this.$emit('search-again')
+    },
+    test() {
+      this.$emit('test')
     },
   },
 }

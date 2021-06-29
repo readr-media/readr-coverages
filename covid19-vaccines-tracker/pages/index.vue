@@ -66,6 +66,7 @@ export default {
       vaccinesList: [],
       questions: {},
       qa: {},
+      cityInfo: [],
       inputData: {
         age: 0,
         county: '',
@@ -80,6 +81,7 @@ export default {
           option1: '',
           option2: '',
         },
+        email: 'mock@gmail.com',
       },
     }
   },
@@ -100,11 +102,15 @@ export default {
       const qaRes = await axios.get(
         'https://projects.readr.tw/vaccine_tracker_questions_answers.json'
       )
+      const cityInfoRes = await axios.get(
+        'https://projects.readr.tw/vaccine_tracker_cities_infomation.json'
+      )
       this.government = govRes?.data ?? []
       this.cities = cityRes?.data ?? []
       this.vaccinesList = idRes?.data ?? []
       this.questions = this.formatQuestions(qoRes?.data)
       this.qa = this.formatQA(qaRes?.data)
+      this.cityInfo = cityInfoRes?.data ?? []
     } catch (err) {
       console.log(err)
     }
@@ -163,6 +169,7 @@ export default {
       this.inputData.injection = payload.injection
       this.inputData.job = payload.job
       this.result = this.generateResult(this.inputData)
+      this.addDozeInfo()
       this.shouldShowResultBoard = true
       this.showResult()
     },
@@ -181,41 +188,24 @@ export default {
       if (data.injection.isInjection) {
         return this.handleA5A7(data)
       }
-      return this.handleA1A2A3A6(data)
-    },
-    handleA1A2A3A6(data) {
       const matchedList = this.government.filter(
         (item) =>
           item.status !== '暫緩施打' &&
           (item.city === '不限' || item.city === data.county) &&
           item.job === data.job.major &&
+          (item.job2 === '' || item.job2 === data.job.option1) &&
+          (item.job3 === '' || item.job3 === data.job.option2) &&
           (item.identity === '' ||
             data.identity.find((d) => d === item.identity)) &&
           (item.age === '' || this.handleAgeCompare(item.age, data.age))
       )
       console.log('ss', matchedList)
       if (matchedList.length) {
-        return this.handleA1A2A6(matchedList, data)
-      } else {
-        return {
-          title: '你不在目前到貨疫苗的施打對象名單內，請繼續等待。',
-          brief: '為什麼還沒輪到我？',
-          description:
-            '臺灣疫苗存貨有限，中央疫情流行指揮中心會在最新疫苗到貨時公佈此批疫苗的優先施打對象。你可以透過下圖追蹤最新的情形，或訂閱通知，我們會在你可以施打疫苗時通知您。',
-          type: 'A3',
-        }
+        return this.handleA1A2(matchedList, data)
       }
+      return this.handleA3A6(data)
     },
-    handleA1A2A6(govList, data) {
-      const groupedByJobList = _.groupBy(govList, 'job')
-      if (Object.keys(groupedByJobList).length === 1) {
-        if (
-          data.job.option1 === '我不確定' ||
-          data.job.option2 === '我不確定'
-        ) {
-          return this.handleA6(data)
-        }
-      }
+    handleA1A2(govList, data) {
       const matchedCityItems = this.cities
         .filter(
           (item) =>
@@ -232,6 +222,19 @@ export default {
           const matchedItem = this.vaccinesList.find(
             (d) => d.vaccines_id === item.vaccines_id && d.status === '施打中'
           )
+          let expired = false
+          const dataTip = matchedItem ? item.data : ''
+          if (matchedItem && item.end_date) {
+            const now = new Date()
+            const [year, month, date] = item.end_date.split('-')
+            const yearInt = parseInt(year)
+            const monthInt = parseInt(month)
+            const dateInt = parseInt(date)
+            const inputDate = new Date(yearInt, monthInt, dateInt)
+            if (now.getTime() - inputDate.getTime()) {
+              expired = true
+            }
+          }
           return matchedItem
             ? {
                 brand: matchedItem.brand,
@@ -240,6 +243,8 @@ export default {
                 startTime: item.open_date,
                 endTime: item.end_date,
                 howTo: item.how_to,
+                tip: dataTip,
+                isExpired: expired,
               }
             : {}
         })
@@ -251,7 +256,11 @@ export default {
           ['order', 'type'],
           ['asc', 'asc']
         )[0]
-        console.log('rr', filteredItem)
+        if (filteredItem.isExpired) {
+          const info = this.cityInfo.find((item) => item.cities === data.county)
+          const contact = info ? info.information : ''
+          filteredItem.howTo = `請致電地方衛生局詢問，聯絡方式為：${contact}`
+        }
         return {
           title: '你在最新一批公費疫苗的施打對象名單內，接種日期已經公佈。',
           brands: [filteredItem.brand],
@@ -260,20 +269,18 @@ export default {
           endTime: [filteredItem.endTime],
           howTo: [filteredItem.howTo],
           secondInjectTime: [filteredItem.secondInjectTime],
+          tip: filteredItem.tip,
+          isExpired: filteredItem.isExpired,
           type: 'A2',
         }
       } else {
+        let dataTip = ''
         const vaccine = govList
-          .filter(
-            (item) =>
-              (item.job2 === '' || item.job2 === data.job.option1) &&
-              (item.job3 === '' || item.job3 === data.job.option2)
-          )
           .map((item) => {
             const matchedItem = this.vaccinesList.find(
               (d) => d.vaccines_id === item.vaccines_id && d.status === '施打中'
             )
-            console.log('ww', matchedItem)
+            dataTip = matchedItem ? item.data : ''
             return matchedItem
               ? {
                   brands: matchedItem.brand,
@@ -287,8 +294,34 @@ export default {
           title: '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
           brands: vaccine.map((item) => item.brands),
           sources: vaccine.map((item) => item.sources),
+          tip: dataTip,
           type: 'A1',
         }
+      }
+    },
+    handleA3A6(data) {
+      const jobMatched = this.government.find(
+        (item) =>
+          item.status !== '暫緩施打' &&
+          item.job === data.job.major &&
+          item.age === '' &&
+          item.identity === ''
+      )
+      if (
+        jobMatched &&
+        (data.job.option1 === '我不確定' || data.job.option2 === '我不確定')
+      ) {
+        return this.handleA6(data)
+      }
+      return this.handleA3()
+    },
+    handleA3() {
+      return {
+        title: '你不在目前到貨疫苗的施打對象名單內，請繼續等待。',
+        brief: '為什麼還沒輪到我？',
+        description:
+          '臺灣疫苗存貨有限，中央疫情流行指揮中心會在最新疫苗到貨時公佈此批疫苗的優先施打對象。你可以透過下圖追蹤最新的情形，或訂閱通知，我們會在你可以施打疫苗時通知您。',
+        type: 'A3',
       }
     },
     handleA4() {
@@ -309,14 +342,21 @@ export default {
       const dateInt = parseInt(date)
       const inputDate = new Date(yearInt, monthInt, dateInt).getTime()
       const interval = Math.floor((now - inputDate) / (24 * 3600 * 1000))
-      console.log(interval)
-      return interval >= 70
+      let dozeInterval = 70
+      let wording = '10至12週'
+      if (data.injection.injectionBrand.includes('Moderna')) {
+        dozeInterval = 28
+        wording = '4至6週'
+      }
+      return interval >= dozeInterval
         ? this.handleA7(data)
         : {
             firstInjectTime: data.injection.injectionTime,
-            title: '建議接種第二劑的時間是10至12週後，目前還沒到。',
+            title: `建議接種第二劑的時間是${wording}後，目前還沒到。`,
             secondInjectTime: [
-              this.formatDate(new Date(yearInt, monthInt, dateInt + 70)),
+              this.formatDate(
+                new Date(yearInt, monthInt, dateInt + dozeInterval)
+              ),
             ],
             type: 'A5',
           }
@@ -383,6 +423,7 @@ export default {
             (item) =>
               item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
           )
+          const dataTip = matchedItem?.data ?? ''
           const vaccine = this.vaccinesList.find(
             (item) =>
               item.vaccines_id === matchedItem.vaccines_id &&
@@ -396,23 +437,18 @@ export default {
                 '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
               brands: [vaccine.brand],
               sources: [vaccine.source],
+              tip: dataTip,
               type: 'A1',
             }
-          } else {
-            return {
-              title: '你不在目前到貨疫苗的施打對象名單內，請繼續等待。',
-              brief: '為什麼還沒輪到我？',
-              description:
-                '臺灣疫苗存貨有限，中央疫情流行指揮中心會在最新疫苗到貨時公佈此批疫苗的優先施打對象。你可以透過下圖追蹤最新的情形，或訂閱通知，我們會在你可以施打疫苗時通知您。',
-              type: 'A3',
-            }
           }
+          return this.handleA3()
         }
       } else {
         const matchedItem = this.government.find(
           (item) =>
             item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
         )
+        const dataTip = matchedItem?.data ?? ''
         const vaccine = this.vaccinesList.find(
           (item) =>
             item.vaccines_id === matchedItem.vaccines_id &&
@@ -426,17 +462,11 @@ export default {
               '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
             brands: [vaccine.brand],
             sources: [vaccine.source],
+            tip: dataTip,
             type: 'A1',
           }
-        } else {
-          return {
-            title: '你不在目前到貨疫苗的施打對象名單內，請繼續等待。',
-            brief: '為什麼還沒輪到我？',
-            description:
-              '臺灣疫苗存貨有限，中央疫情流行指揮中心會在最新疫苗到貨時公佈此批疫苗的優先施打對象。你可以透過下圖追蹤最新的情形，或訂閱通知，我們會在你可以施打疫苗時通知您。',
-            type: 'A3',
-          }
         }
+        return this.handleA3()
       }
     },
     handleAgeCompare(str, num) {
@@ -463,6 +493,35 @@ export default {
       const day = date.getDate()
       return `${year} / ${month} / ${day}`
     },
+    addDozeInfo() {
+      this.result.county = this.inputData.county
+      const item = this.cityInfo.find(
+        (item) => item.cities === this.inputData.county
+      )
+      this.result.dozeInfo = item ? item.remaining_dose : '無資料'
+    },
+    // handleTest() {
+    //   const i = this.inputData
+    //   const data = {
+    //     row: [
+    //       i.email,
+    //       i.age,
+    //       i.county,
+    //       i.injection.isInjection,
+    //       i.injection.injectionTime,
+    //       i.injection.injectionBrand,
+    //       i.job.major,
+    //       i.job.option1,
+    //       i.job.option2,
+    //       i.identity.join(),
+    //     ],
+    //   }
+    //   console.log(JSON.stringify(data))
+    //   axios.post(
+    //     'https://asia-east1-mirrormedia-1470651750304.cloudfunctions.net/google-sheet/subscribe',
+    //     data
+    //   )
+    // },
   },
 }
 </script>

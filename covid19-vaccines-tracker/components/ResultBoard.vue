@@ -6,6 +6,11 @@
       :job="result.job"
       class="result-board__title"
     />
+    <ResultBoardTip
+      v-if="result.tip"
+      :tip="result.tip"
+      class="result-board__tip"
+    />
     <ResultBoardDesc
       :brief="result.brief"
       :description="result.description"
@@ -20,6 +25,7 @@
         :readyTime="result.readyTime"
         :startTime="result.startTime"
         :endTime="result.endTime"
+        :isExpired="result.isExpired"
         class="result-board__list-wrapper__list"
       />
       <ResultBoardInjection
@@ -36,6 +42,7 @@
 
 <script>
 import ResultBoardTitle from '~/components/ResultBoardTitle.vue'
+import ResultBoardTip from '~/components/ResultBoardTip.vue'
 import ResultBoardDesc from '~/components/ResultBoardDesc.vue'
 import ResultBoardList from '~/components/ResultBoardList.vue'
 import ResultBoardInjection from '~/components/ResultBoardInjection.vue'
@@ -43,6 +50,7 @@ import ResultBoardInjection from '~/components/ResultBoardInjection.vue'
 export default {
   components: {
     ResultBoardTitle,
+    ResultBoardTip,
     ResultBoardDesc,
     ResultBoardList,
     ResultBoardInjection,
@@ -74,6 +82,9 @@ export default {
   }
   &__title {
     margin: 0 0 24px;
+  }
+  &__tip {
+    margin: 0 0 32px;
   }
   &__desc {
     margin: 0 0 4px;

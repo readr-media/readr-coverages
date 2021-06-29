@@ -7,9 +7,8 @@
       </span>
     </div>
     <div v-if="hasInjectInfo" class="result-injection__other">
-      <p>預計接種第二劑的時間</p>
-      <span v-if="isA2">您無需預約，會由地方政府寄發通知單給您</span>
       <div class="result-injection__time">
+        <p>預計接種第二劑的時間</p>
         <span v-for="(item, i) in secondInjectTime" :key="`${item}-${i}`">
           {{ item }}
         </span>

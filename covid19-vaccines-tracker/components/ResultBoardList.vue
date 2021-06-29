@@ -56,8 +56,11 @@
           :key="`${item}-${i}`"
           class="list-items__items"
         >
-          {{ item ? item : '- -' }}
+          {{ item }}
         </span>
+        <small v-if="isExpired">
+          原本預計安排的時間已過，但您仍可以致電衛生局處詢問其他可接種的方式和時間。
+        </small>
       </div>
     </li>
   </ul>
@@ -85,6 +88,10 @@ export default {
     endTime: {
       type: Array,
       default: () => [],
+    },
+    isExpired: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
@@ -135,6 +142,13 @@ export default {
       text-align: right;
       .list-items__items {
         display: block;
+      }
+      small {
+        margin: 4px;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #000928;
+        opacity: 0.5;
       }
     }
   }
