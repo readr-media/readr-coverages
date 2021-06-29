@@ -111,7 +111,6 @@ export default {
   computed: {
     shouldShowEmail() {
       return (
-        this.result.length &&
         this.result.type !== 'A4' &&
         this.result.type !== 'A6' &&
         this.result.type !== 'A7'
