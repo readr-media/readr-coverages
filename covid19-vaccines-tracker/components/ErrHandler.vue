@@ -1,5 +1,5 @@
 <template>
-  <small>{{ errText }}</small>
+  <small v-if="errText">{{ errText }}</small>
 </template>
 
 <script>
@@ -32,11 +32,11 @@ export default {
       if (this.target === 'county') {
         msg = this.handleTargetCounty()
       }
-      if (this.target === 'occupation') {
-        msg = this.handleTargetOccupation()
-      }
       if (this.target === 'injectTime') {
         msg = this.handleTargetInjectTime()
+      }
+      if (this.target === 'injectBrand') {
+        msg = this.handleTargetInjectBrand()
       }
       this.sendErrMsg(!!msg)
       return msg
@@ -55,23 +55,32 @@ export default {
       )
       return this.currentInput === 'matched' || findItem ? '' : '找不到這個縣市'
     },
-    handleTargetOccupation() {
-      return this.currentInput === '請選擇' ? '請選擇至少一項' : ''
-    },
     handleTargetInjectTime() {
       const now = new Date()
-      const nowMonth = now.getMonth()
-      const nowDate = now.getDate()
+      const nowMonth = now.getMonth() + 1
       const [year, month, date] = this.currentInput.split(' / ')
       const yearInt = parseInt(year)
       const monthInt = parseInt(month)
       const dateInt = parseInt(date)
-      return monthInt &&
+      const Da = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+      const interval =
+        now.getTime() - new Date(yearInt, monthInt - 1, dateInt).getTime()
+      if (yearInt === 2020) {
+        Da[1] = 29
+      }
+      return this.currentInput.length === 14 &&
+        monthInt &&
         dateInt &&
-        ((yearInt === 2020 && monthInt <= 12 && dateInt <= 31) ||
-          (yearInt === 2021 && monthInt <= nowMonth && dateInt <= nowDate))
+        interval > 0 &&
+        ((yearInt === 2020 && monthInt <= 12 && dateInt <= Da[monthInt - 1]) ||
+          (yearInt === 2021 &&
+            monthInt <= nowMonth &&
+            dateInt <= Da[monthInt - 1]))
         ? ''
         : '請填寫有效時間，例如 2021/02/06'
+    },
+    handleTargetInjectBrand() {
+      return this.currentInput === '疫苗廠牌' ? '請選擇至少一項' : ''
     },
     sendErrMsg(payload) {
       this.$emit('has-err', payload)

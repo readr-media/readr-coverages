@@ -1,5 +1,5 @@
 <template>
-  <ul class="result-list">
+  <ul v-if="shouldShowList" class="result-list">
     <li v-if="hasBrands">
       <span class="list-items__title">疫苗廠牌</span>
       <div class="list-items__list">
@@ -88,6 +88,15 @@ export default {
     },
   },
   computed: {
+    shouldShowList() {
+      return (
+        this.hasBrands ||
+        this.hasSources ||
+        this.hasReadyTime ||
+        this.hasStartTime ||
+        this.hasEndTime
+      )
+    },
     hasBrands() {
       return this.brands && this.brands?.length
     },

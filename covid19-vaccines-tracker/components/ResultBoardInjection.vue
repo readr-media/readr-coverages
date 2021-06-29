@@ -1,6 +1,6 @@
 <template>
   <div class="result-injection">
-    <div v-if="isA2" class="result-injection__a2">
+    <div v-if="isA2 || isA7" class="result-injection__a2">
       <p>接種方式</p>
       <span v-for="(item, i) in howTo" :key="`${item}-${i}`">
         {{ item }}
@@ -8,7 +8,7 @@
     </div>
     <div v-if="hasInjectInfo" class="result-injection__other">
       <p>預計接種第二劑的時間</p>
-      <span v-if="isA7">您無需預約，會由地方政府寄發通知單給您</span>
+      <span v-if="isA2">您無需預約，會由地方政府寄發通知單給您</span>
       <div class="result-injection__time">
         <span v-for="(item, i) in secondInjectTime" :key="`${item}-${i}`">
           {{ item }}
@@ -50,7 +50,7 @@ export default {
   computed: {
     hasInjectInfo() {
       return (
-        (this.secondInjectTime && this.secondInjectTime.length) || this.isA7
+        (this.secondInjectTime && this.secondInjectTime.length) || this.isA2
       )
     },
   },

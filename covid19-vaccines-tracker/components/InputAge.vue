@@ -2,7 +2,13 @@
   <div class="input-age">
     <div class="input-age__input">
       <label for="age">1. 你的年齡？</label>
-      <input id="age" v-model="age" type="number" placeholder="28" />
+      <input
+        id="age"
+        v-model="age"
+        type="number"
+        placeholder="28"
+        @keypress="onlyNumber"
+      />
       <ErrHandler :target="'age'" :currentInput="age" @has-err="handleHasErr" />
     </div>
     <div class="input-age__btns">
@@ -49,7 +55,17 @@ export default {
       return this.formatAge !== 0 && !this.hasErr
     },
   },
+  mounted() {
+    window.scrollTo(0, 0)
+  },
   methods: {
+    onlyNumber(e) {
+      console.log(e.keyCode)
+      const keyCode = e.keyCode ?? e.which
+      if (keyCode < 48 || keyCode > 57) {
+        e.preventDefault()
+      }
+    },
     goToNextPage() {
       this.$emit('finish-age', this.formatAge)
     },

@@ -16,6 +16,7 @@
       <InputOther
         v-if="shouldShowInputOther"
         :questions="questions"
+        :vaccinesList="vaccinesList"
         @finish-other="handleFinishOther"
         @skip-to-result="handleSkipToResult"
       />
@@ -62,7 +63,7 @@ export default {
       result: {},
       government: [],
       cities: [],
-      vaccinesId: [],
+      vaccinesList: [],
       questions: {},
       qa: {},
       inputData: {
@@ -71,9 +72,10 @@ export default {
         injection: {
           isInjection: false,
           injectionTime: '',
+          injectionBrand: '',
         },
-        condition: [],
-        occupation: {
+        identity: [],
+        job: {
           major: '',
           option1: '',
           option2: '',
@@ -100,7 +102,7 @@ export default {
       )
       this.government = govRes?.data ?? []
       this.cities = cityRes?.data ?? []
-      this.vaccinesId = idRes?.data ?? []
+      this.vaccinesList = idRes?.data ?? []
       this.questions = this.formatQuestions(qoRes?.data)
       this.qa = this.formatQA(qaRes?.data)
     } catch (err) {
@@ -157,9 +159,9 @@ export default {
     handleFinishOther(payload) {
       this.hideInputOther()
       this.inputData.county = payload.county
-      this.inputData.condition = [...payload.condition]
+      this.inputData.identity = [...payload.identity]
       this.inputData.injection = payload.injection
-      this.inputData.occupation = payload.occupation
+      this.inputData.job = payload.job
       this.result = this.generateResult(this.inputData)
       this.shouldShowResultBoard = true
       this.showResult()
@@ -176,96 +178,115 @@ export default {
       this.showInputAge()
     },
     generateResult(data) {
-      if (data.injection.isInjection && data.injection.injectionTime) {
+      if (data.injection.isInjection) {
         return this.handleA5A7(data)
       }
-      if (
-        data.occupation.option1 === '我不確定' ||
-        data.occupation.option2 === '我不確定'
-      ) {
-        return this.handleA6(data)
-      }
-      return this.handleA1A2A3(data)
+      return this.handleA1A2A3A6(data)
     },
-    handleA1A2A3(data) {
+    handleA1A2A3A6(data) {
       const matchedList = this.government.filter(
         (item) =>
           item.status !== '暫緩施打' &&
           (item.city === '不限' || item.city === data.county) &&
-          item.job === data.occupation.major &&
-          (item.job2 === '' || item.job2 === data.occupation.option1) &&
-          (item.job3 === '' || item.job3 === data.occupation.option2) &&
+          item.job === data.job.major &&
           (item.identity === '' ||
-            data.condition.find((d) => d === item.identity)) &&
+            data.identity.find((d) => d === item.identity)) &&
           (item.age === '' || this.handleAgeCompare(item.age, data.age))
       )
+      console.log('ss', matchedList)
       if (matchedList.length) {
-        return this.handleA1A2(matchedList, data)
+        return this.handleA1A2A6(matchedList, data)
       } else {
         return {
           title: '你不在目前到貨疫苗的施打對象名單內，請繼續等待。',
           brief: '為什麼還沒輪到我？',
           description:
             '臺灣疫苗存貨有限，中央疫情流行指揮中心會在最新疫苗到貨時公佈此批疫苗的優先施打對象。你可以透過下圖追蹤最新的情形，或訂閱通知，我們會在你可以施打疫苗時通知您。',
-          graphUrl: 'xxx',
           type: 'A3',
         }
       }
     },
-    handleA1A2(govList, data) {
-      const cityList = this.cities.filter(
-        (item) =>
-          item.status !== '暫緩施打' &&
-          item.city === data.county &&
-          item.job === data.occupation.major &&
-          (item.job2 === '' || item.job2 === data.occupation.option1) &&
-          (item.job3 === '' || item.job3 === data.occupation.option2) &&
-          (item.identity === '' ||
-            data.condition.find((d) => d === item.identity)) &&
-          (item.age === '' || this.handleAgeCompare(item.age, data.age))
-      )
-      console.log(cityList)
-      if (cityList.length) {
-        const groupedList = _.groupBy(cityList, 'vaccines_id')
-        const newCityList = []
-        const vaccine = Object.keys(groupedList).map((item) =>
-          this.vaccinesId.find(
-            (d) => d.vaccines_id === item && d.status === '施打中'
-          )
+    handleA1A2A6(govList, data) {
+      const groupedByJobList = _.groupBy(govList, 'job')
+      if (Object.keys(groupedByJobList).length === 1) {
+        if (
+          data.job.option1 === '我不確定' ||
+          data.job.option2 === '我不確定'
+        ) {
+          return this.handleA6(data)
+        }
+      }
+      const matchedCityItems = this.cities
+        .filter(
+          (item) =>
+            item.status !== '暫緩施打' &&
+            item.city === data.county &&
+            item.job === data.job.major &&
+            (item.job2 === '' || item.job2 === data.job.option1) &&
+            (item.job3 === '' || item.job3 === data.job.option2) &&
+            (item.identity === '' ||
+              data.identity.find((d) => d === item.identity)) &&
+            (item.age === '' || this.handleAgeCompare(item.age, data.age))
         )
-        vaccine.forEach((item) => {
-          const newItem =
-            groupedList[item.vaccines_id].find((d) => d.end_date === '') ??
-            '2021/10/10'
-          newCityList.push(newItem)
+        .map((item) => {
+          const matchedItem = this.vaccinesList.find(
+            (d) => d.vaccines_id === item.vaccines_id && d.status === '施打中'
+          )
+          return matchedItem
+            ? {
+                brand: matchedItem.brand,
+                source: matchedItem.source,
+                secondInjectTime: matchedItem.time_for_the_second_vaccine,
+                startTime: item.open_date,
+                endTime: item.end_date,
+                howTo: item.how_to,
+              }
+            : {}
         })
+        .filter((item) => Object.keys(item).length !== 0)
+      console.log('mm', matchedCityItems)
+      if (matchedCityItems.length) {
+        const filteredItem = _.sortBy(
+          matchedCityItems,
+          ['order', 'type'],
+          ['asc', 'asc']
+        )[0]
+        console.log('rr', filteredItem)
         return {
           title: '你在最新一批公費疫苗的施打對象名單內，接種日期已經公佈。',
-          brands: vaccine.map((item) => item.brand),
-          sources: vaccine.map((item) => item.source),
-          startTime: newCityList.map((item) => item.open_date),
-          endTime: newCityList.map((item) => item.end_date),
-          howTo: newCityList.map((item) => item.how_to),
-          secondInjectTime: vaccine.map(
-            (item) => item.time_for_the_second_vaccine
-          ),
+          brands: [filteredItem.brand],
+          sources: [filteredItem.source],
+          startTime: [filteredItem.startTime],
+          endTime: [filteredItem.endTime],
+          howTo: [filteredItem.howTo],
+          secondInjectTime: [filteredItem.secondInjectTime],
           type: 'A2',
         }
       } else {
-        const vaccineIds = Object.keys(_.groupBy(govList, 'vaccines_id'))
-        const vaccine = vaccineIds.map(
-          (item) =>
-            this.vaccinesId.find(
-              (d) => d.vaccines_id === item && d.status === '施打中'
-            ) ?? {}
-        )
+        const vaccine = govList
+          .filter(
+            (item) =>
+              (item.job2 === '' || item.job2 === data.job.option1) &&
+              (item.job3 === '' || item.job3 === data.job.option2)
+          )
+          .map((item) => {
+            const matchedItem = this.vaccinesList.find(
+              (d) => d.vaccines_id === item.vaccines_id && d.status === '施打中'
+            )
+            console.log('ww', matchedItem)
+            return matchedItem
+              ? {
+                  brands: matchedItem.brand,
+                  sources: matchedItem.source,
+                }
+              : {}
+          })
+          .filter((item) => Object.keys(item).length !== 0)
+        console.log('tt', vaccine)
         return {
           title: '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
-          brands: vaccine.map((item) => item.brand),
-          sources: vaccine.map((item) => item.source),
-          secondInjectTime: vaccine.map(
-            (item) => item.time_for_the_second_vaccine
-          ),
+          brands: vaccine.map((item) => item.brands),
+          sources: vaccine.map((item) => item.sources),
           type: 'A1',
         }
       }
@@ -281,13 +302,22 @@ export default {
       }
     },
     handleA5A7(data) {
-      const interval = 75
+      const now = new Date().getTime()
+      const [year, month, date] = data.injection.injectionTime?.split(' / ')
+      const yearInt = parseInt(year)
+      const monthInt = parseInt(month)
+      const dateInt = parseInt(date)
+      const inputDate = new Date(yearInt, monthInt, dateInt).getTime()
+      const interval = Math.floor((now - inputDate) / (24 * 3600 * 1000))
+      console.log(interval)
       return interval >= 70
         ? this.handleA7(data)
         : {
             firstInjectTime: data.injection.injectionTime,
             title: '建議接種第二劑的時間是10至12週後，目前還沒到。',
-            injectTime: '2021/10/10',
+            secondInjectTime: [
+              this.formatDate(new Date(yearInt, monthInt, dateInt + 70)),
+            ],
             type: 'A5',
           }
     },
@@ -295,9 +325,7 @@ export default {
       const dataList = []
       const matchedList = this.government.filter(
         (item) =>
-          item.job === data.occupation.major &&
-          item.date &&
-          item.status !== '暫緩施打'
+          item.job === data.job.major && item.date && item.status !== '暫緩施打'
       )
       matchedList.forEach((item) => {
         if (item.job2 && !dataList.includes(item.job2)) {
@@ -308,7 +336,7 @@ export default {
         }
       })
       return {
-        occupation: data.occupation.major,
+        job: data.job.major,
         brief: '可施打疫苗的身份',
         listItems: dataList,
         description:
@@ -317,21 +345,98 @@ export default {
       }
     },
     handleA7(data) {
-      const matchedItem = this.government.find(
-        (item) => item.identity === '已完成第一劑疫苗者' && item.data !== ''
-      )
-      const vaccine = this.vaccinesId.find(
+      const matchedCityItems = this.cities.filter(
         (item) =>
-          item.vaccines_id === matchedItem.vaccines_id &&
-          item.status === '施打中'
+          item.city === data.county &&
+          item.first_vaccine === '已接種第一劑疫苗' &&
+          item.open_date !== ''
       )
-      return {
-        firstInjectTime: data.injection.injectionTime,
-        title:
-          '目前已經到了建議接種第二劑的時間，你也已被納入政府列出的公費優先施打名單內。',
-        brands: [vaccine.brand],
-        sources: [vaccine.source],
-        type: 'A7',
+      if (matchedCityItems.length) {
+        const matchedVaccine = matchedCityItems
+          .map((item) => {
+            const matchedItem = this.vaccinesList.find(
+              (d) =>
+                d.vaccines_id === item.vaccines_id &&
+                d.status === '施打中' &&
+                d.brand === data.injection.injectionBrand
+            )
+            return matchedItem
+              ? {
+                  howTo: item.how_to,
+                  source: matchedItem.source,
+                }
+              : {}
+          })
+          .filter((item) => Object.keys(item).length !== 0)
+        if (matchedVaccine.length) {
+          return {
+            firstInjectTime: data.injection.injectionTime,
+            title:
+              '目前已經到了建議接種第二劑的時間，你也已被納入政府列出的公費優先施打名單內。',
+            brands: [data.injection.injectionBrand],
+            sources: [matchedVaccine[0].source],
+            howTo: [matchedVaccine[0].howTo],
+            type: 'A7',
+          }
+        } else {
+          const matchedItem = this.government.find(
+            (item) =>
+              item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
+          )
+          const vaccine = this.vaccinesList.find(
+            (item) =>
+              item.vaccines_id === matchedItem.vaccines_id &&
+              item.status === '施打中' &&
+              item.brand === data.injection.injectionBrand
+          )
+          // 待確認
+          if (vaccine) {
+            return {
+              title:
+                '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
+              brands: [vaccine.brand],
+              sources: [vaccine.source],
+              type: 'A1',
+            }
+          } else {
+            return {
+              title: '你不在目前到貨疫苗的施打對象名單內，請繼續等待。',
+              brief: '為什麼還沒輪到我？',
+              description:
+                '臺灣疫苗存貨有限，中央疫情流行指揮中心會在最新疫苗到貨時公佈此批疫苗的優先施打對象。你可以透過下圖追蹤最新的情形，或訂閱通知，我們會在你可以施打疫苗時通知您。',
+              type: 'A3',
+            }
+          }
+        }
+      } else {
+        const matchedItem = this.government.find(
+          (item) =>
+            item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
+        )
+        const vaccine = this.vaccinesList.find(
+          (item) =>
+            item.vaccines_id === matchedItem.vaccines_id &&
+            item.status === '施打中' &&
+            item.brand === data.injection.injectionBrand
+        )
+        // 待確認
+        if (vaccine) {
+          return {
+            title:
+              '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
+            brands: [vaccine.brand],
+            sources: [vaccine.source],
+            type: 'A1',
+          }
+        } else {
+          return {
+            title: '你不在目前到貨疫苗的施打對象名單內，請繼續等待。',
+            brief: '為什麼還沒輪到我？',
+            description:
+              '臺灣疫苗存貨有限，中央疫情流行指揮中心會在最新疫苗到貨時公佈此批疫苗的優先施打對象。你可以透過下圖追蹤最新的情形，或訂閱通知，我們會在你可以施打疫苗時通知您。',
+            type: 'A3',
+          }
+        }
       }
     },
     handleAgeCompare(str, num) {
@@ -351,6 +456,12 @@ export default {
         (item) => item.category && item.answer && item.question
       )
       return _.groupBy(data, 'category') ?? {}
+    },
+    formatDate(date) {
+      const year = date.getFullYear()
+      const month = date.getMonth()
+      const day = date.getDate()
+      return `${year} / ${month} / ${day}`
     },
   },
 }

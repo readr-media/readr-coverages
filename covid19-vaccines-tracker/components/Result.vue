@@ -24,7 +24,6 @@
           <UiToggleCard
             :title="item.title"
             :content="item.content"
-            :graphUrl="item.url"
             :isFirstItem="!i"
           />
         </li>
@@ -112,12 +111,14 @@ export default {
   computed: {
     shouldShowEmail() {
       return (
-        this.result.length &&
         this.result.type !== 'A4' &&
         this.result.type !== 'A6' &&
         this.result.type !== 'A7'
       )
     },
+  },
+  mounted() {
+    window.scrollTo(0, 0)
   },
   methods: {
     handleSeachAgain() {

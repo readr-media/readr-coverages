@@ -3,14 +3,13 @@
     <ResultBoardTitle
       :title="result.title"
       :firstInjectTime="result.firstInjectTime"
-      :occupation="result.occupation"
+      :job="result.job"
       class="result-board__title"
     />
     <ResultBoardDesc
       :brief="result.brief"
       :description="result.description"
       :timeStamp="result.timeStamp"
-      :graphUrl="result.graphUrl"
       :listItems="result.listItems"
       class="result-board__desc"
     />
@@ -88,12 +87,11 @@ export default {
       @include media-breakpoint-up(md) {
         min-width: 260px;
         max-width: 260px;
-        margin: 0;
+        margin: 0 40px 0 0;
       }
     }
     &__injection {
       @include media-breakpoint-up(md) {
-        margin: 0 0 0 40px;
         padding: 12px 0 0;
       }
     }
