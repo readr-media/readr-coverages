@@ -26,7 +26,9 @@
         :startTime="result.startTime"
         :endTime="result.endTime"
         :isExpired="result.isExpired"
+        :isA1="isA1"
         class="result-board__list-wrapper__list"
+        :class="{ 'result-board__list-wrapper__list-flex': isA1 }"
       />
       <ResultBoardInjection
         :secondInjectTime="result.secondInjectTime"
@@ -63,6 +65,9 @@ export default {
     },
   },
   computed: {
+    isA1() {
+      return this.result.type === 'A1'
+    },
     isA2() {
       return this.result.type === 'A2'
     },
@@ -100,6 +105,13 @@ export default {
         max-width: 260px;
         margin: 0 40px 0 0;
       }
+    }
+    &__list-flex {
+      display: flex;
+      justify-content: space-between;
+      min-width: 100%;
+      max-width: 100%;
+      margin: 0;
     }
     &__injection {
       @include media-breakpoint-up(md) {
