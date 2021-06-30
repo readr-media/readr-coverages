@@ -35,6 +35,9 @@ export default {
       if (this.target === 'injectTime') {
         msg = this.handleTargetInjectTime()
       }
+      if (this.target === 'email') {
+        msg = this.handleTargetEmail()
+      }
       this.sendErrMsg(!!msg)
       return msg
     },
@@ -73,6 +76,12 @@ export default {
             dateInt <= Da[monthInt - 1]))
         ? ''
         : '請填寫有效時間，例如 2021/02/06'
+    },
+    handleTargetEmail() {
+      const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+      return regex.test(this.currentInput) || !this.currentInput
+        ? ''
+        : '請輸入有效的信箱地址'
     },
     sendErrMsg(payload) {
       this.$emit('has-err', payload)

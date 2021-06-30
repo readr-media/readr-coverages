@@ -9,12 +9,21 @@
       />
       <div v-if="shouldShowEmail" class="result__info-email">
         <p>留下你的 Email，施打疫苗的時間到了就會收到提醒</p>
-        <input
-          v-model="emailInput"
-          type="email"
-          placeholder="readr@gmail.com"
-          :disabled="hasSubmitBtn"
-        />
+        <div class="result__info-email--input">
+          <input
+            v-model="emailInput"
+            type="email"
+            placeholder="readr@gmail.com"
+            :disabled="hasSubmitBtn"
+          />
+          <ErrHandler
+            v-if="!hasSubmitBtn"
+            :target="'email'"
+            :currentInput="emailInput"
+            @has-err="handleHasErr"
+            class="err-handler"
+          />
+        </div>
         <button
           type="button"
           :class="[
@@ -79,6 +88,7 @@
 
 <script>
 import ResultBoard from '~/components/ResultBoard.vue'
+import ErrHandler from '~/components/ErrHandler.vue'
 import RemainDoseBoard from '~/components/RemainDoseBoard.vue'
 import UiToggleCard from '~/components/UiToggleCard.vue'
 import UiToggleCategory from '~/components/UiToggleCategory.vue'
@@ -88,6 +98,7 @@ import Credit from '~/components/Credit.vue'
 export default {
   components: {
     ResultBoard,
+    ErrHandler,
     RemainDoseBoard,
     UiToggleCard,
     UiToggleCategory,
@@ -120,6 +131,7 @@ export default {
     return {
       emailText: '施打時間到了提醒我',
       emailInput: '',
+      hasErr: true,
       hasSubmitBtn: false,
     }
   },
@@ -133,7 +145,7 @@ export default {
       )
     },
     shouldShowSubmitBtn() {
-      return this.emailInput.includes('.com')
+      return this.emailInput && !this.hasErr
     },
     shouldShowDoze() {
       return (
@@ -150,6 +162,9 @@ export default {
   methods: {
     handleSeachAgain() {
       this.$emit('search-again')
+    },
+    handleHasErr(payload) {
+      this.hasErr = payload
     },
     submitEmail() {
       this.$emit('submit-email', this.emailInput)
@@ -197,16 +212,20 @@ export default {
         text-align: left;
         margin: 0 0 8px;
       }
-      input[type='email'] {
+      &--input {
         width: 100%;
-        font-size: 18px;
-        border: 1px solid #e0e0e0;
-        border-radius: 6px;
-        padding: 12px 16px;
+        text-align: left;
         margin: 0 0 12px;
-        &:focus {
-          outline: none;
-          border: 1px solid #04295e;
+        input[type='email'] {
+          width: 100%;
+          font-size: 18px;
+          border: 1px solid #e0e0e0;
+          border-radius: 6px;
+          padding: 12px 16px;
+          &:focus {
+            outline: none;
+            border: 1px solid #04295e;
+          }
         }
       }
       .has-submit {
