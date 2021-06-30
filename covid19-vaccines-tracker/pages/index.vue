@@ -585,10 +585,10 @@ export default {
         ],
       }
       console.log(JSON.stringify(data))
-      // axios.post(
-      //   'https://asia-east1-mirrormedia-1470651750304.cloudfunctions.net/google-sheet/subscribe',
-      //   data
-      // )
+      axios.post(
+        'https://asia-east1-mirrormedia-1470651750304.cloudfunctions.net/google-sheet/subscribe',
+        data
+      )
     },
   },
 }

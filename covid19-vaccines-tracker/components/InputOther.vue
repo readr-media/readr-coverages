@@ -59,7 +59,7 @@
           >
             {{ job }}
           </li>
-          <li @click="setSecondInput('以上皆非')">以上皆非</li>
+          <li @click="setSecondInput('都不是')">都不是</li>
           <li @click="setSecondInput('我不確定')">我不確定</li>
         </ul>
       </div>
@@ -76,7 +76,7 @@
           >
             {{ job }}
           </li>
-          <li @click="setThirdInput('以上皆非')">以上皆非</li>
+          <li @click="setThirdInput('都不是')">都不是</li>
           <li @click="setThirdInput('我不確定')">我不確定</li>
         </ul>
       </div>
