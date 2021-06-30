@@ -48,10 +48,7 @@ export default {
         : '請輸入 1-130 以內的數字'
     },
     handleTargetCounty() {
-      const findItem = this.cityList.find((item) =>
-        item.includes(this.currentInput)
-      )
-      return this.currentInput === 'matched' || findItem ? '' : '找不到這個縣市'
+      return this.currentInput === 'matched' ? '' : '找不到這個縣市'
     },
     handleTargetInjectTime() {
       const now = new Date()

@@ -9,7 +9,7 @@
           type="text"
           placeholder="台北市"
           autocomplete="off"
-          @input.prevent="getCurrentCountyInput"
+          @input.prevent="handleCurrentCountyInput"
         />
         <ul v-if="matchedCounty.length">
           <li
@@ -25,7 +25,7 @@
         :target="'county'"
         :currentInput="currentCountyInput"
         :cityList="Object.keys(counties)"
-        @has-err="handleHasErr"
+        @has-err="handleCountyErr"
       />
     </section>
     <section class="input-other__select job">
@@ -150,7 +150,7 @@
           <ErrHandler
             :target="'injectTime'"
             :currentInput="injectionYearInput"
-            @has-err="handleHasErr"
+            @has-err="handleYearErr"
           />
         </div>
         <div v-if="injectionInput" class="input-other__select-input brand">
@@ -171,7 +171,7 @@
         <ErrHandler
           :target="'injectBrand'"
           :currentInput="brandInput"
-          @has-err="handleHasErr"
+          @has-err="handleYearErr"
         />
       </template>
     </section>
@@ -240,7 +240,8 @@ export default {
       brands: {},
       brandInput: '疫苗廠牌',
       openBrandList: false,
-      hasErr: true,
+      countyErr: true,
+      yearErr: true,
       pageData: {},
     }
   },
@@ -274,10 +275,13 @@ export default {
     shouldShowNextBtn() {
       let injectionDetail = true
       if (this.injectionInput) {
-        injectionDetail = this.injectionYearInput && this.brandInput
+        injectionDetail =
+          this.injectionYearInput &&
+          this.brandInput !== '疫苗廠牌' &&
+          !this.yearErr
       }
       return (
-        !this.hasErr &&
+        !this.countyErr &&
         this.countyInput &&
         this.injectionInput !== undefined &&
         injectionDetail
@@ -300,11 +304,6 @@ export default {
     this.brands = this.formatOptions(this.vaccinesList, 'brand')
   },
   methods: {
-    getCurrentCountyInput(e) {
-      this.currentCountyInput = e.target.value.length
-        ? this.formatTai(e.target.value)
-        : undefined
-    },
     setCountyInput(county) {
       this.currentCountyInput = 'matched'
       this.countyInput = county
@@ -365,6 +364,18 @@ export default {
         e.preventDefault()
       }
     },
+    handleCurrentCountyInput(e) {
+      const isMatched =
+        Object.keys(this.counties).includes(this.formatTai(this.countyInput)) ??
+        false
+      if (isMatched) {
+        this.currentCountyInput = 'matched'
+      } else {
+        this.currentCountyInput = e.target.value.length
+          ? this.formatTai(e.target.value)
+          : undefined
+      }
+    },
     handleTimeInput() {
       const length = this.injectionYearInput
         ? this.injectionYearInput.length
@@ -380,12 +391,15 @@ export default {
         ? this.injectionYearInput.length
         : 0
     },
-    handleHasErr(payload) {
-      this.hasErr = payload
+    handleCountyErr(payload) {
+      this.countyErr = payload
+    },
+    handleYearErr(payload) {
+      this.yearErr = payload
     },
     goToNextPage() {
       this.pageData = {
-        county: this.countyInput,
+        county: this.formatTai(this.countyInput),
         job: {
           major: this.jobInput.major,
           option1: this.jobInput.second,
