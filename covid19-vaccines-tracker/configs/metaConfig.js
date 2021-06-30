@@ -1,7 +1,7 @@
 const { app } = require('./config')
 
-export const SITE_TITLE = '【疫苗追蹤】covid19-vaccines-tracker'
-export const SITE_DESCRIPTION = 'COVID-19 疫情持續延燒、能源轉型路漫漫、乾旱缺水衝擊民生與產業⋯⋯透過即時資料，READr 帶你持續追蹤臺灣目前面臨的挑戰。'
+export const SITE_TITLE = '我什麼時候可以打疫苗？臺灣最新疫苗接種進度、預約方式'
+export const SITE_DESCRIPTION = '面對 COVID-19，臺灣疫苗陸續到貨，盼能在今年 10 月底之前達成 6 成人口接種第一劑的「全體免疫」目標。READr 統整所有最新接種資訊、接種方式、以及接種疫苗的常見問答，讓你即時掌握。'
 export const SITE_URL = `${app.siteProtocol}://${app.domain}${app.base}`
 export const SITE_DOMAIN = `${app.domain}${app.base}`
 export const SITE_OG_IMAGE = `${app.siteProtocol}://${app.domain}${app.base}/images/og.png`
