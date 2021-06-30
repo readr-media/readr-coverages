@@ -2,6 +2,11 @@
   <div class="result">
     <div class="result__info">
       <ResultBoard v-if="shouldShowResultBoard" :result="result" />
+      <RemainDoseBoard
+        v-if="shouldShowDoze"
+        :county="result.county"
+        :dozeInfo="result.dozeInfo"
+      />
       <EmailBoard v-if="shouldShowEmail" />
       <div class="result__info-btn">
         <button
@@ -17,13 +22,13 @@
       <h2>你可能還想知道</h2>
       <ul>
         <li
-          v-for="(item, i) in mockList"
-          :key="item.title"
+          v-for="(item, i) in alsoKnow"
+          :key="item.question"
           class="result__faq__toggle-card"
         >
           <UiToggleCard
-            :title="item.title"
-            :content="item.content"
+            :title="item.question"
+            :content="item.answer"
             :isFirstItem="!i"
           />
         </li>
@@ -52,6 +57,7 @@
 
 <script>
 import ResultBoard from '~/components/ResultBoard.vue'
+import RemainDoseBoard from '~/components/RemainDoseBoard.vue'
 import EmailBoard from '~/components/EmailBoard.vue'
 import UiToggleCard from '~/components/UiToggleCard.vue'
 import UiToggleCategory from '~/components/UiToggleCategory.vue'
@@ -61,6 +67,7 @@ import Credit from '~/components/Credit.vue'
 export default {
   components: {
     ResultBoard,
+    RemainDoseBoard,
     EmailBoard,
     UiToggleCard,
     UiToggleCategory,
@@ -78,35 +85,16 @@ export default {
       required: true,
       default: () => {},
     },
+    alsoKnow: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
     shouldShowResultBoard: {
       type: Boolean,
       required: true,
       default: true,
     },
-  },
-  data() {
-    return {
-      mockList: [
-        {
-          title: '勞工前往接種COVID-19疫苗，以及接種後擔心，可否請疫苗接種假？',
-          content:
-            '指揮中心建議，接種第 2 劑AZ疫苗的時間最好是間隔 8 至 12 周，如果是 3 月 22 日施打第一劑，12 周後的時間點會落在 6 月 13 日。不過台灣感染症醫學會名譽理事長黃立民指出，國外數據顯示，間隔12到16周打第二劑，其實和間隔10到12周的效果差不多，但因為國外幾乎沒有，建議最晚就是間隔 16 周。因此，在 7 月 11 日前打第二劑都還行。',
-          url: '',
-        },
-        {
-          title: '接種疫苗需要帶什麼證件？',
-          content:
-            '指揮中心建議，接種第 2 劑AZ疫苗的時間最好是間隔 8 至 12 周，如果是 3 月 22 日施打第一劑，12 周後的時間點會落在 6 月 13 日。不過台灣感染症醫學會名譽理事長黃立民指出，國外數據顯示，間隔12到16周打第二劑，其實和間隔10到12周的效果差不多，但因為國外幾乎沒有',
-          url: 'xxxxxxx',
-        },
-        {
-          title: '勞工前往接種COVID-19疫苗，可否請疫苗接種假？',
-          content:
-            '不過台灣感染症醫學會名譽理事長黃立民指出，國外數據顯示，間隔12到16周打第二劑，其實和間隔10到12周的效果差不多，但因為國外幾乎沒有，建議最晚就是間隔 16 周。因此，在 7 月 11 日前打第二劑都還行。',
-          url: '',
-        },
-      ],
-    }
   },
   computed: {
     shouldShowEmail() {
@@ -116,6 +104,14 @@ export default {
         this.result.type !== 'A7'
       )
     },
+    shouldShowDoze() {
+      return (
+        this.result.type === 'A1' ||
+        this.result.type === 'A2' ||
+        this.result.type === 'A3' ||
+        this.result.type === 'A6'
+      )
+    },
   },
   mounted() {
     window.scrollTo(0, 0)
@@ -123,6 +119,9 @@ export default {
   methods: {
     handleSeachAgain() {
       this.$emit('search-again')
+    },
+    test() {
+      this.$emit('test')
     },
   },
 }

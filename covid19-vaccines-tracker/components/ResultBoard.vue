@@ -6,10 +6,14 @@
       :job="result.job"
       class="result-board__title"
     />
+    <ResultBoardTip
+      v-if="result.tip"
+      :tip="result.tip"
+      class="result-board__tip"
+    />
     <ResultBoardDesc
       :brief="result.brief"
       :description="result.description"
-      :timeStamp="result.timeStamp"
       :listItems="result.listItems"
       class="result-board__desc"
     />
@@ -20,7 +24,10 @@
         :readyTime="result.readyTime"
         :startTime="result.startTime"
         :endTime="result.endTime"
+        :isExpired="result.isExpired"
+        :isA1="isA1"
         class="result-board__list-wrapper__list"
+        :class="{ 'result-board__list-wrapper__list-flex': isA1 }"
       />
       <ResultBoardInjection
         :secondInjectTime="result.secondInjectTime"
@@ -31,21 +38,26 @@
         class="result-board__list-wrapper__injection"
       />
     </div>
+    <UiTimeStamp v-if="shouldShowTimeStamp" :timeStamp="result.timeStamp" />
   </div>
 </template>
 
 <script>
 import ResultBoardTitle from '~/components/ResultBoardTitle.vue'
+import ResultBoardTip from '~/components/ResultBoardTip.vue'
 import ResultBoardDesc from '~/components/ResultBoardDesc.vue'
 import ResultBoardList from '~/components/ResultBoardList.vue'
 import ResultBoardInjection from '~/components/ResultBoardInjection.vue'
+import UiTimeStamp from '~/components/UiTimeStamp.vue'
 
 export default {
   components: {
     ResultBoardTitle,
+    ResultBoardTip,
     ResultBoardDesc,
     ResultBoardList,
     ResultBoardInjection,
+    UiTimeStamp,
   },
   props: {
     result: {
@@ -55,11 +67,21 @@ export default {
     },
   },
   computed: {
+    isA1() {
+      return this.result.type === 'A1'
+    },
     isA2() {
       return this.result.type === 'A2'
     },
     isA7() {
       return this.result.type === 'A7'
+    },
+    shouldShowTimeStamp() {
+      return (
+        this.result.type !== 'A2' &&
+        this.result.type !== 'A5' &&
+        this.result.type !== 'A7'
+      )
     },
   },
 }
@@ -75,6 +97,9 @@ export default {
   &__title {
     margin: 0 0 24px;
   }
+  &__tip {
+    margin: 0 0 32px;
+  }
   &__desc {
     margin: 0 0 4px;
   }
@@ -89,6 +114,13 @@ export default {
         max-width: 260px;
         margin: 0 40px 0 0;
       }
+    }
+    &__list-flex {
+      display: flex;
+      justify-content: space-between;
+      min-width: 100%;
+      max-width: 100%;
+      margin: 0;
     }
     &__injection {
       @include media-breakpoint-up(md) {

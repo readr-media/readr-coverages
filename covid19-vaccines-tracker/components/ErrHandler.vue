@@ -35,9 +35,6 @@ export default {
       if (this.target === 'injectTime') {
         msg = this.handleTargetInjectTime()
       }
-      if (this.target === 'injectBrand') {
-        msg = this.handleTargetInjectBrand()
-      }
       this.sendErrMsg(!!msg)
       return msg
     },
@@ -78,9 +75,6 @@ export default {
             dateInt <= Da[monthInt - 1]))
         ? ''
         : '請填寫有效時間，例如 2021/02/06'
-    },
-    handleTargetInjectBrand() {
-      return this.currentInput === '疫苗廠牌' ? '請選擇至少一項' : ''
     },
     sendErrMsg(payload) {
       this.$emit('has-err', payload)

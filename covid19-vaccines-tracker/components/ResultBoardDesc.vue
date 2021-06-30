@@ -10,7 +10,6 @@
     >
       {{ description }}
     </p>
-    <small class="result-desc__timestamp">{{ timeStamp }}</small>
     <div v-if="graphUrl" class="result-desc__graph"></div>
   </div>
 </template>
@@ -23,11 +22,6 @@ export default {
       default: '',
     },
     description: {
-      type: String,
-      required: true,
-      default: '',
-    },
-    timeStamp: {
       type: String,
       required: true,
       default: '',

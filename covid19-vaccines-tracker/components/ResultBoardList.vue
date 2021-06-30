@@ -1,6 +1,6 @@
 <template>
   <ul v-if="shouldShowList" class="result-list">
-    <li v-if="hasBrands">
+    <li v-if="hasBrands" :class="{ 'li-a1': isA1 }">
       <span class="list-items__title">疫苗廠牌</span>
       <div class="list-items__list">
         <span
@@ -12,7 +12,7 @@
         </span>
       </div>
     </li>
-    <li v-if="hasSources">
+    <li v-if="hasSources" :class="{ 'li-a1': isA1 }">
       <span class="list-items__title">疫苗來源</span>
       <div class="list-items__list">
         <span
@@ -48,17 +48,22 @@
         </span>
       </div>
     </li>
-    <li v-if="hasEndTime">
-      <span class="list-items__title">預計結束時間</span>
-      <div class="list-items__list">
-        <span
-          v-for="(item, i) in endTime"
-          :key="`${item}-${i}`"
-          class="list-items__items"
-        >
-          {{ item ? item : '- -' }}
-        </span>
+    <li v-if="hasEndTime" class="li-end-time">
+      <div class="li-end-time__wrapper">
+        <span class="list-items__title">預計結束時間</span>
+        <div class="list-items__list">
+          <span
+            v-for="(item, i) in endTime"
+            :key="`${item}-${i}`"
+            class="list-items__items"
+          >
+            {{ item }}
+          </span>
+        </div>
       </div>
+      <small v-if="isExpired">
+        原本預計安排的時間已過，但您仍可以致電衛生局處詢問其他可接種的方式和時間。
+      </small>
     </li>
   </ul>
 </template>
@@ -85,6 +90,14 @@ export default {
     endTime: {
       type: Array,
       default: () => [],
+    },
+    isExpired: {
+      type: Boolean,
+      default: false,
+    },
+    isA1: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
@@ -136,6 +149,26 @@ export default {
       .list-items__items {
         display: block;
       }
+    }
+  }
+  .li-a1 {
+    @include media-breakpoint-up(md) {
+      min-width: 260px;
+      max-width: 260px;
+      border-bottom: none;
+    }
+  }
+  .li-end-time {
+    display: block;
+    &__wrapper {
+      display: flex;
+    }
+    small {
+      margin: 4px 0 0;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #000928;
+      opacity: 0.5;
     }
   }
 }

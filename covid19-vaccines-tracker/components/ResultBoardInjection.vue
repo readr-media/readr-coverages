@@ -1,29 +1,31 @@
 <template>
   <div class="result-injection">
-    <div v-if="isA2 || isA7" class="result-injection__a2">
+    <div v-if="hasHowTo" class="result-injection__howTo">
       <p>接種方式</p>
       <span v-for="(item, i) in howTo" :key="`${item}-${i}`">
         {{ item }}
       </span>
     </div>
-    <div v-if="hasInjectInfo" class="result-injection__other">
+    <div v-if="hasInjectInfo" class="result-injection__second">
       <p>預計接種第二劑的時間</p>
-      <span v-if="isA2">您無需預約，會由地方政府寄發通知單給您</span>
-      <div class="result-injection__time">
-        <span v-for="(item, i) in secondInjectTime" :key="`${item}-${i}`">
-          {{ item }}
-        </span>
-      </div>
-      <small class="result-injection__announce">
-        僅為推估，實際情況以指揮中心為主
-      </small>
+      <span v-for="(item, i) in secondInjectTime" :key="`${item}-${i}`">
+        {{ item }}
+      </span>
     </div>
-    <small class="result-injection__timestamp">{{ timeStamp }}</small>
+    <UiAnnounce v-if="hasInjectInfo" />
+    <UiTimeStamp v-if="shouldShowTimeStamp" :timeStamp="timeStamp" />
   </div>
 </template>
 
 <script>
+import UiAnnounce from '~/components/UiAnnounce.vue'
+import UiTimeStamp from '~/components/UiTimeStamp.vue'
+
 export default {
+  components: {
+    UiAnnounce,
+    UiTimeStamp,
+  },
   props: {
     secondInjectTime: {
       type: Array,
@@ -48,10 +50,14 @@ export default {
     },
   },
   computed: {
+    hasHowTo() {
+      return this.howTo && this.howTo.length
+    },
     hasInjectInfo() {
-      return (
-        (this.secondInjectTime && this.secondInjectTime.length) || this.isA2
-      )
+      return this.secondInjectTime && this.secondInjectTime.length
+    },
+    shouldShowTimeStamp() {
+      return this.timeStamp && (this.hasInjectInfo || this.hasInjectInfo)
     },
   },
 }
@@ -70,13 +76,6 @@ export default {
     color: #000928;
     opacity: 0.87;
     margin: 0 0 4px;
-  }
-  small {
-    display: block;
-    font-size: 14px;
-    line-height: 21px;
-    color: #000928;
-    opacity: 0.3;
   }
   span {
     font-size: 18px;

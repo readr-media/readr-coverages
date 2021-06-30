@@ -134,7 +134,7 @@
       </label>
       <template v-if="injectionInput">
         <div class="input-other__injection--year">
-          <label for="yearInput">請輸入注射時間</label>
+          <label for="yearInput">請輸入注射時間及疫苗廠牌</label>
           <input
             id="yearInput"
             v-model="injectionYearInput"
@@ -234,7 +234,7 @@ export default {
       identityInput: ['無'],
       currentCountyInput: undefined,
       injectionInput: false,
-      injectionYearInput: '',
+      injectionYearInput: undefined,
       shouldAddInputBorder: false,
       yearInputLastLength: 0,
       brands: {},
@@ -272,12 +272,15 @@ export default {
       return Object.keys(this.brands).length && this.openBrandList
     },
     shouldShowNextBtn() {
+      let injectionDetail = true
+      if (this.injectionInput) {
+        injectionDetail = this.injectionYearInput && this.brandInput
+      }
       return (
         !this.hasErr &&
         this.countyInput &&
-        this.jobInput.major &&
-        this.identityInput.length &&
-        this.injectionInput !== undefined
+        this.injectionInput !== undefined &&
+        injectionDetail
       )
     },
   },
@@ -363,7 +366,9 @@ export default {
       }
     },
     handleTimeInput() {
-      const length = this.injectionYearInput.length
+      const length = this.injectionYearInput
+        ? this.injectionYearInput.length
+        : 0
       const dif = this.yearInputLastLength - length
       if (dif >= 0 && (length === 6 || length === 11)) {
         this.injectionYearInput = this.injectionYearInput.slice(0, -3)
@@ -371,7 +376,9 @@ export default {
       if (dif <= 0 && (length === 4 || length === 9)) {
         this.injectionYearInput = this.injectionYearInput + ' / '
       }
-      this.yearInputLastLength = this.injectionYearInput.length
+      this.yearInputLastLength = this.injectionYearInput
+        ? this.injectionYearInput.length
+        : 0
     },
     handleHasErr(payload) {
       this.hasErr = payload
