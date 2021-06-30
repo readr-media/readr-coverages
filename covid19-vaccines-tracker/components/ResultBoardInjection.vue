@@ -1,6 +1,6 @@
 <template>
   <div class="result-injection">
-    <div v-if="hasHowTo" class="result-injection__howTo">
+    <div v-if="hasHowTo" class="result-injection__howto">
       <p>接種方式</p>
       <span v-for="(item, i) in howTo" :key="`${item}-${i}`">
         {{ item }}
@@ -12,12 +12,13 @@
         {{ item }}
       </span>
     </div>
-    <UiAnnounce v-if="hasInjectInfo" />
+    <UiAnnounce v-if="hasInjectInfo" class="result-injection__announce" />
     <UiTimeStamp v-if="shouldShowTimeStamp" :timeStamp="timeStamp" />
   </div>
 </template>
 
 <script>
+import { isArrayEmpty } from '~/utils/array-handler'
 import UiAnnounce from '~/components/UiAnnounce.vue'
 import UiTimeStamp from '~/components/UiTimeStamp.vue'
 
@@ -51,13 +52,13 @@ export default {
   },
   computed: {
     hasHowTo() {
-      return this.howTo && this.howTo.length
+      return isArrayEmpty(this.howTo)
     },
     hasInjectInfo() {
-      return this.secondInjectTime && this.secondInjectTime.length
+      return isArrayEmpty(this.secondInjectTime)
     },
     shouldShowTimeStamp() {
-      return this.timeStamp && (this.hasInjectInfo || this.hasInjectInfo)
+      return this.timeStamp && (this.hasHowTo || this.hasInjectInfo)
     },
   },
 }
@@ -65,11 +66,6 @@ export default {
 
 <style lang="scss" scoped>
 .result-injection {
-  &__a2 {
-    margin: 0 0 12px;
-    padding: 0 0 12px;
-    border-bottom: 1px solid #e0e0e0;
-  }
   p {
     font-size: 16px;
     line-height: 1.5;
@@ -86,11 +82,16 @@ export default {
       text-decoration: underline;
     }
   }
-  &__time {
+  &__howto {
+    margin: 0 0 12px;
+    padding: 0 0 12px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  &__second {
     margin: 0 0 12px;
   }
-  &__timestamp {
-    margin: 4px 0 0;
+  &__announce {
+    margin: 0 0 4px;
   }
 }
 </style>

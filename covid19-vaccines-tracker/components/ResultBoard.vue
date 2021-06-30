@@ -12,6 +12,7 @@
       class="result-board__tip"
     />
     <ResultBoardDesc
+      v-if="shouldShowDesc"
       :brief="result.brief"
       :description="result.description"
       :listItems="result.listItems"
@@ -76,6 +77,9 @@ export default {
     isA7() {
       return this.result.type === 'A7'
     },
+    shouldShowDesc() {
+      return this.result.brief || this.result.description || this.listItems
+    },
     shouldShowTimeStamp() {
       return (
         this.result.type !== 'A2' &&
@@ -116,11 +120,13 @@ export default {
       }
     }
     &__list-flex {
-      display: flex;
-      justify-content: space-between;
-      min-width: 100%;
-      max-width: 100%;
-      margin: 0;
+      @include media-breakpoint-up(md) {
+        display: flex;
+        justify-content: space-between;
+        min-width: 100%;
+        max-width: 100%;
+        margin: 0;
+      }
     }
     &__injection {
       @include media-breakpoint-up(md) {

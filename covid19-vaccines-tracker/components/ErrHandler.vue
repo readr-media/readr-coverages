@@ -92,6 +92,7 @@ export default {
 
 <style lang="scss" scoped>
 small {
+  display: block;
   font-size: 16px;
   line-height: 1.5;
   color: #db2f24;

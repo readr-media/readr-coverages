@@ -51,7 +51,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 4px 0 0;
+    margin: 0 0 4px;
     h4 {
       font-size: 16px;
       line-height: 1.5;
@@ -73,7 +73,7 @@ export default {
     line-height: 1.5;
     color: #000928;
     opacity: 0.5;
-    margin: 4px 0 0;
+    margin: 4px 0;
   }
   &__content {
     font-size: 16px;

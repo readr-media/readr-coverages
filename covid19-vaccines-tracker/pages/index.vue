@@ -402,7 +402,7 @@ export default {
       const stamp = matchedList[0].update_time ?? ''
       return {
         job: data.job.major,
-        brief: '可施打疫苗的身份',
+        brief: '可接種疫苗的身份',
         listItems: dataList,
         description:
           '你可以向主管機關確認你的疫苗接種資格。若你的職業不在以上名單，代表你目前還不在疫苗施打的優先名單內，請繼續等待。',
@@ -443,7 +443,7 @@ export default {
             brands: [data.injection.injectionBrand],
             sources: [matchedVaccine[0].source],
             howTo: [matchedVaccine[0].howTo],
-            timeStamp: [matchedVaccine[0].stamp],
+            timeStamp: matchedVaccine[0].stamp,
             type: 'A7',
           }
         } else {

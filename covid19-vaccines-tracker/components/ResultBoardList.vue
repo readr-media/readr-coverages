@@ -37,7 +37,7 @@
       </div>
     </li>
     <li v-if="hasStartTime">
-      <span class="list-items__title">開始施打時間</span>
+      <span class="list-items__title">開始接種時間</span>
       <div class="list-items__list">
         <span
           v-for="(item, i) in startTime"
@@ -69,6 +69,8 @@
 </template>
 
 <script>
+import { isArrayEmpty } from '~/utils/array-handler'
+
 export default {
   props: {
     brands: {
@@ -111,19 +113,19 @@ export default {
       )
     },
     hasBrands() {
-      return this.brands && this.brands?.length
+      return isArrayEmpty(this.brands)
     },
     hasSources() {
-      return this.sources && this.sources?.length
+      return isArrayEmpty(this.sources)
     },
     hasReadyTime() {
-      return this.readyTime && this.readyTime?.length
+      return isArrayEmpty(this.readyTime)
     },
     hasStartTime() {
-      return this.startTime && this.startTime?.length
+      return isArrayEmpty(this.startTime)
     },
     hasEndTime() {
-      return this.endTime && this.endTime?.length
+      return isArrayEmpty(this.endTime)
     },
   },
 }
@@ -164,6 +166,7 @@ export default {
       display: flex;
     }
     small {
+      display: block;
       margin: 4px 0 0;
       font-size: 16px;
       line-height: 1.5;

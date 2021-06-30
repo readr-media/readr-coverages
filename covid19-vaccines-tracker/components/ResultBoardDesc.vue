@@ -1,7 +1,7 @@
 <template>
   <div class="result-desc">
     <small class="result-desc__brief">{{ brief }}</small>
-    <ul class="result-desc__list">
+    <ul v-if="shouldShowList" class="result-desc__list">
       <li v-for="item in listItems" :key="item">{{ item }}</li>
     </ul>
     <p
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { isArrayEmpty } from '~/utils/array-handler'
+
 export default {
   props: {
     brief: {
@@ -35,12 +37,18 @@ export default {
       default: '',
     },
   },
+  computed: {
+    shouldShowList() {
+      return isArrayEmpty(this.listItems)
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .result-desc {
   &__brief {
+    display: block;
     font-size: 16px;
     line-height: 1.5;
     color: #000928;
