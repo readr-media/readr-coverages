@@ -52,7 +52,7 @@ export default {
       return parseInt(this.age)
     },
     shouldShowNextBtn() {
-      return this.formatAge !== 0 && !this.hasErr
+      return this.formatAge && !this.hasErr
     },
   },
   mounted() {

@@ -41,8 +41,9 @@ export default {
   },
   methods: {
     handleTargetAge() {
+      const str = this.currentInput
       const regex = /^(?:[1-9]\d?|1[0-2]\d|130)$/
-      return regex.test(parseInt(this.currentInput))
+      return regex.test(parseInt(str)) && str.indexOf('0') !== 0
         ? ''
         : '請輸入 1-130 以內的數字'
     },
