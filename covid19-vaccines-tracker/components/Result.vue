@@ -7,7 +7,29 @@
         :county="result.county"
         :dozeInfo="result.dozeInfo"
       />
-      <EmailBoard v-if="shouldShowEmail" />
+      <div v-if="shouldShowEmail" class="result__info-email">
+        <p>留下你的 Email，施打疫苗的時間到了就會收到提醒</p>
+        <input
+          v-model="emailInput"
+          type="email"
+          placeholder="readr@gmail.com"
+          :disabled="hasSubmitBtn"
+        />
+        <button
+          type="button"
+          :class="[
+            shouldShowSubmitBtn ? 'g-primary-btn' : 'g-disabled-btn',
+            { 'has-submit': hasSubmitBtn },
+          ]"
+          class="email-board__btn"
+          @click="submitEmail"
+        >
+          <div v-if="hasSubmitBtn" class="email-board__btn-img">
+            <img src="~static/images/check-icon.png" alt="check mark" />
+          </div>
+          {{ emailText }}
+        </button>
+      </div>
       <div class="result__info-btn">
         <button
           type="button"
@@ -58,7 +80,6 @@
 <script>
 import ResultBoard from '~/components/ResultBoard.vue'
 import RemainDoseBoard from '~/components/RemainDoseBoard.vue'
-import EmailBoard from '~/components/EmailBoard.vue'
 import UiToggleCard from '~/components/UiToggleCard.vue'
 import UiToggleCategory from '~/components/UiToggleCategory.vue'
 import Donate from '~/components/Donate.vue'
@@ -68,7 +89,6 @@ export default {
   components: {
     ResultBoard,
     RemainDoseBoard,
-    EmailBoard,
     UiToggleCard,
     UiToggleCategory,
     Donate,
@@ -96,13 +116,24 @@ export default {
       default: true,
     },
   },
+  data() {
+    return {
+      emailText: '施打時間到了提醒我',
+      emailInput: '',
+      hasSubmitBtn: false,
+    }
+  },
   computed: {
     shouldShowEmail() {
       return (
+        this.result.type &&
         this.result.type !== 'A4' &&
         this.result.type !== 'A6' &&
         this.result.type !== 'A7'
       )
+    },
+    shouldShowSubmitBtn() {
+      return this.emailInput.includes('.com')
     },
     shouldShowDoze() {
       return (
@@ -120,8 +151,11 @@ export default {
     handleSeachAgain() {
       this.$emit('search-again')
     },
-    test() {
-      this.$emit('test')
+    submitEmail() {
+      this.$emit('submit-email', this.emailInput)
+      this.emailText = '成功訂閱提醒'
+      this.hasSubmitBtn = true
+      this.emailInput = ''
     },
   },
 }
@@ -149,6 +183,62 @@ export default {
     margin: 0 auto 56px;
     @include media-breakpoint-up(md) {
       margin: 0 auto 120px;
+    }
+    &-email {
+      margin: 24px 0 0;
+      padding: 0 20px;
+      text-align: center;
+      @include media-breakpoint-up(md) {
+        margin: 32px 0 0;
+      }
+      p {
+        font-size: 16px;
+        line-height: 1.5;
+        text-align: left;
+        margin: 0 0 8px;
+      }
+      input[type='email'] {
+        width: 100%;
+        font-size: 18px;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        padding: 12px 16px;
+        margin: 0 0 12px;
+        &:focus {
+          outline: none;
+          border: 1px solid #04295e;
+        }
+      }
+      .has-submit {
+        width: 100%;
+        max-width: 320px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        background-color: #f4f5f6;
+        color: #04295e;
+        text-align: center;
+        font-size: 18px;
+        line-height: 1.5;
+        border: 1px solid #04295e;
+        border-radius: 6px;
+        padding: 12px;
+        outline: none;
+        pointer-events: none;
+        &:focus {
+          outline: none;
+        }
+        .email-board__btn-img {
+          width: 12px;
+          height: 10px;
+          margin: 2px 4px 0 0;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
     }
     &-btn {
       margin: 24px 0 20px;

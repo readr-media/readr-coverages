@@ -27,6 +27,7 @@
         :qa="qa"
         :alsoKnow="alsoKnow"
         @search-again="handleSearchAgain"
+        @submit-email="handleSubmitEmail"
       />
     </div>
     <Footer />
@@ -84,7 +85,7 @@ export default {
           option1: '',
           option2: '',
         },
-        email: 'mock@gmail.com',
+        email: '',
       },
     }
   },
@@ -189,6 +190,7 @@ export default {
     },
     handleSearchAgain() {
       this.inputData = {}
+      this.result = {}
       this.hideResult()
       this.showInputAge()
     },
@@ -563,28 +565,31 @@ export default {
       console.log(matchedItems)
       return matchedItems.filter((item, i) => i < 3)
     },
-    // handleTest() {
-    //   const i = this.inputData
-    //   const data = {
-    //     row: [
-    //       i.email,
-    //       i.age,
-    //       i.county,
-    //       i.injection.isInjection,
-    //       i.injection.injectionTime,
-    //       i.injection.injectionBrand,
-    //       i.job.major,
-    //       i.job.option1,
-    //       i.job.option2,
-    //       i.identity.join(),
-    //     ],
-    //   }
-    //   console.log(JSON.stringify(data))
-    //   axios.post(
-    //     'https://asia-east1-mirrormedia-1470651750304.cloudfunctions.net/google-sheet/subscribe',
-    //     data
-    //   )
-    // },
+    handleSubmitEmail(payload) {
+      this.inputData.email = payload
+      const i = this.inputData
+      const data = {
+        action: 'subscribe',
+        row: [
+          i.email,
+          i.age,
+          i.county,
+          i.injection.isInjection,
+          i.injection.injectionTime,
+          i.injection.injectionBrand,
+          i.job.major,
+          i.job.option1,
+          i.job.option2,
+          i.identity.join(),
+          this.result.type,
+        ],
+      }
+      console.log(JSON.stringify(data))
+      // axios.post(
+      //   'https://asia-east1-mirrormedia-1470651750304.cloudfunctions.net/google-sheet/subscribe',
+      //   data
+      // )
+    },
   },
 }
 </script>
