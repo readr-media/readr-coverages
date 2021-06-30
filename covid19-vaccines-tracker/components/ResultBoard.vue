@@ -14,7 +14,6 @@
     <ResultBoardDesc
       :brief="result.brief"
       :description="result.description"
-      :timeStamp="result.timeStamp"
       :listItems="result.listItems"
       class="result-board__desc"
     />
@@ -39,6 +38,7 @@
         class="result-board__list-wrapper__injection"
       />
     </div>
+    <UiTimeStamp v-if="shouldShowTimeStamp" :timeStamp="result.timeStamp" />
   </div>
 </template>
 
@@ -48,6 +48,7 @@ import ResultBoardTip from '~/components/ResultBoardTip.vue'
 import ResultBoardDesc from '~/components/ResultBoardDesc.vue'
 import ResultBoardList from '~/components/ResultBoardList.vue'
 import ResultBoardInjection from '~/components/ResultBoardInjection.vue'
+import UiTimeStamp from '~/components/UiTimeStamp.vue'
 
 export default {
   components: {
@@ -56,6 +57,7 @@ export default {
     ResultBoardDesc,
     ResultBoardList,
     ResultBoardInjection,
+    UiTimeStamp,
   },
   props: {
     result: {
@@ -73,6 +75,13 @@ export default {
     },
     isA7() {
       return this.result.type === 'A7'
+    },
+    shouldShowTimeStamp() {
+      return (
+        this.result.type !== 'A2' &&
+        this.result.type !== 'A5' &&
+        this.result.type !== 'A7'
+      )
     },
   },
 }

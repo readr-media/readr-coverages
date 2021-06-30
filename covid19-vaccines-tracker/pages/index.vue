@@ -231,7 +231,6 @@ export default {
             (d) => d.vaccines_id === item.vaccines_id && d.status === '施打中'
           )
           let expired = false
-          const dataTip = matchedItem ? item.data : ''
           if (matchedItem && item.end_date) {
             const now = new Date()
             const [year, month, date] = item.end_date.split('-')
@@ -251,7 +250,8 @@ export default {
                 startTime: item.open_date,
                 endTime: item.end_date,
                 howTo: item.how_to,
-                tip: dataTip,
+                tip: item.data,
+                stamp: item.update_time,
                 isExpired: expired,
               }
             : {}
@@ -278,17 +278,24 @@ export default {
           howTo: [filteredItem.howTo],
           secondInjectTime: [filteredItem.secondInjectTime],
           tip: filteredItem.tip,
+          timeStamp: filteredItem.stamp,
           isExpired: filteredItem.isExpired,
           type: 'A2',
         }
       } else {
         let dataTip = ''
+        let stamp = ''
         const vaccine = govList
           .map((item) => {
             const matchedItem = this.vaccinesList.find(
               (d) => d.vaccines_id === item.vaccines_id && d.status === '施打中'
             )
-            dataTip = matchedItem ? item.data : ''
+            if (matchedItem && item.data) {
+              dataTip = item.data
+            }
+            if (matchedItem && item.update_time) {
+              stamp = item.update_time
+            }
             return matchedItem
               ? {
                   brands: matchedItem.brand,
@@ -303,6 +310,7 @@ export default {
           brands: vaccine.map((item) => item.brands),
           sources: vaccine.map((item) => item.sources),
           tip: dataTip,
+          timeStamp: stamp,
           type: 'A1',
         }
       }
@@ -324,21 +332,25 @@ export default {
       return this.handleA3()
     },
     handleA3() {
+      const stamp = this.government[0].update_time ?? ''
       return {
         title: '你不在目前到貨疫苗的施打對象名單內，請繼續等待。',
         brief: '為什麼還沒輪到我？',
         description:
           '臺灣疫苗存貨有限，中央疫情流行指揮中心會在最新疫苗到貨時公佈此批疫苗的優先施打對象。你可以透過下圖追蹤最新的情形，或訂閱通知，我們會在你可以施打疫苗時通知您。',
+        timeStamp: stamp,
         type: 'A3',
       }
     },
     handleA4() {
+      const stamp = this.government[0].update_time ?? ''
       return {
         title: '你的年紀還不適合接種疫苗。',
         brief:
           '幾歲可以打疫苗？如果我還沒到達可以打疫苗的年紀，該如何保護自己？',
         description:
           '臺灣疫苗存貨有限，中央疫情流行指揮中心會在最新疫苗到貨時公佈此批疫苗的優先施打對象。你可以透過下圖追蹤最新的情形，或訂閱通知，我們會在你可以施打疫苗時通知您。',
+        timeStamp: stamp,
         type: 'A4',
       }
     },
@@ -350,6 +362,7 @@ export default {
       const dateInt = parseInt(date)
       const inputDate = new Date(yearInt, monthInt, dateInt).getTime()
       const interval = Math.floor((now - inputDate) / (24 * 3600 * 1000))
+      const stamp = this.government[0].update_time ?? ''
       let dozeInterval = 70
       let wording = '10至12週'
       if (data.injection.injectionBrand.includes('Moderna')) {
@@ -366,6 +379,7 @@ export default {
                 new Date(yearInt, monthInt, dateInt + dozeInterval)
               ),
             ],
+            timeStamp: stamp,
             type: 'A5',
           }
     },
@@ -383,12 +397,14 @@ export default {
           dataList.push(item.job3)
         }
       })
+      const stamp = matchedList[0].update_time ?? ''
       return {
         job: data.job.major,
         brief: '可施打疫苗的身份',
         listItems: dataList,
         description:
           '你可以向主管機關確認你的疫苗接種資格。若你的職業不在以上名單，代表你目前還不在疫苗施打的優先名單內，請繼續等待。',
+        timeStamp: stamp,
         type: 'A6',
       }
     },
@@ -411,6 +427,7 @@ export default {
             return matchedItem
               ? {
                   howTo: item.how_to,
+                  stamp: item.update_time,
                   source: matchedItem.source,
                 }
               : {}
@@ -424,6 +441,7 @@ export default {
             brands: [data.injection.injectionBrand],
             sources: [matchedVaccine[0].source],
             howTo: [matchedVaccine[0].howTo],
+            timeStamp: [matchedVaccine[0].stamp],
             type: 'A7',
           }
         } else {
@@ -432,6 +450,7 @@ export default {
               item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
           )
           const dataTip = matchedItem?.data ?? ''
+          const stamp = matchedItem?.update_time ?? ''
           const vaccine = this.vaccinesList.find(
             (item) =>
               item.vaccines_id === matchedItem.vaccines_id &&
@@ -446,6 +465,7 @@ export default {
               brands: [vaccine.brand],
               sources: [vaccine.source],
               tip: dataTip,
+              timeStamp: stamp,
               type: 'A1',
             }
           }
@@ -457,6 +477,7 @@ export default {
             item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
         )
         const dataTip = matchedItem?.data ?? ''
+        const stamp = matchedItem?.update_time ?? ''
         const vaccine = this.vaccinesList.find(
           (item) =>
             item.vaccines_id === matchedItem.vaccines_id &&
@@ -471,6 +492,7 @@ export default {
             brands: [vaccine.brand],
             sources: [vaccine.source],
             tip: dataTip,
+            timeStamp: stamp,
             type: 'A1',
           }
         }
