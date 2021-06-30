@@ -25,6 +25,7 @@
         :result="result"
         :shouldShowResultBoard="shouldShowResultBoard"
         :qa="qa"
+        :alsoKnow="alsoKnow"
         @search-again="handleSearchAgain"
       />
     </div>
@@ -66,7 +67,9 @@ export default {
       vaccinesList: [],
       questions: {},
       qa: {},
+      RawQa: [],
       cityInfo: [],
+      alsoKnow: [],
       inputData: {
         age: 0,
         county: '',
@@ -108,6 +111,7 @@ export default {
       this.government = govRes?.data ?? []
       this.cities = cityRes?.data ?? []
       this.vaccinesList = idRes?.data ?? []
+      this.RawQa = qaRes?.data ?? []
       this.questions = this.formatQuestions(qoRes?.data)
       this.qa = this.formatQA(qaRes?.data)
       this.cityInfo = cityInfoRes?.data ?? []
@@ -148,6 +152,7 @@ export default {
       this.hideCover()
       this.hideInputAge()
       this.hideInputOther()
+      this.alsoKnow = this.getAlsoKnow(true, {}, {})
       this.shouldShowResultBoard = false
       this.showResult()
     },
@@ -155,6 +160,7 @@ export default {
       if (payload < 18) {
         this.result = this.handleA4()
         this.hideInputAge()
+        this.alsoKnow = this.getAlsoKnow(true, {}, {})
         this.showResult()
       } else {
         this.inputData.age = payload
@@ -170,6 +176,7 @@ export default {
       this.inputData.job = payload.job
       this.result = this.generateResult(this.inputData)
       this.addDozeInfo()
+      this.alsoKnow = this.getAlsoKnow(false, this.result, this.inputData)
       this.shouldShowResultBoard = true
       this.showResult()
     },
@@ -177,6 +184,7 @@ export default {
       this.hideInputAge()
       this.shouldShowResultBoard = true
       this.result = this.handleA4()
+      this.alsoKnow = this.getAlsoKnow(true, this.result, this.inputData)
       this.showResult()
     },
     handleSearchAgain() {
@@ -499,6 +507,39 @@ export default {
         (item) => item.cities === this.inputData.county
       )
       this.result.dozeInfo = item ? item.remaining_dose : '無資料'
+    },
+    getAlsoKnow(isSkip, result, data) {
+      let matchedItems = []
+      let allMatchedItems = []
+      if (isSkip) {
+        if (!data.age || data.age < 18) {
+          matchedItems = this.RawQa.filter(
+            (item) => item.age === '<18' && item.question && item.answer
+          )
+        } else {
+          matchedItems = this.RawQa.filter(
+            (item) => item.question && item.answer
+          )
+        }
+      } else {
+        matchedItems = this.RawQa.filter(
+          (item) =>
+            item.question &&
+            item.answer &&
+            (item.answers_option === result.type ||
+              item.job === data.job.major ||
+              data.identity.includes(item.identity))
+        )
+      }
+      console.log(matchedItems)
+      if (matchedItems.length < 3) {
+        allMatchedItems = this.RawQa.filter(
+          (item, i) => item.question && item.answer
+        )
+        matchedItems = matchedItems.concat(allMatchedItems)
+      }
+      console.log(matchedItems)
+      return matchedItems.filter((item, i) => i < 3)
     },
     // handleTest() {
     //   const i = this.inputData
