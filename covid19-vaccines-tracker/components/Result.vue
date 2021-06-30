@@ -108,6 +108,7 @@ export default {
       return (
         this.result.type === 'A1' ||
         this.result.type === 'A2' ||
+        this.result.type === 'A3' ||
         this.result.type === 'A6'
       )
     },
