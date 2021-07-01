@@ -4,13 +4,16 @@
     <ul v-if="shouldShowList" class="result-desc__list">
       <li v-for="item in listItems" :key="item">{{ item }}</li>
     </ul>
-    <p
-      class="result-desc__description"
-      :class="{ 'black-text': listItems.length }"
-    >
-      {{ description }}
-    </p>
-    <div v-if="graphUrl" class="result-desc__graph"></div>
+    <template v-if="shouldShowDesc">
+      <p
+        v-for="paragraph in description"
+        :key="paragraph"
+        class="result-desc__description"
+        :class="{ 'black-text': listItems.length }"
+      >
+        {{ paragraph }}
+      </p>
+    </template>
   </div>
 </template>
 
@@ -24,22 +27,21 @@ export default {
       default: '',
     },
     description: {
-      type: String,
+      type: Array,
       required: true,
-      default: '',
+      default: () => [],
     },
     listItems: {
       type: Array,
       default: () => [],
     },
-    graphUrl: {
-      type: String,
-      default: '',
-    },
   },
   computed: {
     shouldShowList() {
       return isArrayEmpty(this.listItems)
+    },
+    shouldShowDesc() {
+      return isArrayEmpty(this.description)
     },
   },
 }
@@ -90,12 +92,6 @@ export default {
     line-height: 21px;
     color: #000928;
     opacity: 0.3;
-  }
-  &__graph {
-    width: 100%;
-    height: 400px;
-    background-color: #c4c5c6;
-    margin: 12px 0 0;
   }
 }
 </style>
