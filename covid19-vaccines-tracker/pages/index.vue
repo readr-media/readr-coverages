@@ -207,6 +207,7 @@ export default {
       const matchedList = this.government.filter(
         (item) =>
           item.status !== '暫緩施打' &&
+          item.first_vaccine === '' &&
           (item.city === '不限' || item.city === data.county) &&
           item.job === data.job.major &&
           (item.job2 === '' || item.job2 === data.job.option1) &&
@@ -225,6 +226,7 @@ export default {
         .filter(
           (item) =>
             item.status !== '暫緩施打' &&
+            item.first_vaccine === '' &&
             item.city === data.county &&
             item.job === data.job.major &&
             (item.job2 === '' || item.job2 === data.job.option1) &&
@@ -244,7 +246,7 @@ export default {
             const monthInt = parseInt(month)
             const dateInt = parseInt(date)
             const inputDate = new Date(yearInt, monthInt, dateInt)
-            if (now.getTime() - inputDate.getTime()) {
+            if (now.getTime() - inputDate.getTime() > 0) {
               expired = true
             }
           }
@@ -476,8 +478,7 @@ export default {
     },
     handleA1ForHasFirstVaccine(data) {
       const govList = this.government.filter(
-        (item) =>
-          item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
+        (item) => item.first_vaccine === '已接種第一劑疫苗' && item.date !== ''
       )
       let dataTip = ''
       let dataTipLink = ''
@@ -528,13 +529,19 @@ export default {
       return this.handleA3()
     },
     handleAgeCompare(str, num) {
-      if (str.includes('>') && num > parseInt(str.slice(1))) {
-        return true
+      if (str && str.includes('&')) {
+        const [str1, str2] = str.split('&')
+        return (
+          ((str1.includes('>') && num > parseInt(str1.split('>')[1])) ||
+            (str1.includes('<') && num < parseInt(str1.split('<')[1]))) &&
+          ((str2.includes('>') && num > parseInt(str2.split('>')[1])) ||
+            (str2.includes('<') && num < parseInt(str2.split('<')[1])))
+        )
       }
-      if (str.includes('<') && num < parseInt(str.slice(1))) {
-        return true
-      }
-      return false
+      return (
+        (str.includes('>') && num > parseInt(str.split('>')[1])) ||
+        (str.includes('<') && num < parseInt(str.split('<')[1]))
+      )
     },
     formatQuestions(rawData) {
       return _.groupBy(rawData, 'question') ?? {}
