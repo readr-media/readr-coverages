@@ -12,7 +12,7 @@
         </div>
         <div class="credit__employee">
           <div class="credit__employee_head">工程</div>
-          <div class="credit__employee_name">簡信昌、温凱傑</div>
+          <div class="credit__employee_name">温凱傑、簡信昌</div>
         </div>
       </div>
       <div class="credit__row">

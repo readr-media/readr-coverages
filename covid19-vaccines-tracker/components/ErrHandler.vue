@@ -35,22 +35,23 @@ export default {
       if (this.target === 'injectTime') {
         msg = this.handleTargetInjectTime()
       }
+      if (this.target === 'email') {
+        msg = this.handleTargetEmail()
+      }
       this.sendErrMsg(!!msg)
       return msg
     },
   },
   methods: {
     handleTargetAge() {
+      const str = this.currentInput
       const regex = /^(?:[1-9]\d?|1[0-2]\d|130)$/
-      return regex.test(parseInt(this.currentInput))
+      return regex.test(parseInt(str)) && str.indexOf('0') !== 0
         ? ''
         : '請輸入 1-130 以內的數字'
     },
     handleTargetCounty() {
-      const findItem = this.cityList.find((item) =>
-        item.includes(this.currentInput)
-      )
-      return this.currentInput === 'matched' || findItem ? '' : '找不到這個縣市'
+      return this.currentInput === 'matched' ? '' : '找不到這個縣市'
     },
     handleTargetInjectTime() {
       const now = new Date()
@@ -76,6 +77,12 @@ export default {
         ? ''
         : '請填寫有效時間，例如 2021/02/06'
     },
+    handleTargetEmail() {
+      const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+      return regex.test(this.currentInput) || !this.currentInput
+        ? ''
+        : '請輸入有效的信箱地址'
+    },
     sendErrMsg(payload) {
       this.$emit('has-err', payload)
     },
@@ -85,6 +92,7 @@ export default {
 
 <style lang="scss" scoped>
 small {
+  display: block;
   font-size: 16px;
   line-height: 1.5;
   color: #db2f24;

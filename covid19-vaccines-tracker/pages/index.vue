@@ -27,6 +27,7 @@
         :qa="qa"
         :alsoKnow="alsoKnow"
         @search-again="handleSearchAgain"
+        @submit-email="handleSubmitEmail"
       />
     </div>
     <Footer />
@@ -84,7 +85,7 @@ export default {
           option1: '',
           option2: '',
         },
-        email: 'mock@gmail.com',
+        email: '',
       },
     }
   },
@@ -189,6 +190,7 @@ export default {
     },
     handleSearchAgain() {
       this.inputData = {}
+      this.result = {}
       this.hideResult()
       this.showInputAge()
     },
@@ -400,7 +402,7 @@ export default {
       const stamp = matchedList[0].update_time ?? ''
       return {
         job: data.job.major,
-        brief: '可施打疫苗的身份',
+        brief: '可接種疫苗的身份',
         listItems: dataList,
         description:
           '你可以向主管機關確認你的疫苗接種資格。若你的職業不在以上名單，代表你目前還不在疫苗施打的優先名單內，請繼續等待。',
@@ -441,7 +443,7 @@ export default {
             brands: [data.injection.injectionBrand],
             sources: [matchedVaccine[0].source],
             howTo: [matchedVaccine[0].howTo],
-            timeStamp: [matchedVaccine[0].stamp],
+            timeStamp: matchedVaccine[0].stamp,
             type: 'A7',
           }
         } else {
@@ -563,28 +565,31 @@ export default {
       console.log(matchedItems)
       return matchedItems.filter((item, i) => i < 3)
     },
-    // handleTest() {
-    //   const i = this.inputData
-    //   const data = {
-    //     row: [
-    //       i.email,
-    //       i.age,
-    //       i.county,
-    //       i.injection.isInjection,
-    //       i.injection.injectionTime,
-    //       i.injection.injectionBrand,
-    //       i.job.major,
-    //       i.job.option1,
-    //       i.job.option2,
-    //       i.identity.join(),
-    //     ],
-    //   }
-    //   console.log(JSON.stringify(data))
-    //   axios.post(
-    //     'https://asia-east1-mirrormedia-1470651750304.cloudfunctions.net/google-sheet/subscribe',
-    //     data
-    //   )
-    // },
+    handleSubmitEmail(payload) {
+      this.inputData.email = payload
+      const i = this.inputData
+      const data = {
+        action: 'subscribe',
+        row: [
+          i.email,
+          i.age,
+          i.county,
+          i.injection.isInjection,
+          i.injection.injectionTime,
+          i.injection.injectionBrand,
+          i.job.major,
+          i.job.option1,
+          i.job.option2,
+          i.identity.join(),
+          this.result.type,
+        ],
+      }
+      console.log(JSON.stringify(data))
+      axios.post(
+        'https://asia-east1-mirrormedia-1470651750304.cloudfunctions.net/google-sheet/subscribe',
+        data
+      )
+    },
   },
 }
 </script>

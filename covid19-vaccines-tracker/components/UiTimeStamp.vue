@@ -23,6 +23,7 @@ export default {
 
 <style lang="scss" scoped>
 small {
+  display: block;
   font-size: 14px;
   line-height: 21px;
   color: #000928;
