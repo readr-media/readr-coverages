@@ -251,7 +251,9 @@ export default {
                 startTime: item.open_date,
                 endTime: item.end_date,
                 howTo: item.how_to,
+                howToLink: item.how_to_link,
                 tip: item.data,
+                tipLink: item.data_link,
                 stamp: item.update_time,
                 isExpired: expired,
               }
@@ -277,14 +279,17 @@ export default {
           startTime: [filteredItem.startTime],
           endTime: [filteredItem.endTime],
           howTo: [filteredItem.howTo],
+          howToLink: [filteredItem.howToLink],
           secondInjectTime: [filteredItem.secondInjectTime],
           tip: filteredItem.tip,
+          tipLink: filteredItem.tipLink,
           timeStamp: filteredItem.stamp,
           isExpired: filteredItem.isExpired,
           type: 'A2',
         }
       } else {
         let dataTip = ''
+        let dataTipLink = ''
         let stamp = ''
         const vaccine = govList
           .map((item) => {
@@ -293,6 +298,7 @@ export default {
             )
             if (matchedItem && item.data) {
               dataTip = item.data
+              dataTipLink = item.data_link
             }
             if (matchedItem && item.update_time) {
               stamp = item.update_time
@@ -319,6 +325,7 @@ export default {
           brands: sortedVaccine.map((item) => item.brands),
           sources: sortedVaccine.map((item) => item.sources),
           tip: dataTip,
+          tipLink: dataTipLink,
           timeStamp: stamp,
           type: 'A1',
         }
@@ -436,6 +443,7 @@ export default {
             return matchedItem
               ? {
                   howTo: item.how_to,
+                  howToLink: item.how_to_link,
                   stamp: item.update_time,
                   source: matchedItem.source,
                 }
@@ -450,6 +458,7 @@ export default {
             brands: [data.injection.injectionBrand],
             sources: [matchedVaccine[0].source],
             howTo: [matchedVaccine[0].howTo],
+            howToLink: [matchedVaccine[0].howToLink],
             timeStamp: matchedVaccine[0].stamp,
             type: 'A7',
           }
@@ -466,6 +475,7 @@ export default {
           item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
       )
       let dataTip = ''
+      let dataTipLink = ''
       let stamp = ''
       const vaccine = govList
         .map((item) => {
@@ -477,6 +487,7 @@ export default {
           )
           if (matchedItem && item.data) {
             dataTip = item.data
+            dataTipLink = item.data_link
           }
           if (matchedItem && item.update_time) {
             stamp = item.update_time
@@ -504,6 +515,7 @@ export default {
           brands: sortedVaccine.map((item) => item.brands),
           sources: sortedVaccine.map((item) => item.sources),
           tip: dataTip,
+          tipLink: dataTipLink,
           timeStamp: stamp,
           type: 'A1',
         }
@@ -540,6 +552,7 @@ export default {
         (item) => item.cities === this.inputData.county
       )
       this.result.dozeInfo = item ? item.remaining_dose : '無資料'
+      this.result.dozeInfoLink = item ? item.remaining_dose_link : '無資料'
     },
     getAlsoKnow(isSkip, result, data) {
       let matchedItems = []

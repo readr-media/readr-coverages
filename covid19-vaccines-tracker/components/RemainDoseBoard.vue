@@ -11,11 +11,19 @@
       人，若剛好把預約名單上的人都打完，剩下的劑量稱為殘劑。指揮中心 6/25
       授權地方政府可以自行決定殘劑如何運用。
     </p>
-    <p class="remain-dose__content">{{ county }}的殘劑規定為：{{ dozeInfo }}</p>
+    <p class="remain-dose__content">
+      {{ county }}的殘劑規定為：{{ formatDozeInfo.str1 }}
+      <a :href="formatDozeInfo.link" target="_blank">
+        {{ formatDozeInfo.str3 }}
+      </a>
+      {{ formatDozeInfo.str4 }}
+    </p>
   </div>
 </template>
 
 <script>
+import { formatLinkText } from '~/utils/text-handler'
+
 export default {
   props: {
     county: {
@@ -26,11 +34,20 @@ export default {
       type: String,
       default: '',
     },
+    dozeInfoLink: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
       shouldShowInfo: false,
     }
+  },
+  computed: {
+    formatDozeInfo() {
+      return formatLinkText(this.dozeInfo, this.dozeInfoLink)
+    },
   },
   methods: {
     toggleMark() {
