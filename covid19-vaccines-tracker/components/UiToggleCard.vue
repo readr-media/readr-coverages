@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import gaMixin from '~/mixins/gaMixin'
+
 export default {
   props: {
     title: {
@@ -40,6 +42,7 @@ export default {
       default: false,
     },
   },
+  mixins: [gaMixin],
   data() {
     return {
       shouldShowContent: false,
@@ -50,6 +53,7 @@ export default {
   },
   methods: {
     toggleContent() {
+      this.gaClickHandler(this.title)
       this.shouldShowContent = !this.shouldShowContent
     },
   },

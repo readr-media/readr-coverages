@@ -8,7 +8,7 @@
         :dozeInfo="result.dozeInfo"
         :dozeInfoLink="result.dozeInfoLink"
       />
-      <div v-if="shouldShowEmail" class="result__info-email">
+      <div v-if="shouldShowEmail" id="anchor-email" class="result__info-email">
         <p>留下你的 Email，施打疫苗的時間到了就會收到提醒</p>
         <div class="result__info-email--input">
           <input
@@ -83,11 +83,14 @@
       </ul>
     </div>
     <Credit />
-    <Donate />
+    <Donate class="result__donate" />
   </div>
 </template>
 
 <script>
+import scrollama from 'scrollama'
+import 'intersection-observer'
+import gaMixin from '~/mixins/gaMixin'
 import ResultBoard from '~/components/ResultBoard.vue'
 import ErrHandler from '~/components/ErrHandler.vue'
 import RemainDoseBoard from '~/components/RemainDoseBoard.vue'
@@ -128,6 +131,7 @@ export default {
       default: true,
     },
   },
+  mixins: [gaMixin],
   data() {
     return {
       emailText: '施打時間到了提醒我',
@@ -160,6 +164,50 @@ export default {
   },
   mounted() {
     window.scrollTo(0, 0)
+    const scrollerCredit1 = scrollama()
+    const scrollerCredit2 = scrollama()
+    const scrollerCredit3 = scrollama()
+    const scrollerCredit4 = scrollama()
+    scrollerCredit1
+      .setup({
+        step: '.result__info-btn',
+        offset: 1,
+      })
+      .onStepEnter((response) => {
+        if (response.direction === 'up') return
+        this.gaScrollHandler('留下你的 Email，施打疫苗的時間到了就會收到提醒')
+      })
+    scrollerCredit2
+      .setup({
+        step: '.result__faq',
+        offset: 1,
+      })
+      .onStepEnter((response) => {
+        if (response.direction === 'up') return
+        this.gaScrollHandler('你可能還想知道的三個問題')
+      })
+    scrollerCredit3
+      .setup({
+        step: '.result__morefaq',
+        offset: 1,
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'up') return
+        this.gaScrollHandler('所有問答')
+      })
+    scrollerCredit4
+      .setup({
+        step: '.result__donate',
+        offset: 1,
+      })
+      .onStepEnter((response) => {
+        if (response.direction === 'up') return
+        this.gaScrollHandler('to end')
+      })
+    window.addEventListener('resize', scrollerCredit1.resize)
+    window.addEventListener('resize', scrollerCredit2.resize)
+    window.addEventListener('resize', scrollerCredit3.resize)
+    window.addEventListener('resize', scrollerCredit4.resize)
   },
   methods: {
     handleSeachAgain() {
