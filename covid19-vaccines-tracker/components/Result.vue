@@ -71,7 +71,7 @@
       <h2>所有問答</h2>
       <ul>
         <li
-          v-for="(item, i) in qa"
+          v-for="(item, i) in sortQA"
           :key="item[0].category"
           class="result__morefaq__toggle-category"
         >
@@ -143,6 +143,15 @@ export default {
     }
   },
   computed: {
+    sortQA() {
+      const aimArr = Object.values(this.qa).filter(
+        (item) => item[0].category === '即時資訊'
+      )
+      const restArr = Object.values(this.qa).filter(
+        (item) => item[0].category !== '即時資訊'
+      )
+      return aimArr.concat(restArr)
+    },
     shouldShowEmail() {
       return (
         this.result.type &&
