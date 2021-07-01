@@ -264,6 +264,7 @@ export default {
       padding: 0 20px;
       text-align: center;
       @include media-breakpoint-up(md) {
+        padding: 0 40px;
         margin: 32px 0 0;
       }
       p {
