@@ -60,7 +60,6 @@ export default {
   },
   methods: {
     onlyNumber(e) {
-      console.log(e.keyCode)
       const keyCode = e.keyCode ?? e.which
       if (keyCode < 48 || keyCode > 57) {
         e.preventDefault()

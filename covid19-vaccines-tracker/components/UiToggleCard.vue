@@ -84,6 +84,9 @@ export default {
       line-height: 1.5;
       color: #000928;
       opacity: 0.87;
+      @include media-breakpoint-up(md) {
+        font-size: 18px;
+      }
     }
     &-img {
       width: 22px;
@@ -109,6 +112,9 @@ export default {
       line-height: 2;
       color: #000928;
       opacity: 0.66;
+      @include media-breakpoint-up(md) {
+        font-size: 18px;
+      }
     }
   }
 }

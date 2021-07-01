@@ -50,7 +50,7 @@
         </button>
       </div>
     </div>
-    <div class="result__faq">
+    <div v-if="shouldShowResultBoard" class="result__faq">
       <h2>你可能還想知道</h2>
       <ul>
         <li
@@ -175,7 +175,7 @@ export default {
   mounted() {
     window.scrollTo(0, 0)
     const scrollerCredit1 = scrollama()
-    const scrollerCredit2 = scrollama()
+    // const scrollerCredit2 = scrollama()
     const scrollerCredit3 = scrollama()
     const scrollerCredit4 = scrollama()
     scrollerCredit1
@@ -187,15 +187,15 @@ export default {
         if (response.direction === 'up') return
         this.gaScrollHandler('留下你的 Email，施打疫苗的時間到了就會收到提醒')
       })
-    scrollerCredit2
-      .setup({
-        step: '.result__faq',
-        offset: 1,
-      })
-      .onStepEnter((response) => {
-        if (response.direction === 'up') return
-        this.gaScrollHandler('你可能還想知道的三個問題')
-      })
+    // scrollerCredit2
+    //   .setup({
+    //     step: '.result__faq',
+    //     offset: 1,
+    //   })
+    //   .onStepEnter((response) => {
+    //     if (response.direction === 'up') return
+    //     this.gaScrollHandler('你可能還想知道的三個問題')
+    //   })
     scrollerCredit3
       .setup({
         step: '.result__morefaq',
@@ -215,7 +215,7 @@ export default {
         this.gaScrollHandler('to end')
       })
     window.addEventListener('resize', scrollerCredit1.resize)
-    window.addEventListener('resize', scrollerCredit2.resize)
+    // window.addEventListener('resize', scrollerCredit2.resize)
     window.addEventListener('resize', scrollerCredit3.resize)
     window.addEventListener('resize', scrollerCredit4.resize)
   },
@@ -264,6 +264,7 @@ export default {
       padding: 0 20px;
       text-align: center;
       @include media-breakpoint-up(md) {
+        padding: 0 40px;
         margin: 32px 0 0;
       }
       p {
