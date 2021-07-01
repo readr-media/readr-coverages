@@ -4,12 +4,16 @@
     <ul v-if="shouldShowList" class="result-desc__list">
       <li v-for="item in listItems" :key="item">{{ item }}</li>
     </ul>
-    <p
-      class="result-desc__description"
-      :class="{ 'black-text': listItems.length }"
-    >
-      {{ description }}
-    </p>
+    <template v-if="shouldShowDesc">
+      <p
+        v-for="paragraph in description"
+        :key="paragraph"
+        class="result-desc__description"
+        :class="{ 'black-text': listItems.length }"
+      >
+        {{ paragraph }}
+      </p>
+    </template>
   </div>
 </template>
 
@@ -23,9 +27,9 @@ export default {
       default: '',
     },
     description: {
-      type: String,
+      type: Array,
       required: true,
-      default: '',
+      default: () => [],
     },
     listItems: {
       type: Array,
@@ -35,6 +39,9 @@ export default {
   computed: {
     shouldShowList() {
       return isArrayEmpty(this.listItems)
+    },
+    shouldShowDesc() {
+      return isArrayEmpty(this.description)
     },
   },
 }

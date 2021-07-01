@@ -24,12 +24,8 @@
 
 <script>
 import gaMixin from '~/mixins/gaMixin'
-// import UiFlourish from '~/components/UiFlourish.vue'
 
 export default {
-  // components: {
-  //   UiFlourish,
-  // },
   props: {
     title: {
       type: String,
@@ -105,7 +101,7 @@ export default {
     border-top: 1px solid #e0e0e0;
     &-graph {
       width: 100%;
-      background-color: #c4c4c4;
+      background-color: #fff;
       margin: 0 0 12px;
     }
     &-text {

@@ -1,7 +1,7 @@
 <template>
   <div class="input-other">
     <section class="input-other__select county">
-      <p class="label">2. 你居住的縣市？</p>
+      <p class="label">2. 你目前居住的縣市？</p>
       <div class="input-other__select-input">
         <input
           id="county"
