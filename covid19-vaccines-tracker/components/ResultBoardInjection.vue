@@ -2,8 +2,9 @@
   <div class="result-injection">
     <div v-if="hasHowTo" class="result-injection__howto">
       <p>接種方式</p>
-      <span v-for="(item, i) in howTo" :key="`${item}-${i}`">
-        {{ item }}
+      <span v-for="(item, i) in formatHowTo" :key="`${item}-${i}`">
+        {{ item.str1 }}<a :href="item.link" target="_blank">{{ item.str3 }}</a>
+        {{ item.str4 }}
       </span>
     </div>
     <div v-if="hasInjectInfo" class="result-injection__second">
@@ -19,6 +20,7 @@
 
 <script>
 import { isArrayEmpty } from '~/utils/array-handler'
+import { formatLinkText } from '~/utils/text-handler'
 import UiAnnounce from '~/components/UiAnnounce.vue'
 import UiTimeStamp from '~/components/UiTimeStamp.vue'
 
@@ -41,6 +43,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    howToLink: {
+      type: Array,
+      default: () => [],
+    },
     isA7: {
       type: Boolean,
       default: false,
@@ -53,6 +59,14 @@ export default {
   computed: {
     hasHowTo() {
       return isArrayEmpty(this.howTo)
+    },
+    hasHowToLink() {
+      return isArrayEmpty(this.howToLink)
+    },
+    formatHowTo() {
+      return this.howTo.map((item, i) =>
+        formatLinkText(item, this.howToLink[i])
+      )
     },
     hasInjectInfo() {
       return isArrayEmpty(this.secondInjectTime)

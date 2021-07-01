@@ -6,6 +6,7 @@
         v-if="shouldShowDoze"
         :county="result.county"
         :dozeInfo="result.dozeInfo"
+        :dozeInfoLink="result.dozeInfoLink"
       />
       <div v-if="shouldShowEmail" class="result__info-email">
         <p>留下你的 Email，施打疫苗的時間到了就會收到提醒</p>
@@ -13,7 +14,7 @@
           <input
             v-model="emailInput"
             type="email"
-            placeholder="readr@gmail.com"
+            :placeholder="placeholder"
             :disabled="hasSubmitBtn"
           />
           <ErrHandler
@@ -133,6 +134,7 @@ export default {
       emailInput: '',
       hasErr: true,
       hasSubmitBtn: false,
+      placeholder: 'readr@gmail.com',
     }
   },
   computed: {
@@ -169,8 +171,8 @@ export default {
     submitEmail() {
       this.$emit('submit-email', this.emailInput)
       this.emailText = '成功訂閱提醒'
+      this.placeholder = this.emailInput
       this.hasSubmitBtn = true
-      this.emailInput = ''
     },
   },
 }

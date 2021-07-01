@@ -1,16 +1,33 @@
 <template>
   <div class="result-tip">
-    <p>{{ tip }}</p>
+    <p>
+      {{ formatTip.str1 }}
+      <a :href="formatTip.link" target="_blank">
+        {{ formatTip.str3 }}
+      </a>
+      {{ formatTip.str4 }}
+    </p>
   </div>
 </template>
 
 <script>
+import { formatLinkText } from '~/utils/text-handler'
+
 export default {
   props: {
     tip: {
       type: String,
       required: true,
       default: '',
+    },
+    tipLink: {
+      type: String,
+      default: '',
+    },
+  },
+  computed: {
+    formatTip() {
+      return formatLinkText(this.tip, this.tipLink)
     },
   },
 }

@@ -37,6 +37,7 @@
 <script>
 import axios from 'axios'
 import _ from 'lodash'
+import { generateTime } from '~/utils/time-handler'
 import Navbar from '~/components/Navbar.vue'
 import Cover from '~/components/Cover.vue'
 import InputAge from '~/components/InputAge.vue'
@@ -205,8 +206,7 @@ export default {
           item.job === data.job.major &&
           (item.job2 === '' || item.job2 === data.job.option1) &&
           (item.job3 === '' || item.job3 === data.job.option2) &&
-          (item.identity === '' ||
-            data.identity.find((d) => d === item.identity)) &&
+          (item.identity === '' || data.identity.includes(item.identity)) &&
           (item.age === '' || this.handleAgeCompare(item.age, data.age))
       )
       console.log('ss', matchedList)
@@ -224,8 +224,7 @@ export default {
             item.job === data.job.major &&
             (item.job2 === '' || item.job2 === data.job.option1) &&
             (item.job3 === '' || item.job3 === data.job.option2) &&
-            (item.identity === '' ||
-              data.identity.find((d) => d === item.identity)) &&
+            (item.identity === '' || data.identity.includes(item.identity)) &&
             (item.age === '' || this.handleAgeCompare(item.age, data.age))
         )
         .map((item) => {
@@ -252,7 +251,9 @@ export default {
                 startTime: item.open_date,
                 endTime: item.end_date,
                 howTo: item.how_to,
+                howToLink: item.how_to_link,
                 tip: item.data,
+                tipLink: item.data_link,
                 stamp: item.update_time,
                 isExpired: expired,
               }
@@ -278,14 +279,17 @@ export default {
           startTime: [filteredItem.startTime],
           endTime: [filteredItem.endTime],
           howTo: [filteredItem.howTo],
+          howToLink: [filteredItem.howToLink],
           secondInjectTime: [filteredItem.secondInjectTime],
           tip: filteredItem.tip,
+          tipLink: filteredItem.tipLink,
           timeStamp: filteredItem.stamp,
           isExpired: filteredItem.isExpired,
           type: 'A2',
         }
       } else {
         let dataTip = ''
+        let dataTipLink = ''
         let stamp = ''
         const vaccine = govList
           .map((item) => {
@@ -294,6 +298,7 @@ export default {
             )
             if (matchedItem && item.data) {
               dataTip = item.data
+              dataTipLink = item.data_link
             }
             if (matchedItem && item.update_time) {
               stamp = item.update_time
@@ -302,16 +307,25 @@ export default {
               ? {
                   brands: matchedItem.brand,
                   sources: matchedItem.source,
+                  arrival: generateTime(matchedItem.arrival_date),
                 }
               : {}
           })
           .filter((item) => Object.keys(item).length !== 0)
-        console.log('tt', vaccine)
+        const groupedVaccine = _.groupBy(vaccine, 'brands')
+        const sortedVaccine = []
+        console.log('test', groupedVaccine)
+        Object.keys(groupedVaccine).forEach((item) => {
+          sortedVaccine.push(
+            _.sortBy(groupedVaccine[item], ['arrival'], ['desc'])[0]
+          )
+        })
         return {
           title: '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
-          brands: vaccine.map((item) => item.brands),
-          sources: vaccine.map((item) => item.sources),
+          brands: sortedVaccine.map((item) => item.brands),
+          sources: sortedVaccine.map((item) => item.sources),
           tip: dataTip,
+          tipLink: dataTipLink,
           timeStamp: stamp,
           type: 'A1',
         }
@@ -429,6 +443,7 @@ export default {
             return matchedItem
               ? {
                   howTo: item.how_to,
+                  howToLink: item.how_to_link,
                   stamp: item.update_time,
                   source: matchedItem.source,
                 }
@@ -443,63 +458,69 @@ export default {
             brands: [data.injection.injectionBrand],
             sources: [matchedVaccine[0].source],
             howTo: [matchedVaccine[0].howTo],
+            howToLink: [matchedVaccine[0].howToLink],
             timeStamp: matchedVaccine[0].stamp,
             type: 'A7',
           }
         } else {
-          const matchedItem = this.government.find(
-            (item) =>
-              item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
-          )
-          const dataTip = matchedItem?.data ?? ''
-          const stamp = matchedItem?.update_time ?? ''
-          const vaccine = this.vaccinesList.find(
-            (item) =>
-              item.vaccines_id === matchedItem.vaccines_id &&
-              item.status === '施打中' &&
-              item.brand === data.injection.injectionBrand
-          )
-          // 待確認
-          if (vaccine) {
-            return {
-              title:
-                '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
-              brands: [vaccine.brand],
-              sources: [vaccine.source],
-              tip: dataTip,
-              timeStamp: stamp,
-              type: 'A1',
-            }
-          }
-          return this.handleA3()
+          return this.handleA1ForHasFirstVaccine(data)
         }
       } else {
-        const matchedItem = this.government.find(
-          (item) =>
-            item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
-        )
-        const dataTip = matchedItem?.data ?? ''
-        const stamp = matchedItem?.update_time ?? ''
-        const vaccine = this.vaccinesList.find(
-          (item) =>
-            item.vaccines_id === matchedItem.vaccines_id &&
-            item.status === '施打中' &&
-            item.brand === data.injection.injectionBrand
-        )
-        // 待確認
-        if (vaccine) {
-          return {
-            title:
-              '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
-            brands: [vaccine.brand],
-            sources: [vaccine.source],
-            tip: dataTip,
-            timeStamp: stamp,
-            type: 'A1',
-          }
-        }
-        return this.handleA3()
+        return this.handleA1ForHasFirstVaccine(data)
       }
+    },
+    handleA1ForHasFirstVaccine(data) {
+      const govList = this.government.filter(
+        (item) =>
+          item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
+      )
+      let dataTip = ''
+      let dataTipLink = ''
+      let stamp = ''
+      const vaccine = govList
+        .map((item) => {
+          const matchedItem = this.vaccinesList.find(
+            (d) =>
+              d.vaccines_id === item.vaccines_id &&
+              d.status === '施打中' &&
+              d.brand === data.injection.injectionBrand
+          )
+          if (matchedItem && item.data) {
+            dataTip = item.data
+            dataTipLink = item.data_link
+          }
+          if (matchedItem && item.update_time) {
+            stamp = item.update_time
+          }
+          return matchedItem
+            ? {
+                brands: matchedItem.brand,
+                sources: matchedItem.source,
+                arrival: generateTime(matchedItem.arrival_date),
+              }
+            : {}
+        })
+        .filter((item) => Object.keys(item).length !== 0)
+      if (vaccine.length) {
+        const groupedVaccine = _.groupBy(vaccine, 'brands')
+        const sortedVaccine = []
+        console.log('test', groupedVaccine)
+        Object.keys(groupedVaccine).forEach((item) => {
+          sortedVaccine.push(
+            _.sortBy(groupedVaccine[item], ['arrival'], ['desc'])[0]
+          )
+        })
+        return {
+          title: '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
+          brands: sortedVaccine.map((item) => item.brands),
+          sources: sortedVaccine.map((item) => item.sources),
+          tip: dataTip,
+          tipLink: dataTipLink,
+          timeStamp: stamp,
+          type: 'A1',
+        }
+      }
+      return this.handleA3()
     },
     handleAgeCompare(str, num) {
       if (str.includes('>') && num > parseInt(str.slice(1))) {
@@ -531,6 +552,7 @@ export default {
         (item) => item.cities === this.inputData.county
       )
       this.result.dozeInfo = item ? item.remaining_dose : '無資料'
+      this.result.dozeInfoLink = item ? item.remaining_dose_link : '無資料'
     },
     getAlsoKnow(isSkip, result, data) {
       let matchedItems = []

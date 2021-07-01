@@ -9,6 +9,7 @@
     <ResultBoardTip
       v-if="result.tip"
       :tip="result.tip"
+      :tipLink="result.tipLink"
       class="result-board__tip"
     />
     <ResultBoardDesc
@@ -33,6 +34,7 @@
       <ResultBoardInjection
         :secondInjectTime="result.secondInjectTime"
         :howTo="result.howTo"
+        :howToLink="result.howToLink"
         :timeStamp="result.timeStamp"
         :isA2="isA2"
         :isA7="isA7"
