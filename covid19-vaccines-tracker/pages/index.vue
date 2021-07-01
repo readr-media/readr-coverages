@@ -37,6 +37,7 @@
 <script>
 import axios from 'axios'
 import _ from 'lodash'
+import { generateTime } from '~/utils/time-handler'
 import Navbar from '~/components/Navbar.vue'
 import Cover from '~/components/Cover.vue'
 import InputAge from '~/components/InputAge.vue'
@@ -205,8 +206,7 @@ export default {
           item.job === data.job.major &&
           (item.job2 === '' || item.job2 === data.job.option1) &&
           (item.job3 === '' || item.job3 === data.job.option2) &&
-          (item.identity === '' ||
-            data.identity.find((d) => d === item.identity)) &&
+          (item.identity === '' || data.identity.includes(item.identity)) &&
           (item.age === '' || this.handleAgeCompare(item.age, data.age))
       )
       console.log('ss', matchedList)
@@ -224,8 +224,7 @@ export default {
             item.job === data.job.major &&
             (item.job2 === '' || item.job2 === data.job.option1) &&
             (item.job3 === '' || item.job3 === data.job.option2) &&
-            (item.identity === '' ||
-              data.identity.find((d) => d === item.identity)) &&
+            (item.identity === '' || data.identity.includes(item.identity)) &&
             (item.age === '' || this.handleAgeCompare(item.age, data.age))
         )
         .map((item) => {
@@ -302,15 +301,23 @@ export default {
               ? {
                   brands: matchedItem.brand,
                   sources: matchedItem.source,
+                  arrival: generateTime(matchedItem.arrival_date),
                 }
               : {}
           })
           .filter((item) => Object.keys(item).length !== 0)
-        console.log('tt', vaccine)
+        const groupedVaccine = _.groupBy(vaccine, 'brands')
+        const sortedVaccine = []
+        console.log('test', groupedVaccine)
+        Object.keys(groupedVaccine).forEach((item) => {
+          sortedVaccine.push(
+            _.sortBy(groupedVaccine[item], ['arrival'], ['desc'])[0]
+          )
+        })
         return {
           title: '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
-          brands: vaccine.map((item) => item.brands),
-          sources: vaccine.map((item) => item.sources),
+          brands: sortedVaccine.map((item) => item.brands),
+          sources: sortedVaccine.map((item) => item.sources),
           tip: dataTip,
           timeStamp: stamp,
           type: 'A1',
@@ -447,59 +454,61 @@ export default {
             type: 'A7',
           }
         } else {
-          const matchedItem = this.government.find(
-            (item) =>
-              item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
-          )
-          const dataTip = matchedItem?.data ?? ''
-          const stamp = matchedItem?.update_time ?? ''
-          const vaccine = this.vaccinesList.find(
-            (item) =>
-              item.vaccines_id === matchedItem.vaccines_id &&
-              item.status === '施打中' &&
-              item.brand === data.injection.injectionBrand
-          )
-          // 待確認
-          if (vaccine) {
-            return {
-              title:
-                '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
-              brands: [vaccine.brand],
-              sources: [vaccine.source],
-              tip: dataTip,
-              timeStamp: stamp,
-              type: 'A1',
-            }
-          }
-          return this.handleA3()
+          return this.handleA1ForHasFirstVaccine(data)
         }
       } else {
-        const matchedItem = this.government.find(
-          (item) =>
-            item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
-        )
-        const dataTip = matchedItem?.data ?? ''
-        const stamp = matchedItem?.update_time ?? ''
-        const vaccine = this.vaccinesList.find(
-          (item) =>
-            item.vaccines_id === matchedItem.vaccines_id &&
-            item.status === '施打中' &&
-            item.brand === data.injection.injectionBrand
-        )
-        // 待確認
-        if (vaccine) {
-          return {
-            title:
-              '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
-            brands: [vaccine.brand],
-            sources: [vaccine.source],
-            tip: dataTip,
-            timeStamp: stamp,
-            type: 'A1',
-          }
-        }
-        return this.handleA3()
+        return this.handleA1ForHasFirstVaccine(data)
       }
+    },
+    handleA1ForHasFirstVaccine(data) {
+      const govList = this.government.filter(
+        (item) =>
+          item.first_vaccine === '已接種第一劑疫苗者' && item.date !== ''
+      )
+      let dataTip = ''
+      let stamp = ''
+      const vaccine = govList
+        .map((item) => {
+          const matchedItem = this.vaccinesList.find(
+            (d) =>
+              d.vaccines_id === item.vaccines_id &&
+              d.status === '施打中' &&
+              d.brand === data.injection.injectionBrand
+          )
+          if (matchedItem && item.data) {
+            dataTip = item.data
+          }
+          if (matchedItem && item.update_time) {
+            stamp = item.update_time
+          }
+          return matchedItem
+            ? {
+                brands: matchedItem.brand,
+                sources: matchedItem.source,
+                arrival: generateTime(matchedItem.arrival_date),
+              }
+            : {}
+        })
+        .filter((item) => Object.keys(item).length !== 0)
+      if (vaccine.length) {
+        const groupedVaccine = _.groupBy(vaccine, 'brands')
+        const sortedVaccine = []
+        console.log('test', groupedVaccine)
+        Object.keys(groupedVaccine).forEach((item) => {
+          sortedVaccine.push(
+            _.sortBy(groupedVaccine[item], ['arrival'], ['desc'])[0]
+          )
+        })
+        return {
+          title: '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
+          brands: sortedVaccine.map((item) => item.brands),
+          sources: sortedVaccine.map((item) => item.sources),
+          tip: dataTip,
+          timeStamp: stamp,
+          type: 'A1',
+        }
+      }
+      return this.handleA3()
     },
     handleAgeCompare(str, num) {
       if (str.includes('>') && num > parseInt(str.slice(1))) {

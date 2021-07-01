@@ -164,6 +164,7 @@ export default {
     display: block;
     &__wrapper {
       display: flex;
+      justify-content: space-between;
     }
     small {
       display: block;

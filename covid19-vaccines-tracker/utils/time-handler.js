@@ -1,15 +1,10 @@
-// time:2:30 AMPM:PM
-function amPmHandler(time, AMPM) {
-  if (AMPM) {
-    const timeArray = time.split(':')
-    let hour = parseInt(timeArray[0])
-    hour += 12
-
-    const newTimeArray = [hour, timeArray[1]]
-    const newTime = newTimeArray.join(':')
-
-    return newTime
-  } else return time
+function generateTime(str) {
+  const [year, month, date] = str.split('-')
+  const intYear = parseInt(year)
+  const intMonth = parseInt(month)
+  const intDate = parseInt(date)
+  const time = new Date(intYear, intMonth, intDate)
+  return time
 }
 
-export { amPmHandler }
+export { generateTime }
