@@ -147,10 +147,12 @@ export default {
       this.shouldShowResult = true
     },
     handleGetStart() {
+      this.gaClickHandler('開始查詢')
       this.hideCover()
       this.showInputAge()
     },
     handleSkipToResult() {
+      this.gaClickHandler('我想直接看最新資訊')
       this.hideCover()
       this.hideInputAge()
       this.hideInputOther()
@@ -171,6 +173,7 @@ export default {
       }
     },
     handleFinishOther(payload) {
+      this.gaClickHandler('送出')
       this.hideInputOther()
       this.inputData.county = payload.county
       this.inputData.identity = [...payload.identity]
@@ -183,6 +186,7 @@ export default {
       this.showResult()
     },
     handleUnderOneYear() {
+      this.gaClickHandler('我要查詢的對象未滿一歲')
       this.hideInputAge()
       this.shouldShowResultBoard = true
       this.result = this.handleA4()
@@ -190,6 +194,7 @@ export default {
       this.showResult()
     },
     handleSearchAgain() {
+      this.gaClickHandler('重新查詢')
       this.inputData = {}
       this.result = {}
       this.hideResult()
@@ -588,6 +593,7 @@ export default {
       return matchedItems.filter((item, i) => i < 3)
     },
     handleSubmitEmail(payload) {
+      this.gaClickHandler('施打時間到了提醒我')
       this.inputData.email = payload
       const i = this.inputData
       const data = {

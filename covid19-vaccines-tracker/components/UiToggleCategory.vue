@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import gaMixin from '~/mixins/gaMixin'
 import UiToggleCard from '~/components/UiToggleCard.vue'
 
 export default {
@@ -46,6 +47,7 @@ export default {
       default: false,
     },
   },
+  mixins: [gaMixin],
   data() {
     return {
       shouldShowContent: false,
@@ -56,6 +58,7 @@ export default {
   },
   methods: {
     toggleContent() {
+      this.gaClickHandler(this.name)
       this.shouldShowContent = !this.shouldShowContent
     },
   },
