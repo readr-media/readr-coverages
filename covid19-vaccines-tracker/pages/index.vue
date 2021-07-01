@@ -240,13 +240,10 @@ export default {
           )
           let expired = false
           if (matchedItem && item.end_date) {
-            const now = new Date()
-            const [year, month, date] = item.end_date.split('-')
-            const yearInt = parseInt(year)
-            const monthInt = parseInt(month)
-            const dateInt = parseInt(date)
-            const inputDate = new Date(yearInt, monthInt, dateInt)
-            if (now.getTime() - inputDate.getTime() > 0) {
+            const now = new Date().getTime()
+            const inputDate = generateTime(item.end_date)
+            const interval = now - inputDate
+            if (interval > 0) {
               expired = true
             }
           }
@@ -262,32 +259,52 @@ export default {
                 tip: item.data,
                 tipLink: item.data_link,
                 stamp: item.update_time,
+                order: item.order,
+                type: item.type,
                 isExpired: expired,
+                job: item.job,
+                job2: item.job2,
+                job3: item.job3,
+                identity: item.identity,
+                age: item.age,
+                city: item.city,
               }
             : {}
         })
         .filter((item) => Object.keys(item).length !== 0)
-      console.log('mm', matchedCityItems)
       if (matchedCityItems.length) {
-        const filteredItem = _.sortBy(
+        const filteredItem = _.orderBy(
           matchedCityItems,
           ['order', 'type'],
           ['asc', 'asc']
         )[0]
+        console.log('tata', matchedCityItems, filteredItem)
+        const sameItems = matchedCityItems.filter(
+          (item) =>
+            item.branch !== filteredItem.brand &&
+            item.job === filteredItem.job &&
+            item.job2 === filteredItem.job2 &&
+            item.job2 === filteredItem.job3 &&
+            item.age === filteredItem.age &&
+            item.identity === filteredItem.identity &&
+            item.city === filteredItem.city
+        )
+        console.log('same', sameItems)
         if (filteredItem.isExpired) {
           const info = this.cityInfo.find((item) => item.cities === data.county)
           const contact = info ? info.information : ''
           filteredItem.howTo = `請致電地方衛生局詢問，聯絡方式為：${contact}`
+          filteredItem.howToLink = ''
         }
         return {
           title: '你在最新一批公費疫苗的施打對象名單內，接種日期已經公佈。',
-          brands: [filteredItem.brand],
-          sources: [filteredItem.source],
-          startTime: [filteredItem.startTime],
-          endTime: [filteredItem.endTime],
+          brands: sameItems.map((item) => item.brand),
+          sources: sameItems.map((item) => item.source),
+          startTime: sameItems.map((item) => item.startTime),
+          endTime: sameItems.map((item) => item.endTime),
+          secondInjectTime: sameItems.map((item) => item.secondInjectTime),
           howTo: [filteredItem.howTo],
           howToLink: [filteredItem.howToLink],
-          secondInjectTime: [filteredItem.secondInjectTime],
           tip: filteredItem.tip,
           tipLink: filteredItem.tipLink,
           timeStamp: filteredItem.stamp,
@@ -324,7 +341,7 @@ export default {
         console.log('test', groupedVaccine)
         Object.keys(groupedVaccine).forEach((item) => {
           sortedVaccine.push(
-            _.sortBy(groupedVaccine[item], ['arrival'], ['desc'])[0]
+            _.orderBy(groupedVaccine[item], ['arrival'], ['desc'])[0]
           )
         })
         return {
@@ -386,9 +403,10 @@ export default {
       const yearInt = parseInt(year)
       const monthInt = parseInt(month)
       const dateInt = parseInt(date)
-      const inputDate = new Date(yearInt, monthInt, dateInt).getTime()
-      const interval = Math.floor((now - inputDate) / (24 * 3600 * 1000))
-      const stamp = this.government[0].update_time ?? ''
+      const inputDate = new Date(yearInt, monthInt - 1, dateInt).getTime()
+      const interval = (now - inputDate) / (24 * 3600 * 1000)
+      const stamp =
+        this.government[this.government.length - 1].update_time ?? ''
       let dozeInterval = 70
       let wording = '10至12週'
       if (data.injection.injectionBrand.includes('Moderna')) {
@@ -402,7 +420,7 @@ export default {
             title: `建議接種第二劑的時間是${wording}後，目前還沒到。`,
             secondInjectTime: [
               this.formatDate(
-                new Date(yearInt, monthInt, dateInt + dozeInterval)
+                new Date(yearInt, monthInt, dateInt + dozeInterval + 1)
               ),
             ],
             timeStamp: stamp,
@@ -512,18 +530,11 @@ export default {
         })
         .filter((item) => Object.keys(item).length !== 0)
       if (vaccine.length) {
-        const groupedVaccine = _.groupBy(vaccine, 'brands')
-        const sortedVaccine = []
-        console.log('test', groupedVaccine)
-        Object.keys(groupedVaccine).forEach((item) => {
-          sortedVaccine.push(
-            _.sortBy(groupedVaccine[item], ['arrival'], ['desc'])[0]
-          )
-        })
+        const sortedVaccine = _.orderBy(vaccine, ['arrival'], ['desc'])
         return {
           title: '你在最新一批公費疫苗的施打對象名單內，但實際接種日期待公佈。',
-          brands: sortedVaccine.map((item) => item.brands),
-          sources: sortedVaccine.map((item) => item.sources),
+          brands: [sortedVaccine[0].brands],
+          sources: [sortedVaccine[0].sources],
           tip: dataTip,
           tipLink: dataTipLink,
           timeStamp: stamp,

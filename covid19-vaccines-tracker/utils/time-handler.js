@@ -3,8 +3,8 @@ function generateTime(str) {
   const intYear = parseInt(year)
   const intMonth = parseInt(month)
   const intDate = parseInt(date)
-  const time = new Date(intYear, intMonth, intDate)
-  return time
+  const time = new Date(intYear, intMonth - 1, intDate)
+  return time.getTime()
 }
 
 export { generateTime }
