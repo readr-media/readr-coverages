@@ -17,7 +17,11 @@
         :key="item.question"
         class="toggle-category__content-items"
       >
-        <UiToggleCard :title="item.question" :content="item.answer" />
+        <UiToggleCard
+          :title="item.question"
+          :isGraph="item.chart"
+          :content="item.answer"
+        />
       </li>
     </ul>
   </div>

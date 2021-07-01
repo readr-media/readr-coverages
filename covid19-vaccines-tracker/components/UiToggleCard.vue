@@ -12,16 +12,24 @@
       </div>
     </div>
     <div v-if="shouldShowContent" class="toggle-card__content">
-      <div v-if="graphUrl" class="toggle-card__content-graph"></div>
-      <p class="toggle-card__content-text">{{ content }}</p>
+      <div
+        v-if="isGraph === 'y'"
+        v-html="content"
+        class="toggle-card__content-graph"
+      ></div>
+      <p v-else class="toggle-card__content-text">{{ content }}</p>
     </div>
   </div>
 </template>
 
 <script>
 import gaMixin from '~/mixins/gaMixin'
+// import UiFlourish from '~/components/UiFlourish.vue'
 
 export default {
+  // components: {
+  //   UiFlourish,
+  // },
   props: {
     title: {
       type: String,
@@ -33,7 +41,7 @@ export default {
       required: true,
       default: '',
     },
-    graphUrl: {
+    isGraph: {
       type: String,
       default: '',
     },
@@ -97,7 +105,6 @@ export default {
     border-top: 1px solid #e0e0e0;
     &-graph {
       width: 100%;
-      height: 400px;
       background-color: #c4c4c4;
       margin: 0 0 12px;
     }

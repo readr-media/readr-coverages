@@ -10,7 +10,6 @@
     >
       {{ description }}
     </p>
-    <div v-if="graphUrl" class="result-desc__graph"></div>
   </div>
 </template>
 
@@ -31,10 +30,6 @@ export default {
     listItems: {
       type: Array,
       default: () => [],
-    },
-    graphUrl: {
-      type: String,
-      default: '',
     },
   },
   computed: {
@@ -90,12 +85,6 @@ export default {
     line-height: 21px;
     color: #000928;
     opacity: 0.3;
-  }
-  &__graph {
-    width: 100%;
-    height: 400px;
-    background-color: #c4c5c6;
-    margin: 12px 0 0;
   }
 }
 </style>

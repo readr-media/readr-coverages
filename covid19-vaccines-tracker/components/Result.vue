@@ -61,6 +61,7 @@
           <UiToggleCard
             :title="item.question"
             :content="item.answer"
+            :isGraph="item.chart"
             :isFirstItem="!i"
           />
         </li>
