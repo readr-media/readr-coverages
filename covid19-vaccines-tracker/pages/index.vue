@@ -273,15 +273,22 @@ export default {
         })
         .filter((item) => Object.keys(item).length !== 0)
       if (matchedCityItems.length) {
+        const filteredExpired = matchedCityItems.filter(
+          (item) => item.isExpired !== true
+        )
+        const orderTargets = filteredExpired.length
+          ? filteredExpired
+          : matchedCityItems
+        console.log('jaja', filteredExpired, orderTargets)
         const filteredItem = _.orderBy(
-          matchedCityItems,
+          orderTargets,
           ['order', 'type'],
           ['asc', 'asc']
         )[0]
         console.log('tata', matchedCityItems, filteredItem)
-        const sameItems = matchedCityItems.filter(
+        const sameItems = orderTargets.filter(
           (item) =>
-            item.branch !== filteredItem.brand &&
+            item.brand !== filteredItem.brand &&
             item.job === filteredItem.job &&
             item.job2 === filteredItem.job2 &&
             item.job2 === filteredItem.job3 &&
@@ -290,6 +297,7 @@ export default {
             item.city === filteredItem.city
         )
         console.log('same', sameItems)
+        sameItems.push(filteredItem)
         if (filteredItem.isExpired) {
           const info = this.cityInfo.find((item) => item.cities === data.county)
           const contact = info ? info.information : ''
@@ -441,7 +449,7 @@ export default {
           dataList.push(item.job3)
         }
       })
-      const stamp = matchedList[0].update_time ?? ''
+      const stamp = matchedList[matchedList.length - 1].update_time ?? ''
       return {
         job: data.job.major,
         brief: '可接種疫苗的身份',
@@ -547,15 +555,15 @@ export default {
       if (str && str.includes('&')) {
         const [str1, str2] = str.split('&')
         return (
-          ((str1.includes('>') && num > parseInt(str1.split('>')[1])) ||
-            (str1.includes('<') && num < parseInt(str1.split('<')[1]))) &&
-          ((str2.includes('>') && num > parseInt(str2.split('>')[1])) ||
-            (str2.includes('<') && num < parseInt(str2.split('<')[1])))
+          ((str1.includes('>') && num >= parseInt(str1.split('>')[1])) ||
+            (str1.includes('<') && num <= parseInt(str1.split('<')[1]))) &&
+          ((str2.includes('>') && num >= parseInt(str2.split('>')[1])) ||
+            (str2.includes('<') && num <= parseInt(str2.split('<')[1])))
         )
       }
       return (
-        (str.includes('>') && num > parseInt(str.split('>')[1])) ||
-        (str.includes('<') && num < parseInt(str.split('<')[1]))
+        (str.includes('>') && num >= parseInt(str.split('>')[1])) ||
+        (str.includes('<') && num <= parseInt(str.split('<')[1]))
       )
     },
     formatQuestions(rawData) {
