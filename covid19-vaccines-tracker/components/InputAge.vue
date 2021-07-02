@@ -6,7 +6,7 @@
         id="age"
         v-model="age"
         type="number"
-        placeholder="28"
+        placeholder="請輸入數字，如：28"
         @keypress="onlyNumber"
       />
       <ErrHandler :target="'age'" :currentInput="age" @has-err="handleHasErr" />

@@ -7,7 +7,7 @@
           id="county"
           v-model="countyInput"
           type="text"
-          placeholder="台北市"
+          placeholder="請輸入縣市名稱：如：台北市"
           autocomplete="off"
           @input.prevent="handleCurrentCountyInput"
         />
