@@ -21,8 +21,8 @@
             v-if="!hasSubmitBtn"
             :target="'email'"
             :currentInput="emailInput"
-            @has-err="handleHasErr"
             class="err-handler"
+            @has-err="handleHasErr"
           />
         </div>
         <button
@@ -110,6 +110,7 @@ export default {
     Donate,
     Credit,
   },
+  mixins: [gaMixin],
   props: {
     result: {
       type: Object,
@@ -132,7 +133,6 @@ export default {
       default: true,
     },
   },
-  mixins: [gaMixin],
   data() {
     return {
       emailText: '施打時間到了提醒我',

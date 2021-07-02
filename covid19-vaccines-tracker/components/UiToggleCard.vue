@@ -12,10 +12,11 @@
       </div>
     </div>
     <div v-if="shouldShowContent" class="toggle-card__content">
+      <!-- eslint-disable vue/no-v-html -->
       <div
         v-if="isGraph === 'y'"
-        v-html="content"
         class="toggle-card__content-graph"
+        v-html="content"
       ></div>
       <p v-else class="toggle-card__content-text">{{ content }}</p>
     </div>
@@ -26,6 +27,7 @@
 import gaMixin from '~/mixins/gaMixin'
 
 export default {
+  mixins: [gaMixin],
   props: {
     title: {
       type: String,
@@ -46,7 +48,6 @@ export default {
       default: false,
     },
   },
-  mixins: [gaMixin],
   data() {
     return {
       shouldShowContent: false,

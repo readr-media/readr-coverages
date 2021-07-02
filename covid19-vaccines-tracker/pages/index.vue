@@ -118,6 +118,7 @@ export default {
       this.qa = this.formatQA(qaRes?.data)
       this.cityInfo = cityInfoRes?.data ?? []
     } catch (err) {
+      /* eslint-disable no-console */
       console.log(err)
     }
   },
@@ -215,7 +216,6 @@ export default {
           (item.identity === '' || data.identity.includes(item.identity)) &&
           (item.age === '' || this.handleAgeCompare(item.age, data.age))
       )
-      console.log('ss', matchedList)
       if (matchedList.length) {
         return this.handleA1A2(matchedList, data)
       }
@@ -279,13 +279,11 @@ export default {
         const orderTargets = filteredExpired.length
           ? filteredExpired
           : matchedCityItems
-        console.log('jaja', filteredExpired, orderTargets)
         const filteredItem = _.orderBy(
           orderTargets,
           ['order', 'type'],
           ['asc', 'asc']
         )[0]
-        console.log('tata', matchedCityItems, filteredItem)
         const sameItems = orderTargets.filter(
           (item) =>
             item.brand !== filteredItem.brand &&
@@ -296,13 +294,13 @@ export default {
             item.identity === filteredItem.identity &&
             item.city === filteredItem.city
         )
-        console.log('same', sameItems)
         sameItems.push(filteredItem)
         if (filteredItem.isExpired) {
           const info = this.cityInfo.find((item) => item.cities === data.county)
           const contact = info ? info.information : ''
-          filteredItem.howTo = `請致電地方衛生局詢問，聯絡方式為：${contact}`
-          filteredItem.howToLink = ''
+          const contactLink = info ? info.information_link : ''
+          filteredItem.howTo = contact
+          filteredItem.howToLink = contactLink
         }
         return {
           title: '你在最新一批公費疫苗的施打對象名單內，接種日期已經公佈。',
@@ -346,7 +344,6 @@ export default {
           .filter((item) => Object.keys(item).length !== 0)
         const groupedVaccine = _.groupBy(vaccine, 'brands')
         const sortedVaccine = []
-        console.log('test', groupedVaccine)
         Object.keys(groupedVaccine).forEach((item) => {
           sortedVaccine.push(
             _.orderBy(groupedVaccine[item], ['arrival'], ['desc'])[0]
@@ -380,7 +377,8 @@ export default {
       return this.handleA3()
     },
     handleA3() {
-      const stamp = this.government[0].update_time ?? ''
+      const stamp =
+        this.government[this.government.length - 1].update_time ?? ''
       return {
         title: '你不在目前到貨疫苗的施打對象名單內，請繼續等待。',
         brief: '為什麼還沒輪到我？',
@@ -392,7 +390,8 @@ export default {
       }
     },
     handleA4() {
-      const stamp = this.government[0].update_time ?? ''
+      const stamp =
+        this.government[this.government.length - 1].update_time ?? ''
       return {
         title: '你的年紀還不適合接種疫苗。',
         brief:
@@ -612,14 +611,12 @@ export default {
               data.identity.includes(item.identity))
         )
       }
-      console.log(matchedItems)
       if (matchedItems.length < 3) {
         allMatchedItems = this.RawQa.filter(
           (item, i) => item.question && item.answer
         )
         matchedItems = matchedItems.concat(allMatchedItems)
       }
-      console.log(matchedItems)
       return matchedItems.filter((item, i) => i < 3)
     },
     handleSubmitEmail(payload) {
@@ -642,7 +639,6 @@ export default {
           this.result.type,
         ],
       }
-      console.log(JSON.stringify(data))
       axios.post(
         'https://asia-east1-mirrormedia-1470651750304.cloudfunctions.net/google-sheet/subscribe',
         data

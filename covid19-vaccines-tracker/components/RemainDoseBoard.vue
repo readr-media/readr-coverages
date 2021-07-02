@@ -97,6 +97,9 @@ export default {
     line-height: 1.5;
     color: #000928;
     opacity: 0.87;
+    a {
+      text-decoration: underline;
+    }
   }
 }
 </style>

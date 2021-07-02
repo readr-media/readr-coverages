@@ -42,6 +42,9 @@ export default {
     font-size: 16px;
     line-height: 1.5;
     color: #000928;
+    a {
+      text-decoration: underline;
+    }
   }
 }
 </style>
