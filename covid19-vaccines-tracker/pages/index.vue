@@ -166,9 +166,11 @@ export default {
         this.result = this.handleA4()
         this.hideInputAge()
         this.alsoKnow = this.getAlsoKnow(true, {}, {})
+        this.shouldShowResultBoard = true
         this.showResult()
       } else {
         this.inputData.age = payload
+        this.shouldShowResultBoard = true
         this.hideInputAge()
         this.showInputOther()
       }
