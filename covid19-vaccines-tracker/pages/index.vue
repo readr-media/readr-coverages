@@ -212,7 +212,7 @@ export default {
           item.status !== '暫緩施打' &&
           item.first_vaccine === '' &&
           (item.city === '不限' || item.city === data.county) &&
-          item.job === data.job.major &&
+          (item.job === '' || item.job === data.job.major) &&
           (item.job2 === '' || item.job2 === data.job.option1) &&
           (item.job3 === '' || item.job3 === data.job.option2) &&
           (item.identity === '' || data.identity.includes(item.identity)) &&
@@ -230,7 +230,7 @@ export default {
             item.status !== '暫緩施打' &&
             item.first_vaccine === '' &&
             (item.city === '不限' || item.city === data.county) &&
-            item.job === data.job.major &&
+            (item.job === '' || item.job === data.job.major) &&
             (item.job2 === '' || item.job2 === data.job.option1) &&
             (item.job3 === '' || item.job3 === data.job.option2) &&
             (item.identity === '' || data.identity.includes(item.identity)) &&
