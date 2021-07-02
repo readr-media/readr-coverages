@@ -3,12 +3,12 @@
     <div class="credit__wrapper">
       <div class="credit__row">
         <div class="credit__employee">
-          <div class="credit__employee_head">製作人</div>
+          <div class="credit__employee_head">監製</div>
           <div class="credit__employee_name">簡信昌</div>
         </div>
         <div class="credit__employee">
-          <div class="credit__employee_head">設計</div>
-          <div class="credit__employee_name">吳曼努</div>
+          <div class="credit__employee_head">製作人</div>
+          <div class="credit__employee_name">李又如、陳玟諺</div>
         </div>
         <div class="credit__employee">
           <div class="credit__employee_head">工程</div>
@@ -16,6 +16,10 @@
         </div>
       </div>
       <div class="credit__row">
+        <div class="credit__employee">
+          <div class="credit__employee_head">設計</div>
+          <div class="credit__employee_name">吳曼努</div>
+        </div>
         <div class="credit__employee">
           <div class="credit__employee_head">記者</div>
           <div class="credit__employee_name">李又如、陳珮瑜</div>
