@@ -35,6 +35,7 @@ export default {
   components: {
     UiToggleCard,
   },
+  mixins: [gaMixin],
   props: {
     name: {
       type: String,
@@ -51,7 +52,6 @@ export default {
       default: false,
     },
   },
-  mixins: [gaMixin],
   data() {
     return {
       shouldShowContent: false,
