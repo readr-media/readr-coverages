@@ -9,7 +9,10 @@
         :dozeInfoLink="result.dozeInfoLink"
       />
       <div v-if="shouldShowEmail" id="anchor-email" class="result__info-email">
-        <p>留下你的 Email，施打疫苗的時間到了就會收到提醒</p>
+        <p>
+          留下你的
+          Email，施打疫苗的時間到了就會收到提醒（你的郵件資料僅會用於此次疫苗專題通知使用）
+        </p>
         <div class="result__info-email--input">
           <input
             v-model="emailInput"
@@ -43,7 +46,7 @@
       <div class="result__info-btn">
         <button
           type="button"
-          :class="[shouldShowEmail ? 'g-skip-btn' : 'g-primary-btn']"
+          :class="[shouldShowEmail ? 'g-secondary-btn' : 'g-primary-btn']"
           @click="handleSeachAgain"
         >
           重新查詢
@@ -321,10 +324,11 @@ export default {
       }
     }
     &-btn {
-      margin: 24px 0 20px;
+      margin: 20px 0;
       text-align: center;
+      padding: 0 20px;
       @include media-breakpoint-up(md) {
-        margin: 24px 0 32px;
+        margin: 20px 0 32px;
       }
     }
   }

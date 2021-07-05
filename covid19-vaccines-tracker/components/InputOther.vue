@@ -185,7 +185,7 @@
         送出
       </button>
       <button type="button" class="g-skip-btn" @click="skipToResultPage">
-        我想直接看最新資訊
+        直接看疫苗接種最新資訊
       </button>
     </div>
   </div>
