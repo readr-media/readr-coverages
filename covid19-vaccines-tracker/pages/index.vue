@@ -30,6 +30,7 @@
         @submit-email="handleSubmitEmail"
       />
     </div>
+    <UiGoTop v-if="shouldShowGoTop" @click="handleGoTop" />
     <Footer />
   </div>
 </template>
@@ -43,6 +44,7 @@ import Cover from '~/components/Cover.vue'
 import InputAge from '~/components/InputAge.vue'
 import InputOther from '~/components/InputOther.vue'
 import Result from '~/components/Result.vue'
+import UiGoTop from '~/components/UiGoTop.vue'
 import Footer from '~/components/Footer.vue'
 import gaMixin from '~/mixins/gaMixin'
 
@@ -53,6 +55,7 @@ export default {
     InputAge,
     InputOther,
     Result,
+    UiGoTop,
     Footer,
   },
   mixins: [gaMixin],
@@ -89,6 +92,11 @@ export default {
         email: '',
       },
     }
+  },
+  computed: {
+    shouldShowGoTop() {
+      return window.innerWidth < 768
+    },
   },
   async mounted() {
     try {
@@ -153,7 +161,7 @@ export default {
       this.showInputAge()
     },
     handleSkipToResult() {
-      this.gaClickHandler('我想直接看最新資訊')
+      this.gaClickHandler('直接看疫苗接種最新資訊')
       this.hideCover()
       this.hideInputAge()
       this.hideInputOther()
@@ -202,6 +210,9 @@ export default {
       this.result = {}
       this.hideResult()
       this.showInputAge()
+    },
+    handleGoTop() {
+      window.scrollTo(0, 0)
     },
     generateResult(data) {
       if (data.injection.isInjection) {
