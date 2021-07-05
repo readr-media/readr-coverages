@@ -1,7 +1,8 @@
 <template>
   <div class="vt">
     <Navbar />
-    <div class="vt__content">
+    <UnSubscribe v-if="shouldShowUnSubscribe" />
+    <div v-else class="vt__content">
       <Cover
         v-if="shouldShowCover"
         @get-start="handleGetStart"
@@ -39,6 +40,7 @@ import axios from 'axios'
 import _ from 'lodash'
 import { generateTime } from '~/utils/time-handler'
 import Navbar from '~/components/Navbar.vue'
+import UnSubscribe from '~/components/UnSubscribe.vue'
 import Cover from '~/components/Cover.vue'
 import InputAge from '~/components/InputAge.vue'
 import InputOther from '~/components/InputOther.vue'
@@ -49,6 +51,7 @@ import gaMixin from '~/mixins/gaMixin'
 export default {
   components: {
     Navbar,
+    UnSubscribe,
     Cover,
     InputAge,
     InputOther,
@@ -63,6 +66,7 @@ export default {
       shouldShowInputOther: false,
       shouldShowResult: false,
       shouldShowResultBoard: true,
+      shouldShowUnSubscribe: false,
       result: {},
       government: [],
       cities: [],
@@ -91,6 +95,9 @@ export default {
     }
   },
   async mounted() {
+    if (this.$route.query.page === 'unsubscribe') {
+      this.shouldShowUnSubscribe = true
+    }
     try {
       const govRes = await axios.get(
         'https://projects.readr.tw/vaccine_tracker_government.json'
@@ -153,7 +160,7 @@ export default {
       this.showInputAge()
     },
     handleSkipToResult() {
-      this.gaClickHandler('我想直接看最新資訊')
+      this.gaClickHandler('直接看疫苗接種最新資訊')
       this.hideCover()
       this.hideInputAge()
       this.hideInputOther()
@@ -202,6 +209,9 @@ export default {
       this.result = {}
       this.hideResult()
       this.showInputAge()
+    },
+    handleGoTop() {
+      window.scrollTo(0, 0)
     },
     generateResult(data) {
       if (data.injection.isInjection) {

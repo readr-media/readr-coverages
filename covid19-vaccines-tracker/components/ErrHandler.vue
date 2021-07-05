@@ -78,7 +78,7 @@ export default {
         : '請填寫有效時間，例如 2021/02/06'
     },
     handleTargetEmail() {
-      const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+      const regex = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       return regex.test(this.currentInput) || !this.currentInput
         ? ''
         : '請輸入有效的信箱地址'
