@@ -1,7 +1,8 @@
 <template>
   <div class="vt">
     <Navbar />
-    <div class="vt__content">
+    <UnSubscribe v-if="shouldShowUnSubscribe" />
+    <div v-else class="vt__content">
       <Cover
         v-if="shouldShowCover"
         @get-start="handleGetStart"
@@ -30,7 +31,6 @@
         @submit-email="handleSubmitEmail"
       />
     </div>
-    <UiGoTop v-if="shouldShowGoTop" @click="handleGoTop" />
     <Footer />
   </div>
 </template>
@@ -40,22 +40,22 @@ import axios from 'axios'
 import _ from 'lodash'
 import { generateTime } from '~/utils/time-handler'
 import Navbar from '~/components/Navbar.vue'
+import UnSubscribe from '~/components/UnSubscribe.vue'
 import Cover from '~/components/Cover.vue'
 import InputAge from '~/components/InputAge.vue'
 import InputOther from '~/components/InputOther.vue'
 import Result from '~/components/Result.vue'
-import UiGoTop from '~/components/UiGoTop.vue'
 import Footer from '~/components/Footer.vue'
 import gaMixin from '~/mixins/gaMixin'
 
 export default {
   components: {
     Navbar,
+    UnSubscribe,
     Cover,
     InputAge,
     InputOther,
     Result,
-    UiGoTop,
     Footer,
   },
   mixins: [gaMixin],
@@ -66,6 +66,7 @@ export default {
       shouldShowInputOther: false,
       shouldShowResult: false,
       shouldShowResultBoard: true,
+      shouldShowUnSubscribe: false,
       result: {},
       government: [],
       cities: [],
@@ -93,12 +94,10 @@ export default {
       },
     }
   },
-  computed: {
-    shouldShowGoTop() {
-      return window.innerWidth < 768
-    },
-  },
   async mounted() {
+    if (this.$route.query.page === 'unsubscribe') {
+      this.shouldShowUnSubscribe = true
+    }
     try {
       const govRes = await axios.get(
         'https://projects.readr.tw/vaccine_tracker_government.json'
