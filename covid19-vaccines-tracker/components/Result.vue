@@ -58,7 +58,7 @@
       <ul>
         <li
           v-for="(item, i) in alsoKnow"
-          :key="item.question"
+          :key="`${item.question}-also-${i}`"
           class="result__faq__toggle-card"
         >
           <UiToggleCard

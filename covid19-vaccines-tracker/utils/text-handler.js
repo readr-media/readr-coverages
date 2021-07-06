@@ -10,23 +10,20 @@ function handleTaiWord(text) {
   return text.replace('臺', '台')
 }
 
-function formatLinkText(rawText = '', link = '') {
-  if (link && rawText.includes('(') && rawText.includes(')')) {
-    const [str1, str2] = rawText.split('(')
-    const [str3, str4] = str2.split(')')
-    return {
-      str1,
-      str3,
-      str4,
-      link,
-    }
+function formatLinkText(rawText = '', rawLink = '') {
+  const links = rawLink.includes('；') ? rawLink.split('；') : [rawLink]
+  let returnText = `<span>${rawText}</span>`
+  if (links.length) {
+    links.forEach((link) => {
+      returnText = returnText
+        .replace(
+          '(',
+          `<a href="${link}" target="_blank" style="text-decoration: underline;">`
+        )
+        .replace(')', '</a>')
+    })
   }
-  return {
-    str1: rawText,
-    str3: '',
-    str4: '',
-    link: '',
-  }
+  return returnText
 }
 
 export { handleLineBreak, handleTaiWord, formatLinkText }

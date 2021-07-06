@@ -11,13 +11,11 @@
       人，若剛好把預約名單上的人都打完，剩下的劑量稱為殘劑。指揮中心 6/25
       授權地方政府可以自行決定殘劑如何運用。
     </p>
-    <p class="remain-dose__content">
-      {{ county }}的殘劑規定為：{{ formatDozeInfo.str1 }}
-      <a :href="formatDozeInfo.link" target="_blank">
-        {{ formatDozeInfo.str3 }}
-      </a>
-      {{ formatDozeInfo.str4 }}
-    </p>
+    <!-- eslint-disable vue/no-v-html -->
+    <div
+      class="remain-dose__content"
+      v-html="`<span>${county}的殘劑規定為：</span>` + formatDozeInfo"
+    />
   </div>
 </template>
 

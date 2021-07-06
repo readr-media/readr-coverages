@@ -1,13 +1,6 @@
 <template>
-  <div class="result-tip">
-    <p>
-      {{ formatTip.str1 }}
-      <a :href="formatTip.link" target="_blank">
-        {{ formatTip.str3 }}
-      </a>
-      {{ formatTip.str4 }}
-    </p>
-  </div>
+  <!-- eslint-disable vue/no-v-html -->
+  <div class="result-tip" v-html="formatTip" />
 </template>
 
 <script>
@@ -38,7 +31,7 @@ export default {
   background-color: #ebf02c;
   border-radius: 6px;
   padding: 8px 12px;
-  p {
+  span {
     font-size: 16px;
     line-height: 1.5;
     color: #000928;

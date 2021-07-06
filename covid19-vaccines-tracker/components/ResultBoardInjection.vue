@@ -2,14 +2,16 @@
   <div class="result-injection">
     <div v-if="hasHowTo" class="result-injection__howto">
       <p>接種方式</p>
-      <span v-for="(item, i) in formatHowTo" :key="`${item}-${i}`">
-        {{ item.str1 }}<a :href="item.link" target="_blank">{{ item.str3 }}</a>
-        {{ item.str4 }}
-      </span>
+      <!-- eslint-disable vue/no-v-html -->
+      <div class="result-injection__text" v-html="formatHowTo" />
     </div>
     <div v-if="hasInjectInfo" class="result-injection__second">
       <p>預計接種第二劑的時間</p>
-      <span v-for="(item, i) in secondInjectTime" :key="`${item}-${i}`">
+      <span
+        v-for="(item, i) in secondInjectTime"
+        :key="`${item}-${i}`"
+        class="result-injection__text"
+      >
         {{ item }}
       </span>
     </div>
@@ -40,12 +42,12 @@ export default {
       default: '',
     },
     howTo: {
-      type: Array,
-      default: () => [],
+      type: String,
+      default: '',
     },
     howToLink: {
-      type: Array,
-      default: () => [],
+      type: String,
+      default: '',
     },
     isA7: {
       type: Boolean,
@@ -58,15 +60,13 @@ export default {
   },
   computed: {
     hasHowTo() {
-      return isArrayEmpty(this.howTo)
+      return this.howTo !== ''
     },
     hasHowToLink() {
-      return isArrayEmpty(this.howToLink)
+      return this.howToLink !== ''
     },
     formatHowTo() {
-      return this.howTo.map((item, i) =>
-        formatLinkText(item, this.howToLink[i])
-      )
+      return formatLinkText(this.howTo, this.howToLink)
     },
     hasInjectInfo() {
       return isArrayEmpty(this.secondInjectTime)
@@ -87,7 +87,7 @@ export default {
     opacity: 0.87;
     margin: 0 0 4px;
   }
-  span {
+  &__text {
     font-size: 18px;
     line-height: 1.5;
     color: #04295e;
