@@ -13,8 +13,8 @@
     </div>
     <ul v-if="shouldShowContent" class="toggle-category__content">
       <li
-        v-for="item in items"
-        :key="item.question"
+        v-for="(item, i) in items"
+        :key="`${item.question}-cate-${i}`"
         class="toggle-category__content-items"
       >
         <UiToggleCard
