@@ -11,6 +11,15 @@ function handleTaiWord(text) {
 }
 
 function formatLinkText(rawText = '', link = '') {
+  const rawLinks = 'https://aaa；https://bbb；https://ccc'
+  const links = rawLinks.split('；')
+  let mock = '<span>text (link) text text text text (link) text (link)</span>'
+  links.forEach((link) => {
+    mock = mock
+      .replace('(', `<a href="${link}" target="_blank">`)
+      .replace(')', '</a>')
+  })
+  console.log(mock)
   if (link && rawText.includes('(') && rawText.includes(')')) {
     const [str1, str2] = rawText.split('(')
     const [str3, str4] = str2.split(')')
