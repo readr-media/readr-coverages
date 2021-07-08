@@ -447,17 +447,21 @@ export default {
           }
     },
     handleA6(data) {
-      const dataList = []
+      const dataList = {}
       const matchedList = this.government.filter(
         (item) =>
           item.job === data.job.major && item.date && item.status !== '暫緩施打'
       )
       matchedList.forEach((item) => {
-        if (item.job2 && !dataList.includes(item.job2)) {
-          dataList.push(item.job2)
+        if (item.job2 && !Object.keys(dataList).includes(item.job2)) {
+          dataList[item.job2] = []
         }
-        if (item.job3 && !dataList.includes(item.job3)) {
-          dataList.push(item.job3)
+        if (
+          item.job3 &&
+          dataList[item.job2] &&
+          !dataList[item.job2].includes(item.job3)
+        ) {
+          dataList[item.job2].push(item.job3)
         }
       })
       const stamp = matchedList[matchedList.length - 1].update_time ?? ''
