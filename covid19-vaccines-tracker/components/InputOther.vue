@@ -9,15 +9,15 @@
           type="text"
           placeholder="請輸入縣市名稱：如：台北市"
           autocomplete="off"
-          @input.prevent="handleCurrentCountyInput"
           @focus="toggleCountyList"
           @blur="toggleCountyList"
+          @input.prevent="handleCurrentCountyInput"
         />
         <ul v-if="matchedCounty.length && openCountyList">
           <li
             v-for="county in matchedCounty"
             :key="county"
-            @click="setCountyInput(county)"
+            @mousedown="setCountyInput(county)"
           >
             {{ county }}
           </li>
