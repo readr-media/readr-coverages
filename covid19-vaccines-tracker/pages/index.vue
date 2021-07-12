@@ -496,6 +496,8 @@ export default {
               ? {
                   howTo: item.how_to,
                   howToLink: item.how_to_link,
+                  dataTip: item.data,
+                  dataLink: item.data_link,
                   stamp: item.update_time,
                   source: matchedItem.source,
                 }
@@ -511,6 +513,8 @@ export default {
             sources: [matchedVaccine[0].source],
             howTo: matchedVaccine[0].howTo,
             howToLink: matchedVaccine[0].howToLink,
+            tip: matchedVaccine[0].dataTip,
+            tipLink: matchedVaccine[0].dataTipLink,
             timeStamp: matchedVaccine[0].stamp,
             type: 'A7',
           }
