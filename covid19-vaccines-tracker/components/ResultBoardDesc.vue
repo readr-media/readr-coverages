@@ -12,7 +12,7 @@
         v-for="paragraph in description"
         :key="paragraph"
         class="result-desc__description"
-        :class="{ 'black-text': listItems.length }"
+        :class="{ 'black-text': shouldShowList }"
       >
         {{ paragraph }}
       </p>
@@ -41,8 +41,7 @@ export default {
   },
   computed: {
     shouldShowList() {
-      console.log(this.listItems)
-      return Object.keys(this.listItems).length !== 0
+      return this.listItems && Object.keys(this.listItems).length
     },
     shouldShowDesc() {
       return isArrayEmpty(this.description)
