@@ -9,13 +9,15 @@
           type="text"
           placeholder="請輸入縣市名稱：如：台北市"
           autocomplete="off"
+          @focus="toggleCountyList"
+          @blur="toggleCountyList"
           @input.prevent="handleCurrentCountyInput"
         />
-        <ul v-if="matchedCounty.length">
+        <ul v-if="matchedCounty.length && openCountyList">
           <li
             v-for="county in matchedCounty"
             :key="county"
-            @click="setCountyInput(county)"
+            @mousedown="setCountyInput(county)"
           >
             {{ county }}
           </li>
@@ -30,7 +32,7 @@
     </section>
     <section class="input-other__select job">
       <p class="label">3. 你的職業是否符合清單裡的條件？</p>
-      <div class="input-other__select-input">
+      <div class="input-other__select-input" tabindex="-1" @blur="hideJobList">
         <div class="mock-input" @click="toggleMajorIcon">
           {{ jobInput.major }}
           <span class="arrow" :class="{ rotate: openJobList.major }" />
@@ -46,7 +48,12 @@
           </li>
         </ul>
       </div>
-      <div v-if="hasSecond" class="input-other__select-input">
+      <div
+        v-if="hasSecond"
+        class="input-other__select-input"
+        tabindex="-1"
+        @blur="hideSecondList"
+      >
         <div class="mock-input" @click="toggleSecondIcon">
           {{ jobInput.second }}
           <span class="arrow" :class="{ rotate: openJobList.second }" />
@@ -63,7 +70,12 @@
           <li @click="setSecondInput('我不確定')">我不確定</li>
         </ul>
       </div>
-      <div v-if="hasThird" class="input-other__select-input">
+      <div
+        v-if="hasThird"
+        class="input-other__select-input"
+        tabindex="-1"
+        @blur="hideThirdList"
+      >
         <div class="mock-input" @click="toggleThirdIcon">
           {{ jobInput.third }}
           <span class="arrow" :class="{ rotate: openJobList.third }" />
@@ -230,6 +242,7 @@ export default {
         second: false,
         third: false,
       },
+      openCountyList: false,
       countyInput: '',
       identityInput: ['無'],
       currentCountyInput: undefined,
@@ -330,6 +343,18 @@ export default {
     setBrandInput(option) {
       this.brandInput = option
       this.openBrandList = false
+    },
+    toggleCountyList() {
+      this.openCountyList = !this.openCountyList
+    },
+    hideJobList() {
+      this.openJobList.major = false
+    },
+    hideSecondList() {
+      this.openJobList.second = false
+    },
+    hideThirdList() {
+      this.openJobList.third = false
     },
     toggleMajorIcon() {
       this.openJobList.major = !this.openJobList.major
@@ -446,6 +471,10 @@ export default {
       font-size: 18px;
       background-color: #fff;
       &:focus-within {
+        outline: none;
+        border: 1px solid #04295e;
+      }
+      &:focus {
         outline: none;
         border: 1px solid #04295e;
       }

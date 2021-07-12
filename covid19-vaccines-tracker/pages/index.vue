@@ -447,17 +447,21 @@ export default {
           }
     },
     handleA6(data) {
-      const dataList = []
+      const dataList = {}
       const matchedList = this.government.filter(
         (item) =>
           item.job === data.job.major && item.date && item.status !== '暫緩施打'
       )
       matchedList.forEach((item) => {
-        if (item.job2 && !dataList.includes(item.job2)) {
-          dataList.push(item.job2)
+        if (item.job2 && !Object.keys(dataList).includes(item.job2)) {
+          dataList[item.job2] = []
         }
-        if (item.job3 && !dataList.includes(item.job3)) {
-          dataList.push(item.job3)
+        if (
+          item.job3 &&
+          dataList[item.job2] &&
+          !dataList[item.job2].includes(item.job3)
+        ) {
+          dataList[item.job2].push(item.job3)
         }
       })
       const stamp = matchedList[matchedList.length - 1].update_time ?? ''
@@ -492,6 +496,8 @@ export default {
               ? {
                   howTo: item.how_to,
                   howToLink: item.how_to_link,
+                  dataTip: item.data,
+                  dataLink: item.data_link,
                   stamp: item.update_time,
                   source: matchedItem.source,
                 }
@@ -507,6 +513,8 @@ export default {
             sources: [matchedVaccine[0].source],
             howTo: matchedVaccine[0].howTo,
             howToLink: matchedVaccine[0].howToLink,
+            tip: matchedVaccine[0].dataTip,
+            tipLink: matchedVaccine[0].dataTipLink,
             timeStamp: matchedVaccine[0].stamp,
             type: 'A7',
           }

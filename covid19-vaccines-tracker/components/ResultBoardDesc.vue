@@ -2,7 +2,10 @@
   <div class="result-desc">
     <small class="result-desc__brief">{{ brief }}</small>
     <ul v-if="shouldShowList" class="result-desc__list">
-      <li v-for="item in listItems" :key="item">{{ item }}</li>
+      <li v-for="item in Object.keys(listItems)" :key="item">
+        <span>{{ item }}</span>
+        <p v-for="sub in listItems[item]" :key="sub">{{ sub }}</p>
+      </li>
     </ul>
     <template v-if="shouldShowDesc">
       <p
@@ -32,13 +35,14 @@ export default {
       default: () => [],
     },
     listItems: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      default: () => {},
     },
   },
   computed: {
     shouldShowList() {
-      return isArrayEmpty(this.listItems)
+      console.log(this.listItems)
+      return Object.keys(this.listItems).length !== 0
     },
     shouldShowDesc() {
       return isArrayEmpty(this.description)
@@ -58,22 +62,42 @@ export default {
     margin: 0 0 4px;
   }
   &__list {
+    margin: 0 0 12px;
     li {
       position: relative;
-      font-size: 18px;
-      line-height: 2;
       color: #04295e;
       padding: 0 0 0 30px;
-      margin: 0 0 12px;
-      &::after {
+      &::before {
         content: '';
         position: absolute;
         top: 16px;
         left: 16px;
-        width: 4px;
-        height: 4px;
-        border-radius: 4px;
+        width: 6px;
+        height: 6px;
+        border-radius: 5px;
         background-color: #04295e;
+      }
+      span {
+        font-size: 18px;
+        line-height: 2;
+        margin: 0 0 12px;
+      }
+      p {
+        position: relative;
+        font-size: 16px;
+        line-height: 2;
+        padding: 0 0 0 18px;
+        margin: 0 0 2px;
+        &::before {
+          content: '';
+          position: absolute;
+          top: 14px;
+          left: 4px;
+          width: 6px;
+          height: 6px;
+          border: 1px solid #04295e;
+          border-radius: 6px;
+        }
       }
     }
   }
