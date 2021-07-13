@@ -32,6 +32,7 @@
       />
     </div>
     <Footer />
+    <BackTopBtn v-if="shouldShowBackTopBtn" />
   </div>
 </template>
 
@@ -46,6 +47,7 @@ import InputAge from '~/components/InputAge.vue'
 import InputOther from '~/components/InputOther.vue'
 import Result from '~/components/Result.vue'
 import Footer from '~/components/Footer.vue'
+import BackTopBtn from '~/components/BackTopBtn.vue'
 import gaMixin from '~/mixins/gaMixin'
 
 export default {
@@ -57,6 +59,7 @@ export default {
     InputOther,
     Result,
     Footer,
+    BackTopBtn,
   },
   mixins: [gaMixin],
   data() {
@@ -93,6 +96,11 @@ export default {
         email: '',
       },
     }
+  },
+  computed: {
+    shouldShowBackTopBtn() {
+      return window.innerWidth < 768
+    },
   },
   async mounted() {
     if (this.$route.query.page === 'unsubscribe') {
@@ -670,6 +678,7 @@ export default {
 
 <style lang="scss" scoped>
 .vt {
+  position: relative;
   min-height: 100vh;
   background: #f6f6f5;
   &__content {
