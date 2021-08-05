@@ -1,7 +1,7 @@
 <template>
   <div class="vt">
     <Navbar />
-    <div id="758f9b6b-e4ec-42a3-a283-f1a907be632e" class="vt__content" />
+    <div id="6dfcb3f9-060a-4544-b55e-2c7485c1f967" class="vt__content" />
     <Donate />
     <Footer />
   </div>
@@ -35,13 +35,13 @@ export default {
 .vt {
   position: relative;
   min-height: 100vh;
-  background: #f6f6f5;
+  background: rgb(241, 241, 241);
   &__content {
     padding: 0 20px;
-    margin: 24px 0 48px;
+    margin: 0 0 48px;
     min-height: calc(100vh - 224px - 72px);
     @include media-breakpoint-up(md) {
-      margin: 60px 0 72px;
+      margin: 0 0 40px;
       min-height: calc(100vh - 240px - 132px);
     }
     @include media-breakpoint-up(lg) {
