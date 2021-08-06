@@ -45,6 +45,7 @@ export default {
       min-height: calc(100vh - 240px - 132px);
     }
     @include media-breakpoint-up(lg) {
+      margin: -80px 0 40px;
       min-height: calc(100vh - 152px - 132px);
     }
   }
