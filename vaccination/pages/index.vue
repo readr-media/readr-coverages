@@ -1,7 +1,7 @@
 <template>
   <div class="vt">
     <Navbar />
-    <div id="0033dc55-e487-4351-a06e-0e7ef11c3146" class="vt__content" />
+    <div id="b64223e8-985c-47e8-87b2-d75e615f53d1" class="vt__content" />
     <Donate />
     <Footer />
   </div>
