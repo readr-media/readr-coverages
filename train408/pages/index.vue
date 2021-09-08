@@ -4,7 +4,10 @@
     <div class="vt__test">
       <span>測試標題</span>
     </div>
-    <div id="42c8899d-f785-434d-a8a8-1e56234dc10f" class="vt__content"></div>
+    <!-- <div id="42c8899d-f785-434d-a8a8-1e56234dc10f" class="vt__content"></div> -->
+    <Article v-if="shouldShowArticle" class="vt__article" />
+    <AlsoConcern class="vt__also-concern" />
+    <Resource class="vt__resource" />
     <Credit />
     <Donate />
     <Footer />
@@ -13,6 +16,9 @@
 
 <script>
 import Navbar from '~/components/Navbar.vue'
+import Article from '~/components/Article.vue'
+import AlsoConcern from '~/components/AlsoConcern.vue'
+import Resource from '~/components/Resource.vue'
 import Credit from '~/components/Credit.vue'
 import Donate from '~/components/Donate.vue'
 import Footer from '~/components/Footer.vue'
@@ -21,11 +27,19 @@ import gaMixin from '~/mixins/gaMixin'
 export default {
   components: {
     Navbar,
+    Article,
+    AlsoConcern,
+    Resource,
     Credit,
     Donate,
     Footer,
   },
   mixins: [gaMixin],
+  data() {
+    return {
+      shouldShowArticle: true,
+    }
+  },
   mounted() {
     const script = document.createElement('script')
     script.type = 'text/javascript'
@@ -61,6 +75,21 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  &__article {
+    margin: 0 auto 24px;
+  }
+  &__also-concern {
+    margin: 0 auto 96px;
+    @include media-breakpoint-up(md) {
+      margin: 0 auto 120px;
+    }
+  }
+  &__resource {
+    margin: 0 auto 72px;
+    @include media-breakpoint-up(md) {
+      margin: 0 auto 120px;
+    }
   }
 }
 </style>
