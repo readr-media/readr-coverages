@@ -4,7 +4,10 @@
     <div class="vt__test">
       <span>測試標題</span>
     </div>
-    <!-- <div id="42c8899d-f785-434d-a8a8-1e56234dc10f" class="vt__content"></div> -->
+    <div class="vt__test">
+      <button type="button" @click="toggleTest">測試開啟按鈕</button>
+    </div>
+    <Test1 v-if="shouldShowTest1" class="vt__content" />
     <Article v-if="shouldShowArticle" class="vt__article" />
     <AlsoConcern class="vt__also-concern" />
     <Resource class="vt__resource" />
@@ -17,6 +20,7 @@
 <script>
 import Navbar from '~/components/Navbar.vue'
 import Article from '~/components/Article.vue'
+import Test1 from '~/components/Test1.vue'
 import AlsoConcern from '~/components/AlsoConcern.vue'
 import Resource from '~/components/Resource.vue'
 import Credit from '~/components/Credit.vue'
@@ -28,6 +32,7 @@ export default {
   components: {
     Navbar,
     Article,
+    Test1,
     AlsoConcern,
     Resource,
     Credit,
@@ -37,16 +42,20 @@ export default {
   mixins: [gaMixin],
   data() {
     return {
+      shouldShowTest1: true,
       shouldShowArticle: true,
     }
   },
-  mounted() {
-    const script = document.createElement('script')
-    script.type = 'text/javascript'
-    script.crossOrigin = true
-    script.src =
-      'https://unpkg.com/@twreporter/scrollable-video@1.0.0-rc.3/dist/main.142ef5f0d6d2dfdb8b8d.bundle.js'
-    document.body.appendChild(script)
+  methods: {
+    openTest() {
+      this.shouldShowTest1 = true
+    },
+    closeTest() {
+      this.shouldShowTest1 = false
+    },
+    toggleTest() {
+      this.shouldShowTest1 = !this.shouldShowTest1
+    },
   },
 }
 </script>
@@ -69,7 +78,7 @@ export default {
     }
   }
   &__test {
-    min-height: 80vh;
+    min-height: 60vh;
     font-size: 70px;
     color: #fff;
     display: flex;
