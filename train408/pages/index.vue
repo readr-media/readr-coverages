@@ -5,8 +5,10 @@
       <span>測試標題</span>
     </div>
     <div class="vt__test">
-      <button type="button" @click="toggleTest">測試開啟按鈕</button>
+      <button type="button" @click="toggleTest2">豬瘟</button>
+      <button type="button" @click="toggleTest1">發電</button>
     </div>
+    <Test2 v-if="shouldShowTest2" class="vt__content" />
     <Test1 v-if="shouldShowTest1" class="vt__content" />
     <Article v-if="shouldShowArticle" class="vt__article" />
     <AlsoConcern class="vt__also-concern" />
@@ -21,6 +23,7 @@
 import Navbar from '~/components/Navbar.vue'
 import Article from '~/components/Article.vue'
 import Test1 from '~/components/Test1.vue'
+import Test2 from '~/components/Test2.vue'
 import AlsoConcern from '~/components/AlsoConcern.vue'
 import Resource from '~/components/Resource.vue'
 import Credit from '~/components/Credit.vue'
@@ -33,6 +36,7 @@ export default {
     Navbar,
     Article,
     Test1,
+    Test2,
     AlsoConcern,
     Resource,
     Credit,
@@ -42,19 +46,19 @@ export default {
   mixins: [gaMixin],
   data() {
     return {
-      shouldShowTest1: true,
+      shouldShowTest1: false,
+      shouldShowTest2: false,
       shouldShowArticle: true,
     }
   },
   methods: {
-    openTest() {
-      this.shouldShowTest1 = true
-    },
-    closeTest() {
-      this.shouldShowTest1 = false
-    },
-    toggleTest() {
+    toggleTest1() {
       this.shouldShowTest1 = !this.shouldShowTest1
+      console.log('gg', this.shouldShowTest1)
+    },
+    toggleTest2() {
+      this.shouldShowTest2 = !this.shouldShowTest2
+      console.log('dd', this.shouldShowTest2)
     },
   },
 }
@@ -78,12 +82,15 @@ export default {
     }
   }
   &__test {
-    min-height: 60vh;
+    min-height: 30vh;
     font-size: 70px;
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
+    button {
+      margin: 0 40px;
+    }
   }
   &__article {
     margin: 0 auto 24px;
