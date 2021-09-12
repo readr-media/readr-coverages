@@ -45,13 +45,5 @@ export default {
       },
     }
   },
-  // mounted() {
-  //   const script = document.createElement('script')
-  //   script.type = 'text/javascript'
-  //   script.crossOrigin = true
-  //   script.src =
-  //     'https://unpkg.com/@twreporter/scrollable-video@1.0.0-rc.3/dist/main.142ef5f0d6d2dfdb8b8d.bundle.js'
-  //   document.body.appendChild(script)
-  // },
 }
 </script>
