@@ -20,7 +20,7 @@ export default {
 
 <style lang="scss" scoped>
 ul {
-  padding: 18px;
+  padding: 0 0 0 18px;
   list-style: none;
   li {
     position: relative;

@@ -46,7 +46,7 @@ export default {
       })
       .onStepEnter((response) => {
         if (response.direction === 'up') {
-          this.$emit('reset-skip')
+          this.$emit('scroll-top')
           window.location.href = '#cover-start'
         }
       })

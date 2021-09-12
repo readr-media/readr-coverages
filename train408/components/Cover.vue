@@ -16,7 +16,7 @@
         <p>
           此專題利用 3D
           建模、監視器畫面、插畫等元素嘗試重建事發現場，往下滑動來觀看。
-          <a href="#article-start" v-smooth-scroll @click="handleSkip">
+          <a v-smooth-scroll href="#article-start" @click="handleSkip">
             若回顧事發現場的細節會讓您感到不適，請點此跳過。
           </a>
         </p>
@@ -43,6 +43,9 @@ export default {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    @include media-breakpoint-up(md) {
+      height: 100vh;
+    }
     &__intro1 {
       width: 208px;
       @include media-breakpoint-up(md) {
@@ -71,7 +74,6 @@ export default {
       font-weight: 300;
       line-height: 24px;
       color: #fff;
-      padding: 0 0 100px;
       @include media-breakpoint-up(md) {
         font-size: 18px;
         line-height: 36px;

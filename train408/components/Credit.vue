@@ -43,7 +43,7 @@ export default {}
 
 <style lang="scss" scoped>
 .credit {
-  padding: 48px 60px;
+  padding: 0 60px;
   background: transparent;
 
   &__wrapper {
