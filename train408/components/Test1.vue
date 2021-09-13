@@ -1,9 +1,26 @@
 <template>
-  <div id="42c8899d-f785-434d-a8a8-1e56234dc10f"></div>
+  <div class="video">
+    <div id="42c8899d-f785-434d-a8a8-1e56234dc10f"></div>
+    <UiVideoToTimelineBtn
+      v-if="shouldShowEndBtn"
+      @clicked-close="handleClose"
+    />
+  </div>
 </template>
 
 <script>
+import UiVideoToTimelineBtn from '~/components/UiVideoToTimelineBtn.vue'
+
 export default {
+  components: {
+    UiVideoToTimelineBtn,
+  },
+  data() {
+    return {
+      shouldShowVideo: true,
+      shouldShowEndBtn: false,
+    }
+  },
   head() {
     return {
       script: [
@@ -44,6 +61,26 @@ export default {
         test1: ['innerHTML'],
       },
     }
+  },
+  mounted() {
+    this.addScrollDetector()
+  },
+  methods: {
+    addScrollDetector() {
+      window.onscroll = () => {
+        if (
+          window.pageYOffset &&
+          window.innerHeight + window.pageYOffset >= document.body.offsetHeight
+        ) {
+          this.shouldShowEndBtn = true
+        }
+      }
+    },
+    handleClose() {
+      this.$emit('close-video')
+      this.shouldShowEndBtn = false
+      window.scrollTo(0, window.innerHeight * 2)
+    },
   },
 }
 </script>

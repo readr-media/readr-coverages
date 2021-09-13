@@ -1,13 +1,17 @@
 <template>
   <div class="tr">
     <Navbar />
-    <Cover @skip-content="handleSkipContent" />
-    <Content v-if="shouldShowContent" />
-    <Report v-if="shouldShowReport" class="tr__report" />
-    <Donate class="tr__donate" />
-    <Credit class="tr__credit" />
-    <LatestList class="tr__latest-list" />
-    <Footer />
+    <Cover v-if="!isFullVideo" @skip-content="handleSkipContent" />
+    <Content
+      v-if="shouldShowContent"
+      @close-all="handleCloseAll"
+      @open-all="handleOpenAll"
+    />
+    <Report v-if="!isFullVideo" class="tr__report" />
+    <Donate v-if="!isFullVideo" class="tr__donate" />
+    <Credit v-if="!isFullVideo" class="tr__credit" />
+    <LatestList v-if="!isFullVideo" class="tr__latest-list" />
+    <Footer v-if="!isFullVideo" />
     <UiScrollDownBtn />
   </div>
 </template>
@@ -41,6 +45,7 @@ export default {
   mixins: [gaMixin],
   data() {
     return {
+      isFullVideo: false,
       shouldShowContent: false,
       shouldSkipContent: false,
       shouldShowReport: true,
@@ -67,6 +72,12 @@ export default {
       this.shouldSkipContent = true
       this.shouldShowContent = false
     },
+    handleCloseAll() {
+      this.isFullVideo = true
+    },
+    handleOpenAll() {
+      this.isFullVideo = false
+    },
   },
 }
 </script>
@@ -77,9 +88,9 @@ export default {
   min-height: 100vh;
   background: #111;
   &__donate {
-    margin: 0 0 72px;
+    margin: 0 auto 72px;
     @include media-breakpoint-up(md) {
-      margin: 108px;
+      margin: 0 auto 108px;
     }
   }
   &__credit {

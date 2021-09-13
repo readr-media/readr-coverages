@@ -1,12 +1,20 @@
 <template>
   <section class="content">
-    <div class="content__test">
-      <button type="button" @click="toggleTest2">豬瘟</button>
-      <button type="button" @click="toggleTest1">發電</button>
+    <div v-if="shouldShowTimeline" class="content__test">
+      <button type="button" @click="handleTest2">豬瘟</button>
+      <button type="button" @click="handleTest1">發電</button>
     </div>
 
-    <Test2 v-if="shouldShowTest2" class="content__video" />
-    <Test1 v-if="shouldShowTest1" class="content__video" />
+    <Test2
+      v-if="shouldShowTest2"
+      class="content__video"
+      @close-video="handleCloseVideo2"
+    />
+    <Test1
+      v-if="shouldShowTest1"
+      class="content__video"
+      @close-video="handleCloseVideo1"
+    />
   </section>
 </template>
 
@@ -21,16 +29,32 @@ export default {
   },
   data() {
     return {
+      shouldShowTimeline: true,
       shouldShowTest1: false,
       shouldShowTest2: false,
+      currentScrollHeight: 0,
     }
   },
   methods: {
-    toggleTest1() {
-      this.shouldShowTest1 = !this.shouldShowTest1
+    handleTest1() {
+      this.shouldShowTimeline = false
+      this.$emit('close-all')
+      this.shouldShowTest1 = true
     },
-    toggleTest2() {
-      this.shouldShowTest2 = !this.shouldShowTest2
+    handleTest2() {
+      this.shouldShowTimeline = false
+      this.$emit('close-all')
+      this.shouldShowTest2 = true
+    },
+    handleCloseVideo1() {
+      this.shouldShowTimeline = true
+      this.shouldShowTest1 = false
+      this.$emit('open-all')
+    },
+    handleCloseVideo2() {
+      this.shouldShowTimeline = true
+      this.shouldShowTest2 = false
+      this.$emit('open-all')
     },
   },
 }
@@ -38,14 +62,20 @@ export default {
 
 <style lang="scss" scoped>
 .content {
+  width: 100%;
+  max-width: 600px;
+  min-height: 100vh;
+  margin: auto;
   &__test {
-    min-height: 30vh;
-    font-size: 70px;
+    height: 100vh;
+    font-size: 40px;
     color: #fff;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     button {
+      display: block;
       margin: 0 40px;
     }
   }
