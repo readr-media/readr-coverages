@@ -20,7 +20,7 @@ export default {
 
 <style lang="scss" scoped>
 .Navbar {
-  position: relative;
+  position: fixed;
   z-index: 1000;
   background: transparent;
   width: 100%;

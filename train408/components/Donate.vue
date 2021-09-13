@@ -1,6 +1,9 @@
 <template>
   <div class="donate">
-    <readr-donate-button @click="gaClickHandler('donate')" />
+    <readr-donate-button
+      class="readr-donate"
+      @click="gaClickHandler('donate')"
+    />
   </div>
 </template>
 
@@ -14,8 +17,19 @@ export default {
 <style lang="scss" scoped>
 .donate {
   background: transparent;
-  max-width: 395px;
+  width: 100%;
+  max-width: 400px;
   margin: auto;
-  padding: 100px 0 31px;
+  padding: 20px;
+  .readr-donate {
+    &::v-deep {
+      .sc-readr-donate-button {
+        &::before {
+          content: '';
+          background-color: #fff;
+        }
+      }
+    }
+  }
 }
 </style>

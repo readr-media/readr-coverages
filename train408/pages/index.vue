@@ -1,66 +1,106 @@
 <template>
-  <div class="vt">
+  <div class="tr">
     <Navbar />
-    <div class="vt__test">
-      <span>測試標題</span>
-    </div>
-    <div id="42c8899d-f785-434d-a8a8-1e56234dc10f" class="vt__content"></div>
-    <Credit />
-    <Donate />
-    <Footer />
+    <Cover v-if="!isFullVideo" @skip-content="handleSkipContent" />
+    <Content
+      v-if="shouldShowContent"
+      @close-all="handleCloseAll"
+      @open-all="handleOpenAll"
+    />
+    <Report v-if="!isFullVideo" class="tr__report" />
+    <Donate v-if="!isFullVideo" class="tr__donate" />
+    <Credit v-if="!isFullVideo" class="tr__credit" />
+    <LatestList v-if="!isFullVideo" class="tr__latest-list" />
+    <Footer v-if="!isFullVideo" />
+    <UiScrollDownBtn />
   </div>
 </template>
 
 <script>
+import scrollama from 'scrollama'
+import 'intersection-observer'
 import Navbar from '~/components/Navbar.vue'
+import Cover from '~/components/Cover.vue'
+import Content from '~/components/Content.vue'
+import Report from '~/components/Report.vue'
 import Credit from '~/components/Credit.vue'
 import Donate from '~/components/Donate.vue'
+import LatestList from '~/components/LatestList.vue'
 import Footer from '~/components/Footer.vue'
+import UiScrollDownBtn from '~/components/UiScrollDownBtn.vue'
 import gaMixin from '~/mixins/gaMixin'
 
 export default {
   components: {
     Navbar,
+    Cover,
+    Content,
+    Report,
     Credit,
     Donate,
+    LatestList,
     Footer,
+    UiScrollDownBtn,
   },
   mixins: [gaMixin],
+  data() {
+    return {
+      isFullVideo: false,
+      shouldShowContent: false,
+      shouldSkipContent: false,
+      shouldShowReport: true,
+    }
+  },
   mounted() {
-    const script = document.createElement('script')
-    script.type = 'text/javascript'
-    script.crossOrigin = true
-    script.src =
-      'https://unpkg.com/@twreporter/scrollable-video@1.0.0-rc.3/dist/main.142ef5f0d6d2dfdb8b8d.bundle.js'
-    document.body.appendChild(script)
+    const scrollerCredit = scrollama()
+    scrollerCredit
+      .setup({
+        step: '#cover-end',
+      })
+      .onStepEnter((response) => {
+        if (response.direction === 'down' && !this.shouldSkipContent) {
+          this.shouldShowContent = true
+        }
+      })
+    window.addEventListener('resize', scrollerCredit.resize)
+  },
+  methods: {
+    handleSkipContent() {
+      this.shouldSkipContent = true
+    },
+    handleResetSkip() {
+      this.shouldSkipContent = true
+      this.shouldShowContent = false
+    },
+    handleCloseAll() {
+      this.isFullVideo = true
+    },
+    handleOpenAll() {
+      this.isFullVideo = false
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.vt {
+.tr {
   position: relative;
   min-height: 100vh;
-  background: #000;
-  &__content {
-    padding: 0 20px;
-    margin: 0 0 48px;
-    min-height: calc(100vh - 224px - 72px);
+  background: #111;
+  &__donate {
+    margin: 0 auto 72px;
     @include media-breakpoint-up(md) {
-      margin: 0 0 40px;
-      min-height: calc(100vh - 240px - 132px);
-    }
-    @include media-breakpoint-up(lg) {
-      min-height: calc(100vh - 152px - 132px);
+      margin: 0 auto 108px;
     }
   }
-  &__test {
-    min-height: 80vh;
-    font-size: 70px;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  &__credit {
+    margin: 0 0 72px;
+    @include media-breakpoint-up(md) {
+      margin: 108px;
+    }
+  }
+  &__latest-list {
+    margin: 0 auto 72px;
   }
 }
 </style>
