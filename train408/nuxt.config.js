@@ -69,6 +69,7 @@ export default {
   plugins: [
     { src: '~/plugins/web-component.js', ssr: false },
     { src: '~/plugins/VueSmoothScroll', ssr: false },
+    { src: '~/plugins/VueLazyRenderer', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

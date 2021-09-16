@@ -22,7 +22,13 @@ export default {
 .Navbar {
   position: fixed;
   z-index: 1000;
-  background: transparent;
+  background: linear-gradient(
+    to bottom,
+    #111,
+    rgba(0, 0, 0, 0.95) 50%,
+    rgba(0, 0, 0, 0.7) 70%,
+    transparent 90%
+  );
   width: 100%;
   .readr-header {
     &::v-deep {
