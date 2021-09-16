@@ -107,7 +107,7 @@ export default {
   &__credit {
     margin: 0 0 72px;
     @include media-breakpoint-up(md) {
-      margin: 108px;
+      margin: 0 0 108px;
     }
   }
   &__latest-list {
