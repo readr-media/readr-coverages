@@ -15,6 +15,10 @@
       <p>
         兩個月後，花檢再以過失致死、偽造文書罪追加起訴1名台鐵花蓮工務段人員、以及負責工程專案管理的中棪公司專案經理。但台鐵的責任只有這樣嗎？旅客與家屬依舊渴望更多的事故真相。家屬第一時間詢問台鐵內部的調查結果，得到的回應是：「因為疫情，還沒有辦法處理，」罹難者家屬潘麗如描述。
       </p>
+      <UiReportTable class="article__table" />
+      <p>
+        兩個月後，花檢再以過失致死、偽造文書罪追加起訴1名台鐵花蓮工務段人員、以及負責工程專案管理的中棪公司專案經理。但台鐵的責任只有這樣嗎？旅客與家屬依舊渴望更多的事故真相。家屬第一時間詢問台鐵內部的調查結果，得到的回應是：「因為疫情，還沒有辦法處理，」罹難者家屬潘麗如描述。
+      </p>
       <h3>縱觀所有論壇資料</h3>
       <p>
         事實上，交通部早在5月21日就完成了內部的行政調查報告。但直到2個月後，交通部才在7月18日公布該份報告。根據這份行政調查，從施工計劃、工地人員安全教育到邊坡防護措施，台鐵花蓮工務段、專案管理單位和監造單位「顯有疏漏」，12名台鐵相關人員僅被申誡或記過。
@@ -33,10 +37,12 @@
 import scrollama from 'scrollama'
 import 'intersection-observer'
 import UiAnnotation from '~/components/UiAnnotation.vue'
+import UiReportTable from '~/components/UiReportTable.vue'
 
 export default {
   components: {
     UiAnnotation,
+    UiReportTable,
   },
   mounted() {
     const scrollerCredit = scrollama()
@@ -121,6 +127,11 @@ export default {
       object-fit: cover;
       object-position: center;
     }
+  }
+  &__table {
+    width: calc(100% + 40px);
+    transform: translateX(-20px);
+    margin: 32px 0 16px;
   }
 }
 </style>
