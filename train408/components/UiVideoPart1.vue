@@ -1,6 +1,6 @@
 <template>
   <div class="video">
-    <div id="b9f37549-6dbe-4d5b-b7c8-dae831732ddf"></div>
+    <div id="5b2831ec-e7e9-4c2f-93de-745d68b110cc"></div>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
         {
           hid: 'part1',
           async: true,
-          innerHTML: `                   
+          innerHTML: `                                 
             (function() {
               var namespace = '__twreporterEmbeddedData';
               var pkg = 'scrollable-video';

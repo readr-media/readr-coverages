@@ -43,9 +43,6 @@ export default {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    @include media-breakpoint-up(md) {
-      height: 100vh;
-    }
     &__intro1 {
       width: 208px;
       @include media-breakpoint-up(md) {

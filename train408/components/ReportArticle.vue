@@ -47,7 +47,6 @@ export default {
       .onStepEnter((response) => {
         if (response.direction === 'up') {
           this.$emit('scroll-top')
-          window.location.href = '#cover-start'
         }
       })
     window.addEventListener('resize', scrollerCredit.resize)
@@ -61,9 +60,9 @@ export default {
   max-width: 600px;
   padding: 0 20px;
   .article-start-anchor {
-    padding: 24px 0 0;
+    padding: 96px 0 0;
     @include media-breakpoint-up(md) {
-      padding: 60px 0 0;
+      padding: 120px 0 0;
     }
   }
   .article-middle-anchor {

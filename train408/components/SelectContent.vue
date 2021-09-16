@@ -1,26 +1,24 @@
 <template>
-  <section class="content">
-    <UiTimeLine
-      v-show="shouldShowTimeline"
-      id="time-line"
-      class="time-line"
-      @click-item="handleClick"
-    />
-
+  <section class="select-content">
     <UiVideoHide1
       v-if="shouldShowVideo1"
-      class="content__video"
+      class="select-content__video"
       @close-video="handleCloseVideo1"
     />
     <UiVideoHide2
       v-if="shouldShowVideo2"
-      class="content__video"
+      class="select-content__video"
       @close-video="handleCloseVideo2"
     />
     <UiVideoHide3
       v-if="shouldShowVideo3"
-      class="content__video"
+      class="select-content__video"
       @close-video="handleCloseVideo3"
+    />
+    <UiTimeLine
+      v-show="shouldShowTimeline"
+      class="select-content__timeline"
+      @click-item="handleClick"
     />
   </section>
 </template>
@@ -44,13 +42,10 @@ export default {
       shouldShowVideo1: false,
       shouldShowVideo2: false,
       shouldShowVideo3: false,
-      scrollDepth: 0,
     }
   },
   methods: {
     handleClick(i) {
-      this.scrollDepth = document.body.offsetHeight
-      console.log('hh', this.scrollDepth)
       this.shouldShowTimeline = false
       this.$emit('close-all')
       this[`shouldShowVideo${i + 1}`] = true
@@ -59,31 +54,32 @@ export default {
       this.shouldShowVideo1 = false
       this.$emit('open-all')
       this.shouldShowTimeline = true
-      window.location.href = '#time-line'
+      window.location.href = '#timeline'
     },
     handleCloseVideo2() {
       this.shouldShowVideo2 = false
       this.$emit('open-all')
       this.shouldShowTimeline = true
-      window.location.href = '#time-line'
+      window.location.href = '#timeline'
     },
     handleCloseVideo3() {
       this.shouldShowVideo3 = false
       this.$emit('open-all')
       this.shouldShowTimeline = true
-      window.location.href = '#time-line'
+      window.location.href = '#timeline'
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.content {
-  width: 100%;
-  min-height: 100vh;
-  margin: auto;
+.select-content {
+  &__timeline {
+    width: 100%;
+    min-height: 100vh;
+  }
   &__video {
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
   }
 }
