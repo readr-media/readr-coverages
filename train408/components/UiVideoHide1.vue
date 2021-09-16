@@ -63,14 +63,8 @@ export default {
           window.pageYOffset &&
           window.innerHeight + window.pageYOffset >= document.body.offsetHeight
         ) {
-          console.log(
-            'rr',
-            window.innerHeight + window.pageYOffset,
-            document.body.offsetHeight
-          )
+          // window.location.href = '/'
           this.$emit('close-video')
-          console.log('gg', this.scrollDepth)
-          // window.scrollTo(0, this.scrollDepth)
         }
       }
     },

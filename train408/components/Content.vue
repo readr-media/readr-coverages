@@ -1,10 +1,14 @@
 <template>
   <section class="content">
-    <UiTimeLine v-if="shouldShowTimeline" @click-item="handleClick" />
+    <UiTimeLine
+      v-show="shouldShowTimeline"
+      id="time-line"
+      class="time-line"
+      @click-item="handleClick"
+    />
 
     <UiVideoHide1
       v-if="shouldShowVideo1"
-      :scrollDepth="scrollDepth"
       class="content__video"
       @close-video="handleCloseVideo1"
     />
@@ -52,20 +56,22 @@ export default {
       this[`shouldShowVideo${i + 1}`] = true
     },
     handleCloseVideo1() {
-      this.shouldShowTimeline = true
       this.shouldShowVideo1 = false
       this.$emit('open-all')
-      console.log('ss', document.body.offsetHeight)
+      this.shouldShowTimeline = true
+      window.location.href = '#time-line'
     },
     handleCloseVideo2() {
-      this.shouldShowTimeline = true
       this.shouldShowVideo2 = false
       this.$emit('open-all')
+      this.shouldShowTimeline = true
+      window.location.href = '#time-line'
     },
     handleCloseVideo3() {
-      this.shouldShowTimeline = true
       this.shouldShowVideo3 = false
       this.$emit('open-all')
+      this.shouldShowTimeline = true
+      window.location.href = '#time-line'
     },
   },
 }
@@ -77,7 +83,7 @@ export default {
   min-height: 100vh;
   margin: auto;
   &__video {
-    width: 100%;
+    width: 100vw;
     min-height: 100vh;
   }
 }

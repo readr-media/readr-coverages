@@ -1,22 +1,20 @@
 <template>
   <div class="tr">
     <Navbar />
-    <UiVideoOpening v-if="!isFullVideo" />
-    <Cover v-if="!isFullVideo" @skip-content="handleSkipContent" />
-    <UiVideoPart1 v-if="!isFullVideo" />
+    <UiVideoOpening v-show="!isFullVideo" class="tr__video" />
+    <Cover v-show="!isFullVideo" @skip-content="handleSkipContent" />
+    <UiVideoPart1 v-show="!isFullVideo" class="tr__video" />
     <Content
-      v-if="shouldShowContent"
+      v-show="shouldShowContent"
       @close-all="handleCloseAll"
       @open-all="handleOpenAll"
     />
-    <UiVideoPart2 v-if="!isFullVideo" />
-    <LazyRenderer>
-      <Report v-if="!isFullVideo" class="tr__report" />
-      <Donate v-if="!isFullVideo" class="tr__donate" />
-      <Credit v-if="!isFullVideo" class="tr__credit" />
-      <LatestList v-if="!isFullVideo" class="tr__latest-list" />
-      <Footer v-if="!isFullVideo" />
-    </LazyRenderer>
+    <UiVideoPart2 v-show="!isFullVideo" />
+    <Report v-show="!isFullVideo" class="tr__report" />
+    <Donate v-show="!isFullVideo" class="tr__donate" />
+    <Credit v-show="!isFullVideo" class="tr__credit" />
+    <LatestList v-show="!isFullVideo" class="tr__latest-list" />
+    <Footer v-show="!isFullVideo" />
     <UiScrollDownBtn />
   </div>
 </template>
@@ -56,6 +54,7 @@ export default {
   mixins: [gaMixin],
   data() {
     return {
+      isFullVi: true,
       isFullVideo: false,
       shouldShowContent: false,
       shouldSkipContent: false,
@@ -79,10 +78,10 @@ export default {
     handleSkipContent() {
       this.shouldSkipContent = true
     },
-    handleResetSkip() {
-      this.shouldSkipContent = true
-      this.shouldShowContent = false
-    },
+    // handleResetSkip() {
+    //   this.shouldSkipContent = true
+    //   this.shouldShowContent = false
+    // },
     handleCloseAll() {
       this.isFullVideo = true
     },
@@ -98,6 +97,9 @@ export default {
   position: relative;
   min-height: 100vh;
   background: #111;
+  &__video {
+    min-height: 100vh;
+  }
   &__donate {
     margin: 0 auto 72px;
     @include media-breakpoint-up(md) {

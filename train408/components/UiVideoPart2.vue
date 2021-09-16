@@ -12,7 +12,7 @@ export default {
         {
           hid: 'part2',
           async: true,
-          innerHTML: `                      
+          innerHTML: `                                      
             (function() {
               var namespace = '__twreporterEmbeddedData';
               var pkg = 'scrollable-video';

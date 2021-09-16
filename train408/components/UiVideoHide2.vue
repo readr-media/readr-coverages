@@ -57,9 +57,8 @@ export default {
           window.pageYOffset &&
           window.innerHeight + window.pageYOffset >= document.body.offsetHeight
         ) {
-          console.log('tt')
+          // window.location.href = '/'
           this.$emit('close-video')
-          // window.scrollTo(0, window.innerHeight * 2)
         }
       }
     },
