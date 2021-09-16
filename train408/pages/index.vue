@@ -1,17 +1,22 @@
 <template>
   <div class="tr">
     <Navbar />
+    <UiVideoOpening v-if="!isFullVideo" />
     <Cover v-if="!isFullVideo" @skip-content="handleSkipContent" />
+    <UiVideoPart1 v-if="!isFullVideo" />
     <Content
       v-if="shouldShowContent"
       @close-all="handleCloseAll"
       @open-all="handleOpenAll"
     />
-    <Report v-if="!isFullVideo" class="tr__report" />
-    <Donate v-if="!isFullVideo" class="tr__donate" />
-    <Credit v-if="!isFullVideo" class="tr__credit" />
-    <LatestList v-if="!isFullVideo" class="tr__latest-list" />
-    <Footer v-if="!isFullVideo" />
+    <UiVideoPart2 v-if="!isFullVideo" />
+    <LazyRenderer>
+      <Report v-if="!isFullVideo" class="tr__report" />
+      <Donate v-if="!isFullVideo" class="tr__donate" />
+      <Credit v-if="!isFullVideo" class="tr__credit" />
+      <LatestList v-if="!isFullVideo" class="tr__latest-list" />
+      <Footer v-if="!isFullVideo" />
+    </LazyRenderer>
     <UiScrollDownBtn />
   </div>
 </template>
@@ -20,6 +25,9 @@
 import scrollama from 'scrollama'
 import 'intersection-observer'
 import Navbar from '~/components/Navbar.vue'
+import UiVideoOpening from '~/components/UiVideoOpening.vue'
+import UiVideoPart1 from '~/components/UiVideoPart1.vue'
+import UiVideoPart2 from '~/components/UiVideoPart2.vue'
 import Cover from '~/components/Cover.vue'
 import Content from '~/components/Content.vue'
 import Report from '~/components/Report.vue'
@@ -33,6 +41,9 @@ import gaMixin from '~/mixins/gaMixin'
 export default {
   components: {
     Navbar,
+    UiVideoOpening,
+    UiVideoPart1,
+    UiVideoPart2,
     Cover,
     Content,
     Report,

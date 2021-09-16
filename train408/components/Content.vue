@@ -1,59 +1,70 @@
 <template>
   <section class="content">
-    <div v-if="shouldShowTimeline" class="content__test">
-      <button type="button" @click="handleTest2">豬瘟</button>
-      <button type="button" @click="handleTest1">發電</button>
-    </div>
+    <UiTimeLine v-if="shouldShowTimeline" @click-item="handleClick" />
 
-    <Test2
-      v-if="shouldShowTest2"
+    <UiVideoHide1
+      v-if="shouldShowVideo1"
+      :scrollDepth="scrollDepth"
+      class="content__video"
+      @close-video="handleCloseVideo1"
+    />
+    <UiVideoHide2
+      v-if="shouldShowVideo2"
       class="content__video"
       @close-video="handleCloseVideo2"
     />
-    <Test1
-      v-if="shouldShowTest1"
+    <UiVideoHide3
+      v-if="shouldShowVideo3"
       class="content__video"
-      @close-video="handleCloseVideo1"
+      @close-video="handleCloseVideo3"
     />
   </section>
 </template>
 
 <script>
-import Test1 from '~/components/Test1.vue'
-import Test2 from '~/components/Test2.vue'
+import UiTimeLine from '~/components/UiTimeLine.vue'
+import UiVideoHide1 from '~/components/UiVideoHide1.vue'
+import UiVideoHide2 from '~/components/UiVideoHide2.vue'
+import UiVideoHide3 from '~/components/UiVideoHide3.vue'
 
 export default {
   components: {
-    Test1,
-    Test2,
+    UiTimeLine,
+    UiVideoHide1,
+    UiVideoHide2,
+    UiVideoHide3,
   },
   data() {
     return {
       shouldShowTimeline: true,
-      shouldShowTest1: false,
-      shouldShowTest2: false,
-      currentScrollHeight: 0,
+      shouldShowVideo1: false,
+      shouldShowVideo2: false,
+      shouldShowVideo3: false,
+      scrollDepth: 0,
     }
   },
   methods: {
-    handleTest1() {
+    handleClick(i) {
+      this.scrollDepth = document.body.offsetHeight
+      console.log('hh', this.scrollDepth)
       this.shouldShowTimeline = false
       this.$emit('close-all')
-      this.shouldShowTest1 = true
-    },
-    handleTest2() {
-      this.shouldShowTimeline = false
-      this.$emit('close-all')
-      this.shouldShowTest2 = true
+      this[`shouldShowVideo${i + 1}`] = true
     },
     handleCloseVideo1() {
       this.shouldShowTimeline = true
-      this.shouldShowTest1 = false
+      this.shouldShowVideo1 = false
       this.$emit('open-all')
+      console.log('ss', document.body.offsetHeight)
     },
     handleCloseVideo2() {
       this.shouldShowTimeline = true
-      this.shouldShowTest2 = false
+      this.shouldShowVideo2 = false
+      this.$emit('open-all')
+    },
+    handleCloseVideo3() {
+      this.shouldShowTimeline = true
+      this.shouldShowVideo3 = false
       this.$emit('open-all')
     },
   },
@@ -63,22 +74,8 @@ export default {
 <style lang="scss" scoped>
 .content {
   width: 100%;
-  max-width: 600px;
   min-height: 100vh;
   margin: auto;
-  &__test {
-    height: 100vh;
-    font-size: 40px;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    button {
-      display: block;
-      margin: 0 40px;
-    }
-  }
   &__video {
     width: 100%;
     min-height: 100vh;
