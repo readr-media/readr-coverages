@@ -20,7 +20,7 @@
       <UiVideoPart2 v-show="!isFullVideo" class="tr__content__video" />
     </div>
     <div v-show="!isFullVideo" class="tr__remain">
-      <Report @reset-skip="handleResetSkip" class="tr__remain__report" />
+      <Report class="tr__remain__report" @reset-skip="handleResetSkip" />
       <Donate class="tr__remain__donate" />
       <Credit class="tr__remain__credit" />
       <LatestList class="tr__remain__latest-list" />

@@ -23,6 +23,10 @@
       <p>
         事實上，交通部早在5月21日就完成了內部的行政調查報告。但直到2個月後，交通部才在7月18日公布該份報告。根據這份行政調查，從施工計劃、工地人員安全教育到邊坡防護措施，台鐵花蓮工務段、專案管理單位和監造單位「顯有疏漏」，12名台鐵相關人員僅被申誡或記過。
       </p>
+      <UiReportHideTable class="article__table" />
+      <p>
+        事實上，交通部早在5月21日就完成了內部的行政調查報告。但直到2個月後，交通部才在7月18日公布該份報告。根據這份行政調查，從施工計劃、工地人員安全教育到邊坡防護措施，台鐵花蓮工務段、專案管理單位和監造單位「顯有疏漏」，12名台鐵相關人員僅被申誡或記過。
+      </p>
       <div class="article__image">
         <img src="~/static/images/og.jpg" alt="image one" />
       </div>
@@ -38,11 +42,13 @@ import scrollama from 'scrollama'
 import 'intersection-observer'
 import UiAnnotation from '~/components/UiAnnotation.vue'
 import UiReportTable from '~/components/UiReportTable.vue'
+import UiReportHideTable from '~/components/UiReportHideTable.vue'
 
 export default {
   components: {
     UiAnnotation,
     UiReportTable,
+    UiReportHideTable,
   },
   mounted() {
     const scrollerCredit = scrollama()
