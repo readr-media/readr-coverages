@@ -25,8 +25,8 @@ export default {
   background: linear-gradient(
     to bottom,
     #111,
-    rgba(0, 0, 0, 0.95) 50%,
-    rgba(0, 0, 0, 0.7) 70%,
+    rgba(17, 17, 17, 0.95) 50%,
+    rgba(17, 17, 17, 0.7) 70%,
     transparent 90%
   );
   width: 100%;

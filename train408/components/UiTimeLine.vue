@@ -1,5 +1,10 @@
 <template>
   <section class="timeline">
+    <div class="timeline__text">
+      <span class="timeline__text__show">點選看肇事原因</span>
+      <span class="timeline__text__hide">，</span>
+      <span class="timeline__text__show">或往下滑動繼續看事件還原</span>
+    </div>
     <ul>
       <li
         v-for="(item, i) in timelineItems"
@@ -24,6 +29,9 @@
 import SvgArrowRight from '~/assets/images/arrow-right.svg?inline'
 
 export default {
+  components: {
+    SvgArrowRight,
+  },
   data() {
     return {
       timelineItems: [
@@ -31,39 +39,36 @@ export default {
           id: 'id1',
           timeStr1: '2020',
           timeStr2: '3/13',
-          image: require('~/static/images/og.jpg'),
-          title: '為什麼會有這個工程？',
+          image: require('~/assets/images/hide1-cover.jpg'),
+          title: '引起事故的工程從何而來？',
           canClicked: true,
         },
         {
           id: 'id2',
           timeStr1: '11/24',
           timeStr2: '',
-          image: require('~/static/images/og.jpg'),
-          title: '事故的邊坡發生過什麼事？',
+          image: require('~/assets/images/hide2-cover.jpg'),
+          title: '事故邊坡過去也曾出意外',
           canClicked: true,
         },
         {
           id: 'id3',
           timeStr1: '2021',
           timeStr2: '1/1',
-          image: require('~/static/images/og.jpg'),
-          title: '停工日為何在工地開貨車？',
+          image: require('~/assets/images/hide3-cover.jpg'),
+          title: '為什麼停工日有工程進行？',
           canClicked: true,
         },
-        {
-          id: 'id4',
-          timeStr1: '4/2',
-          timeStr2: '09:12',
-          image: require('~/static/images/og.jpg'),
-          title: '回到事發前 16 分鐘',
-          canClicked: false,
-        },
+        // {
+        //   id: 'id4',
+        //   timeStr1: '4/2',
+        //   timeStr2: '09:12',
+        //   image: require('~/static/images/og.jpg'),
+        //   title: '回到事發前 16 分鐘',
+        //   canClicked: false,
+        // },
       ],
     }
-  },
-  components: {
-    SvgArrowRight,
   },
   methods: {
     handleClicked(i) {
@@ -75,10 +80,28 @@ export default {
 
 <style lang="scss" scoped>
 .timeline {
-  width: 100%;
-  height: 200vh;
-  @include media-breakpoint-up(md) {
-    height: 100vh;
+  &__text {
+    text-align: center;
+    &__show {
+      display: block;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 24px;
+      color: #e0e0e0;
+      @include media-breakpoint-up(lg) {
+        display: inline;
+      }
+    }
+    &__hide {
+      display: none;
+      @include media-breakpoint-up(lg) {
+        display: inline;
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 24px;
+        color: #e0e0e0;
+      }
+    }
   }
   ul {
     position: relative;
@@ -86,20 +109,23 @@ export default {
     flex-direction: column;
     justify-content: center;
     list-style-type: none;
+    max-width: 360px;
     width: 100%;
     height: 100%;
-    padding: 0 20px;
+    padding: 70px 20px 70px;
     margin: 0 auto;
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       flex-direction: row;
       padding: 0;
+      max-width: none;
       width: 100vw;
       align-items: center;
+      margin: 60px auto 0;
     }
     li {
       position: relative;
       display: flex;
-      @include media-breakpoint-up(md) {
+      @include media-breakpoint-up(lg) {
         flex-direction: column-reverse;
       }
       .item__time {
@@ -109,7 +135,7 @@ export default {
         text-align: right;
         color: #e0e0e0;
         margin: 20px 0 0;
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
           width: auto;
           font-weight: 300;
           font-size: 16px;
@@ -130,7 +156,7 @@ export default {
         cursor: pointer;
         padding: 12px;
         margin-left: 38px;
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
           width: 247px;
           height: 78px;
           margin-left: 0;
@@ -143,7 +169,7 @@ export default {
           object-position: center;
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 2px;
-          @include media-breakpoint-up(md) {
+          @include media-breakpoint-up(lg) {
             width: 96px;
           }
         }
@@ -154,7 +180,7 @@ export default {
           margin: 0 8px 0 12px;
         }
         svg {
-          @include media-breakpoint-up(md) {
+          @include media-breakpoint-up(lg) {
             min-width: 12px;
             height: 19px;
           }
@@ -173,7 +199,7 @@ export default {
           z-index: 15;
           top: 16px;
           left: -10px;
-          @include media-breakpoint-up(md) {
+          @include media-breakpoint-up(lg) {
             border-width: 18px 18px 0 18px;
             border-color: #292929 transparent transparent;
             top: auto;
@@ -192,7 +218,7 @@ export default {
           z-index: 10;
           top: 16px;
           left: -11px;
-          @include media-breakpoint-up(md) {
+          @include media-breakpoint-up(lg) {
             border-width: 18px 18px 0 18px;
             border-color: rgba(255, 255, 255, 0.1) transparent transparent;
             top: auto;
@@ -218,7 +244,7 @@ export default {
         top: 23px;
         left: 49px;
         z-index: 5;
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
           top: auto;
           bottom: 29px;
           left: 44px;
@@ -226,19 +252,19 @@ export default {
       }
       &:nth-child(2) {
         margin: 60px 0 0;
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
           margin: 0 0 0 80px;
         }
       }
       &:nth-child(3) {
         margin: 20px 0 0;
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
           margin: 0 0 0 20px;
         }
       }
       &:nth-child(4) {
         margin: 60px 0 0;
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
           margin: 0 0 0 130px;
         }
       }
@@ -258,16 +284,16 @@ export default {
         rgba(255, 255, 255, 0.8) 25%,
         #fff 30%
       );
-      @include media-breakpoint-up(md) {
-        top: 383px;
+      @include media-breakpoint-up(lg) {
+        top: 120px;
         left: 0;
         width: 100vw;
         height: 1px;
         background: linear-gradient(
           to right,
           rgba(255, 255, 255, 0),
-          rgba(255, 255, 255, 0.1) 10%,
-          rgba(255, 255, 255, 0.4) 20%,
+          rgba(255, 255, 255, 0.4) 10%,
+          rgba(255, 255, 255, 0.6) 20%,
           rgba(255, 255, 255, 0.8) 25%,
           #fff 30%
         );

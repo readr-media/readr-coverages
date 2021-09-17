@@ -18,11 +18,15 @@
           <div class="credit__employee_head">設計</div>
           <div class="credit__employee_name">吳曼努、曾立宇</div>
         </div>
-      </div>
-      <div class="credit__row">
         <div class="credit__employee">
           <div class="credit__employee_head">建模</div>
           <div class="credit__employee_name">洪詩宸</div>
+        </div>
+      </div>
+      <div class="credit__row">
+        <div class="credit__employee">
+          <div class="credit__employee_head">攝影</div>
+          <div class="credit__employee_name">翁睿坤、蘇立坤</div>
         </div>
         <div class="credit__employee">
           <div class="credit__employee_head">工程</div>
@@ -47,7 +51,7 @@ export default {}
   background: transparent;
 
   &__wrapper {
-    max-width: 560px;
+    max-width: 640px;
     margin: auto;
     display: flex;
     flex-direction: column;
