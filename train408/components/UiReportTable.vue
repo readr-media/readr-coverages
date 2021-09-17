@@ -17,8 +17,8 @@
             <span>{{ item.category }}</span>
           </td>
           <td class="td-fault">
-            <ol v-for="(str, i) in item.list" :key="i">
-              <li>
+            <ol>
+              <li v-for="str in item.list" :key="str">
                 <span>{{ str }}</span>
               </li>
             </ol>

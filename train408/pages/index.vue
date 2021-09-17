@@ -26,7 +26,7 @@
       <LatestList class="tr__remain__latest-list" />
       <Footer />
     </div>
-    <UiScrollDownBtn />
+    <UiScrollDownBtn v-show="shouldShowScrollBtn" />
   </div>
 </template>
 
@@ -67,6 +67,7 @@ export default {
       isFullVideo: false,
       shouldShowContent: true,
       shouldShowReport: true,
+      shouldShowScrollBtn: true,
     }
   },
   methods: {
@@ -107,6 +108,7 @@ export default {
   &__content {
     width: 100%;
     min-height: 200vh;
+    margin: 0 0 50vh;
     &__select {
       width: 100%;
       min-height: 100vh;
