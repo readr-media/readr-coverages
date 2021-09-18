@@ -34,6 +34,9 @@ export default {
   background: transparent;
   .readr-footer {
     &::v-deep {
+      ul {
+        padding: 0;
+      }
       .sc-readr-footer {
         color: #e0e0e0;
         .media-links {
