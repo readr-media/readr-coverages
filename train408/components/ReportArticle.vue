@@ -78,7 +78,7 @@ export default {
           scrolling='no'
           style='width:100%;height:800px;'
           sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'
-        ></iframe>x
+        ></iframe>
       `,
     }
   },

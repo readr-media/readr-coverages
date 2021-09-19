@@ -59,14 +59,6 @@ export default {
           title: '為什麼停工日有工程進行？',
           canClicked: true,
         },
-        // {
-        //   id: 'id4',
-        //   timeStr1: '4/2',
-        //   timeStr2: '09:12',
-        //   image: require('~/static/images/og.jpg'),
-        //   title: '回到事發前 16 分鐘',
-        //   canClicked: false,
-        // },
       ],
     }
   },
@@ -112,6 +104,7 @@ export default {
     max-width: 360px;
     width: 100%;
     height: 100%;
+    min-height: 100vh;
     padding: 70px 20px 70px;
     margin: 0 auto;
     @include media-breakpoint-up(lg) {
@@ -119,6 +112,7 @@ export default {
       padding: 0;
       max-width: none;
       width: 100vw;
+      min-height: auto;
       align-items: center;
       margin: 60px auto 0;
     }
@@ -260,12 +254,6 @@ export default {
         margin: 20px 0 0;
         @include media-breakpoint-up(lg) {
           margin: 0 0 0 20px;
-        }
-      }
-      &:nth-child(4) {
-        margin: 60px 0 0;
-        @include media-breakpoint-up(lg) {
-          margin: 0 0 0 130px;
         }
       }
     }
