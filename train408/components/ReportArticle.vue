@@ -45,7 +45,7 @@
         次車清水隧道重大鐵道事故第一階段事實報告」，總算揭露更多關鍵訊息：一連串人為失誤，台鐵難辭其咎。
       </p>
       <!-- eslint-disable vue/no-v-html -->
-      <div v-html="iframeSrc" class="article__graph"></div>
+      <div class="article__graph" v-html="iframeSrc" />
       <p>
         8 月 23 日，獨立調查單位國家運輸安全委員會發布「0402 台鐵第 408
         次車清水隧道重大鐵道事故第一階段事實報告」，總算揭露更多關鍵訊息：一連串人為失誤，台鐵難辭其咎。
@@ -76,14 +76,9 @@ export default {
           class='flourish-embed-iframe'
           frameborder='0'
           scrolling='no'
-          style='width:100%;height:600px;'
+          style='width:100%;height:800px;'
           sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'
         ></iframe>
-        <div style='width:100%!;margin-top:4px!important;text-align:right!important;'>
-          <a class='flourish-credit' href='https://public.flourish.studio/visualisation/7285118/?utm_source=embed&utm_campaign=visualisation/7285118' target='_top' style='text-decoration:none!important'>
-            <img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'>
-          </a>
-        </div>
       `,
     }
   },
