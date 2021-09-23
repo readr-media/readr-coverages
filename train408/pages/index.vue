@@ -6,7 +6,9 @@
       <Cover class="tr__cover__text" @skip-content="handleSkipContent" />
     </div>
     <div v-show="shouldShowContent" class="tr__content">
-      <UiVideoPart1 v-show="!isFullVideo" class="tr__content__video" />
+      <LazyRenderer>
+        <UiVideoPart1 v-show="!isFullVideo" class="tr__content__video" />
+      </LazyRenderer>
       <div
         v-show="!isFullVideo"
         id="timeline"
@@ -17,15 +19,17 @@
         @close-all="handleCloseAll"
         @open-all="handleOpenAll"
       />
-      <UiVideoPart2 v-show="!isFullVideo" class="tr__content__video" />
+      <LazyRenderer>
+        <UiVideoPart2 v-show="!isFullVideo" class="tr__content__video" />
+      </LazyRenderer>
     </div>
-    <div v-show="!isFullVideo" class="tr__remain">
+    <LazyRenderer v-show="!isFullVideo" class="tr__remain">
       <Report class="tr__remain__report" @reset-skip="handleResetSkip" />
       <Donate class="tr__remain__donate" />
       <Credit class="tr__remain__credit" />
       <LatestList class="tr__remain__latest-list" />
       <Footer />
-    </div>
+    </LazyRenderer>
     <UiScrollDownBtn v-show="shouldShowScrollBtn" />
   </div>
 </template>

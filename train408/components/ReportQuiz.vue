@@ -128,7 +128,7 @@ export default {
     }
   }
   @include media-breakpoint-up(md) {
-    padding: 32px 40px;
+    padding: 28px 24px;
     max-width: 568px;
     margin: 0 auto;
   }

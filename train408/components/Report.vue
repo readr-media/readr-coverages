@@ -16,8 +16,8 @@
       class="report__extra"
     />
     <ReportResource
-      :resourceTitle="'這個報導所用到的資料'"
-      :resourceDescription="'兼任教師薪資計算公式由高教工會提供，利用教育部公開資料102-108年度大專院校課程表（來源：大學校院課程資源網）及大專院校教師專長彙整表（來源：教育部108學年度大專校院一覽表資訊網），經彙整後總計有3,942,121筆，再經過比較並排除無法辨識之資料，計算出每一位教師於各學年度的課堂數及鐘點數，並計算出預估薪資（不包含課程人數加給）。'"
+      :resourceTitle="'這篇報導使用到的資料'"
+      :resourceDescription="''"
       :resourceListContents="resourceListContents"
       class="report__resource"
     />
