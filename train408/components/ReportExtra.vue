@@ -35,7 +35,7 @@ export default {
     font-weight: 500;
     line-height: 36px;
     color: #e0e0e0;
-    text-align: center;
+    text-align: left;
     margin: 0 0 24px;
     @include media-breakpoint-up(md) {
       font-size: 32px;

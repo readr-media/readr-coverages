@@ -1,10 +1,14 @@
 <template>
   <div class="video">
     <div id="3c9e4373-2b69-406a-83f2-41c5c2e04a2d"></div>
+    <div id="bottom-anchor"></div>
   </div>
 </template>
 
 <script>
+import scrollama from 'scrollama'
+import 'intersection-observer'
+
 export default {
   head() {
     return {
@@ -48,19 +52,30 @@ export default {
     }
   },
   mounted() {
-    this.addScrollDetector()
-  },
-  methods: {
-    addScrollDetector() {
-      window.onscroll = () => {
+    const scrollerCredit = scrollama()
+    scrollerCredit
+      .setup({
+        step: '#bottom-anchor',
+        offset: 1,
+      })
+      .onStepEnter((response) => {
+        console.log('yy', document.body.offsetHeight)
         if (
-          window.pageYOffset &&
-          window.innerHeight + window.pageYOffset >= document.body.offsetHeight
+          document.body.offsetHeight > 5000 &&
+          response.direction === 'down'
         ) {
+          console.log('here')
           this.$emit('close-video')
         }
-      }
-    },
+      })
+    window.addEventListener('resize', scrollerCredit.resize)
   },
 }
 </script>
+
+<style lang="scss" scoped>
+#bottom-anchor {
+  height: 500px;
+  background-color: #111;
+}
+</style>
