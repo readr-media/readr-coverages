@@ -18,13 +18,13 @@
         <UiVideoPart2 v-show="!isFullVideo" class="tr__content__video" />
       </LazyRenderer>
     </div>
-    <LazyRenderer v-show="!isFullVideo" class="tr__remain">
+    <div v-show="!isFullVideo" class="tr__remain">
       <Report class="tr__remain__report" @reset-skip="handleResetSkip" />
       <Donate class="tr__remain__donate" />
       <Credit class="tr__remain__credit" />
       <LatestList class="tr__remain__latest-list" />
       <Footer />
-    </LazyRenderer>
+    </div>
     <UiScrollDownBtn v-show="shouldShowScrollBtn" />
   </div>
 </template>

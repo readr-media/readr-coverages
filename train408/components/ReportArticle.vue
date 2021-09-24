@@ -72,7 +72,6 @@
         />
       </p>
       <UiReportTable class="article__graph" />
-      <div id="article-middle" class="article-middle-anchor" />
       <p>
         國家運輸安全調查委員會<UiAnnotation
           :text="''"
@@ -313,7 +312,7 @@ export default {
     const scrollerCredit = scrollama()
     scrollerCredit
       .setup({
-        step: '#article-middle',
+        step: '#article-start',
       })
       .onStepEnter((response) => {
         if (response.direction === 'up') {
@@ -334,12 +333,6 @@ export default {
     padding: 96px 0 0;
     @include media-breakpoint-up(md) {
       padding: 120px 0 0;
-    }
-  }
-  .article-middle-anchor {
-    margin: 16px 0 0;
-    @include media-breakpoint-up(md) {
-      margin: 32px 0 0;
     }
   }
   h2 {
