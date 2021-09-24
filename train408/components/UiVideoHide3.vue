@@ -75,7 +75,7 @@ export default {
 
 <style lang="scss" scoped>
 #bottom-anchor {
-  height: 100px;
+  height: 500px;
   background-color: #111;
 }
 </style>
