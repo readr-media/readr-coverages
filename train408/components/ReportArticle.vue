@@ -56,7 +56,7 @@
       </p>
       <UiReportImage
         class="article__image"
-        :image="require('~/assets/images/article-picture-2.jpeg')"
+        :image="require('~/assets/images/article-picture-1.jpeg')"
         :text="'攝影／賴一銀'"
       />
       <h3>
@@ -206,7 +206,7 @@
       </p>
       <UiReportImage
         class="article__image"
-        :image="require('~/assets/images/article-picture-3.jpeg')"
+        :image="require('~/assets/images/article-picture-2.jpeg')"
         :text="'攝影／蘇立坤'"
       />
       <p>
@@ -255,7 +255,7 @@
       </h3>
       <UiReportImage
         class="article__image"
-        :image="require('~/assets/images/article-picture-4.jpeg')"
+        :image="require('~/assets/images/article-picture-3.jpeg')"
         :text="'攝影／翁睿坤'"
       />
       <p>
