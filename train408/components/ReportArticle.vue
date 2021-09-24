@@ -3,7 +3,8 @@
     <div id="article-start" class="article-start-anchor" />
     <div>
       <h2>
-        【重建太魯閣出軌事發現場】失控的鐵道安全：臺鐵改革為什麼一直失靈？
+        <span>失控的鐵道安全：</span>
+        <span>臺鐵改革為什麼一直失靈？</span>
       </h2>
       <p>
         2021 年 4 月 2
@@ -208,6 +209,10 @@
         :image="require('~/assets/images/article-picture-2.jpeg')"
         :text="'攝影／蘇立坤'"
       />
+      <h3>
+        <span>要求增加巡軌次數</span>
+        <span>必要設備用 10 分鐘就故障</span>
+      </h3>
       <p>
         在宜蘭段養護軌道的小高說，普悠瑪事件之後，臺鐵局增加巡查鐵道的次數，但巡查必要的設備卻常常故障，他曾經拿過一臺機器，出勤只用了
         10
@@ -216,10 +221,6 @@
       <p>
         故障的設備測不出軌道異常，就算找到問題，何時拿得到材料也沒有完善的追蹤系統。小高解釋，過去發現軌道需要維修時，會口頭告知或在社群群組以訊息通知領班，再由領班去找監工協調材料，並等候領班分配工作；如果遲遲沒拿到材料，領班才會再去詢問監工，因此並沒有正式記錄。
       </p>
-      <h3>
-        <span>要求增加巡軌次數</span>
-        <span>必要設備用 10 分鐘就故障</span>
-      </h3>
       <p>
         臺鐵局今年 6 月推出手機
         APP，讓道班人員發現軌道有問題時，可以即時回報，並追蹤改善成果，希望能提升巡檢可靠度，但就小高的觀察，「臺鐵局有發公文強制要我們用，一開始還說會發公用手機，後來又要我們先裝在自己的手機，但是上班不能使用自己的手機，其實蠻矛盾的。」
@@ -318,6 +319,9 @@ export default {
         if (response.direction === 'up') {
           this.$emit('scroll-top')
         }
+        if (response.direction === 'down') {
+          this.$emit('hide-scroll-icon')
+        }
       })
     window.addEventListener('resize', scrollerCredit.resize)
   },
@@ -346,6 +350,9 @@ export default {
       font-size: 32px;
       line-height: 44px;
       margin: 0 0 40px;
+    }
+    span {
+      display: block;
     }
   }
   h3 {

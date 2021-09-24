@@ -26,7 +26,7 @@
       <div class="credit__row">
         <div class="credit__employee">
           <div class="credit__employee_head">攝影</div>
-          <div class="credit__employee_name">翁睿坤、蘇立坤</div>
+          <div class="credit__employee_name">翁睿坤、蘇立坤、賴一銀</div>
         </div>
         <div class="credit__employee">
           <div class="credit__employee_head">工程</div>

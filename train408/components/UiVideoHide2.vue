@@ -59,12 +59,10 @@ export default {
         offset: 1,
       })
       .onStepEnter((response) => {
-        console.log('yy', document.body.offsetHeight)
         if (
           document.body.offsetHeight > 5000 &&
           response.direction === 'down'
         ) {
-          console.log('here')
           this.$emit('close-video')
         }
       })

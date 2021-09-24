@@ -59,6 +59,7 @@ export default {
       }
       .title {
         span {
+          display: block;
           font-size: 16px;
           line-height: 24px;
           text-align: left;

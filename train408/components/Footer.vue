@@ -36,6 +36,13 @@ export default {
     &::v-deep {
       ul {
         padding: 0;
+        li {
+          &::before {
+            @include media-breakpoint-up(md) {
+              background-color: #e0e0e0;
+            }
+          }
+        }
       }
       .sc-readr-footer {
         color: #e0e0e0;
@@ -44,6 +51,15 @@ export default {
             path {
               fill: #fff;
               opacity: 0.75;
+            }
+          }
+        }
+      }
+      .company-info {
+        .sc-readr-footer + .sc-readr-footer {
+          &::before {
+            @include media-breakpoint-up(md) {
+              background-color: rgba(255, 255, 255, 0.1);
             }
           }
         }
