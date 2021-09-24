@@ -1,6 +1,10 @@
 <template>
   <section class="report">
-    <ReportArticle class="report__article" @scroll-top="handleScrollTop" />
+    <ReportArticle
+      class="report__article"
+      @scroll-top="handleScrollTop"
+      @hide-scroll-icon="handleHideScrollIcon"
+    />
     <ReportQuiz
       :quizTitle="'閱讀測驗'"
       :quizDescription="'誰負責監督管理臺鐵局？'"
@@ -101,6 +105,9 @@ export default {
   methods: {
     handleScrollTop() {
       this.$emit('reset-skip')
+    },
+    handleHideScrollIcon() {
+      this.$emit('hide-down-icon')
     },
   },
 }

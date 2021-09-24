@@ -59,7 +59,7 @@ export default {
         .sc-readr-footer + .sc-readr-footer {
           &::before {
             @include media-breakpoint-up(md) {
-              background-color: #e0e0e0;
+              background-color: rgba(255, 255, 255, 0.1);
             }
           }
         }

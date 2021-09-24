@@ -319,6 +319,9 @@ export default {
         if (response.direction === 'up') {
           this.$emit('scroll-top')
         }
+        if (response.direction === 'down') {
+          this.$emit('hide-scroll-icon')
+        }
       })
     window.addEventListener('resize', scrollerCredit.resize)
   },

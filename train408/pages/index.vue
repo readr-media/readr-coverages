@@ -19,7 +19,11 @@
       </LazyRenderer>
     </div>
     <div v-show="!isFullVideo" class="tr__remain">
-      <Report class="tr__remain__report" @reset-skip="handleResetSkip" />
+      <Report
+        class="tr__remain__report"
+        @reset-skip="handleResetSkip"
+        @hide-down-icon="handleHideScrollIcon"
+      />
       <Donate class="tr__remain__donate" />
       <Credit class="tr__remain__credit" />
       <LatestList class="tr__remain__latest-list" />
@@ -76,6 +80,10 @@ export default {
     handleResetSkip() {
       window.location.href = '#cover-start'
       this.shouldShowContent = true
+      this.shouldShowScrollBtn = true
+    },
+    handleHideScrollIcon() {
+      this.shouldShowScrollBtn = false
     },
     handleCloseAll() {
       this.isFullVideo = true
