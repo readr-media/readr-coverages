@@ -11,7 +11,7 @@
       class="report__quiz"
     />
     <ReportExtra
-      :extraTitle="'如果你關心這個議題，你可以⋯⋯'"
+      :extraTitle="'如果你關心這個議題'"
       :extraListContents="extraListContents"
       class="report__extra"
     />
