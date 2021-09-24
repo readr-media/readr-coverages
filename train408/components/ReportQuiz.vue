@@ -32,12 +32,14 @@
 </template>
 
 <script>
+import gaMixin from '~/mixins/gaMixin'
 import UiQuizBtn from '~/components/UiQuizBtn.vue'
 
 export default {
   components: {
     UiQuizBtn,
   },
+  mixins: [gaMixin],
   props: {
     quizTitle: {
       type: String,
@@ -77,6 +79,8 @@ export default {
   },
   methods: {
     handleQuizButtonClick(option, i) {
+      const order = ['A', 'B', 'C', 'D']
+      this.gaClickHandler(`選項${order[i]}`)
       this.shouldShowAnswerDetail = true
       this.optionClicked = option
     },

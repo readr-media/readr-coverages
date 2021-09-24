@@ -9,6 +9,7 @@
 
 <script>
 import gaMixin from '~/mixins/gaMixin'
+
 export default {
   mixins: [gaMixin],
 }

@@ -30,9 +30,13 @@
 </template>
 
 <script>
+import gaMixin from '~/mixins/gaMixin'
+
 export default {
+  mixins: [gaMixin],
   methods: {
     handleSkip() {
+      this.gaClickHandler('跳過直接看文章')
       this.$emit('skip-content')
     },
   },
