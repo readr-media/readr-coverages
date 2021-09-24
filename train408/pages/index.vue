@@ -9,11 +9,6 @@
       <LazyRenderer>
         <UiVideoPart1 v-show="!isFullVideo" class="tr__content__video" />
       </LazyRenderer>
-      <div
-        v-show="!isFullVideo"
-        id="timeline"
-        class="tr__content__timeline-anchor"
-      />
       <SelectContent
         class="tr__content__select"
         @close-all="handleCloseAll"
@@ -112,7 +107,6 @@ export default {
   &__content {
     width: 100%;
     min-height: 200vh;
-    margin: 0 0 50vh;
     &__select {
       width: 100%;
       min-height: 100vh;
