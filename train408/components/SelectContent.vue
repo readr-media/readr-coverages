@@ -48,7 +48,6 @@ export default {
   methods: {
     handleClick(i) {
       this.depth = window.pageYOffset
-      console.log('depth', this.depth)
       this.shouldShowTimeline = false
       this.$emit('close-all')
       this[`shouldShowVideo${i + 1}`] = true
@@ -57,31 +56,25 @@ export default {
       this.shouldShowVideo1 = false
       this.$emit('open-all')
       this.shouldShowTimeline = true
-      console.log('depth 1', this.depth)
       setTimeout(() => {
         window.scrollTo(0, this.depth - 500)
       }, 5)
-      // window.location.href = '#timeline'
     },
     handleCloseVideo2() {
       this.shouldShowVideo2 = false
       this.$emit('open-all')
       this.shouldShowTimeline = true
-      console.log('depth 2', this.depth)
       setTimeout(() => {
         window.scrollTo(0, this.depth - 500)
       }, 5)
-      // window.location.href = '#timeline'
     },
     handleCloseVideo3() {
       this.shouldShowVideo3 = false
       this.$emit('open-all')
       this.shouldShowTimeline = true
-      console.log('depth 3', this.depth)
       setTimeout(() => {
         window.scrollTo(0, this.depth - 500)
       }, 5)
-      // window.location.href = '#timeline'
     },
   },
 }
