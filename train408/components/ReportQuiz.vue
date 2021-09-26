@@ -1,5 +1,5 @@
 <template>
-  <section class="report-quiz">
+  <section id="article-quiz" class="report-quiz">
     <h1 class="report-quiz__quiz-title quiz-title" v-text="quizTitle" />
     <p class="report-quiz__quiz-description" v-text="quizDescription" />
     <div class="report-quiz__quiz-options quiz-options">
@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import scrollama from 'scrollama'
+import 'intersection-observer'
 import gaMixin from '~/mixins/gaMixin'
 import UiQuizBtn from '~/components/UiQuizBtn.vue'
 
@@ -76,6 +78,19 @@ export default {
     isCurrentOptionCorrect() {
       return this.optionClicked.type === 'optionCorrect'
     },
+  },
+  mounted() {
+    const scrollerCredit = scrollama()
+    scrollerCredit
+      .setup({
+        step: '#article-quiz',
+      })
+      .onStepEnter((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('to 閱讀測驗')
+        }
+      })
+    window.addEventListener('resize', scrollerCredit.resize)
   },
   methods: {
     handleQuizButtonClick(option, i) {

@@ -1,11 +1,16 @@
 <template>
-  <div class="video">
+  <div id="video-part1" class="video">
     <div id="92401e53-3919-4c4d-830c-1fc373741fde"></div>
   </div>
 </template>
 
 <script>
+import scrollama from 'scrollama'
+import 'intersection-observer'
+import gaMixin from '~/mixins/gaMixin'
+
 export default {
+  mixins: [gaMixin],
   head() {
     return {
       script: [
@@ -46,6 +51,19 @@ export default {
         part1: ['innerHTML'],
       },
     }
+  },
+  mounted() {
+    const scrollerCredit = scrollama()
+    scrollerCredit
+      .setup({
+        step: '#video-part1',
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('還原整起事故，究竟是怎麼發生的？影片結束')
+        }
+      })
+    window.addEventListener('resize', scrollerCredit.resize)
   },
 }
 </script>

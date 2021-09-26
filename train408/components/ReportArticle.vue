@@ -20,7 +20,7 @@
         每次事故發生後，包括行政院長、交通部首長、臺鐵局長都再三強調「改革持續推動中」；然而第一線工作人員坦言，普悠瑪號事故至今
         3 年多，不論是員工訓練、工作流程或設備狀態，都感受不到明顯的改變。
       </p>
-      <p>臺鐵的改革究竟出了什麼問題？</p>
+      <p id="article-first">臺鐵的改革究竟出了什麼問題？</p>
       <h3>
         <span>外物頻入侵</span>
         <span>司機員僅以肉眼確認路況</span>
@@ -52,7 +52,7 @@
         事故之後，交通部要求臺鐵局借鏡高鐵，設計邊坡滑動、落石及外物入侵的偵測器；臺鐵局也回應，會盤點鐵公路周遭可能有異物入侵的地方，設置永久性的阻隔設施，或天然災害告警系統，預定
         10 月提出改善計畫。
       </p>
-      <p>
+      <p id="article-second">
         但正偉對此並不樂觀，畢竟以前「不了了之」的經驗太多：「我們曾針對某路段建議蓋圍牆防範居民侵入，結果民眾去找立委，事情又無疾而終。臺鐵局如果真要改革，還是要看有沒有決心。」
       </p>
       <UiReportImage
@@ -64,7 +64,7 @@
         <span>忽視外包品質</span>
         <span>沿線工程成安全未爆彈</span>
       </h3>
-      <p>
+      <p id="article-third-1">
         造成太魯閣號事故的另一個原因，是臺鐵局對外包工程的細節幾乎毫無掌握。交通部
         7
         月公布的行政調查報告中，統整其工區管理的五大疏失：包括施工計畫審核、工地現場人員管理、工地防護等，報告中特別強調，即使臺鐵局將工程的督導、審核作業外包給專案管理廠商，仍須訂定稽核的機制<UiAnnotation
@@ -104,7 +104,7 @@
           :pureAnnotationText="'註：交通部鐵道局負責興建工程，橋梁、隧道、路線、軌道與建築等土建鐵道工程。交通部臺灣鐵路局除提供大眾運輸服務與營運外、也需負責養護工程作業，如電力、電訊、號誌、車輛、機廠維修設備與中央監控等系統機電工程。2018年，《交通部鐵道局組織法》施行，將鐵路監理業務劃歸鐵道局，但因為母法《鐵路法》尚未修正，法制化的工作還沒有完成。'"
         />？鐵道局進一步解釋，未來新增的業務會包含重大邊坡、橋樑、隧道及車站等工程，鐵道建設及營運監理是不同部門負責，各自辦理業務，如果鐵道局負責的業務出現疏失，「我們也不會參與調查作業。」
       </p>
-      <p>
+      <p id="article-third-2">
         此外，鐵道局表示，行政院 9 月 16
         日通過《鐵路法》修正草案，明訂「鐵路監督管理」<UiAnnotation
           :text="''"
@@ -115,7 +115,7 @@
         <span>完成逾 9 成改善建議</span>
         <span>臺鐵仍頻傳事故</span>
       </h3>
-      <p>
+      <p id="article-fourth-1">
         從運安會調查的案件更可以發現，兩次重大意外之間，臺鐵局發生多達 9
         起的重大鐵道事故，其中南部一輛區間車過站不停又超速倒退的事故，還被監察院糾正，認為高雄機務段的現場人員隱匿不報，直到被檢舉才揭露事故，罔顧行車安全。<UiAnnotation
           :text="''"
@@ -134,7 +134,7 @@
         >，已有 134 項解除列管，剩 10 項仍在辦理中，達成率高達 93%，且 2020
         年就已經完成 118 項。
       </p>
-      <p>
+      <p id="article-fourth-2">
         與此同時，運安會也著手調查普悠瑪號事故，並於 2020 年 10 月 19
         日發布最終調查報告，同樣對臺鐵提出 18 項改善建議。然而 READr
         比較體檢小組和運安會的內容，卻發現針對相同類型的改善項目，交通部幾乎全數解除列管，運安會至今仍持續列管中。
@@ -147,7 +147,7 @@
           :pureAnnotationText="'註：報告中原文為「對於施工計畫中提列風險、危害事項及其消除措施，應增訂並確實落實於每日工班上線前之『安全工具箱會議』中，以教育員工及承包廠商安全意識，建立紮實安全文化基礎。」'"
         />
       </p>
-      <p>
+      <p id="article-fourth-3">
         交通部於 2020 年 10 月 23
         日解除列管此項目，但魏豫綾強調，從運安會報告中卻可以看到，參與安全講習的人員和施工人員是不同批的人，事故當日進入工地的綁鋼筋工人也不在原本的造冊名單內。臺鐵工務處、勞安室及工程施工稽核小組在過程中不斷指出工地出入人員缺乏管制、沒有落實安全教育、施工缺乏危險意識，「如此的工地管理品質，交通部為什麼還能解除列管？」
       </p>
@@ -201,7 +201,7 @@
         硬體雖有改善，司機員的處境卻沒有改變。正偉分享道，兩、三個月前他駕駛莒光號時也出現故障，「而且在嘉義站一接車就壞掉」，經檢查員指示嘗試排除故障後還是沒有改善；之後檢查員多次來電詢問車況，並要他重新啟動某設備的開關，正偉感到不可置信，「為什麼發生普悠瑪號事故之後，我還會接到檢查員的電話，要我邊開車邊排除故障？」他後來降速到
         60 公里，慢慢開到新營站停站修車，才終於修好。
       </p>
-      <p>
+      <p id="article-fifth">
         除了列車裝置之外，其他設備還是常出現異常。浩南就觀察到，有些列車型號較舊，可以顯示車子停靠站的資訊設備永遠是故障的，報修多次都沒用，「不知道是沒有修，還是沒有（材）料可以換，到現在我們都不通報了，反正也沒用。」他認為，雖然資訊系統不影響行車安全，但對旅客來說還是很不方便，「如果旅客不小心下錯站怎麼辦？」
       </p>
       <UiReportImage
@@ -246,7 +246,7 @@
       <p>
         阿豪表示，臺鐵局有給員工看一些教學影片，但只感覺到要閱讀、簽名的公告變得更多，沒有什麼完整的課程談及什麼是安全管理系統、為什麼要引進，「不知道是上面還沒打算要來講，或是其實已經有慢慢融入既有的程序，只是我們看不出來而已？」
       </p>
-      <p>
+      <p id="article-sixth">
         浩南補充，安全管理系統是普悠瑪號事件之後才推動的新制，廣泛用於航空業，找出每個工作崗位上可能會碰到的風險因素，然後評分分級，最後再檢討風險是什麼原因造成的？有哪些疏漏？但從過去事故彙報的原因，常常是「員工危機意識不足」，忽略環境、組織和制度的因素，「同樣的東西在航空業可以改善航空安全，在臺鐵來做可能就變得畸型。」他悲觀作結。
       </p>
       <h3>
@@ -274,7 +274,9 @@
         浩南苦笑，「上班時一直注意路線上的隧道啊，彎道之類的，也試著下載了測速的
         APP，但是自己沒有真正操作過車長閥，到時候真的有膽子敢去拉車長閥嗎？然後路線的那些細節，我覺得要花很多心力才有可能牢牢記住，就算記住了，能改變結局嗎？」
       </p>
-      <p>「想了很多可能會發生的事，但也只能繼續這樣做下去了。」浩南說。</p>
+      <p id="article-seventh">
+        「想了很多可能會發生的事，但也只能繼續這樣做下去了。」浩南說。
+      </p>
     </div>
   </section>
 </template>
@@ -286,6 +288,7 @@ import UiAnnotation from '~/components/UiAnnotation.vue'
 import UiReportImage from '~/components/UiReportImage.vue'
 import UiReportTable from '~/components/UiReportTable.vue'
 import UiReportHideTable from '~/components/UiReportHideTable.vue'
+import gaMixin from '~/mixins/gaMixin'
 
 export default {
   components: {
@@ -294,6 +297,7 @@ export default {
     UiReportTable,
     UiReportHideTable,
   },
+  mixins: [gaMixin],
   data() {
     return {
       iframeSrc: `
@@ -310,8 +314,18 @@ export default {
     }
   },
   mounted() {
-    const scrollerCredit = scrollama()
-    scrollerCredit
+    const scrollerCredit1 = scrollama()
+    const scrollerCredit2 = scrollama()
+    const scrollerCredit3 = scrollama()
+    const scrollerCredit4 = scrollama()
+    const scrollerCredit5 = scrollama()
+    const scrollerCredit6 = scrollama()
+    const scrollerCredit7 = scrollama()
+    const scrollerCredit8 = scrollama()
+    const scrollerCredit9 = scrollama()
+    const scrollerCredit10 = scrollama()
+    const scrollerCredit11 = scrollama()
+    scrollerCredit1
       .setup({
         step: '#article-start',
       })
@@ -320,10 +334,123 @@ export default {
           this.$emit('scroll-top')
         }
         if (response.direction === 'down') {
+          this.gaScrollHandler(
+            '當天搜救行動直到晚上 8 點 30 分，將最後一位罹難者移出，才完成此次搜救任務。影片結束'
+          )
           this.$emit('hide-scroll-icon')
         }
       })
-    window.addEventListener('resize', scrollerCredit.resize)
+    scrollerCredit2
+      .setup({
+        step: '#article-first',
+        offset: 1,
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('文章第一段')
+        }
+      })
+    scrollerCredit3
+      .setup({
+        step: '#article-second',
+        offset: 1,
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('文章第二段')
+        }
+      })
+    scrollerCredit4
+      .setup({
+        step: '#article-third-1',
+        offset: 1,
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('文章第三段上半')
+        }
+      })
+    scrollerCredit5
+      .setup({
+        step: '#article-third-2',
+        offset: 1,
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('文章第三段下半')
+        }
+      })
+    scrollerCredit6
+      .setup({
+        step: '#article-fourth-1',
+        offset: 1,
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('文章第四段上')
+        }
+      })
+    scrollerCredit7
+      .setup({
+        step: '#article-fourth-2',
+        offset: 1,
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('文章第四段中')
+        }
+      })
+    scrollerCredit8
+      .setup({
+        step: '#article-fourth-3',
+        offset: 1,
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('文章第四段下')
+        }
+      })
+    scrollerCredit9
+      .setup({
+        step: '#article-fifth',
+        offset: 1,
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('文章第五段')
+        }
+      })
+    scrollerCredit10
+      .setup({
+        step: '#article-sixth',
+        offset: 1,
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('文章第六段')
+        }
+      })
+    scrollerCredit11
+      .setup({
+        step: '#article-seventh',
+        offset: 1,
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('文章第七段')
+        }
+      })
+    window.addEventListener('resize', scrollerCredit1.resize)
+    window.addEventListener('resize', scrollerCredit2.resize)
+    window.addEventListener('resize', scrollerCredit3.resize)
+    window.addEventListener('resize', scrollerCredit4.resize)
+    window.addEventListener('resize', scrollerCredit5.resize)
+    window.addEventListener('resize', scrollerCredit6.resize)
+    window.addEventListener('resize', scrollerCredit7.resize)
+    window.addEventListener('resize', scrollerCredit8.resize)
+    window.addEventListener('resize', scrollerCredit9.resize)
+    window.addEventListener('resize', scrollerCredit10.resize)
+    window.addEventListener('resize', scrollerCredit11.resize)
   },
 }
 </script>

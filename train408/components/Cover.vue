@@ -12,7 +12,7 @@
     </div>
     <div class="cover__intro">
       <div class="cover__intro__intro2">
-        <div class="title">
+        <div id="cover-title" class="title">
           <span>【重建太魯閣出軌事發現場】</span>
           <h2>失控的鐵道安全：臺鐵改革為什麼一直失靈？</h2>
         </div>
@@ -30,10 +30,25 @@
 </template>
 
 <script>
+import scrollama from 'scrollama'
+import 'intersection-observer'
 import gaMixin from '~/mixins/gaMixin'
 
 export default {
   mixins: [gaMixin],
+  mounted() {
+    const scrollerCredit = scrollama()
+    scrollerCredit
+      .setup({
+        step: '#cover-title',
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('失控的鐵道安全：臺鐵改革為什麼一直失靈？')
+        }
+      })
+    window.addEventListener('resize', scrollerCredit.resize)
+  },
   methods: {
     handleSkip() {
       this.gaClickHandler('跳過直接看文章')
