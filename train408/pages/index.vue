@@ -2,13 +2,17 @@
   <div class="tr">
     <Navbar />
     <div v-show="!isFullVideo" class="tr__cover">
-      <UiVideoOpening class="tr__cover__video" />
+      <UiVideoOpening v-if="!hasSkip" class="tr__cover__video" />
       <div id="cover-start-anchor" />
       <Cover class="tr__cover__text" @skip-content="handleSkipContent" />
     </div>
     <div v-show="shouldShowContent" class="tr__content">
       <LazyRenderer>
-        <UiVideoPart1 v-show="!isFullVideo" class="tr__content__video" />
+        <UiVideoPart1
+          v-show="!isFullVideo"
+          v-if="!hasSkip"
+          class="tr__content__video"
+        />
       </LazyRenderer>
       <SelectContent
         class="tr__content__select"
@@ -74,6 +78,7 @@ export default {
       shouldShowContent: true,
       shouldShowReport: true,
       shouldShowScrollBtn: true,
+      hasSkip: false,
       coverDepth: 0,
     }
   },
@@ -93,9 +98,11 @@ export default {
   methods: {
     handleSkipContent() {
       this.shouldShowContent = false
+      this.hasSkip = true
     },
     handleResetSkip() {
       // window.location.href = '#cover-start'
+      this.hasSkip = false
       setTimeout(() => {
         window.scrollTo(0, this.coverDepth + 400)
       }, 5)
