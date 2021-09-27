@@ -3,6 +3,7 @@
     <Navbar />
     <div v-show="!isFullVideo" class="tr__cover">
       <UiVideoOpening class="tr__cover__video" />
+      <div id="cover-start-anchor" />
       <Cover class="tr__cover__text" @skip-content="handleSkipContent" />
     </div>
     <div v-show="shouldShowContent" class="tr__content">
@@ -34,6 +35,8 @@
 </template>
 
 <script>
+import scrollama from 'scrollama'
+import 'intersection-observer'
 import Navbar from '~/components/Navbar.vue'
 import UiVideoOpening from '~/components/UiVideoOpening.vue'
 import UiVideoPart1 from '~/components/UiVideoPart1.vue'
@@ -71,14 +74,29 @@ export default {
       shouldShowContent: true,
       shouldShowReport: true,
       shouldShowScrollBtn: true,
+      coverDepth: 0,
     }
+  },
+  mounted() {
+    const scrollerCredit = scrollama()
+    scrollerCredit
+      .setup({
+        step: '#cover-start-anchor',
+      })
+      .onStepExit((response) => {
+        if (response.direction === 'down') {
+          this.coverDepth = window.pageYOffset
+        }
+      })
+    window.addEventListener('resize', scrollerCredit.resize)
   },
   methods: {
     handleSkipContent() {
       this.shouldShowContent = false
     },
     handleResetSkip() {
-      window.location.href = '#cover-start'
+      // window.location.href = '#cover-start'
+      window.scrollTo(0, this.coverDepth + 400)
       this.shouldShowContent = true
       this.shouldShowScrollBtn = true
     },

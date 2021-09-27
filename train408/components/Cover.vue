@@ -52,7 +52,7 @@ export default {
   methods: {
     handleSkip() {
       this.gaClickHandler('跳過直接看文章')
-      this.$emit('skip-content')
+      this.$emit('skip-content', this.depth)
     },
   },
 }
@@ -92,7 +92,7 @@ export default {
           font-size: 28px;
           font-weight: 500;
           line-height: 36px;
-          text-align: left;
+          text-align: justify;
           color: #e0e0e0;
           margin: 0 0 48px;
           @include media-breakpoint-up(md) {
@@ -106,6 +106,7 @@ export default {
       font-size: 16px;
       font-weight: 300;
       line-height: 24px;
+      text-align: justify;
       color: #e0e0e0;
       @include media-breakpoint-up(md) {
         font-size: 18px;
