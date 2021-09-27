@@ -57,7 +57,7 @@ export default {
       this.$emit('open-all')
       this.shouldShowTimeline = true
       setTimeout(() => {
-        window.scrollTo(0, this.depth - 500)
+        window.scrollTo(0, this.depth - 230)
       }, 5)
     },
     handleCloseVideo2() {
@@ -65,7 +65,7 @@ export default {
       this.$emit('open-all')
       this.shouldShowTimeline = true
       setTimeout(() => {
-        window.scrollTo(0, this.depth - 500)
+        window.scrollTo(0, this.depth - 230)
       }, 5)
     },
     handleCloseVideo3() {
@@ -73,7 +73,7 @@ export default {
       this.$emit('open-all')
       this.shouldShowTimeline = true
       setTimeout(() => {
-        window.scrollTo(0, this.depth - 500)
+        window.scrollTo(0, this.depth - 240)
       }, 5)
     },
   },

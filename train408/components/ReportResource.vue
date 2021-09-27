@@ -1,5 +1,5 @@
 <template>
-  <div class="resource">
+  <div id="article-resource" class="resource">
     <h2>{{ resourceTitle }}</h2>
     <p>{{ resourceDescription }}</p>
     <UiUnorderedList :contents="resourceListContents" />
@@ -7,12 +7,16 @@
 </template>
 
 <script>
+import scrollama from 'scrollama'
+import 'intersection-observer'
+import gaMixin from '~/mixins/gaMixin'
 import UiUnorderedList from '~/components/UiUnorderedList.vue'
 
 export default {
   components: {
     UiUnorderedList,
   },
+  mixins: [gaMixin],
   props: {
     resourceTitle: {
       type: String,
@@ -26,6 +30,19 @@ export default {
       type: Array,
       default: () => [],
     },
+  },
+  mounted() {
+    const scrollerCredit = scrollama()
+    scrollerCredit
+      .setup({
+        step: '#article-resource',
+      })
+      .onStepEnter((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('to 這個報導使用到的資料')
+        }
+      })
+    window.addEventListener('resize', scrollerCredit.resize)
   },
 }
 </script>

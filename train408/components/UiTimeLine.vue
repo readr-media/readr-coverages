@@ -9,7 +9,7 @@
       <li
         v-for="(item, i) in timelineItems"
         :key="item.id"
-        @click="handleClicked(i)"
+        @click="handleClicked(i, item.gaStr)"
       >
         <div class="item__time">
           <span>{{ item.timeStr1 }}</span>
@@ -26,12 +26,14 @@
 </template>
 
 <script>
+import gaMixin from '~/mixins/gaMixin'
 import SvgArrowRight from '~/assets/images/arrow-right.svg?inline'
 
 export default {
   components: {
     SvgArrowRight,
   },
+  mixins: [gaMixin],
   data() {
     return {
       timelineItems: [
@@ -39,6 +41,7 @@ export default {
           id: 'id1',
           timeStr1: '2020',
           timeStr2: '3/13',
+          gaStr: '20200313支線',
           image: require('~/assets/images/hide1-cover.jpg'),
           title: '引起事故的工程從何而來？',
           canClicked: true,
@@ -47,6 +50,7 @@ export default {
           id: 'id2',
           timeStr1: '11/24',
           timeStr2: '',
+          gaStr: '20201124支線',
           image: require('~/assets/images/hide2-cover.jpg'),
           title: '事故邊坡過去也曾出意外',
           canClicked: true,
@@ -55,6 +59,7 @@ export default {
           id: 'id3',
           timeStr1: '2021',
           timeStr2: '1/1',
+          gaStr: '20210101支線',
           image: require('~/assets/images/hide3-cover.jpg'),
           title: '為什麼停工日有工程進行？',
           canClicked: true,
@@ -63,7 +68,8 @@ export default {
     }
   },
   methods: {
-    handleClicked(i) {
+    handleClicked(i, gaStr) {
+      this.gaClickHandler(gaStr)
       this.$emit('click-item', i)
     },
   },
@@ -269,10 +275,10 @@ export default {
         rgba(255, 255, 255, 0),
         rgba(255, 255, 255, 0.1) 10%,
         rgba(255, 255, 255, 0.4) 20%,
-        rgba(255, 255, 255, 0.8) 25%,
-        #fff 30%,
-        #fff 70%,
-        rgba(255, 255, 255, 0.8) 75%,
+        rgba(255, 255, 255, 0.6) 25%,
+        rgba(255, 255, 255, 0.75) 30%,
+        rgba(255, 255, 255, 0.75) 70%,
+        rgba(255, 255, 255, 0.6) 75%,
         rgba(255, 255, 255, 0.4) 80%,
         rgba(255, 255, 255, 0.1) 90%,
         rgba(255, 255, 255, 0) 100%
@@ -286,9 +292,9 @@ export default {
           to right,
           rgba(255, 255, 255, 0),
           rgba(255, 255, 255, 0.4) 10%,
-          rgba(255, 255, 255, 0.6) 20%,
-          rgba(255, 255, 255, 0.8) 25%,
-          #fff 30%
+          rgba(255, 255, 255, 0.5) 20%,
+          rgba(255, 255, 255, 0.6) 25%,
+          rgba(255, 255, 255, 0.75) 30%
         );
       }
     }

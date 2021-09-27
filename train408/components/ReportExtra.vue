@@ -1,17 +1,21 @@
 <template>
-  <div class="extra">
+  <div id="article-extra" class="extra">
     <h2>{{ extraTitle }}</h2>
     <UiUnorderedList :contents="extraListContents" />
   </div>
 </template>
 
 <script>
+import scrollama from 'scrollama'
+import 'intersection-observer'
+import gaMixin from '~/mixins/gaMixin'
 import UiUnorderedList from '~/components/UiUnorderedList.vue'
 
 export default {
   components: {
     UiUnorderedList,
   },
+  mixins: [gaMixin],
   props: {
     extraTitle: {
       type: String,
@@ -21,6 +25,19 @@ export default {
       type: Array,
       default: () => [],
     },
+  },
+  mounted() {
+    const scrollerCredit = scrollama()
+    scrollerCredit
+      .setup({
+        step: '#article-extra',
+      })
+      .onStepEnter((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('to 如果你關心這個議題')
+        }
+      })
+    window.addEventListener('resize', scrollerCredit.resize)
   },
 }
 </script>

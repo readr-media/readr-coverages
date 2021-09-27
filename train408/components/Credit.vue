@@ -1,5 +1,5 @@
 <template>
-  <div class="credit">
+  <div id="credit" class="credit">
     <div class="credit__wrapper">
       <div class="credit__row">
         <div class="credit__employee">
@@ -42,7 +42,26 @@
 </template>
 
 <script>
-export default {}
+import scrollama from 'scrollama'
+import 'intersection-observer'
+import gaMixin from '~/mixins/gaMixin'
+
+export default {
+  mixins: [gaMixin],
+  mounted() {
+    const scrollerCredit = scrollama()
+    scrollerCredit
+      .setup({
+        step: '#credit',
+      })
+      .onStepEnter((response) => {
+        if (response.direction === 'down') {
+          this.gaScrollHandler('to credit')
+        }
+      })
+    window.addEventListener('resize', scrollerCredit.resize)
+  },
+}
 </script>
 
 <style lang="scss" scoped>
