@@ -52,7 +52,7 @@ export default {
   methods: {
     handleSkip() {
       this.gaClickHandler('跳過直接看文章')
-      this.$emit('skip-content', this.depth)
+      this.$emit('skip-content')
     },
   },
 }

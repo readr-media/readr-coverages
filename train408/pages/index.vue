@@ -96,7 +96,9 @@ export default {
     },
     handleResetSkip() {
       // window.location.href = '#cover-start'
-      window.scrollTo(0, this.coverDepth + 400)
+      setTimeout(() => {
+        window.scrollTo(0, this.coverDepth + 400)
+      }, 5)
       this.shouldShowContent = true
       this.shouldShowScrollBtn = true
     },
