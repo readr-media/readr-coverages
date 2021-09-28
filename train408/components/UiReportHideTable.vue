@@ -63,7 +63,7 @@ export default {
           tags: [
             {
               name: '員工訓練',
-              color: '#ff4644',
+              color: '#ffa644',
             },
             {
               name: '車輛檢修',
@@ -80,7 +80,7 @@ export default {
           tags: [
             {
               name: '員工訓練',
-              color: '#ff4644',
+              color: '#ffa644',
             },
           ],
         },
@@ -97,7 +97,7 @@ export default {
             },
             {
               name: '員工訓練',
-              color: '#ff4644',
+              color: '#ffa644',
             },
           ],
         },
@@ -126,7 +126,7 @@ export default {
           tags: [
             {
               name: '員工訓練',
-              color: '#ff4644',
+              color: '#ffa644',
             },
             {
               name: '外包疏失',
@@ -159,7 +159,7 @@ export default {
             },
             {
               name: '員工訓練',
-              color: '#ff4644',
+              color: '#ffa644',
             },
           ],
         },
@@ -185,7 +185,7 @@ export default {
           tags: [
             {
               name: '員工訓練',
-              color: '#ff4644',
+              color: '#ffa644',
             },
           ],
         },

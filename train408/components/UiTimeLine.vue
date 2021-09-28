@@ -78,6 +78,9 @@ export default {
 
 <style lang="scss" scoped>
 .timeline {
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
   &__text {
     text-align: center;
     &__show {
@@ -116,7 +119,7 @@ export default {
     @include media-breakpoint-up(lg) {
       flex-direction: row;
       padding: 0;
-      max-width: none;
+      max-width: 100vw;
       width: 100vw;
       min-height: auto;
       align-items: center;
