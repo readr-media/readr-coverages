@@ -78,6 +78,9 @@ export default {
 
 <style lang="scss" scoped>
 .timeline {
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
   &__text {
     text-align: center;
     &__show {
@@ -121,7 +124,6 @@ export default {
       min-height: auto;
       align-items: center;
       margin: 60px auto 0;
-      overflow: hidden;
     }
     li {
       position: relative;
