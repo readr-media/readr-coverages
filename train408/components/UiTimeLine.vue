@@ -116,11 +116,12 @@ export default {
     @include media-breakpoint-up(lg) {
       flex-direction: row;
       padding: 0;
-      max-width: none;
+      max-width: 100vw;
       width: 100vw;
       min-height: auto;
       align-items: center;
       margin: 60px auto 0;
+      overflow: hidden;
     }
     li {
       position: relative;
