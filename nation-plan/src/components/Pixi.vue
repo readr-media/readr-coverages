@@ -78,6 +78,9 @@ export default {
     app.run()
 
     shareUtil.shareHandler = this.handlingShareToggle.bind(this)
+    this.$gtag.pageview({
+      page_path: '/',
+    })
     ga.gaClickHandler = this.gaClickHandler.bind(this)
     ga.gaScrollHandler = this.gaScrollHandler.bind(this)
   },
